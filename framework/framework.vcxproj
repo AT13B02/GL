@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\basic\application.h" />
+    <ClInclude Include="sources\basic\application_manager.h" />
+    <ClInclude Include="sources\basic\basic.h" />
+    <ClInclude Include="sources\basic\fps_manager.h" />
+    <ClInclude Include="sources\basic\main_window.h" />
+    <ClInclude Include="sources\common\common.h" />
+    <ClInclude Include="sources\common\file\file.h" />
+    <ClInclude Include="sources\common\file\file_manager.h" />
+    <ClInclude Include="sources\common\image\color\color4f.h" />
+    <ClInclude Include="sources\common\image\image.h" />
+    <ClInclude Include="sources\common\image\tga.h" />
+    <ClInclude Include="sources\common\math\math.h" />
+    <ClInclude Include="sources\common\math\matrix\matrix4x4.h" />
+    <ClInclude Include="sources\common\math\vector\vector2.h" />
+    <ClInclude Include="sources\common\math\vector\vector3.h" />
+    <ClInclude Include="sources\common\math\vector\vector4.h" />
+    <ClInclude Include="sources\common\thread\thread.h" />
+    <ClInclude Include="sources\common\type_alias.h" />
+    <ClInclude Include="sources\debug_tool\debug.h" />
+    <ClInclude Include="sources\debug_tool\debug_console.h" />
+    <ClInclude Include="sources\debug_tool\debug_manager.h" />
+    <ClInclude Include="sources\interface\graphic\camera\camera.h" />
+    <ClInclude Include="sources\interface\graphic\camera\camera_manager.h" />
+    <ClInclude Include="sources\interface\graphic\camera\opengl\gl_camera.h" />
+    <ClInclude Include="sources\interface\graphic\device\device_holder.h" />
+    <ClInclude Include="sources\interface\graphic\device\graphic_device.h" />
+    <ClInclude Include="sources\interface\graphic\device\opengl\opengl.h" />
+    <ClInclude Include="sources\interface\graphic\graphic_manager.h" />
+    <ClInclude Include="sources\interface\graphic\model\model.h" />
+    <ClInclude Include="sources\interface\graphic\model\model_manager.h" />
+    <ClInclude Include="sources\interface\graphic\object\object.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\billboard.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_3d.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_model.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\rectangle_3d.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_buffer.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_data.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_list.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_manager.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_manager.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\renderstate_manager.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_all.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_2d.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_3d.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_all.h" />
+    <ClInclude Include="sources\interface\graphic\texture\opengl\gl_texture.h" />
+    <ClInclude Include="sources\interface\graphic\texture\texture.h" />
+    <ClInclude Include="sources\interface\graphic\texture\texture_manager.h" />
+    <ClInclude Include="sources\interface\graphic\vertex\opengl\gl_vertex_3d.h" />
+    <ClInclude Include="sources\interface\graphic\vertex\vertex_3d.h" />
+    <ClInclude Include="sources\interface\input\device\input_device.h" />
+    <ClInclude Include="sources\interface\input\device\keyboard.h" />
+    <ClInclude Include="sources\interface\input\device\mouse.h" />
+    <ClInclude Include="sources\interface\input\event_buffer.h" />
+    <ClInclude Include="sources\interface\input\input_alias.h" />
+    <ClInclude Include="sources\interface\input\input_manager.h" />
+    <ClInclude Include="sources\interface\interface_manager.h" />
+    <ClInclude Include="sources\main.h" />
+    <ClInclude Include="sources\scene\factory\scene_factory.h" />
+    <ClInclude Include="sources\scene\game\scene_game.h" />
+    <ClInclude Include="sources\scene\load\scene_load.h" />
+    <ClInclude Include="sources\scene\scene.h" />
+    <ClInclude Include="sources\scene\scene_manager.h" />
+    <ClInclude Include="sources\scene\title\scene_title.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\basic\application_manager.cpp" />
+    <ClCompile Include="sources\basic\basic.cpp" />
+    <ClCompile Include="sources\basic\fps_manager.cpp" />
+    <ClCompile Include="sources\basic\main_window.cpp" />
+    <ClCompile Include="sources\common\file\file.cpp" />
+    <ClCompile Include="sources\common\file\file_manager.cpp" />
+    <ClCompile Include="sources\common\image\color\color4f.cpp" />
+    <ClCompile Include="sources\common\image\image.cpp" />
+    <ClCompile Include="sources\common\image\tga.cpp" />
+    <ClCompile Include="sources\common\math\math.cpp" />
+    <ClCompile Include="sources\common\math\matrix\matrix4x4.cpp" />
+    <ClCompile Include="sources\common\math\vector\vector2.cpp" />
+    <ClCompile Include="sources\common\math\vector\vector3.cpp" />
+    <ClCompile Include="sources\common\math\vector\vector4.cpp" />
+    <ClCompile Include="sources\common\thread\thread.cpp" />
+    <ClCompile Include="sources\debug_tool\debug.cpp" />
+    <ClCompile Include="sources\debug_tool\debug_console.cpp" />
+    <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
+    <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\camera\opengl\gl_camera.cpp" />
+    <ClCompile Include="sources\interface\graphic\device\device_holder.cpp" />
+    <ClCompile Include="sources\interface\graphic\device\graphic_device.cpp" />
+    <ClCompile Include="sources\interface\graphic\device\opengl\opengl.cpp" />
+    <ClCompile Include="sources\interface\graphic\graphic_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\model\model.cpp" />
+    <ClCompile Include="sources\interface\graphic\model\model_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\billboard.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_3d.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_model.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\rectangle_3d.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_buffer.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_data.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_list.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\renderstate_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_all.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_2d.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_3d.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_all.cpp" />
+    <ClCompile Include="sources\interface\graphic\texture\opengl\gl_texture.cpp" />
+    <ClCompile Include="sources\interface\graphic\texture\texture.cpp" />
+    <ClCompile Include="sources\interface\graphic\texture\texture_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\vertex\opengl\gl_vertex_3d.cpp" />
+    <ClCompile Include="sources\interface\graphic\vertex\vertex_3d.cpp" />
+    <ClCompile Include="sources\interface\input\device\input_device.cpp" />
+    <ClCompile Include="sources\interface\input\device\keyboard.cpp" />
+    <ClCompile Include="sources\interface\input\device\mouse.cpp" />
+    <ClCompile Include="sources\interface\input\event_buffer.cpp" />
+    <ClCompile Include="sources\interface\input\input_manager.cpp" />
+    <ClCompile Include="sources\interface\interface_manager.cpp" />
+    <ClCompile Include="sources\main.cpp" />
+    <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
+    <ClCompile Include="sources\scene\game\scene_game.cpp" />
+    <ClCompile Include="sources\scene\load\scene_load.cpp" />
+    <ClCompile Include="sources\scene\scene.cpp" />
+    <ClCompile Include="sources\scene\scene_manager.cpp" />
+    <ClCompile Include="sources\scene\title\scene_title.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D065D020-0DE1-4D84-929D-D472BD0380F4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>DirectX_Test</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath);$(SolutionDir)sources</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)</OutDir>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath);$(SolutionDir)sources</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level2</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeaderFile>application.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>common/type_alias.h</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level2</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ForcedIncludeFiles>common/type_alias.h</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="sources">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="sources\basic">
+      <UniqueIdentifier>{23edb23a-9e14-4ec9-a958-264b9703d7d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common">
+      <UniqueIdentifier>{7527fd77-6043-4a23-9cd8-58a0249b012e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common\math">
+      <UniqueIdentifier>{7bfbd7e1-9dfa-4bfc-8571-cbae0b2ce5b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common\file">
+      <UniqueIdentifier>{581dccca-391c-497c-8a00-ca0175416ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\scene">
+      <UniqueIdentifier>{0b5789f6-acd1-4d06-a979-281662224723}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\scene\title">
+      <UniqueIdentifier>{8dfac785-928b-4025-b8f4-4db480992521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\scene\game">
+      <UniqueIdentifier>{fabad405-f302-4353-8864-d07e33623898}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\scene\load">
+      <UniqueIdentifier>{7f564204-3b26-41da-9a22-87f3c4cecd29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface">
+      <UniqueIdentifier>{d650341f-a97f-49f1-9903-b702ad48dd52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common\thread">
+      <UniqueIdentifier>{137a4023-cd5e-4a32-9372-b2d69f1eafc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common\image">
+      <UniqueIdentifier>{d543db09-dc2d-49d2-bad6-f0797ab2740c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\scene\factory">
+      <UniqueIdentifier>{71ea3b5d-9868-4a7c-904e-164bd0d6622e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\input">
+      <UniqueIdentifier>{6b7e6d7b-1f5b-4cd4-a1a9-a39633568547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\input\device">
+      <UniqueIdentifier>{97683da3-3ae3-48fa-b965-03ff304ce826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common\math\vector">
+      <UniqueIdentifier>{a19c631c-c949-431d-8ccb-204a62b34b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common\math\matrix">
+      <UniqueIdentifier>{aeccc55b-bdd8-4c14-8b06-b95a7885164d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common\image\color">
+      <UniqueIdentifier>{8c2ae07c-9937-4001-988d-94b6d3c71bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic">
+      <UniqueIdentifier>{d6c3715f-ddec-425b-a3da-4dbf4c143cd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\device">
+      <UniqueIdentifier>{b3e9fed7-f386-485c-8980-9eef17142faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\device\opengl">
+      <UniqueIdentifier>{67aeb076-8d0f-4d4f-a90a-7de83a6c8f7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\object">
+      <UniqueIdentifier>{50860347-82c9-4357-87b9-9f4687f7f928}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\object\object_3d">
+      <UniqueIdentifier>{4249058d-c3f7-4684-b144-f8c537227d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\model">
+      <UniqueIdentifier>{c66c36d1-20cd-4698-9026-7b91b7355034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\model\opengl">
+      <UniqueIdentifier>{9bb714db-1d7c-48a3-8605-fe4efd10711e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\object\object_3d\element">
+      <UniqueIdentifier>{2dac729d-248f-435b-8b42-efe1750a4c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\camera">
+      <UniqueIdentifier>{ebf9f02a-261f-4fad-9e48-a1dae3731685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\camera\opengl">
+      <UniqueIdentifier>{2c9e153e-9ac2-4b76-acf6-ed00e5ca131f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\texture">
+      <UniqueIdentifier>{61f46482-2693-41c1-bdd7-1b5a96bc6883}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\texture\opengl">
+      <UniqueIdentifier>{8a030d4b-dfcd-4639-8779-d8bd6a247f59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\vertex">
+      <UniqueIdentifier>{24ca6e9f-bf29-43d4-a90d-2bc2d9a03dab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\vertex\opengl">
+      <UniqueIdentifier>{7f6e38cb-4198-4b52-be74-1a2a69ba6545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\debug_tool">
+      <UniqueIdentifier>{3b123ee4-bf75-42b4-9842-cf2f520b0807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\renderstate">
+      <UniqueIdentifier>{d610906b-4b47-4228-be21-5ee6595ac608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\renderstate\state">
+      <UniqueIdentifier>{b3172730-0133-4542-bb65-aba204aa7dbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\renderstate\state\opengl">
+      <UniqueIdentifier>{baa2daf8-3387-4d8d-8ef8-2bea22932b19}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\main.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\basic\application.h">
+      <Filter>sources\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\basic\application_manager.h">
+      <Filter>sources\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\basic\basic.h">
+      <Filter>sources\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\basic\fps_manager.h">
+      <Filter>sources\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\basic\main_window.h">
+      <Filter>sources\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\thread\thread.h">
+      <Filter>sources\common\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\interface_manager.h">
+      <Filter>sources\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\scene_manager.h">
+      <Filter>sources\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\scene.h">
+      <Filter>sources\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\title\scene_title.h">
+      <Filter>sources\scene\title</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\game\scene_game.h">
+      <Filter>sources\scene\game</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\load\scene_load.h">
+      <Filter>sources\scene\load</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\factory\scene_factory.h">
+      <Filter>sources\scene\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\common.h">
+      <Filter>sources\common</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\input\event_buffer.h">
+      <Filter>sources\interface\input</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\input\input_alias.h">
+      <Filter>sources\interface\input</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\input\input_manager.h">
+      <Filter>sources\interface\input</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\input\device\input_device.h">
+      <Filter>sources\interface\input\device</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\input\device\keyboard.h">
+      <Filter>sources\interface\input\device</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\input\device\mouse.h">
+      <Filter>sources\interface\input\device</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\type_alias.h">
+      <Filter>sources\common</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\math\math.h">
+      <Filter>sources\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\math\vector\vector2.h">
+      <Filter>sources\common\math\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\math\vector\vector3.h">
+      <Filter>sources\common\math\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\math\vector\vector4.h">
+      <Filter>sources\common\math\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\math\matrix\matrix4x4.h">
+      <Filter>sources\common\math\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\file\file.h">
+      <Filter>sources\common\file</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\file\file_manager.h">
+      <Filter>sources\common\file</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\image\image.h">
+      <Filter>sources\common\image</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\image\tga.h">
+      <Filter>sources\common\image</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\image\color\color4f.h">
+      <Filter>sources\common\image\color</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\device\graphic_device.h">
+      <Filter>sources\interface\graphic\device</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\graphic_manager.h">
+      <Filter>sources\interface\graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\device\opengl\opengl.h">
+      <Filter>sources\interface\graphic\device\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\device\device_holder.h">
+      <Filter>sources\interface\graphic\device</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object.h">
+      <Filter>sources\interface\graphic\object</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_manager.h">
+      <Filter>sources\interface\graphic\object</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_manager.h">
+      <Filter>sources\interface\graphic\object\object_3d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_buffer.h">
+      <Filter>sources\interface\graphic\object\object_3d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_data.h">
+      <Filter>sources\interface\graphic\object\object_3d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_list.h">
+      <Filter>sources\interface\graphic\object\object_3d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\camera\camera_manager.h">
+      <Filter>sources\interface\graphic\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\camera\camera.h">
+      <Filter>sources\interface\graphic\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\camera\opengl\gl_camera.h">
+      <Filter>sources\interface\graphic\camera\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\texture\texture.h">
+      <Filter>sources\interface\graphic\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\texture\texture_manager.h">
+      <Filter>sources\interface\graphic\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\texture\opengl\gl_texture.h">
+      <Filter>sources\interface\graphic\texture\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_model.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\rectangle_3d.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\billboard.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_3d.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\vertex\vertex_3d.h">
+      <Filter>sources\interface\graphic\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\vertex\opengl\gl_vertex_3d.h">
+      <Filter>sources\interface\graphic\vertex\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\debug_tool\debug_console.h">
+      <Filter>sources\debug_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\debug_tool\debug_manager.h">
+      <Filter>sources\debug_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\debug_tool\debug.h">
+      <Filter>sources\debug_tool</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\renderstate_manager.h">
+      <Filter>sources\interface\graphic\renderstate</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate.h">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_2d.h">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_3d.h">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_all.h">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.h">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.h">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_all.h">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\model\model_manager.h">
+      <Filter>sources\interface\graphic\model</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\model\model.h">
+      <Filter>sources\interface\graphic\model</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\main.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\basic\application_manager.cpp">
+      <Filter>sources\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\basic\basic.cpp">
+      <Filter>sources\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\basic\fps_manager.cpp">
+      <Filter>sources\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\basic\main_window.cpp">
+      <Filter>sources\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\thread\thread.cpp">
+      <Filter>sources\common\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\interface_manager.cpp">
+      <Filter>sources\interface</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\scene_manager.cpp">
+      <Filter>sources\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\scene.cpp">
+      <Filter>sources\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\title\scene_title.cpp">
+      <Filter>sources\scene\title</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\game\scene_game.cpp">
+      <Filter>sources\scene\game</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\load\scene_load.cpp">
+      <Filter>sources\scene\load</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\factory\scene_factory.cpp">
+      <Filter>sources\scene\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\input\event_buffer.cpp">
+      <Filter>sources\interface\input</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\input\input_manager.cpp">
+      <Filter>sources\interface\input</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\input\device\input_device.cpp">
+      <Filter>sources\interface\input\device</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\input\device\keyboard.cpp">
+      <Filter>sources\interface\input\device</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\input\device\mouse.cpp">
+      <Filter>sources\interface\input\device</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\math\math.cpp">
+      <Filter>sources\common\math</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\math\vector\vector2.cpp">
+      <Filter>sources\common\math\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\math\vector\vector3.cpp">
+      <Filter>sources\common\math\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\math\vector\vector4.cpp">
+      <Filter>sources\common\math\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\math\matrix\matrix4x4.cpp">
+      <Filter>sources\common\math\matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\file\file.cpp">
+      <Filter>sources\common\file</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\file\file_manager.cpp">
+      <Filter>sources\common\file</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\image\tga.cpp">
+      <Filter>sources\common\image</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\image\image.cpp">
+      <Filter>sources\common\image</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\image\color\color4f.cpp">
+      <Filter>sources\common\image\color</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\device\graphic_device.cpp">
+      <Filter>sources\interface\graphic\device</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\graphic_manager.cpp">
+      <Filter>sources\interface\graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\device\opengl\opengl.cpp">
+      <Filter>sources\interface\graphic\device\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\device\device_holder.cpp">
+      <Filter>sources\interface\graphic\device</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object.cpp">
+      <Filter>sources\interface\graphic\object</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_manager.cpp">
+      <Filter>sources\interface\graphic\object</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_manager.cpp">
+      <Filter>sources\interface\graphic\object\object_3d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_buffer.cpp">
+      <Filter>sources\interface\graphic\object\object_3d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_data.cpp">
+      <Filter>sources\interface\graphic\object\object_3d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_list.cpp">
+      <Filter>sources\interface\graphic\object\object_3d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\camera\camera.cpp">
+      <Filter>sources\interface\graphic\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp">
+      <Filter>sources\interface\graphic\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\camera\opengl\gl_camera.cpp">
+      <Filter>sources\interface\graphic\camera\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\texture\texture.cpp">
+      <Filter>sources\interface\graphic\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\texture\texture_manager.cpp">
+      <Filter>sources\interface\graphic\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\texture\opengl\gl_texture.cpp">
+      <Filter>sources\interface\graphic\texture\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_model.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\rectangle_3d.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\billboard.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_3d.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\vertex\vertex_3d.cpp">
+      <Filter>sources\interface\graphic\vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\vertex\opengl\gl_vertex_3d.cpp">
+      <Filter>sources\interface\graphic\vertex\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\debug_tool\debug_console.cpp">
+      <Filter>sources\debug_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\debug_tool\debug_manager.cpp">
+      <Filter>sources\debug_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\debug_tool\debug.cpp">
+      <Filter>sources\debug_tool</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\renderstate_manager.cpp">
+      <Filter>sources\interface\graphic\renderstate</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate.cpp">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_2d.cpp">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_3d.cpp">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_all.cpp">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.cpp">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_all.cpp">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.cpp">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\model\model_manager.cpp">
+      <Filter>sources\interface\graphic\model</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\model\model.cpp">
+      <Filter>sources\interface\graphic\model</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
