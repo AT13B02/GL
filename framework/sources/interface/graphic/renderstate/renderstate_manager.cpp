@@ -74,14 +74,14 @@ void CRenderstateManager::Uninit(void)
 //=============================================================================
 CRenderstate* CRenderstateManager::renderstate(const TYPE& type)
 {
-	CRenderstate* pRenderstate = NULL;
+	CRenderstate* renderstate = NULL;
 
 	if((type < TYPE_MAX) && (type >= 0))
 	{
-		pRenderstate = renderstate_[type];
+		renderstate = renderstate_[type];
 	}
 
-	return pRenderstate;
+	return renderstate;
 }
 
 //-----------------------------------EOF---------------------------------------
