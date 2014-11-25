@@ -15,7 +15,7 @@
 #include "interface/graphic/device/device_holder.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/texture/texture_manager.h"
-//#include "interface/graphic/model/model_manager.h"
+#include "interface/graphic/model/model_manager.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
 #include "interface/graphic/camera/camera_manager.h"
 //#include "interface/graphic/light/light_manager.h"
@@ -49,7 +49,7 @@ CGraphicManager::CGraphicManager(WINDOW_DATA* window_data)
 	texture_manager_ = new CTextureManager(device_holder_);
 
 	// モデルマネージャーの生成
-	model_manager_ = NULL;
+	model_manager_ = new CModelManager(device_holder_);
 
 	// カメラマネージャーの生成
 	camera_manager_ = new CCameraManager(device_holder_);

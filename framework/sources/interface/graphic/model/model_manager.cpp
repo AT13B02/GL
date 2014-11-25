@@ -15,11 +15,9 @@
 
 // graphic
 #include "interface/graphic/model/model_manager.h"
-
 #ifdef _USING_OPENGL_
 //#include "interface/graphic/model/opengl/gl_model.h"
 #endif
-
 #ifdef _USING_DIRECTX_
 #include "dx_model.h"
 #endif
@@ -42,10 +40,10 @@
 //=============================================================================
 // デフォルトコンストラクタ
 //=============================================================================
-CModelManager::CModelManager(CGraphicsDevice* pGraphicsDevice)
+CModelManager::CModelManager(CDeviceHolder* device_holder)
 {
-	// グラフィックデバイスの設定
-	m_pGraphicsDevice = pGraphicsDevice;
+	// デバイスホルダーの設定
+	device_holder_ = device_holder;
 }
 
 //=============================================================================
@@ -78,33 +76,36 @@ void CModelManager::Uninit(void)
 //=============================================================================
 // 作成処理
 //=============================================================================
-CModel* CModelManager::Create(const char* pFilename)
+CModel* CModelManager::Create(std::string filename)
 {
-	CModel* pModel = NULL;
+	CModel* model = NULL;
 
 #ifdef _USING_OPENGL_
-	//pModel = new CGLModel(m_pGraphicsDevice);
+	//model = new CGLModel(device_holder);
 #endif
 
 #ifdef _USING_DIRECTX_
-	pModel = new CDXModel(m_pGraphicsDevice);
+	model = new CDXModel(m_pGraphicsDevice);
 #endif
 
 	// 初期化
-	//pModel->Init();
+	//if(!model->Init())
+	{
+		return NULL;
+	}
 
 	// ロード
-	//pModel->Load(pFilename);
+	//model->Load(filename);
 
-	return pModel;
+	return model;
 }
 
 //=============================================================================
 // 開放処理
 //=============================================================================
-void CModelManager::ReleaseData(CModel* pModel)
+void CModelManager::ReleaseData(CModel* model)
 {
-	//pModel->Release();
+	//model->Release();
 }
 
 //---------------------------------- EOF --------------------------------------

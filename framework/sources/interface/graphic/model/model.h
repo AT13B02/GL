@@ -60,10 +60,10 @@ public:
 	virtual void Uninit(void);
 
 	// ロード
-	virtual bool Load(const s8* pFilename) = 0;
+	virtual bool Load(const s8* filename) = 0;
 
 	// 描画
-	virtual void Draw(const MATRIX4x4& Matrix) = 0;
+	virtual void Draw(const MATRIX4x4& matrix) = 0;
 
 protected:
 	// グラフィックデバイス

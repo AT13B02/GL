@@ -40,7 +40,7 @@
 // クラスの前方参照
 //*****************************************************************************
 class CModel;
-class CGraphicsDevice;
+class CDeviceHolder;
 
 //*****************************************************************************
 // クラス定義
@@ -49,7 +49,7 @@ class CModelManager : public CFileManager<CModel*>
 {
 public:
 	// コンストラクタ
-	CModelManager(CGraphicsDevice* pGraphicsDevice);
+	CModelManager(CDeviceHolder* device_holder);
 
 	// デストラクタ
 	~CModelManager(void);
@@ -62,13 +62,13 @@ public:
 
 private:
 	// グラフィックデバイス
-	CGraphicsDevice* m_pGraphicsDevice;
+	CDeviceHolder* device_holder_;
 
 	// データの作成
-	CModel* Create(const char* pFilename);
+	CModel* Create(std::string filename);
 
 	// データの開放
-	void ReleaseData(CModel* pModel);
+	void ReleaseData(CModel* model);
 };
 
 #endif	// _MODEL_MANAGER_H_
