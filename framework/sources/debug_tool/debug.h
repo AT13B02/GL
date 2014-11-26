@@ -35,11 +35,10 @@
 #define   realloc(p, s)         _realloc_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   _recalloc(p, c, s)    _recalloc_dbg(p, c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   _expand(p, s)         _expand_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
-
 #endif // _DEBUG
 
 #ifdef _DEBUG
-#define ERROR_EXIT(ErrorMessage) \
+#define DEBUG_ERROR_MESSAGE(ErrorMessage) \
 { \
 	int line = __LINE__;\
 	const char *file = __FILE__;\
@@ -55,7 +54,7 @@
 	MessageBox(NULL,msg,"Error",MB_OK | MB_ICONEXCLAMATION);\
 }
 #else
-#define ERROR_EXIT(ErrorMessage) {}
+#define DEBUG_ERROR_MESSAGE(ErrorMessage) {}
 #endif // _DEBUG
 
 #endif // _DEBUG_H_

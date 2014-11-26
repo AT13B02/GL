@@ -141,7 +141,7 @@ void CApplicationManager::Update(void)
 		}
 
 		// デバッグマネージャーの更新
-		CDebugManager::instance()->UpdateMessage();
+		DEBUG_TOOL.UpdateMessage();
 	}
 }
 
@@ -168,7 +168,6 @@ void CApplicationManager::Uninit(void)
 
 	// インターフェースマネージャーの破棄
 	SAFE_RELEASE(interface_manager_);
-
 }
 
 //=============================================================================

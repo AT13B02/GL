@@ -49,10 +49,10 @@ int APIENTRY WinMain(HINSTANCE hinstance, HINSTANCE preview_hinstance, LPSTR com
 	application_manager = new CApplicationManager(hinstance);
 
 	// デバッグの初期化
-	CDebugManager::instance()->set_application_manager(application_manager);
+	DEBUG_TOOL.set_application_manager(application_manager);
 
 	// デバッグ開始
-	CDebugManager::Run();
+	DEBUG_TOOL.Run();
 
 	// アプリケーションマネージャーの初期化
 	if(application_manager->Init())
@@ -63,10 +63,11 @@ int APIENTRY WinMain(HINSTANCE hinstance, HINSTANCE preview_hinstance, LPSTR com
 	else
 	{
 		// アプリケーションの初期化失敗
+		DEBUG_ERROR_MESSAGE("アプリケーションの初期化に失敗");
 	}
 
 	// デバッグ終了
-	CDebugManager::Stop();
+	DEBUG_TOOL.Stop();
 
 	// アプリケーションマネージャーの開放
 	SAFE_RELEASE(application_manager);

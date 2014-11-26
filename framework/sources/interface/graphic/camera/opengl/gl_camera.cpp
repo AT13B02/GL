@@ -106,8 +106,8 @@ void CGLCamera::Set(void)
 	//glGetFloatv(GL_MODELVIEW_MATRIX,(f32*)&m_CameraMatrix);
 
 	// 
-	CDebugManager::instance()->debug_console()->Print("視点(%.1f,%.1f,%.1f)\n",eye_._x,eye_._y,eye_._z);
-	CDebugManager::instance()->debug_console()->Print("注視点(%.1f,%.1f,%.1f)\n",look_at_._x,look_at_._y,look_at_._z);
+	DEBUG_TOOL.debug_console()->Print("視点(%.1f,%.1f,%.1f)\n",eye_._x,eye_._y,eye_._z);
+	DEBUG_TOOL.debug_console()->Print("注視点(%.1f,%.1f,%.1f)\n",look_at_._x,look_at_._y,look_at_._z);
 
 	// カメラの逆行列を取得
 	inverse_matrix_ = view_matrix_.GetInverse();

@@ -33,8 +33,10 @@ CDebugManager CDebugManager::instance_;
 //=============================================================================
 CDebugManager::CDebugManager(void)
 {
+#ifdef _DEBUG
 	application_manager_ = NULL;
 	debug_console_ = NULL;
+#endif
 }
 
 //=============================================================================
@@ -49,6 +51,7 @@ CDebugManager::~CDebugManager(void)
 //=============================================================================
 bool CDebugManager::Init(void)
 {
+#ifdef _DEBUG
 	debug_console_ = new CDebugConsole();
 
 	// 初期化
@@ -59,7 +62,8 @@ bool CDebugManager::Init(void)
 
 	is_run_ = true;
 	is_update_ = true;
-
+	is_live_ = true;
+#endif
 	return true;
 }
 
@@ -79,7 +83,6 @@ void CDebugManager::Update(void)
 			debug_console_->SwitchWindow();
 		}
 	}
-
 #endif
 }
 
@@ -99,10 +102,16 @@ void CDebugManager::Draw(void)
 //=============================================================================
 void CDebugManager::Uninit(void)
 {
+#ifdef _DEBUG
 	SAFE_RELEASE(debug_console_);
-	SAFE_RELEASE(thread_);
+	is_live_ = false;
+#endif
 }
 
+
+//=============================================================================
+// スレッドの開始
+//=============================================================================
 void CDebugManager::Run(void)
 {
 #ifdef _DEBUG
@@ -116,8 +125,26 @@ void CDebugManager::Run(void)
 #endif
 }
 
+//=============================================================================
+// スレッドの終了
+//=============================================================================
+void CDebugManager::Stop(void)
+{
+#ifdef _DEBUG
+	is_run_ = false;
+
+	SAFE_RELEASE(thread_);
+
+	Uninit();
+#endif
+}
+
+//=============================================================================
+// スレッドの開始
+//=============================================================================
 void CDebugManager::Thread(void)
 {
+#ifdef _DEBUG
 	while(instance_.is_run_)
 	{
 		if(instance_.is_update_)
@@ -127,7 +154,7 @@ void CDebugManager::Thread(void)
 			instance_.is_update_ = false;
 		}
 	}
-	instance_.Uninit();
+#endif
 }
 
 //-----------------------------------EOF---------------------------------------

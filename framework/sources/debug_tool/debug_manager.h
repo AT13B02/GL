@@ -17,12 +17,14 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+#include <stdio.h>
 #include "basic/basic.h"
 #include "debug_tool/debug_console.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
+#define DEBUG_TOOL (CDebugManager::instance())
 
 //*****************************************************************************
 // 定数定義
@@ -45,14 +47,14 @@ class CThread;
 class CDebugManager : public CBasic
 {
 public:
-	// デバッグスレッドを立てる
-	static void Run(void);
-
-	// デバッグスレッドを立てる
-	static void Stop(void){instance_.is_run_ = false;}
-
 	// インスタンスの取得
-	static CDebugManager* instance(void){return &instance_;}
+	static CDebugManager& instance(void){return instance_;}
+
+	// デバッグスレッドを立てる
+	void Run(void);
+
+	// デバッグスレッドを終了させる
+	void Stop(void);
 
 	// 更新メッセージ
 	void UpdateMessage(void){is_update_ = true;}
@@ -82,6 +84,7 @@ private:
 	static CDebugManager instance_;
 	volatile bool is_run_;
 	volatile bool is_update_;
+	volatile bool is_live_;
 
 	CDebugConsole* debug_console_;
 	CThread* thread_;
