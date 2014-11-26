@@ -49,14 +49,19 @@ CVertex3D::CVertex3D(CDeviceHolder* device_holder,const u32& position_number,con
 	texcoord_number_ = texcoord_number;
 
 	vertex_3d_._position = new VECTOR3[position_number];
-	vertex_3d_._normal = new VECTOR3[normal_number];
-	vertex_3d_._color = new COLOR4F[color_number];
+	vertex_3d_._normal   = new VECTOR3[normal_number];
+	vertex_3d_._color    = new COLOR4F[color_number];
 	vertex_3d_._texcoord = new VECTOR2[texcoord_number];
 
-	vertex_3d_index_ = NULL;
+	vertex_3d_index_._normal   = NULL;
+	vertex_3d_index_._position = NULL;
+	vertex_3d_index_._color    = NULL;
+	vertex_3d_index_._texcoord = NULL;
 
 	index_number_ = 0;
 	primitive_number_ = position_number - 2;
+
+	use_index_ = false;
 }
 
 //=============================================================================
@@ -83,6 +88,11 @@ void CVertex3D::Uninit(void)
 	SAFE_DELETE_ARRAY(vertex_3d_._normal);
 	SAFE_DELETE_ARRAY(vertex_3d_._color);
 	SAFE_DELETE_ARRAY(vertex_3d_._texcoord);
+
+	SAFE_DELETE_ARRAY(vertex_3d_index_._normal);
+	SAFE_DELETE_ARRAY(vertex_3d_index_._position);
+	SAFE_DELETE_ARRAY(vertex_3d_index_._color);
+	SAFE_DELETE_ARRAY(vertex_3d_index_._texcoord);
 
 	position_number_ = 0;
 	normal_number_   = 0;
@@ -117,6 +127,21 @@ CVertex3D* CVertex3D::Create(CDeviceHolder* device_holder,const u32& position_nu
 }
 
 //=============================================================================
+// インデックスの作成
+//=============================================================================
+void CVertex3D::CreateIndex(const int& index_number)
+{
+	vertex_3d_index_._normal = new u32[index_number];
+	vertex_3d_index_._position = new u32[index_number];
+	vertex_3d_index_._color = new u32[index_number];
+	vertex_3d_index_._texcoord = new u32[index_number];
+
+	index_number_ = index_number;
+
+	use_index_ = true;
+}
+
+//=============================================================================
 // ロック処理
 //=============================================================================
 void CVertex3D::Lock(VERTEX_3D** vertex_3d,VERTEX_3D_INDEX** vertex_3d_index)
@@ -128,7 +153,7 @@ void CVertex3D::Lock(VERTEX_3D** vertex_3d,VERTEX_3D_INDEX** vertex_3d_index)
 
 	if(vertex_3d_index != NULL)
 	{
-		*vertex_3d_index = vertex_3d_index_;
+		*vertex_3d_index = &vertex_3d_index_;
 	}
 }
 

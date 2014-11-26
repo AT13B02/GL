@@ -96,6 +96,9 @@ public:
 	// 終了処理
 	virtual void Uninit(void);
 
+	// インデックスの作成
+	void CreateIndex(const int& index_number);
+
 	// ロック処理
 	void Lock(VERTEX_3D** vertex_3d,VERTEX_3D_INDEX** vertex_3d_index);
 
@@ -114,8 +117,8 @@ protected:
 	u32 texcoord_number_;
 	u32 primitive_number_;
 	u32 index_number_;
-	VERTEX_3D_INDEX* vertex_3d_index_;
-
+	VERTEX_3D_INDEX vertex_3d_index_;
+	bool use_index_;
 private:
 
 };

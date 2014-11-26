@@ -62,21 +62,40 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix)
 	// ポリゴン描画の開始(図形の描画形式を設定)
 	glBegin(GL_TRIANGLE_STRIP);
 
-	for(int i = 0;i < primitive_number_ + 2;i++)
+	if(use_index_)
 	{
-		// 色の設定
-		glColor4f(vertex_3d_._color[i]._red,vertex_3d_._color[i]._green,vertex_3d_._color[i]._blue,vertex_3d_._color[i]._alpha);
+		for(int i = 0;i < index_number_ + 2;i++)
+		{
+			// 色の設定
+			glColor4f(vertex_3d_._color[vertex_3d_index_._color[i]]._red,vertex_3d_._color[vertex_3d_index_._color[i]]._green,vertex_3d_._color[vertex_3d_index_._color[i]]._blue,vertex_3d_._color[vertex_3d_index_._color[i]]._alpha);
 
-		// テクスチャ座標
-		glTexCoord2f(vertex_3d_._texcoord[i]._x,vertex_3d_._texcoord[i]._y);
+			// テクスチャ座標
+			glTexCoord2f(vertex_3d_._texcoord[vertex_3d_index_._texcoord[i]]._x,vertex_3d_._texcoord[vertex_3d_index_._texcoord[i]]._y);
 
-		// 法線
-		glNormal3f(vertex_3d_._normal[i]._x,vertex_3d_._normal[i]._y,vertex_3d_._normal[i]._z);
+			// 法線
+			glNormal3f(vertex_3d_._normal[vertex_3d_index_._normal[i]]._x,vertex_3d_._normal[vertex_3d_index_._normal[i]]._y,vertex_3d_._normal[vertex_3d_index_._normal[i]]._z);
 
-		// 頂点座標
-		glVertex3f(vertex_3d_._position[i]._x,vertex_3d_._position[i]._y,vertex_3d_._position[i]._z);
+			// 頂点座標
+			glVertex3f(vertex_3d_._position[vertex_3d_index_._position[i]]._x,vertex_3d_._position[vertex_3d_index_._position[i]]._y,vertex_3d_._position[vertex_3d_index_._position[i]]._z);
+		}
 	}
+	else
+	{
+		for(int i = 0;i < primitive_number_ + 2;i++)
+		{
+			// 色の設定
+			glColor4f(vertex_3d_._color[i]._red,vertex_3d_._color[i]._green,vertex_3d_._color[i]._blue,vertex_3d_._color[i]._alpha);
 
+			// テクスチャ座標
+			glTexCoord2f(vertex_3d_._texcoord[i]._x,vertex_3d_._texcoord[i]._y);
+
+			// 法線
+			glNormal3f(vertex_3d_._normal[i]._x,vertex_3d_._normal[i]._y,vertex_3d_._normal[i]._z);
+
+			// 頂点座標
+			glVertex3f(vertex_3d_._position[i]._x,vertex_3d_._position[i]._y,vertex_3d_._position[i]._z);
+		}
+	}
 	// ポリゴン描画の終了
 	glEnd();
 
