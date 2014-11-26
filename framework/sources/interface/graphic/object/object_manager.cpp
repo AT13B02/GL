@@ -18,8 +18,6 @@
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
 #include "interface/graphic/renderstate/state/renderstate.h"
-//#include "interface/graphic/texture/texture_manager.h"
-//#include "interface/graphic/camera/camera_manager.h"
 
 // common
 #include "common/common.h"
