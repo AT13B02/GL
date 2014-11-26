@@ -78,17 +78,11 @@ CObjectManager::~CObjectManager(void)
 //=============================================================================
 bool CObjectManager::Init(void)
 {
-	// テクスチャマネージャーの初期化
-	//INIT(texture_manager_);
-
-	// レンダーステートマネージャーの初期化
-	//INIT(renderstate_manager_);
-
 	// オブジェクト2Dマネージャーの初期化
 	//INIT(object_2d_manager_);
 
 	// オブジェクト3Dマネージャーの初期化
-	//INIT(object_3d_manager_);
+	INIT(object_3d_manager_);
 
 	return true;
 }
@@ -138,12 +132,6 @@ void CObjectManager::Uninit(void)
 
 	// オブジェクト2Dマネージャーの開放
 	//SAFE_RELEASE(object_3d_manager_);
-
-	// カメラマネージャーの開放
-	SAFE_RELEASE(camera_manager_);
-
-	// ライトマネージャーの開放
-	//SAFE_RELEASE(light_manager_);
 }
 
 //---------------------------------- EOF --------------------------------------

@@ -84,16 +84,13 @@ public:
 	virtual void EndLoad(void) = 0;
 
 	// スクリーンショット
-	virtual void ScreenShot(const s8* pFilename) = 0;
+	virtual void ScreenShot(const s8* filename) = 0;
 
 	// 描画モードの設定
-	void set_draw_mode(const DEVICE_MODE& device_mode){draw_mode_ = device_mode;}
+	virtual void SetDrawMode(const DEVICE_MODE& device_mode){draw_mode_ = device_mode;}
 
 	// ロードモードの設定
-	void set_load_mode(const DEVICE_MODE& device_mode){load_mode_ = device_mode;}
-
-	// クローンの生成
-	//virtual CGraphicDevice* MakeClone(void) = 0;
+	virtual void SetLoadMode(const DEVICE_MODE& device_mode){load_mode_ = device_mode;}
 
 protected:
 	WINDOW_DATA* window_data_;

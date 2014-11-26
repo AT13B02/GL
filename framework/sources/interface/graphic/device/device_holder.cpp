@@ -150,7 +150,7 @@ void CDeviceHolder::ResetDevice(void)
 //=============================================================================
 void CDeviceHolder::SetDrawMode(const CGraphicDevice::DEVICE_MODE& device_mode)
 {
-	device_->set_draw_mode(device_mode);
+	device_->SetDrawMode(device_mode);
 }
 
 //=============================================================================
@@ -158,7 +158,7 @@ void CDeviceHolder::SetDrawMode(const CGraphicDevice::DEVICE_MODE& device_mode)
 //=============================================================================
 void CDeviceHolder::SetLoadMode(const CGraphicDevice::DEVICE_MODE& device_mode)
 {
-	device_->set_load_mode(device_mode);
+	device_->SetLoadMode(device_mode);
 }
 
 //=============================================================================

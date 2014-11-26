@@ -85,6 +85,15 @@ bool CGraphicManager::Init(void)
 	// オブジェクトマネージャーの初期化
 	INIT(object_manager_);
 
+	// モデルマネージャーの初期化
+	INIT(model_manager_);
+
+	// カメラマネージャーの初期化
+	INIT(camera_manager_);
+
+	// ライトマネージャーの初期化
+	//INIT(light_manager_);
+
 	return true;
 }
 
@@ -108,14 +117,23 @@ void CGraphicManager::Draw(void)
 //=============================================================================
 void CGraphicManager::Uninit(void)
 {
+	// オブジェクトマネージャーの開放
+	SAFE_RELEASE(object_manager_);
+
+	// カメラマネージャーの開放
+	SAFE_RELEASE(camera_manager_);
+
+	// ライトマネージャーの開放
+	//SAFE_RELEASE(light_manager_);
+
+	// モデルマネージャーの開放
+	SAFE_RELEASE(model_manager_);
+
 	// レンダーステートマネージャーの開放
 	SAFE_RELEASE(renderstate_manager_);
 
 	// テクスチャマネージャーの開放
 	SAFE_RELEASE(texture_manager_);
-
-	// オブジェクトマネージャーの開放
-	SAFE_RELEASE(object_manager_);
 
 	// デバイスホルダーの開放
 	SAFE_RELEASE(device_holder_);

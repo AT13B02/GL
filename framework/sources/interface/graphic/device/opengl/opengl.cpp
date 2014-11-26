@@ -144,10 +144,7 @@ void COpengl::EndDraw(void)
 void COpengl::BeginLoad(void)
 {
 	// カレントコンテキストの選択
-	if(wglMakeCurrent(gl_context_[1]._hdc,gl_context_[load_mode_]._hglrc) == FALSE)
-	{
-		int a = 0;
-	}
+	while((wglMakeCurrent(gl_context_[1]._hdc,gl_context_[load_mode_]._hglrc) == FALSE));
 }
 
 //=============================================================================
@@ -164,8 +161,31 @@ void COpengl::EndLoad(void)
 //=============================================================================
 // スクリーンショット
 //=============================================================================
-void COpengl::ScreenShot(const s8* pFilename)
+void COpengl::ScreenShot(const s8* filename)
 {
+}
+
+//=============================================================================
+// 描画モードの設定
+//=============================================================================
+void COpengl::SetDrawMode(const DEVICE_MODE& device_mode)
+{
+	CGraphicDevice::SetDrawMode(device_mode);
+
+	if(wglMakeCurrent(NULL,NULL) == FALSE)
+	{
+		//MessageBox(NULL,"ロード失敗するかもに","エラー",MB_OK);
+	}
+}
+
+//=============================================================================
+// ロードモードの設定
+//=============================================================================
+void COpengl::SetLoadMode(const DEVICE_MODE& device_mode)
+{
+	CGraphicDevice::SetLoadMode(device_mode);
+
+	wglMakeCurrent(NULL,NULL);
 }
 
 //---------------------------------- EOF --------------------------------------

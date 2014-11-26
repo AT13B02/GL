@@ -73,7 +73,13 @@ public:
 	void EndLoad(void);
 
 	// TODO スクリーンショット(未実装)
-	void ScreenShot(const s8* pFilename);
+	void ScreenShot(const s8* filename);
+
+	// 描画モードの設定
+	void SetDrawMode(const DEVICE_MODE& device_mode);
+
+	// ロードモードの設定
+	void SetLoadMode(const DEVICE_MODE& device_mode);
 private:
 	static const u8 CONTEXT_MAX = 3;
 

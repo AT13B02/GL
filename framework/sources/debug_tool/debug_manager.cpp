@@ -100,6 +100,7 @@ void CDebugManager::Draw(void)
 void CDebugManager::Uninit(void)
 {
 	SAFE_RELEASE(debug_console_);
+	SAFE_RELEASE(thread_);
 }
 
 void CDebugManager::Run(void)
@@ -126,6 +127,7 @@ void CDebugManager::Thread(void)
 			instance_.is_update_ = false;
 		}
 	}
+	instance_.Uninit();
 }
 
 //-----------------------------------EOF---------------------------------------
