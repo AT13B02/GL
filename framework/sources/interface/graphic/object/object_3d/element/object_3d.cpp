@@ -18,7 +18,7 @@
 #include "interface/graphic/vertex/vertex_3d.h"
 #include "interface/graphic/model/model.h"
 #include "interface/graphic/texture/texture.h"
-//#include "interface/graphic/renderstate/renderstate.h"
+#include "interface/graphic/renderstate/state/renderstate.h"
 
 // common
 #include "common/common.h"
@@ -89,10 +89,10 @@ MATRIX4x4 CObject3D::GetWorldMatrix(CObject3DData* object_3d_data)
 //=============================================================================
 void CObject3D::Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* texture,CRenderstate* renderstate)
 {
-	//if(renderstate != NULL)
-	//{
-	//	renderstate->Set();
-	//}
+	if(renderstate != NULL)
+	{
+		renderstate->Set();
+	}
 
 	if(texture != NULL)
 	{
@@ -104,10 +104,10 @@ void CObject3D::Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* text
 		vertex_3d->Draw(matrix);
 	}
 
-	//if(renderstate != NULL)
-	//{
-	//	renderstate->Unset();
-	//}
+	if(renderstate != NULL)
+	{
+		renderstate->Unset();
+	}
 
 	if(texture != NULL)
 	{
@@ -120,20 +120,20 @@ void CObject3D::Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* text
 //=============================================================================
 void CObject3D::Draw(const MATRIX4x4& matrix,CModel* model,CRenderstate* renderstate)
 {
-	//if(renderstate != NULL)
-	//{
-	//	renderstate->Set();
-	//}
+	if(renderstate != NULL)
+	{
+		renderstate->Set();
+	}
 
 	if(model != NULL)
 	{
 		model->Draw(matrix);
 	}
 
-	//if(renderstate != NULL)
-	//{
-	//	renderstate->Unset();
-	//}
+	if(renderstate != NULL)
+	{
+		renderstate->Unset();
+	}
 }
 
 //---------------------------------- EOF --------------------------------------

@@ -64,7 +64,7 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix)
 
 	if(use_index_)
 	{
-		for(int i = 0;i < index_number_ + 2;i++)
+		for(int i = 0;i < index_number_;i++)
 		{
 			// F‚ÌÝ’è
 			glColor4f(vertex_3d_._color[vertex_3d_index_._color[i]]._red,vertex_3d_._color[vertex_3d_index_._color[i]]._green,vertex_3d_._color[vertex_3d_index_._color[i]]._blue,vertex_3d_._color[vertex_3d_index_._color[i]]._alpha);
