@@ -313,16 +313,7 @@
     <ClInclude Include="sources\interface\graphic\model\model.h">
       <Filter>sources\interface\graphic\model</Filter>
     </ClInclude>
-    <ClInclude Include="sources\interface\graphic\model\opengl\CMeshOBJ.h">
-      <Filter>sources\interface\graphic\model\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\graphic\model\opengl\gl_model.h">
-      <Filter>sources\interface\graphic\model\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\graphic\model\opengl\CVBO.h">
-      <Filter>sources\interface\graphic\model\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\graphic\model\opengl\CIndexBuffer.h">
+    <ClInclude Include="gl_model.h">
       <Filter>sources\interface\graphic\model\opengl</Filter>
     </ClInclude>
   </ItemGroup>
@@ -516,16 +507,7 @@
     <ClCompile Include="sources\interface\graphic\model\model.cpp">
       <Filter>sources\interface\graphic\model</Filter>
     </ClCompile>
-    <ClCompile Include="sources\interface\graphic\model\opengl\CMeshOBJ.cpp">
-      <Filter>sources\interface\graphic\model\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\graphic\model\opengl\gl_model.cpp">
-      <Filter>sources\interface\graphic\model\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\graphic\model\opengl\CIndexBuffer.cpp">
-      <Filter>sources\interface\graphic\model\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\graphic\model\opengl\CVBO.cpp">
+    <ClCompile Include="gl_model.cpp">
       <Filter>sources\interface\graphic\model\opengl</Filter>
     </ClCompile>
   </ItemGroup>

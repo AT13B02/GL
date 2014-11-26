@@ -19,6 +19,7 @@
 //*****************************************************************************
 #include <Windows.h>
 #include "interface/graphic/model/model.h"
+#include "interface/graphic/vertex/vertex_3d.h"
 #include "common/math/math.h"
 
 //*****************************************************************************
@@ -105,6 +106,11 @@ private:
 		Material mat;
 		s8 TexFileName[MAX_PATH];
 	};
+
+private:
+
+	// 頂点バッファ
+	CVertex3D *m_pVtxBuffer;
 };
 
 #endif	// _MODEL_H_

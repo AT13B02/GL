@@ -61,6 +61,13 @@ bool CGLModel::Load(const s8* filename)
 	fread(&dh, sizeof(dh), 1, pFile);
 
 	// 頂点読み込み
+	m_pVtxBuffer = CVertex3D::Create(device_holder_, dh.uVtx);
+	CVertex3D::VERTEX_3D *pVtx;
+	CVertex3D::VERTEX_3D_INDEX *pIdx;
+	m_pVtxBuffer->Lock(&pVtx, &pIdx);
+	// 頂点座標
+	// 法線
+	// テクスチャ座標
 	
 	return true;
 }
