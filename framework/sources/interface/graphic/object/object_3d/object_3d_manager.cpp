@@ -80,6 +80,8 @@ CObject3DManager::~CObject3DManager(void)
 //=============================================================================
 bool CObject3DManager::Init(void)
 {
+	INIT(object_3d_list_);
+	INIT(object_3d_buffer_);
 	return true;
 }
 

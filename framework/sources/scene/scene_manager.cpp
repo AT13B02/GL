@@ -99,15 +99,15 @@ void CSceneManager::Update(void)
 			{
 				// スレッドクラスの破棄
 				SAFE_RELEASE(thread_);
+
+				// 描画モードをメインに切り換える
+				interface_manager_->graphic_manager()->device_holder()->SetDrawMode(CGraphicDevice::DEVICE_MODE_MAIN);
 			}
 		}
 
 		// シーンが存在しているか確認
 		if(scene_ != NULL)
 		{
-			// 描画モードをロードに切り換える
-			interface_manager_->graphic_manager()->device_holder()->SetDrawMode(CGraphicDevice::DEVICE_MODE_MAIN);
-
 			scene_->Update();
 
 			// 次のシーンが存在しない時

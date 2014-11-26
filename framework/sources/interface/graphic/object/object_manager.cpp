@@ -18,8 +18,6 @@
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
 #include "interface/graphic/renderstate/state/renderstate.h"
-//#include "interface/graphic/texture/texture_manager.h"
-//#include "interface/graphic/camera/camera_manager.h"
 
 // common
 #include "common/common.h"
@@ -78,17 +76,11 @@ CObjectManager::~CObjectManager(void)
 //=============================================================================
 bool CObjectManager::Init(void)
 {
-	// テクスチャマネージャーの初期化
-	//INIT(texture_manager_);
-
-	// レンダーステートマネージャーの初期化
-	//INIT(renderstate_manager_);
-
 	// オブジェクト2Dマネージャーの初期化
 	//INIT(object_2d_manager_);
 
 	// オブジェクト3Dマネージャーの初期化
-	//INIT(object_3d_manager_);
+	INIT(object_3d_manager_);
 
 	return true;
 }
@@ -138,12 +130,6 @@ void CObjectManager::Uninit(void)
 
 	// オブジェクト2Dマネージャーの開放
 	//SAFE_RELEASE(object_3d_manager_);
-
-	// カメラマネージャーの開放
-	SAFE_RELEASE(camera_manager_);
-
-	// ライトマネージャーの開放
-	//SAFE_RELEASE(light_manager_);
 }
 
 //---------------------------------- EOF --------------------------------------

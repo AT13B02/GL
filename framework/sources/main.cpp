@@ -32,7 +32,6 @@
 //=============================================================================
 int APIENTRY WinMain(HINSTANCE hinstance, HINSTANCE preview_hinstance, LPSTR command_line,int command_show)
 {
-
 #ifdef _DEBUG
 	// メモリリーク検出
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -43,6 +42,7 @@ int APIENTRY WinMain(HINSTANCE hinstance, HINSTANCE preview_hinstance, LPSTR com
 	UNREFERENCED_PARAMETER(command_line);
 	UNREFERENCED_PARAMETER(command_show);
 
+	// アプリケーションマネージャー
 	CApplicationManager* application_manager = NULL;
 
 	// アプリケーションマネージャーの生成

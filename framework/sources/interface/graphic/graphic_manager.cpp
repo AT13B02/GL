@@ -15,7 +15,7 @@
 #include "interface/graphic/device/device_holder.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/texture/texture_manager.h"
-//#include "interface/graphic/model/model_manager.h"
+#include "interface/graphic/model/model_manager.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
 #include "interface/graphic/camera/camera_manager.h"
 //#include "interface/graphic/light/light_manager.h"
@@ -49,7 +49,7 @@ CGraphicManager::CGraphicManager(WINDOW_DATA* window_data)
 	texture_manager_ = new CTextureManager(device_holder_);
 
 	// モデルマネージャーの生成
-	model_manager_ = NULL;
+	model_manager_ = new CModelManager(device_holder_);
 
 	// カメラマネージャーの生成
 	camera_manager_ = new CCameraManager(device_holder_);
@@ -85,6 +85,15 @@ bool CGraphicManager::Init(void)
 	// オブジェクトマネージャーの初期化
 	INIT(object_manager_);
 
+	// モデルマネージャーの初期化
+	INIT(model_manager_);
+
+	// カメラマネージャーの初期化
+	INIT(camera_manager_);
+
+	// ライトマネージャーの初期化
+	//INIT(light_manager_);
+
 	return true;
 }
 
@@ -108,14 +117,23 @@ void CGraphicManager::Draw(void)
 //=============================================================================
 void CGraphicManager::Uninit(void)
 {
+	// オブジェクトマネージャーの開放
+	SAFE_RELEASE(object_manager_);
+
+	// カメラマネージャーの開放
+	SAFE_RELEASE(camera_manager_);
+
+	// ライトマネージャーの開放
+	//SAFE_RELEASE(light_manager_);
+
+	// モデルマネージャーの開放
+	SAFE_RELEASE(model_manager_);
+
 	// レンダーステートマネージャーの開放
 	SAFE_RELEASE(renderstate_manager_);
 
 	// テクスチャマネージャーの開放
 	SAFE_RELEASE(texture_manager_);
-
-	// オブジェクトマネージャーの開放
-	SAFE_RELEASE(object_manager_);
 
 	// デバイスホルダーの開放
 	SAFE_RELEASE(device_holder_);

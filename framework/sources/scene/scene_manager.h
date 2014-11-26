@@ -93,7 +93,6 @@ private:
 
 	// ƒ[ƒh—pŠÖ”
 	static void Load(CSceneManager* scene_manager);
-
 };
 
 #endif	// _SCENE_MANAGER_H_
