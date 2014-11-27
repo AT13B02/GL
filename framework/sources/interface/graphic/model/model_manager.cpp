@@ -16,7 +16,7 @@
 // graphic
 #include "interface/graphic/model/model_manager.h"
 #ifdef _USING_OPENGL_
-#include "interface/graphic/model/opengl/gl_model.h"
+//#include "interface/graphic/model/opengl/gl_model.h"
 #endif
 #ifdef _USING_DIRECTX_
 #include "dx_model.h"
@@ -81,7 +81,7 @@ CModel* CModelManager::Create(std::string filename)
 	CModel* model = NULL;
 
 #ifdef _USING_OPENGL_
-	model = new CGLModel(device_holder_);
+	//model = new CGLModel(device_holder_);
 #endif
 
 #ifdef _USING_DIRECTX_
@@ -89,13 +89,16 @@ CModel* CModelManager::Create(std::string filename)
 #endif
 
 	// ‰Šú‰»
-	if(!model->Init())
+	//if(!model->Init())
 	{
 		return NULL;
 	}
 
 	// ƒ[ƒh
-	model->Load(filename.c_str());
+	//if(!model->Load(filename.c_str()))
+	{
+		return NULL;
+	}
 
 	return model;
 }

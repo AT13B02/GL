@@ -60,7 +60,7 @@ public:
 	CFileManager(void);
 
 	// デストラクタ
-	~CFileManager(void);
+	virtual ~CFileManager(void);
 
 	// 初期化処理
 	bool Init(void);
