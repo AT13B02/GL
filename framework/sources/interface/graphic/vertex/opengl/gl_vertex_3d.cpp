@@ -48,7 +48,7 @@ CGLVertex3D::~CGLVertex3D(void)
 //=============================================================================
 void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length)
 {
-	u32 vertex_number = primitive_number_ + 2;
+	u32 vertex_number = offset + length;
 
 	glEnable(GL_TEXTURE_2D);
 
@@ -66,7 +66,7 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 
 	if(use_index_)
 	{
-		for(u32 i = 0;i < vertex_number;++i)
+		for(u32 i = offset;i < vertex_number;++i)
 		{
 			// F‚ÌÝ’è
 			glColor4f(vertex_3d_._color[vertex_3d_index_._color[i]]._red,vertex_3d_._color[vertex_3d_index_._color[i]]._green,vertex_3d_._color[vertex_3d_index_._color[i]]._blue,vertex_3d_._color[vertex_3d_index_._color[i]]._alpha);

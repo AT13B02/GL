@@ -84,7 +84,7 @@ bool CVertex3D::Init(void)
 //=============================================================================
 void CVertex3D::Draw(const MATRIX4x4& matrix)
 {
-	Draw(matrix,0,primitive_number_);
+	Draw(matrix,0,primitive_number_ + 2);
 }
 
 //=============================================================================

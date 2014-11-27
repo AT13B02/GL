@@ -117,7 +117,10 @@ bool CGLModel::Load(const s8* filename)
 //=============================================================================
 void CGLModel::Draw(const MATRIX4x4& matrix)
 {
-	m_pVtxBuffer->Draw(matrix);
+	for(u32 uAtt = 0; uAtt < m_uNumMaterial; uAtt++)
+	{
+		m_pVtxBuffer->Draw(matrix, m_pMeshAttribute[uAtt].idxStart, m_pMeshAttribute[uAtt].idxNum);
+	}
 }
 
 // EOF
