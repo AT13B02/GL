@@ -79,7 +79,7 @@ public:
 	void set_texture_name(const std::string& texture_name){texture_name_ = texture_name;}
 	void set_renderstate(CRenderstate* renderstate){renderstate_ = renderstate;}
 	void set_camera(CCamera* camera){camera_ = camera;}
-	void set_model_manager(CModelManager* model_manager){model_manager = model_manager;}
+	void set_model_manager(CModelManager* model_manager){model_manager_ = model_manager;}
 	void set_texture_manager(CTextureManager* texture_manager){texture_manager_ = texture_manager;}
 
 	const VECTOR3& position(void){return position_;}

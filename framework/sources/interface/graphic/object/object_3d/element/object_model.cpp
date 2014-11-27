@@ -20,6 +20,8 @@
 #include "interface/graphic/model/dx_object_model.h"
 #endif
 #include "interface/graphic/object/object_3d/element/object_model.h"
+#include "interface/graphic/object/object_3d/object_3d_data.h"
+#include "interface/graphic/model/model_manager.h"
 
 // common
 #include "common/common.h"
@@ -74,6 +76,11 @@ bool CObjectModel::Init(void)
 //=============================================================================
 void CObjectModel::Draw(CObject3DData* object_3d_data)
 {
+	MATRIX4x4 matrix = GetWorldMatrix(object_3d_data);
+	CModel* model = object_3d_data->model_manager()->Get(model_name_);
+	CRenderstate* renderstate = object_3d_data->renderstate();
+
+	object_3d_data->object_3d()->Draw(matrix,model,renderstate);
 }
 
 //=============================================================================
