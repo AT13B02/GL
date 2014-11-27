@@ -80,6 +80,14 @@ bool CVertex3D::Init(void)
 }
 
 //=============================================================================
+// •`‰æˆ—
+//=============================================================================
+void CVertex3D::Draw(const MATRIX4x4& matrix)
+{
+	Draw(matrix,0,primitive_number_);
+}
+
+//=============================================================================
 // I—¹ˆ—
 //=============================================================================
 void CVertex3D::Uninit(void)
@@ -137,6 +145,8 @@ void CVertex3D::CreateIndex(const int& index_number)
 	vertex_3d_index_._texcoord = new u32[index_number];
 
 	index_number_ = index_number;
+
+	primitive_number_ = index_number;
 
 	use_index_ = true;
 }
