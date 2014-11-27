@@ -61,6 +61,8 @@ public:
 	// I—¹
 	void Uninit(void);
 
+	// 
+	void Set(void){}
 private:
 	// ƒ‚ƒfƒ‹–¼
 	char* model_name_;
