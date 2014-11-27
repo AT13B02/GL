@@ -91,10 +91,7 @@ public:
 	bool Init(void);
 
 	// •`‰æˆ—
-	void Draw(const MATRIX4x4& matrix);
-
-	// •`‰æˆ—
-	virtual void Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length) = 0;
+	virtual void Draw(const MATRIX4x4& matrix) = 0;
 
 	// I—¹ˆ—
 	virtual void Uninit(void);

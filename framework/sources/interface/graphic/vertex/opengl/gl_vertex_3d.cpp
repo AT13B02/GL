@@ -46,10 +46,8 @@ CGLVertex3D::~CGLVertex3D(void)
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length)
+void CGLVertex3D::Draw(const MATRIX4x4& matrix)
 {
-	u32 vertex_number = primitive_number_ + 2;
-
 	glEnable(GL_TEXTURE_2D);
 
 	// ビューの設定開始
@@ -66,7 +64,7 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 
 	if(use_index_)
 	{
-		for(u32 i = 0;i < vertex_number;++i)
+		for(int i = 0;i < index_number_ + 2;i++)
 		{
 			// 色の設定
 			glColor4f(vertex_3d_._color[vertex_3d_index_._color[i]]._red,vertex_3d_._color[vertex_3d_index_._color[i]]._green,vertex_3d_._color[vertex_3d_index_._color[i]]._blue,vertex_3d_._color[vertex_3d_index_._color[i]]._alpha);
@@ -83,7 +81,7 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 	}
 	else
 	{
-		for(u32 i = 0;i < vertex_number;++i)
+		for(int i = 0;i < primitive_number_ + 2;i++)
 		{
 			// 色の設定
 			glColor4f(vertex_3d_._color[i]._red,vertex_3d_._color[i]._green,vertex_3d_._color[i]._blue,vertex_3d_._color[i]._alpha);
@@ -98,7 +96,6 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 			glVertex3f(vertex_3d_._position[i]._x,vertex_3d_._position[i]._y,vertex_3d_._position[i]._z);
 		}
 	}
-
 	// ポリゴン描画の終了
 	glEnd();
 

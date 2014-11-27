@@ -54,7 +54,7 @@ public:
 	virtual ~CGLVertex3D(void);
 
 	// •`‰æˆ—
-	void Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length);
+	void Draw(const MATRIX4x4& matrix);
 
 	// ‰ğœˆ—
 	void Unlock(void);
