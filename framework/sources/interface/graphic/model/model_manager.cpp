@@ -95,7 +95,10 @@ CModel* CModelManager::Create(std::string filename)
 	}
 
 	// ƒ[ƒh
-	model->Load(filename.c_str());
+	if(!model->Load(filename.c_str()))
+	{
+		return NULL;
+	}
 
 	return model;
 }
@@ -105,7 +108,7 @@ CModel* CModelManager::Create(std::string filename)
 //=============================================================================
 void CModelManager::ReleaseData(CModel* model)
 {
-	//model->Release();
+	model->Release();
 }
 
 //---------------------------------- EOF --------------------------------------
