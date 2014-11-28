@@ -107,11 +107,11 @@
     <Filter Include="sources\interface\graphic\renderstate\state\opengl">
       <UniqueIdentifier>{baa2daf8-3387-4d8d-8ef8-2bea22932b19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\scene\title\basic">
-      <UniqueIdentifier>{23edb23a-9e14-4ec9-a958-264b9703d7d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\interface\character">
       <UniqueIdentifier>{e08d660a-dbc0-4bfe-9a64-0410383bb434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\basic">
+      <UniqueIdentifier>{23edb23a-9e14-4ec9-a958-264b9703d7d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -119,19 +119,19 @@
       <Filter>sources</Filter>
     </ClInclude>
     <ClInclude Include="sources\basic\application.h">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClInclude>
     <ClInclude Include="sources\basic\application_manager.h">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClInclude>
     <ClInclude Include="sources\basic\basic.h">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClInclude>
     <ClInclude Include="sources\basic\fps_manager.h">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClInclude>
     <ClInclude Include="sources\basic\main_window.h">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClInclude>
     <ClInclude Include="sources\common\thread\thread.h">
       <Filter>sources\common\thread</Filter>
@@ -328,16 +328,16 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="sources\basic\application_manager.cpp">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClCompile>
     <ClCompile Include="sources\basic\basic.cpp">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClCompile>
     <ClCompile Include="sources\basic\fps_manager.cpp">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClCompile>
     <ClCompile Include="sources\basic\main_window.cpp">
-      <Filter>sources\scene\title\basic</Filter>
+      <Filter>sources\basic</Filter>
     </ClCompile>
     <ClCompile Include="sources\common\thread\thread.cpp">
       <Filter>sources\common\thread</Filter>
