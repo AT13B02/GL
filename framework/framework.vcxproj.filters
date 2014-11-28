@@ -5,9 +5,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="sources\basic">
-      <UniqueIdentifier>{23edb23a-9e14-4ec9-a958-264b9703d7d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\common">
       <UniqueIdentifier>{7527fd77-6043-4a23-9cd8-58a0249b012e}</UniqueIdentifier>
     </Filter>
@@ -109,6 +106,12 @@
     </Filter>
     <Filter Include="sources\interface\graphic\renderstate\state\opengl">
       <UniqueIdentifier>{baa2daf8-3387-4d8d-8ef8-2bea22932b19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character">
+      <UniqueIdentifier>{e08d660a-dbc0-4bfe-9a64-0410383bb434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\basic">
+      <UniqueIdentifier>{23edb23a-9e14-4ec9-a958-264b9703d7d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +316,12 @@
     <ClInclude Include="sources\interface\graphic\model\model.h">
       <Filter>sources\interface\graphic\model</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\character_manager_interface.h">
+      <Filter>sources\interface\character</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\model\opengl\gl_model.h">
+      <Filter>sources\interface\graphic\model\opengl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -503,6 +512,12 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\model\model.cpp">
       <Filter>sources\interface\graphic\model</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\character_manager_interface.cpp">
+      <Filter>sources\interface\character</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\model\opengl\gl_model.cpp">
+      <Filter>sources\interface\graphic\model\opengl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

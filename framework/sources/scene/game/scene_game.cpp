@@ -29,6 +29,8 @@
 #include "interface/graphic/object/object_3d/element/billboard.h"
 #include "interface/graphic/camera/camera.h"
 #include "interface/graphic/camera/camera_manager.h"
+#include "interface/graphic/model/model_manager.h"
+#include "interface/graphic/object/object_3d/element/object_model.h"
 
 // common
 #include "common/common.h"
@@ -115,22 +117,31 @@ void CSceneGame::Load(void)
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CCameraManager* camera_manager = object_manager->camera_manager();
+	CModelManager* model_manager = graphic_manager->model_manager();
 
-	CBillboard* billboard = new CBillboard(device_holder);
+	//CBillboard* billboard = new CBillboard(device_holder);
 
-	billboard->set_size(VECTOR2(10,10));
+	//billboard->set_size(VECTOR2(10,10));
 
-	billboard->Set();
+	//billboard->Set();
 
-	// タイトルフォルダのロード
+	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
 
 	// オブジェクトの生成
-	test_object_key_ = object_3d_manager->AddList(billboard);
+	//test_object_key_ = object_3d_manager->AddList(billboard);
+
+	// ゲームのモデルのロード
+	model_manager->Load("resources/model/game");
+
+	// オブジェクトモデルの生成
+	CObjectModel* object_model = new CObjectModel(device_holder,"ship");
+
+	// オブジェクトリストに追加
+	test_object_key_ = object_3d_manager->AddList(object_model);
 
 	// カメラの取得
 	test_camera_ = camera_manager->GetCamera(camera_manager->CreateCamera());
-
 }
 
 //---------------------------------- EOF --------------------------------------
