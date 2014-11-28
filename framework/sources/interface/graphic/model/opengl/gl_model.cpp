@@ -43,7 +43,7 @@ bool CGLModel::Init(void)
 //=============================================================================
 void CGLModel::Uninit(void)
 {
-	m_pVtxBuffer->Uninit();
+	SAFE_RELEASE(m_pVtxBuffer);
 
 	SAFE_DELETE_ARRAY(m_pMaterial);
 	SAFE_DELETE_ARRAY(m_pMeshAttribute);

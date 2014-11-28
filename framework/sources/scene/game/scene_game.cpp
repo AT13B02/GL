@@ -66,6 +66,14 @@ CSceneGame::~CSceneGame(void)
 //=============================================================================
 bool CSceneGame::Init(void)
 {
+	// キャラクターの初期化
+
+	// マップの初期化
+
+	// カメラの初期化
+
+	// ネットワークの初期化
+
 	return true;
 }
 
@@ -74,7 +82,11 @@ bool CSceneGame::Init(void)
 //=============================================================================
 void CSceneGame::Update(void)
 {
-	//test_camera_->SetEye();
+	// ネットワーク受信データの確認
+
+	// キャラクターの更新
+
+	// サーバーにデータ送信
 }
 
 //=============================================================================
@@ -118,6 +130,16 @@ void CSceneGame::Load(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CCameraManager* camera_manager = object_manager->camera_manager();
 	CModelManager* model_manager = graphic_manager->model_manager();
+
+	// プレイヤーの生成
+
+	// マップの生成
+
+	// カメラの生成
+
+	// ライトの生成
+
+	// 以下テストプログラム
 
 	//CBillboard* billboard = new CBillboard(device_holder);
 
