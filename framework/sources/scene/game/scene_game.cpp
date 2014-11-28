@@ -142,7 +142,6 @@ void CSceneGame::Load(void)
 
 	// ƒJƒƒ‰‚ÌŽæ“¾
 	test_camera_ = camera_manager->GetCamera(camera_manager->CreateCamera());
-
 }
 
 //---------------------------------- EOF --------------------------------------
