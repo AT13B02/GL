@@ -56,7 +56,7 @@ template <class T> class CCharacterManagerInterface : public CBasic
 {
 public:
 	// コンストラクタ
-	CCharacterManagerInterface(CInterfaceManager* interface_manager);
+	CCharacterManagerInterface(void);
 
 	// デストラクタ
 	virtual ~CCharacterManagerInterface(void);
@@ -78,7 +78,6 @@ public:
 
 protected:
 	std::list<T> character_list_;
-	CInterfaceManager* interface_manager_;
 
 private:
 
@@ -87,9 +86,8 @@ private:
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-template <class T> CCharacterManagerInterface::CCharacterManagerInterface(CInterfaceManager* interface_manager)
+template <class T> CCharacterManagerInterface::CCharacterManagerInterface(void)
 {
-	interface_manager_ = interface_manager;
 }
 
 //=============================================================================
