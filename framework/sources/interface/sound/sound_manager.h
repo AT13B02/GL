@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// サウンドマネージャークラス [sound_manager.h]
+// サウンドマネージャークラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/06/10(Tue)
-// Version		: 1.00
-// Update Date	: 2014/06/10(Tue)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -64,13 +61,13 @@ public:
 
 private:
 	// サウンドデバイス
-	CSoundDevice* m_pSoundDevice;
+	CSoundDevice* sound_device_;
 
 	// データの作成
-	CSound* Create(const char* pFilename);
+	CSound* Create(const s8* filename);
 
 	// データの開放
-	void ReleaseData(CSound* pSound);
+	void ReleaseData(CSound* sound);
 };
 
 #endif	// _SOUND_MANAGER_H_

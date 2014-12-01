@@ -1,12 +1,8 @@
 //*****************************************************************************
 //
-// サウンドデバイスの管理処理 [sound_device.h]
+// サウンドデバイスクラス
 //
-// Author		: 兜森 健史
-// Date			: 2014/09/11(Thu)
-// Version		: 1.00
-// Modified by	: 兜森 健史
-// Update date	: 2014/09/11(Thu)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -21,8 +17,9 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "application.h"
-#include "basic.h"
+// basic
+#include "basic/application.h"
+#include "basic/basic.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -62,13 +59,13 @@ public:
 	void Uninit(void);
 
 #ifdef _USING_XAUDIO2_
-	CXAudio2* GetDevice(void){return m_pDevice;}
+	CXAudio2* device(void){return device_;}
 #endif
 
 private:
 
 #ifdef _USING_XAUDIO2_
-	CXAudio2* m_pDevice;
+	CXAudio2* device_;
 #endif
 };
 

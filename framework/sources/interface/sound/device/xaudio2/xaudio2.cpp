@@ -1,20 +1,19 @@
 //*****************************************************************************
 //
-// xAudio処理 [xaudio2.cpp]
+// XAudioクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/03/28(Fri)
-// Version		: 1.00
-// Update Date	: 2014/09/11(Thu)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+// sound
 #include "xaudio2.h"
 
-#include "common.h"
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -33,8 +32,8 @@
 //=============================================================================
 CXAudio2::CXAudio2(void)
 {
-	m_pXAudio2 = NULL;
-	m_pMasteringVoice = NULL;
+	xaudio2_ = NULL;
+	mastering_voice_ = NULL;
 }
 
 //=============================================================================
@@ -55,7 +54,7 @@ bool CXAudio2::Init(void)
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
 	// XAudio2オブジェクトの作成
-	hr = XAudio2Create(&m_pXAudio2, 0);
+	hr = XAudio2Create(&xaudio2_, 0);
 
 	if(FAILED(hr))
 	{
@@ -65,15 +64,15 @@ bool CXAudio2::Init(void)
 	}
 
 	// マスターボイスの生成
-	hr = m_pXAudio2->CreateMasteringVoice(&m_pMasteringVoice);
+	hr = xaudio2_->CreateMasteringVoice(&mastering_voice_);
 
 	if(FAILED(hr))
 	{
-		if(m_pXAudio2 != NULL)
+		if(xaudio2_ != NULL)
 		{
 			// XAudio2オブジェクトの開放
-			m_pXAudio2->Release();
-			m_pXAudio2 = NULL;
+			xaudio2_->Release();
+			xaudio2_ = NULL;
 		}
 
 		// COMライブラリの終了処理
@@ -90,15 +89,15 @@ bool CXAudio2::Init(void)
 //=============================================================================
 void CXAudio2::Uninit(void)
 {
-	if(m_pMasteringVoice != NULL)
+	if(mastering_voice_ != NULL)
 	{
 		// マスターボイスの破棄
-		m_pMasteringVoice->DestroyVoice();
-		m_pMasteringVoice = NULL;
+		mastering_voice_->DestroyVoice();
+		mastering_voice_ = NULL;
 	}
 
 	// XAudio2の破棄
-	SAFE_RELEASE(m_pXAudio2);
+	SAFE_RELEASE(xaudio2_);
 
 	// COMライブラリの終了処理
 	CoUninitialize();
