@@ -20,9 +20,15 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "object.h"
-#include "math.h"
-#include "color4f.h"
+//#include "object.h"
+//#include "math.h"
+//#include "color4f.h"
+
+// graphic
+#include "interface/graphic/object/object.h"
+
+// common
+#include "common/math/math.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -40,6 +46,12 @@
 // クラスの前方参照
 //*****************************************************************************
 class CObject2DData;
+class CDeviceHolder;
+class CModel;
+class CVertex2D;
+class CTexture;
+class CRenderstate;
+
 
 //*****************************************************************************
 // クラス定義
@@ -47,22 +59,30 @@ class CObject2DData;
 class CObject2D : public CObject
 {
 public:
+	enum OBJECT_2D_TYPE
+	{
+		OBJECT_2D_TYPE_RECTANGLE = 0,
+		OBJECT_2D_TYPE_BILLBOARD,
+		OBJECT_2D_TYPE_OBJECT_MODEL,
+		OBJECT_2D_TYPE_MAX
+	};
+
 	// コンストラクタ
-	CObject2D(void);
+	explicit CObject2D(CDeviceHolder* device_holder,OBJECT_2D_TYPE type);
 
 	// デストラクタ
 	virtual ~CObject2D(void);
 
 	// 描画処理
-	virtual void Draw(CObject2DData* pObject2DData) = 0;
+	virtual void Draw(CObject2DData* pObject2DData){}
 
 	// 設定処理
 	virtual void Set(void) = 0;
 
 protected:
-
+	CDeviceHolder* device_holder_;
 private:
-
+	OBJECT_2D_TYPE object_2d_type_;
 };
 
 #endif	// _OBJECT_2D_H_

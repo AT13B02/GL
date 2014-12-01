@@ -20,8 +20,14 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "math.h"
+// stl
+#include <list>
+
+// basic
 #include "basic/basic.h"
+
+// math
+#include "common/math/math.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -41,10 +47,18 @@
 class CObject2D;
 class CObject2DList;
 class CObject2DBuffer;
+
 class CTexture;
-class CGraphicsDevice;
+class CDeviceHolder;
+
 class CRenderstate;
 class CRenderstateManager;
+
+class CCameraManager;
+class CLightManager;
+class CModelManager;
+class CTextureManager;
+
 
 //*****************************************************************************
 // クラス定義
@@ -53,7 +67,7 @@ class CObject2DManager : public CBasic
 {
 public:
 	// コンストラクタ
-	CObject2DManager(CGraphicsDevice* pGraphicsDevice,CRenderstateManager* pRenderstateManager);
+	CObject2DManager(CDeviceHolder* device_holder,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager,CModelManager* model_manager,CCameraManager* camera_manager,CLightManager* light_manager);
 
 	// デストラクタ
 	~CObject2DManager(void);
@@ -61,59 +75,42 @@ public:
 	// 初期化
 	bool Init(void);
 
-	// 終了
-	void Uninit(void);
-
 	// 描画処理
 	void Draw(void);
 
-	// 格納
-	int Add(CObject2D* pObject2D,int nListType = LIST_TYPE_LOAD);
+	// 終了
+	void Uninit(void);
 
-	// 変更
-	void Change(void);
 
-	// 変更フラグ
-	void RaiseChangeFlag(void);
+	// リストに追加
+	u32 AddList(CObject2D* object_2d);
 
 	//-----------------------------------------------------
 	// 描画リストに保存
-
-	void Draw(const int& nObjectNumber,const VECTOR2& Pos);
-
-	void Draw(const int& nObjectNumber,const VECTOR2& Pos,CTexture* pTexture);
-
-	void Draw(const int& nObjectNumber,const VECTOR2& Pos,float fRot,CTexture* pTexture);
-
-	void Draw(const int& nObjectNumber,const VECTOR2& Pos,const float& fRot,const VECTOR2& Scale,CTexture* pTexture);
-
-	void Draw(const int& nObjectNumber,const VECTOR2& Pos,const float& fRot,const VECTOR2& Scale,const MATRIX4x4& Matrix,CTexture* pTexture);
-
-	void Draw(const int& nObjectNumber,const VECTOR2& Pos,const float& fRot,const VECTOR2& Scale,const MATRIX4x4& Matrix,CTexture* pTexture,CRenderstate* pRenderstate);
+	void Draw(const u32& object_key,const VECTOR2& position,const float rotation,const VECTOR2& scale,MATRIX4x4 matrix,const std::string& texture_name,CRenderstate* renderstate);
 
 private:
 
-	enum LIST_TYPE
-	{
-		LIST_TYPE_USE = 0,
-		LIST_TYPE_LOAD,
-		LIST_TYPE_MAX,
-	};
-
 	// オブジェクトリスト
-	CObject2DList* m_apObject2DList[LIST_TYPE_MAX];
-
-	// 変更フラグ
-	bool m_bChangeFlag;
+	CObject2DList* object_2d_list_;
 
 	// バッファリスト
-	CObject2DBuffer* m_pBuffer;
+	CObject2DBuffer* object_2d_buffer_;
 
-	// グラフィックデバイス
-	CGraphicsDevice* m_pGraphicsDevice;
+	// デバイスホルダー
+	CDeviceHolder* device_holder_;
 
 	// レンダーステートマネージャー
-	CRenderstateManager* m_pRenderstateManager;
+	CRenderstateManager* renderstate_manager_;
+
+	// テクスチャマネージャー
+	CTextureManager* texture_manager_;
+
+	// カメラマネージャー
+	CCameraManager* camera_manager_;
+
+	// ライトマネージャー
+	CLightManager* light_manager_;
 };
 
 #endif	// _OBJECT_2D_MANAGER_H_

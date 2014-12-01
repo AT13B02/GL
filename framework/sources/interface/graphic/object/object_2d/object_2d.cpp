@@ -12,8 +12,6 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "graphics_device.h"
-
 #ifdef _USING_OPENGL_
 #include "opengl.h"
 #endif
@@ -22,10 +20,19 @@
 #include "directx.h"
 #endif
 
-#include "texture.h"
-#include "object_2d.h"
-#include "common.h"
 
+// basic
+#include "basic/application.h"
+
+// graphic
+//#include "interface/graphic/object/object_2d/object_2d_data.h"
+#include "interface/graphic/object/object_2d/object_2d.h"
+#include "interface/graphic/vertex/vertex_2d.h"
+#include "interface/graphic/texture/texture.h"
+#include "interface/graphic/renderstate/state/renderstate.h"
+
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -42,8 +49,11 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CObject2D::CObject2D(void)
+CObject2D::CObject2D(CDeviceHolder* device_holder,OBJECT_2D_TYPE object_2d_type)
 {
+	device_holder_ = device_holder;
+
+	object_2d_type_ = object_2d_type;
 }
 
 //=============================================================================
