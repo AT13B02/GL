@@ -141,26 +141,26 @@ void CSceneGame::Load(void)
 
 	// 以下テストプログラム
 
-	//CBillboard* billboard = new CBillboard(device_holder);
+	CBillboard* billboard = new CBillboard(device_holder);
 
-	//billboard->set_size(VECTOR2(10,10));
+	billboard->set_size(VECTOR2(10,10));
 
-	//billboard->Set();
+	billboard->Set();
 
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
 
 	// オブジェクトの生成
-	//test_object_key_ = object_3d_manager->AddList(billboard);
+	test_object_key_ = object_3d_manager->AddList(billboard);
 
 	// ゲームのモデルのロード
 	model_manager->Load("resources/model/game");
 
 	// オブジェクトモデルの生成
-	CObjectModel* object_model = new CObjectModel(device_holder,"ship");
+	//CObjectModel* object_model = new CObjectModel(device_holder,"ship");
 
 	// オブジェクトリストに追加
-	test_object_key_ = object_3d_manager->AddList(object_model);
+	//test_object_key_ = object_3d_manager->AddList(object_model);
 
 	// カメラの取得
 	test_camera_ = camera_manager->GetCamera(camera_manager->CreateCamera());

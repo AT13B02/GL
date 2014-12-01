@@ -1,30 +1,27 @@
 //*****************************************************************************
 //
-// ライトクラス [light.h]
+// ライトクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/09/19(Fri)
-// Version		: 1.00
-// Update Date	: 2014/09/19(Fri)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "application.h"
+#include "basic/application.h"
 
+// graphic
 #ifdef _USING_OPENGL_
 //#include "gl_light.h"
 #endif
-
 #ifdef _USING_DIRECTX_
 #include "dx_light.h"
 #endif
+#include "interface/graphic/light/light.h"
 
-#include "light.h"
-#include "common.h"
-#include "math.h"
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -41,13 +38,13 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CLight::CLight(CGraphicsDevice* pGraphicsDevice)
+CLight::CLight(CDeviceHolder* device_holder)
 {
-	m_pGraphicsDevice = pGraphicsDevice;
+	device_holder_ = device_holder;
 
-	m_Vector = VECTOR3(0.0f,0.0f,0.0f);
+	vector_ = VECTOR3(0.0f,0.0f,0.0f);
 
-	m_Color = COLOR4F(1.0f,1.0f,1.0f,1.0f);
+	color_ = COLOR4F(1.0f,1.0f,1.0f,1.0f);
 }
 
 //=============================================================================
@@ -60,19 +57,24 @@ CLight::~CLight(void)
 //=============================================================================
 // 作成処理
 //=============================================================================
-CLight* CLight::Create(CGraphicsDevice* pGraphicsDevice)
+CLight* CLight::Create(CDeviceHolder* device_holder)
 {
-	CLight* pLight = NULL;
+	CLight* light = NULL;
 
 #ifdef _USING_DIRECTX_
-	pLight = new CDXLight(pGraphicsDevice);
+	light = new CDXLight(pGraphicsDevice);
 #endif
 
 #ifdef _USING_OPENGL_
-	//pLight = new CGLLight(pGraphicsDevice);
+	//light = new CGLLight(pGraphicsDevice);
 #endif
 
-	return pLight;
+	if(!light->Init())
+	{
+		return NULL;
+	}
+
+	return light;
 }
 
 //=============================================================================
