@@ -86,14 +86,14 @@ private:
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-template <class T> CCharacterManagerInterface::CCharacterManagerInterface(void)
+template <class T> CCharacterManagerInterface<T>::CCharacterManagerInterface(void)
 {
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-template <class T> CCharacterManagerInterface::~CCharacterManagerInterface(void)
+template <class T> CCharacterManagerInterface<T>::~CCharacterManagerInterface(void)
 {
 }
 

@@ -80,6 +80,7 @@
     <ClInclude Include="sources\interface\sound\device\xaudio2\xaudio2.h" />
     <ClInclude Include="sources\interface\sound\sound.h" />
     <ClInclude Include="sources\interface\sound\sound_manager.h" />
+    <ClInclude Include="sources\interface\sound\xaudio2\xaudio2_sound.h" />
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="sources\interface\sound\device\xaudio2\xaudio2.cpp" />
     <ClCompile Include="sources\interface\sound\sound.cpp" />
     <ClCompile Include="sources\interface\sound\sound_manager.cpp" />
+    <ClCompile Include="sources\interface\sound\xaudio2\xaudio2_sound.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />

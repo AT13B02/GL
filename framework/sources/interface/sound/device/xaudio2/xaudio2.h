@@ -51,7 +51,7 @@ public:
 	HRESULT ReadChunkData(HANDLE h_file, void* buffer, DWORD buffer_size, DWORD buffer_offset);
 
 	// XAudio2�̎擾
-	IXAudio2* x_audio2(void){return xaudio2_;}
+	IXAudio2* xaudio2(void){return xaudio2_;}
 
 	// XAudio2�̎擾
 	IXAudio2MasteringVoice* mastering_voice(void){return mastering_voice_;}

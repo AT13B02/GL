@@ -128,6 +128,9 @@
     <Filter Include="sources\interface\sound\device\xaudio2">
       <UniqueIdentifier>{367f2dd6-dbb9-4134-bfe4-580f7be4b2d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\sound\xaudio2">
+      <UniqueIdentifier>{5de93494-27e6-4ba6-b94c-1b1e482eec60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -358,6 +361,9 @@
     <ClInclude Include="sources\interface\sound\sound.h">
       <Filter>sources\interface\sound</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\sound\xaudio2\xaudio2_sound.h">
+      <Filter>sources\interface\sound\xaudio2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -575,6 +581,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\sound\sound.cpp">
       <Filter>sources\interface\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\sound\xaudio2\xaudio2_sound.cpp">
+      <Filter>sources\interface\sound\xaudio2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
