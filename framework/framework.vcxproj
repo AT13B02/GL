@@ -42,6 +42,7 @@
     <ClInclude Include="sources\interface\graphic\graphic_manager.h" />
     <ClInclude Include="sources\interface\graphic\light\light.h" />
     <ClInclude Include="sources\interface\graphic\light\light_manager.h" />
+    <ClInclude Include="sources\interface\graphic\light\opengl\gl_light.h" />
     <ClInclude Include="sources\interface\graphic\model\model.h" />
     <ClInclude Include="sources\interface\graphic\model\model_manager.h" />
     <ClInclude Include="sources\interface\graphic\model\opengl\gl_model.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="sources\interface\graphic\graphic_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\light\light.cpp" />
     <ClCompile Include="sources\interface\graphic\light\light_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\light\opengl\gl_light.cpp" />
     <ClCompile Include="sources\interface\graphic\model\model.cpp" />
     <ClCompile Include="sources\interface\graphic\model\model_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\model\opengl\gl_model.cpp" />

@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// ライトクラス
+// OpenGLライトクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -11,18 +11,18 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _LIGHT_H_
-#define _LIGHT_H_
+#ifndef _GL_LIGHT_H_
+#define _GL_LIGHT_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
 // basic
+#include "basic/application.h"
+#ifdef _USING_OPENGL_
 #include "basic/basic.h"
-
-// common
-#include "common/math/math.h"
-#include "common/image/color/color4f.h"
+// graphic
+#include "interface/graphic/light/light.h"
 
 //*****************************************************************************
 // 定数定義
@@ -35,47 +35,31 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CDeviceHolder;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CLight : public CBasic
+class CGLLight : public CLight
 {
 public:
-	// 作成処理
-	static CLight* Create(CDeviceHolder* device_holder);
+	// コンストラクタ
+	CGLLight(CDeviceHolder* device_holder);
+
+	// デストラクタ
+	virtual ~CGLLight(void);
 
 	// 初期化処理
 	bool Init(void);
 
 	// ライトの設定
-	virtual void Set(void) = 0;
-
-	// 色情報の設定
-	void SetColor(COLOR4F color){color_ = color;}
-
-	// 向きの設定
-	void SetVector(VECTOR4 vector){vector_ = vector;vector_.Normalize();}
+	void Set(void);
 protected:
-	// コンストラクタ
-	CLight(CDeviceHolder* device_holder);
 
-	// デストラクタ
-	virtual ~CLight(void);
-
-	// グラフィックデバイス
-	CDeviceHolder* device_holder_;
-
-	// ベクトル
-	VECTOR4 vector_;
-
-	// 色
-	COLOR4F color_;
 private:
 
 };
 
-#endif	// _GL_LIGHT_H_
+#endif // _USING_OPENGL_
+#endif // _GL_LIGHT_H_
 
 //---------------------------------- EOF --------------------------------------

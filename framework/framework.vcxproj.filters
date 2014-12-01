@@ -116,6 +116,9 @@
     <Filter Include="sources\interface\graphic\light">
       <UniqueIdentifier>{595263da-c391-4d8c-9e75-b3d60d702657}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\graphic\light\opengl">
+      <UniqueIdentifier>{c5b14b32-714f-4ad7-a885-703b97e0c46f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -331,6 +334,9 @@
     <ClInclude Include="sources\interface\graphic\light\light_manager.h">
       <Filter>sources\interface\graphic\light</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\graphic\light\opengl\gl_light.h">
+      <Filter>sources\interface\graphic\light\opengl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -533,6 +539,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\light\light_manager.cpp">
       <Filter>sources\interface\graphic\light</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\light\opengl\gl_light.cpp">
+      <Filter>sources\interface\graphic\light\opengl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
