@@ -14,7 +14,7 @@
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/camera/camera_manager.h"
 #include "interface/graphic/light/light_manager.h"
-//#include "interface/graphic/object/object_2d/object_2d_manager.h"
+#include "interface/graphic/object/object_2d/object_2d_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
 #include "interface/graphic/renderstate/state/renderstate.h"
@@ -58,7 +58,7 @@ CObjectManager::CObjectManager(CDeviceHolder* device_holder,CTextureManager* tex
 	light_manager_ = light_manager_;
 
 	// オブジェクト2Dマネージャーの生成
-	//object_2d_manager_ = new CObject2DManager(graphic_device_,renderstate_manager);
+	object_2d_manager_ = new CObject2DManager(device_holder_,texture_manager_,renderstate_manager_,camera_manager_,light_manager_);
 
 	// オブジェクト3Dマネージャーの生成
 	object_3d_manager_ = new CObject3DManager(device_holder_,texture_manager_,renderstate_manager_,model_manager_,camera_manager_,light_manager_);
@@ -77,7 +77,7 @@ CObjectManager::~CObjectManager(void)
 bool CObjectManager::Init(void)
 {
 	// オブジェクト2Dマネージャーの初期化
-	//INIT(object_2d_manager_);
+	INIT(object_2d_manager_);
 
 	// オブジェクト3Dマネージャーの初期化
 	INIT(object_3d_manager_);
@@ -109,7 +109,11 @@ void CObjectManager::Draw(void)
 	}
 
 	// オブジェクト2Dの描画
-	//object_2d_manager_->Draw();
+	if(object_2d_manager_!= NULL)
+	{
+		// オブジェクト3Dの描画
+		object_2d_manager_->Draw();
+	}
 
 	// レンダーステートの解除
 	if(renderstate_all != NULL)
@@ -117,7 +121,6 @@ void CObjectManager::Draw(void)
 		// レンダーステートの解除
 		renderstate_all->Unset();
 	}
-
 }
 
 //=============================================================================
@@ -129,7 +132,7 @@ void CObjectManager::Uninit(void)
 	SAFE_RELEASE(object_3d_manager_);
 
 	// オブジェクト2Dマネージャーの開放
-	//SAFE_RELEASE(object_3d_manager_);
+	SAFE_RELEASE(object_2d_manager_);
 }
 
 //---------------------------------- EOF --------------------------------------

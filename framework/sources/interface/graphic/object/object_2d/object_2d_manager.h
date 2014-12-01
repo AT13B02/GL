@@ -67,7 +67,7 @@ class CObject2DManager : public CBasic
 {
 public:
 	// コンストラクタ
-	CObject2DManager(CDeviceHolder* device_holder,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager,CModelManager* model_manager,CCameraManager* camera_manager,CLightManager* light_manager);
+	CObject2DManager(CDeviceHolder* device_holder,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager,CCameraManager* camera_manager,CLightManager* light_manager);
 
 	// デストラクタ
 	~CObject2DManager(void);

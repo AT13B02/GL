@@ -43,7 +43,7 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CObject2DManager::CObject2DManager(CDeviceHolder* device_holder,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager,CModelManager* model_manager,CCameraManager* camera_manager,CLightManager* light_manager)
+CObject2DManager::CObject2DManager(CDeviceHolder* device_holder,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager,CCameraManager* camera_manager,CLightManager* light_manager)
 {
 	// グラフィックデバイスの設定
 	device_holder_ = device_holder;
