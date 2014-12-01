@@ -1,23 +1,21 @@
 //*****************************************************************************
 //
-// サウンドマネージャークラス [sound_manager.cpp]
+// サウンドマネージャークラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/06/10(Tue)
-// Version		: 1.00
-// Update Date	: 2014/06/10(Tue)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "sound_manager.h"
+// sound
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
+#include "interface/sound/device/sound_device.h"
 
-#include "sound.h"
-#include "sound_device.h"
-
-#include "common.h"
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -36,7 +34,7 @@
 //=============================================================================
 CSoundManager::CSoundManager(void)
 {
-	m_pSoundDevice = new CSoundDevice();
+	sound_device_ = new CSoundDevice();
 }
 
 //=============================================================================
@@ -51,11 +49,14 @@ CSoundManager::~CSoundManager(void)
 //=============================================================================
 bool CSoundManager::Init(void)
 {
-	bool bRet;
+	CFileManager::Init();
 
-	bRet = CFileManager::Init();
-
-	INIT(m_pSoundDevice);
+	if(!sound_device_->Init())
+	{
+		// サウンドデバイスの初期化失敗
+		DEBUG_ERROR_MESSAGE("サウンドデバイスの初期化失敗");
+		return false;
+	}
 
 	return true;
 }
@@ -67,18 +68,18 @@ void CSoundManager::Uninit(void)
 {
 	CFileManager::Uninit();
 
-	SAFE_RELEASE(m_pSoundDevice);
+	SAFE_RELEASE(sound_device_);
 }
 
 //=============================================================================
 // 作成処理
 //=============================================================================
-CSound* CSoundManager::Create(const char* pFilename)
+CSound* CSoundManager::Create(const s8* filename)
 {
 	CSound* pSound = NULL;
 
 #ifdef _USING_XAUDIO2_
-	pSound = CSound::Create(m_pSoundDevice);
+	pSound = CSound::Create(sound_device_);
 #endif
 
 	if(pSound != NULL)
@@ -87,7 +88,7 @@ CSound* CSoundManager::Create(const char* pFilename)
 		pSound->Init();
 
 		// ロード
-		pSound->Load(pFilename);
+		pSound->Load(filename);
 
 	}
 
@@ -97,9 +98,9 @@ CSound* CSoundManager::Create(const char* pFilename)
 //=============================================================================
 // 開放処理
 //=============================================================================
-void CSoundManager::ReleaseData(CSound* pSound)
+void CSoundManager::ReleaseData(CSound* sound)
 {
-	SAFE_RELEASE(pSound);
+	SAFE_RELEASE(sound);
 }
 
 //---------------------------------- EOF --------------------------------------
