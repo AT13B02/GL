@@ -80,6 +80,7 @@ private:
 		EXTENSION_NONE = 0,		// 識別不能
 		EXTENSION_TGA,			// tgaファイル
 		EXTENSION_PNG,			// pngファイル
+		EXTENSION_TXO,			// txoファイル
 		EXTENSION_MAX			// 対応ファイルの最大数
 	};
 
@@ -91,6 +92,9 @@ private:
 
 	// TGAファイルのロード
 	unsigned int LoadTga(const char* pFilename);
+
+	// TXOファイルのロード
+	unsigned int LoadTxo(const char* pFilename);
 
 	unsigned int LoadPng(const char* pFilename);
 
