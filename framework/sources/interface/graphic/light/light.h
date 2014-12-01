@@ -56,7 +56,7 @@ public:
 	void SetColor(COLOR4F color){color_ = color;}
 
 	// 向きの設定
-	void SetVector(VECTOR4 vector){vector_ = vector;vector_.Normalize();}
+	void SetVector(VECTOR3 vector){vector_ = vector;vector_.Normalize();}
 protected:
 	// コンストラクタ
 	CLight(CDeviceHolder* device_holder);
@@ -68,7 +68,7 @@ protected:
 	CDeviceHolder* device_holder_;
 
 	// ベクトル
-	VECTOR4 vector_;
+	VECTOR3 vector_;
 
 	// 色
 	COLOR4F color_;
