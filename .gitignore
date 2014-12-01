@@ -183,3 +183,7 @@ framework/Release/vector3.obj
 framework/Release/vector4.obj
 framework/Release/vertex_3d.obj
 framework/framework.pdb
+*.obj
+*.tlog
+*.cache
+*.suo
