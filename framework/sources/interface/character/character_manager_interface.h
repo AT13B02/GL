@@ -56,7 +56,7 @@ template <class T> class CCharacterManagerInterface : public CBasic
 {
 public:
 	// コンストラクタ
-	CCharacterManagerInterface(CInterfaceManager* interface_manager);
+	CCharacterManagerInterface(void);
 
 	// デストラクタ
 	virtual ~CCharacterManagerInterface(void);
@@ -70,9 +70,14 @@ public:
 	// 終了処理
 	virtual void Uninit(void);
 
+	// キャラクターの追加
+	void Push(T character);
+
+	// キャラクターリストの取得
+	const std::list<T>& character_list(void){return character_list_;}
+
 protected:
 	std::list<T> character_list_;
-	CInterfaceManager* interface_manager_;
 
 private:
 
@@ -81,9 +86,8 @@ private:
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-template <class T> CCharacterManagerInterface::CCharacterManagerInterface(CInterfaceManager* interface_manager)
+template <class T> CCharacterManagerInterface::CCharacterManagerInterface(void)
 {
-	interface_manager_ = interface_manager;
 }
 
 //=============================================================================
@@ -115,6 +119,14 @@ template <class T> void CCharacterManagerInterface<T>::Uninit(void)
 	}
 
 	character_list_.clear();
+}
+
+//=============================================================================
+// 追加処理
+//=============================================================================
+template <class T> void CCharacterManagerInterface<T>::Push(T character)
+{
+	character_list_.push_back(character);
 }
 
 #endif	// _CHARACTER_MANAGER_INTERFACE_H_

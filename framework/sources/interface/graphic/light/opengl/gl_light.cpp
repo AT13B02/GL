@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// サウンドデバイスクラス
+// ライトクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -9,21 +9,19 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// sound
-#include "interface/sound/device/sound_device.h"
-#ifdef _USING_XAUDIO2_
-#include "interface/sound/device/xaudio2/xaudio2.h"
-#endif
+// basic
+#include "basic/application.h"
+
+#ifdef _USING_OPENGL_
+// graphic
+#include "interface/graphic/light/opengl/gl_light.h"
+#include "interface/graphic/device/opengl/opengl.h"
 
 // common
 #include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
-//*****************************************************************************
-
-//*****************************************************************************
-// 構造体定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -37,38 +35,79 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CSoundDevice::CSoundDevice(void)
+CGLLight::CGLLight(CDeviceHolder* device_holder) : CLight(device_holder)
 {
-#ifdef _USING_XAUDIO2_
-	// XAudio2の作成
-	device_ = new CXAudio2();
-#endif
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CSoundDevice::~CSoundDevice(void)
+CGLLight::~CGLLight(void)
 {
 }
 
 //=============================================================================
 // 初期化処理
 //=============================================================================
-bool CSoundDevice::Init(void)
+bool CGLLight::Init(void)
 {
-	INIT(device_);
-
 	return true;
 }
 
 //=============================================================================
-// 終了
+// 設定処理
 //=============================================================================
-void CSoundDevice::Uninit(void)
+void CGLLight::Set(void)
 {
-	// デバイスの破棄
-	SAFE_RELEASE(device_);
+	if(light_index_ < 0 || light_index_ >= LIGHT_MAX)
+	{
+		return;
+	}
+
+	s32 light_index = GL_LIGHT0 + light_index_;
+	// ライト有効化
+	glEnable(light_index);
+	switch(light_type_)
+	{
+		// 平行光源
+		case TYPE_DIRECTIONAL:
+			{
+				VECTOR4 dir;
+				dir._x = -vector_._x;
+				dir._y = -vector_._y;
+				dir._z = -vector_._z;
+				dir._w = 0.0f;
+				glLightfv(light_index, GL_POSITION, (GLfloat*)&dir);
+			}
+			break;
+			
+		// 点光源
+		case TYPE_POINT:
+			{
+				glLightfv(light_index, GL_POSITION, (GLfloat*)&position_);
+				glLightf(light_index, GL_CONSTANT_ATTENUATION, att_constant_);
+				glLightf(light_index, GL_LINEAR_ATTENUATION, att_linear_);
+				glLightf(light_index, GL_QUADRATIC_ATTENUATION, att_quadratic_);
+			}
+			break;
+	}
+
+	glLightfv(light_index, GL_DIFFUSE, (GLfloat*)&diffuse_);
+	glLightfv(light_index, GL_AMBIENT, (GLfloat*)&ambient_);
+	glLightfv(light_index, GL_SPECULAR, (GLfloat*)&specular_);
+	glLightfv(light_index, GL_EMISSION, (GLfloat*)&emissive_);
+	glLightf(light_index, GL_SHININESS, spec_power_);
 }
+
+//=============================================================================
+// ライトの設定を切る
+//=============================================================================
+void CGLLight::Unset(void)
+{
+	// ライト無効化
+	glDisable(GL_LIGHT0 + light_index_);
+}
+
+#endif // _USING_OPENGL_
 
 //---------------------------------- EOF --------------------------------------

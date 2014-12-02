@@ -31,6 +31,7 @@
 #include "interface/graphic/camera/camera_manager.h"
 #include "interface/graphic/model/model_manager.h"
 #include "interface/graphic/object/object_3d/element/object_model.h"
+#include "interface/graphic/object/object_3d/element/rectangle_3d.h"
 
 // common
 #include "common/common.h"
@@ -141,7 +142,7 @@ void CSceneGame::Load(void)
 
 	// 以下テストプログラム
 
-	//CBillboard* billboard = new CBillboard(device_holder);
+	//CRectangle3D* billboard = new CRectangle3D(device_holder);
 
 	//billboard->set_size(VECTOR2(10,10));
 

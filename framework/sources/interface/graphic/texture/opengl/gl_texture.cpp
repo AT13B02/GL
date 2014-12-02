@@ -104,6 +104,10 @@ bool CGLTexture::Load(const char* pFilename)
 	case EXTENSION_PNG:
 		m_nTexture = LoadPng(pFilename);
 		break;
+	// TXOファイル
+	case EXTENSION_TXO:
+		m_nTexture = LoadTxo(pFilename);
+		break;
 	// 対応していないファイル
 	default:
 		return false;
@@ -274,6 +278,10 @@ CGLTexture::EXTENSION CGLTexture::GetExtension(const char* pFilename)
 	else if(!strcmp(pExtension,"png"))
 	{
 		Ret = EXTENSION_PNG;
+	}
+	else if(!strcmp(pExtension,"txo"))
+	{
+		Ret = EXTENSION_TXO;
 	}
 
 	SAFE_DELETE_ARRAY(pExtension);
