@@ -32,6 +32,8 @@
 #include "interface/graphic/model/model_manager.h"
 #include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/graphic/object/object_3d/element/rectangle_3d.h"
+#include "interface/graphic/light/light_manager.h"
+#include "interface/graphic/light/light.h"
 
 // character
 #include "interface/character/camera/character_camera.h"
@@ -147,6 +149,7 @@ void CSceneGame::Load(void)
 	// カメラの生成
 
 	// ライトの生成
+
 
 	// TODO 以下テストプログラム
 	test_camera_ = new CCharacterCamera(interface_manager_);
