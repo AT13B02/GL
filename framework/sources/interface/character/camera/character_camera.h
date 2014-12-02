@@ -55,9 +55,6 @@ public:
 	// XV
 	void Update(void);
 
-	// •`‰æ
-	void Draw(void);
-
 	// I—¹
 	void Uninit(void);
 
@@ -65,6 +62,8 @@ protected:
 
 private:
 	CInterfaceManager* interface_manager_;
+	u32 camera_key_;
+	f32 move_speed_;
 };
 
 #endif	// _CHARACTER_CAMERA_H_

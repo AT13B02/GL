@@ -79,7 +79,7 @@ void CGLCamera::Set(void)
 	glLoadIdentity();
 
 	// プロジェクション行列の生成
-	projection_matrix_.SetPerspectiveFovRH(60.0f,(f32)DEFAULT_SCREEN_WIDTH / (f32)DEFAULT_SCREEN_HEIGHT,1.0f,100.0f);
+	projection_matrix_.SetPerspectiveFovRH(perspective_degree_,perspective_aspect_,perspective_near_,perspective_far_);
 
 	// プロジェクション行列の設定
 	//gluPerspective(60.0,(double)DEFAULT_SCREEN_WIDTH / (double)DEFAULT_SCREEN_HEIGHT,1.0,100.0);
@@ -104,10 +104,6 @@ void CGLCamera::Set(void)
 
 	// カメラの行列を取得
 	//glGetFloatv(GL_MODELVIEW_MATRIX,(f32*)&m_CameraMatrix);
-
-	// 
-	DEBUG_TOOL.debug_console()->Print("視点(%.1f,%.1f,%.1f)\n",eye_._x,eye_._y,eye_._z);
-	DEBUG_TOOL.debug_console()->Print("注視点(%.1f,%.1f,%.1f)\n",look_at_._x,look_at_._y,look_at_._z);
 
 	// カメラの逆行列を取得
 	inverse_matrix_ = view_matrix_.GetInverse();

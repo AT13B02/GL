@@ -35,7 +35,7 @@
 // クラスの前方参照
 //*****************************************************************************
 // TODO テスト用
-class CCamera;
+class CCharacterCamera;
 
 //*****************************************************************************
 // クラス定義
@@ -71,7 +71,8 @@ protected:
 
 private:
 	u32 test_object_key_;
-	CCamera* test_camera_;
+	u32 test_object_key_2_;
+	CCharacterCamera* test_camera_;
 };
 
 #endif	// _SCENE_GAME_H_

@@ -33,6 +33,9 @@
 #include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/graphic/object/object_3d/element/rectangle_3d.h"
 
+// character
+#include "interface/character/camera/character_camera.h"
+
 // common
 #include "common/common.h"
 
@@ -88,6 +91,9 @@ void CSceneGame::Update(void)
 	// キャラクターの更新
 
 	// サーバーにデータ送信
+
+	// TODO テスト
+	test_camera_->Update();
 }
 
 //=============================================================================
@@ -101,6 +107,7 @@ void CSceneGame::Draw(void)
 
 	// 描画
 	object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+	object_3d_manager->Draw(test_object_key_2_,VECTOR3(),VECTOR3(90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
 }
 
 //=============================================================================
@@ -140,7 +147,10 @@ void CSceneGame::Load(void)
 
 	// ライトの生成
 
-	// 以下テストプログラム
+	// TODO 以下テストプログラム
+	test_camera_ = new CCharacterCamera(interface_manager_);
+
+	test_camera_->Init();
 
 	//CRectangle3D* billboard = new CRectangle3D(device_holder);
 
@@ -163,8 +173,15 @@ void CSceneGame::Load(void)
 	// オブジェクトリストに追加
 	test_object_key_ = object_3d_manager->AddList(object_model);
 
-	// カメラの取得
-	test_camera_ = camera_manager->GetCamera(camera_manager->CreateCamera());
+	CRectangle3D* rectangle = new CRectangle3D(device_holder);
+
+	rectangle->set_size(VECTOR2(1000.0f,1000.0f));
+
+	rectangle->set_point(CRectangle3D::POINT_CENTER);
+
+	rectangle->Set();
+
+	test_object_key_2_ = object_3d_manager->AddList(rectangle);
 }
 
 //---------------------------------- EOF --------------------------------------
