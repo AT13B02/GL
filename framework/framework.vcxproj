@@ -32,6 +32,7 @@
     <ClInclude Include="sources\debug_tool\debug.h" />
     <ClInclude Include="sources\debug_tool\debug_console.h" />
     <ClInclude Include="sources\debug_tool\debug_manager.h" />
+    <ClInclude Include="sources\interface\character\camera\character_camera.h" />
     <ClInclude Include="sources\interface\character\character_manager_interface.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera_manager.h" />
@@ -80,6 +81,7 @@
     <ClInclude Include="sources\interface\sound\device\xaudio2\xaudio2.h" />
     <ClInclude Include="sources\interface\sound\sound.h" />
     <ClInclude Include="sources\interface\sound\sound_manager.h" />
+    <ClInclude Include="sources\interface\sound\xaudio2\xaudio2_sound.h" />
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
@@ -107,6 +109,7 @@
     <ClCompile Include="sources\debug_tool\debug.cpp" />
     <ClCompile Include="sources\debug_tool\debug_console.cpp" />
     <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
+    <ClCompile Include="sources\interface\character\camera\character_camera.cpp" />
     <ClCompile Include="sources\interface\character\character_manager_interface.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp" />
@@ -154,6 +157,7 @@
     <ClCompile Include="sources\interface\sound\device\xaudio2\xaudio2.cpp" />
     <ClCompile Include="sources\interface\sound\sound.cpp" />
     <ClCompile Include="sources\interface\sound\sound_manager.cpp" />
+    <ClCompile Include="sources\interface\sound\xaudio2\xaudio2_sound.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />

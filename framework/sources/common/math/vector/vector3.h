@@ -132,10 +132,10 @@ public:
 	//-----------------------------------------------------
 	// スカラーとの計算
 
-	VECTOR3 operator+(const f32& fValue);
-	VECTOR3 operator-(const f32& fValue);
-	VECTOR3 operator*(const f32& fValue);
-	VECTOR3 operator/(const f32& fValue);
+	VECTOR3 operator+(const f32& fValue) const;
+	VECTOR3 operator-(const f32& fValue) const;
+	VECTOR3 operator*(const f32& fValue) const;
+	VECTOR3 operator/(const f32& fValue) const;
 
 	VECTOR3& operator+=(const f32& fValue);
 	VECTOR3& operator-=(const f32& fValue);

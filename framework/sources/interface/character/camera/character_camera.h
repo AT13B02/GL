@@ -1,69 +1,71 @@
 //*****************************************************************************
 //
-// XAudioクラス
+// キャラクターカメラクラス
 //
 // Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 二重定義防止
+// 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _XAUDIO_H_
-#define _XAUDIO_H_
+#ifndef _CHARACTER_CAMERA_H_
+#define _CHARACTER_CAMERA_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <xaudio2.h>
-
 // basic
 #include "basic/basic.h"
+
+//*****************************************************************************
+// ライブラリのリンク
+//*****************************************************************************
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
 
 //*****************************************************************************
+// 構造体定義
+//*****************************************************************************
+
+//*****************************************************************************
+// クラスの前方参照
+//*****************************************************************************
+class CInterfaceManager;
+
+//*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CXAudio2 : public CBasic
+class CCharacterCamera : public CBasic
 {
 public:
 	// コンストラクタ
-	CXAudio2(void);
+	CCharacterCamera(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CXAudio2(void);
+	virtual ~CCharacterCamera(void);
 
 	// 初期化
 	bool Init(void);
 
+	// 更新
+	void Update(void);
+
 	// 終了
 	void Uninit(void);
-
-	// チャンクのチェック
-	HRESULT CheckChunk(HANDLE h_file, DWORD format, DWORD *chunk_size, DWORD *chunk_data_position);
-
-	// チャンクデータの読み込み
-	HRESULT ReadChunkData(HANDLE h_file, void* buffer, DWORD buffer_size, DWORD buffer_offset);
-
-	// XAudio2の取得
-	IXAudio2* xaudio2(void){return xaudio2_;}
-
-	// XAudio2の取得
-	IXAudio2MasteringVoice* mastering_voice(void){return mastering_voice_;}
 
 protected:
 
 private:
-	IXAudio2* xaudio2_;							// XAudio2オブジェクトへのインターフェイス
-
-	IXAudio2MasteringVoice* mastering_voice_;		// マスターボイス
+	CInterfaceManager* interface_manager_;
+	u32 camera_key_;
+	f32 move_speed_;
 };
 
-#endif // _XAUDIO_H_
+#endif	// _CHARACTER_CAMERA_H_
 
 //---------------------------------- EOF --------------------------------------
