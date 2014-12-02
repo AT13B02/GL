@@ -89,7 +89,7 @@ private:
 	CThread* thread_;
 
 	// ロードフラグ
-	bool load_flag_;
+	volatile bool load_flag_;
 
 	// ロード用関数
 	static void Load(CSceneManager* scene_manager);

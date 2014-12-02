@@ -113,6 +113,21 @@
     <Filter Include="sources\basic">
       <UniqueIdentifier>{23edb23a-9e14-4ec9-a958-264b9703d7d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\graphic\light">
+      <UniqueIdentifier>{595263da-c391-4d8c-9e75-b3d60d702657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\light\opengl">
+      <UniqueIdentifier>{c5b14b32-714f-4ad7-a885-703b97e0c46f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\sound">
+      <UniqueIdentifier>{03665d67-127e-48db-b9ef-2cf6ba774d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\sound\device">
+      <UniqueIdentifier>{f902db9d-4921-46c4-8902-d039635b2bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\sound\device\xaudio2">
+      <UniqueIdentifier>{367f2dd6-dbb9-4134-bfe4-580f7be4b2d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -322,6 +337,27 @@
     <ClInclude Include="sources\interface\graphic\model\opengl\gl_model.h">
       <Filter>sources\interface\graphic\model\opengl</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\graphic\light\light.h">
+      <Filter>sources\interface\graphic\light</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\light\light_manager.h">
+      <Filter>sources\interface\graphic\light</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\light\opengl\gl_light.h">
+      <Filter>sources\interface\graphic\light\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\sound\sound_manager.h">
+      <Filter>sources\interface\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\sound\device\sound_device.h">
+      <Filter>sources\interface\sound\device</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\sound\device\xaudio2\xaudio2.h">
+      <Filter>sources\interface\sound\device\xaudio2</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\sound\sound.h">
+      <Filter>sources\interface\sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -518,6 +554,27 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\model\opengl\gl_model.cpp">
       <Filter>sources\interface\graphic\model\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\light\light.cpp">
+      <Filter>sources\interface\graphic\light</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\light\light_manager.cpp">
+      <Filter>sources\interface\graphic\light</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\light\opengl\gl_light.cpp">
+      <Filter>sources\interface\graphic\light\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\sound\sound_manager.cpp">
+      <Filter>sources\interface\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\sound\device\sound_device.cpp">
+      <Filter>sources\interface\sound\device</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\sound\device\xaudio2\xaudio2.cpp">
+      <Filter>sources\interface\sound\device\xaudio2</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\sound\sound.cpp">
+      <Filter>sources\interface\sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

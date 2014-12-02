@@ -24,6 +24,7 @@
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/object/object_3d/element/billboard.h"
+#include "interface/graphic/object/object_3d/element/rectangle_3d.h"
 
 //*****************************************************************************
 // ƒ}ƒNƒ’è‹`
@@ -107,7 +108,7 @@ void CSceneTitle::Load(void)
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
-	CBillboard* billboard = new CBillboard(device_holder);
+	CRectangle3D* billboard = new CRectangle3D(device_holder);
 
 	billboard->set_size(VECTOR2(200,200));
 
