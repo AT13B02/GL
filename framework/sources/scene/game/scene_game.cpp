@@ -161,7 +161,7 @@ void CSceneGame::Load(void)
 	CLight* light = CLight::Create(device_holder);
 	light->Init();
 	light->SetType(CLight::TYPE_DIRECTIONAL);
-	light->SetPosition(VECTOR3(1.0f,0.5f,1.0f).Normalize());
+	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
 	light_manager->Add(light);
 
 
@@ -187,7 +187,7 @@ void CSceneGame::Load(void)
 
 	// ‹éŒ`3D
 	CRectangle3D* rectangle_3d = new CRectangle3D(device_holder);
-	rectangle_3d->set_size(VECTOR2(10.0f,10.0f));
+	rectangle_3d->set_size(VECTOR2(1000.0f,1000.0f));
 	rectangle_3d->set_point(CRectangle3D::POINT_CENTER);
 	rectangle_3d->Set();
 	test_rectangle_3d_key_ = object_3d_manager->AddList(rectangle_3d);

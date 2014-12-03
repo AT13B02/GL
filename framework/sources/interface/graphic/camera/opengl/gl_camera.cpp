@@ -69,9 +69,6 @@ void CGLCamera::Uninit(void)
 //=============================================================================
 void CGLCamera::Set(void)
 {
-	// ライトのオフ
-	glDisable(GL_LIGHTING);
-
 	// プロジェクション行列の設定開始
 	glMatrixMode(GL_PROJECTION);
 

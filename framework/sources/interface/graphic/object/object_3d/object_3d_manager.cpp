@@ -92,9 +92,6 @@ void CObject3DManager::Draw(void)
 {
 	CCamera* camera = NULL;
 
-	// ライトの設定
-	light_manager_->Set();
-
 	// レンダーステートの設定
 	renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Set();
 
@@ -102,6 +99,9 @@ void CObject3DManager::Draw(void)
 	{
 		// カメラの設定と設定したカメラの取得
 		camera = camera_manager_->SetCamera(i);
+
+		// ライトの設定
+		light_manager_->Set();
 
 		// バッファの描画処理
 		object_3d_buffer_->Draw(camera,texture_manager_,model_manager_);
