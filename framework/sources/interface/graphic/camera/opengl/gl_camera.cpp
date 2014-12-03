@@ -97,13 +97,13 @@ void CGLCamera::Set(void)
 	view_matrix_.SetLookAtRH(eye_,look_at_,up_);
 
 	// ビュー行列の設定
-	glMultMatrixf((f32*)&view_matrix_);
+	//glMultMatrixf((f32*)&view_matrix_);
 
 	// ビュー行列の設定
-	//gluLookAt((double)eye_._x,(double)eye_._y,(double)eye_._z,look_at_._x,look_at_._y,look_at_._z,up_._x,up_._y,up_._z);
+	gluLookAt((double)eye_._x,(double)eye_._y,(double)eye_._z,look_at_._x,look_at_._y,look_at_._z,up_._x,up_._y,up_._z);
 
 	// カメラの行列を取得
-	//glGetFloatv(GL_MODELVIEW_MATRIX,(f32*)&m_CameraMatrix);
+	glGetFloatv(GL_MODELVIEW_MATRIX,(f32*)&view_matrix_);
 
 	// カメラの逆行列を取得
 	inverse_matrix_ = view_matrix_.GetInverse();

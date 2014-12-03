@@ -134,6 +134,12 @@
     <Filter Include="sources\interface\character\camera">
       <UniqueIdentifier>{b139c2a4-34c9-4b8f-83a7-e6425a1b81d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\graphic\object\object_2d">
+      <UniqueIdentifier>{79bd83c8-1996-411a-b382-6a59e9a63015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\object\object_2d\element">
+      <UniqueIdentifier>{eb8d28fb-0050-493a-b4e7-af669125317d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -370,6 +376,30 @@
     <ClInclude Include="sources\interface\character\camera\character_camera.h">
       <Filter>sources\interface\character\camera</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\graphic\vertex\opengl\gl_vertex_2d.h">
+      <Filter>sources\interface\graphic\vertex\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\vertex\vertex_2d.h">
+      <Filter>sources\interface\graphic\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_buffer.h">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_data.h">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_list.h">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_manager.h">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.h">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d.h">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -593,6 +623,30 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\camera\character_camera.cpp">
       <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\vertex\opengl\gl_vertex_2d.cpp">
+      <Filter>sources\interface\graphic\vertex\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\vertex\vertex_2d.cpp">
+      <Filter>sources\interface\graphic\vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_buffer.cpp">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_data.cpp">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_list.cpp">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_manager.cpp">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.cpp">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d.cpp">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

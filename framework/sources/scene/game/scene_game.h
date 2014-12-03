@@ -70,8 +70,13 @@ public:
 protected:
 
 private:
-	u32 test_object_key_;
-	u32 test_object_key_2_;
+
+
+	// TODO テスト用メンバー変数
+	u32 test_rectangle_2d_key_;
+	u32 test_rectangle_3d_key_;
+	u32 test_billboard_key_;
+	u32 test_model_key_;
 	CCharacterCamera* test_camera_;
 };
 

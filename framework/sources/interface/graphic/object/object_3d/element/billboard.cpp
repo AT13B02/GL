@@ -97,7 +97,7 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 	// 回転行列の逆行列を抜き出す
 
 	// ビュー行列の転置行列を取得
-	view_matrix = view_matrix.GetTranspose();
+	view_matrix = view_matrix.GetInverse();
 
 	// せん断成分を消す
 	view_matrix._14 = 0.0f;
@@ -111,7 +111,7 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 
 	matrix = GetWorldMatrix(object_3d_data);
 
-	matrix *= view_matrix;
+	matrix = view_matrix * matrix;
 
 	CObject3D::Draw(matrix,vertex_3d_,texture,renderstate);
 }

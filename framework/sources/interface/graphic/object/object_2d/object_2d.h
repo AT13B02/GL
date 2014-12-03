@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// オブジェクト2Dクラス [object_2d.h]
+// オブジェクト2Dクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/04/21(Mon)
-// Version		: 1.00
-// Update Date	: 2014/05/14(Wed)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -80,7 +77,7 @@ public:
 
 protected:
 	CDeviceHolder* device_holder_;
-	const MATRIX4x4& GetWorldMatrix(CObject2DData* object_2d_data);
+	MATRIX4x4 GetWorldMatrix(CObject2DData* object_2d_data);
 
 private:
 	OBJECT_2D_TYPE object_2d_type_;

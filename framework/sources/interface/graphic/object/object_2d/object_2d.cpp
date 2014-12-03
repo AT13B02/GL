@@ -1,26 +1,14 @@
 //*****************************************************************************
 //
-// オブジェクト2Dクラス [object_2d.cpp]
+// オブジェクト2Dクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/04/21(Mon)
-// Version		: 1.00
-// Update Date	: 2014/05/14(Wed)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#ifdef _USING_OPENGL_
-#include "interface/graphic/device/opengl/opengl.h"
-#endif
-
-#ifdef _USING_DIRECTX_
-#include "interface/graphic/device/directx/directx.h"
-#endif
-
-
 // basic
 #include "basic/application.h"
 
@@ -97,7 +85,7 @@ void CObject2D::Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* text
 //=============================================================================
 // ワールドマトリックスの計算処理
 //=============================================================================
-const MATRIX4x4& CObject2D::GetWorldMatrix(CObject2DData* object_2d_data)
+MATRIX4x4 CObject2D::GetWorldMatrix(CObject2DData* object_2d_data)
 {
 	VECTOR2 position = object_2d_data->position();
 	f32 rotation = object_2d_data->rotation();

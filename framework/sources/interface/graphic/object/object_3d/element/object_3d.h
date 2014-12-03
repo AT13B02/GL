@@ -62,10 +62,10 @@ public:
 	virtual ~CObject3D(void);
 
 	// •`‰æˆ—
-	virtual void Draw(CObject3DData* pObject3DData) = 0;
+	virtual void Draw(CObject3DData* object_3d_data) = 0;
 
 	// •`‰æˆ—
-	void Draw(const MATRIX4x4& Matrix,CVertex3D* pVertex3D,CTexture* pTexture,CRenderstate* pRenderstate);
+	void Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* texture,CRenderstate* renderstate);
 
 	// •`‰æˆ—
 	void Draw(const MATRIX4x4& matrix,CModel* model,CRenderstate* renderstate);
@@ -74,7 +74,7 @@ public:
 	virtual void Set(void) = 0;
 
 protected:
-	MATRIX4x4 GetWorldMatrix(CObject3DData* pObject3DData);
+	MATRIX4x4 GetWorldMatrix(CObject3DData* object_3d_data);
 	CDeviceHolder* device_holder_;
 
 private:
