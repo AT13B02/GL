@@ -80,7 +80,7 @@ public:
 	void Uninit(void);
 
 	// 頂点情報の設定
-	virtual void Set(void);
+	void Set(void);
 
 	// サイズの設定
 	void set_size(const VECTOR2& size){size_ = size;}

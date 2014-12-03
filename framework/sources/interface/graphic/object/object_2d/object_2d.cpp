@@ -13,11 +13,11 @@
 // インクルード
 //*****************************************************************************
 #ifdef _USING_OPENGL_
-#include "opengl.h"
+#include "interface/graphic/device/opengl/opengl.h"
 #endif
 
 #ifdef _USING_DIRECTX_
-#include "directx.h"
+#include "interface/graphic/device/directx/directx.h"
 #endif
 
 
@@ -25,7 +25,7 @@
 #include "basic/application.h"
 
 // graphic
-//#include "interface/graphic/object/object_2d/object_2d_data.h"
+#include "interface/graphic/object/object_2d/object_2d_data.h"
 #include "interface/graphic/object/object_2d/object_2d.h"
 #include "interface/graphic/vertex/vertex_2d.h"
 #include "interface/graphic/texture/texture.h"
@@ -63,17 +63,67 @@ CObject2D::~CObject2D(void)
 {
 }
 
-//void CObject2D::Draw(CObject2DData* pObject2DData)
-//{
-//
-//}
-
-void CObject2D::Draw(CVertex2D* pVertex2D)
+//=============================================================================
+// 描画処理
+//=============================================================================
+void CObject2D::Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* texture,CRenderstate* renderstate)
 {
-	if(pVertex2D !=NULL)
+	if(renderstate != NULL)
 	{
-		//pVertex2D->D
+		renderstate->Set();
 	}
+
+	if(texture != NULL)
+	{
+		texture->Set();
+	}
+
+	if(vertex_2d != NULL)
+	{
+		vertex_2d->Draw(matrix);
+	}
+
+	if(renderstate != NULL)
+	{
+		renderstate->Unset();
+	}
+
+	if(texture != NULL)
+	{
+		texture->Unset();
+	}
+}
+
+//=============================================================================
+// ワールドマトリックスの計算処理
+//=============================================================================
+const MATRIX4x4& CObject2D::GetWorldMatrix(CObject2DData* object_2d_data)
+{
+	VECTOR2 position = object_2d_data->position();
+	f32 rotation = object_2d_data->rotation();
+	VECTOR2 scale = object_2d_data->scale();
+	MATRIX4x4 matrix = object_2d_data->matrix();
+
+	MATRIX4x4 translation_matrix;
+	MATRIX4x4 rotation_matrix;
+	MATRIX4x4 scale_matrix;
+	MATRIX4x4 world_matrix;
+
+#ifdef _USING_DIRECTX_
+	//Pos.z *= -1;
+	//Rot.y *= -1;
+	//Rot.x *= -1;
+#endif
+	translation_matrix.SetTlanslation(position._x,position._y,0.0f);
+
+	rotation_matrix.SetYawPitchRoll(0.0f,rotation * MTH_DEGREE,0.0f);
+
+	scale_matrix.SetScaling(scale._x,scale._y,1.0f);
+
+	// ワールドマトリクスの計算
+	world_matrix = scale_matrix * rotation_matrix * translation_matrix * matrix;
+
+	return world_matrix;
 }
 
 //---------------------------------- EOF --------------------------------------

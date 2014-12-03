@@ -142,10 +142,11 @@ bool CGLTexture::Set(void)
 {
 	glBindTexture(GL_TEXTURE_2D,m_nTexture);
 
-	if(glIsTexture(m_nTexture))
+	if(!glIsTexture(m_nTexture))
 	{
-		int a = 0;
+		//DEBUG_ERROR_MESSAGE("ほんとにテクスチャ？");
 	}
+
 	return true;
 }
 

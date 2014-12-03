@@ -48,7 +48,7 @@ public:
 	virtual ~CObject(void);
 
 protected:
-	int m_nObjectId;
+	u32 object_id_;
 
 private:
 

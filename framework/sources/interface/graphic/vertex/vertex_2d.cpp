@@ -39,21 +39,18 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CVertex2D::CVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& normal_number,const u32& color_number,const u32& texcoord_number)
+CVertex2D::CVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number)
 {
 	device_holder_ = device_holder;
 
 	position_number_ = position_number;
-	normal_number_   = normal_number;
 	color_number_    = color_number;
 	texcoord_number_ = texcoord_number;
 
 	vertex_2d_._position = new VECTOR2[position_number];
-	//vertex_2d_._normal   = new VECTOR3[normal_number];
 	vertex_2d_._color    = new COLOR4F[color_number];
 	vertex_2d_._texcoord = new VECTOR2[texcoord_number];
 
-	//vertex_2d_index_._normal   = NULL;
 	vertex_2d_index_._position = NULL;
 	vertex_2d_index_._color    = NULL;
 	vertex_2d_index_._texcoord = NULL;
@@ -82,10 +79,10 @@ bool CVertex2D::Init(void)
 //=============================================================================
 // 描画処理
 //=============================================================================
-//void CVertex2D::Draw(const MATRIX4x4& matrix)
-//{
-//	Draw(matrix,0,primitive_number_ + 2);
-//}
+void CVertex2D::Draw(const MATRIX4x4& matrix)
+{
+	Draw(matrix,0,primitive_number_ + 2);
+}
 
 //=============================================================================
 // 終了処理
@@ -93,11 +90,9 @@ bool CVertex2D::Init(void)
 void CVertex2D::Uninit(void)
 {
 	SAFE_DELETE_ARRAY(vertex_2d_._position);
-	//SAFE_DELETE_ARRAY(vertex_2d_._normal);
 	SAFE_DELETE_ARRAY(vertex_2d_._color);
 	SAFE_DELETE_ARRAY(vertex_2d_._texcoord);
 
-	//SAFE_DELETE_ARRAY(vertex_2d_index_._normal);
 	SAFE_DELETE_ARRAY(vertex_2d_index_._position);
 	SAFE_DELETE_ARRAY(vertex_2d_index_._color);
 	SAFE_DELETE_ARRAY(vertex_2d_index_._texcoord);
@@ -113,13 +108,13 @@ void CVertex2D::Uninit(void)
 //=============================================================================
 CVertex2D* CVertex2D::Create(CDeviceHolder* device_holder,const u32& vertex_number)
 {
-	return Create(device_holder,vertex_number,vertex_number,vertex_number,vertex_number);
+	return Create(device_holder,vertex_number,vertex_number,vertex_number);
 }
 
 //=============================================================================
 // 作成処理
 //=============================================================================
-CVertex2D* CVertex2D::Create(CDeviceHolder* device_holder,const u32& position_number,const u32& normal_number,const u32& color_number,const u32& texcoord_number)
+CVertex2D* CVertex2D::Create(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number)
 {
 	CVertex2D* pVertex2D = NULL;
 
@@ -128,7 +123,7 @@ CVertex2D* CVertex2D::Create(CDeviceHolder* device_holder,const u32& position_nu
 #endif
 
 #ifdef _USING_OPENGL_
-	pVertex2D = new CGLVertex2D(device_holder,position_number,normal_number,color_number,texcoord_number);
+	pVertex2D = new CGLVertex2D(device_holder,position_number,color_number,texcoord_number);
 #endif
 
 	return pVertex2D;
@@ -139,7 +134,6 @@ CVertex2D* CVertex2D::Create(CDeviceHolder* device_holder,const u32& position_nu
 //=============================================================================
 void CVertex2D::CreateIndex(const int& index_number)
 {
-	//vertex_2d_index_._normal = new u32[index_number];
 	vertex_2d_index_._position = new u32[index_number];
 	vertex_2d_index_._color = new u32[index_number];
 	vertex_2d_index_._texcoord = new u32[index_number];

@@ -94,20 +94,22 @@ void CObject2DManager::Draw(void)
 	//light Setting
 
 	//RenderState Setting
+	renderstate_manager_->renderstate(CRenderstateManager::TYPE_2D)->Set();
 
-	for(int i = 0;i < camera_manager_->number_count();i++)
-	{
+	//for(int i = 0;i < camera_manager_->number_count();i++)
+	//{
 		// カメラの設定と設定したカメラの取得
-		camera = camera_manager_->SetCamera(i);
+		//camera = camera_manager_->SetCamera(i);
 
 		// バッファの描画処理
 		object_2d_buffer_->Draw(camera,texture_manager_);
-	}
+	//}
 
 	// TODO バッファの破棄 スレッドを分けたらなくなる
 	object_2d_buffer_->Refresh();
 
 	//End of RenderState
+	renderstate_manager_->renderstate(CRenderstateManager::TYPE_2D)->Unset();
 	
 }
 

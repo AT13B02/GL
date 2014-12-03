@@ -65,7 +65,6 @@ public:
 	typedef struct _VERTEX_2D
 	{
 		VECTOR2* _position;
-		//VECTOR2* _normal;
 		COLOR4F* _color;
 		VECTOR2* _texcoord;
 	}VERTEX_2D;
@@ -73,7 +72,6 @@ public:
 	typedef struct _VERTEX_2D_INDEX
 	{
 		u32* _position;
-		//u32* _normal;
 		u32* _color;
 		u32* _texcoord;
 	}VERTEX_2D_INDEX;
@@ -82,7 +80,7 @@ public:
 	static CVertex2D* Create(CDeviceHolder* device_holder,const u32& vertex_2d_number);
 
 	// 作成処理
-	static CVertex2D* Create(CDeviceHolder* device_holder,const u32& position_number,const u32& normal_number,const u32& color_number,const u32& texcoord_number);
+	static CVertex2D* Create(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number);
 
 	// デストラクタ
 	virtual ~CVertex2D(void);
@@ -91,16 +89,16 @@ public:
 	bool Init(void);
 
 	// 描画処理
-	//void Draw(const MATRIX4x4& matrix);
+	void Draw(const MATRIX4x4& matrix);
 
 	// 描画処理
-	//virtual void Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length) = 0;
+	virtual void Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length) = 0;
 
 	// 終了処理
 	virtual void Uninit(void);
 
 	// インデックスの作成
-	void CreateIndex(const int& index_number);
+	void CreateIndex(const s32& index_number);
 
 	// ロック処理
 	void Lock(VERTEX_2D** vertex_2d,VERTEX_2D_INDEX** vertex_2d_index);
@@ -110,7 +108,7 @@ public:
 
 protected:
 	// コンストラクタ
-	CVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& normal_number,const u32& color_number,const u32& texcoord_number);
+	CVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number);
 
 	CDeviceHolder* device_holder_;
 	VERTEX_2D vertex_2d_;

@@ -122,7 +122,7 @@
     <Filter Include="sources\interface\graphic\object\object_2d">
       <UniqueIdentifier>{9313a6cd-2940-4899-8563-bdc7c0835819}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\interface\graphic\object\element">
+    <Filter Include="sources\interface\graphic\object\object_2d\element">
       <UniqueIdentifier>{adf08300-5360-4259-b0b3-130f221cde1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -236,9 +236,6 @@
       <Filter>sources\interface\graphic\device</Filter>
     </ClInclude>
     <ClInclude Include="sources\interface\graphic\object\object.h">
-      <Filter>sources\interface\graphic\object</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\graphic\object\object_manager.h">
       <Filter>sources\interface\graphic\object</Filter>
     </ClInclude>
     <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_manager.h">
@@ -365,7 +362,10 @@
       <Filter>sources\interface\graphic\object\object_2d</Filter>
     </ClInclude>
     <ClInclude Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.h">
-      <Filter>sources\interface\graphic\object\element</Filter>
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_manager.h">
+      <Filter>sources\interface\graphic\object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -595,7 +595,7 @@
       <Filter>sources\interface\graphic\object\object_2d</Filter>
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.cpp">
-      <Filter>sources\interface\graphic\object\element</Filter>
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

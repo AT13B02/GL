@@ -48,7 +48,7 @@ class CGLVertex2D : public CVertex2D
 {
 public:
 	// コンストラクタ
-	CGLVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& normal_number,const u32& color_number,const u32& texcoord_number);
+	CGLVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number);
 
 	// デストラクタ
 	virtual ~CGLVertex2D(void);

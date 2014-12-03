@@ -20,10 +20,6 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-//#include "object.h"
-//#include "math.h"
-//#include "color4f.h"
-
 // graphic
 #include "interface/graphic/object/object.h"
 
@@ -74,14 +70,18 @@ public:
 	virtual ~CObject2D(void);
 
 	// 描画処理
-	virtual void Draw(void){} //今はコミットビルドを通すための措置
-	virtual void Draw(CVertex2D* pVertex2D);
+	virtual void Draw(CObject2DData* object_2d_data) = 0;
+
+	// 2Dポリゴンの描画処理
+	void Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* texture,CRenderstate* renderstate);
 
 	// 設定処理
 	virtual void Set(void) = 0;
 
 protected:
 	CDeviceHolder* device_holder_;
+	const MATRIX4x4& GetWorldMatrix(CObject2DData* object_2d_data);
+
 private:
 	OBJECT_2D_TYPE object_2d_type_;
 };

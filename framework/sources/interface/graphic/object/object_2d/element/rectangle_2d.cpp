@@ -84,13 +84,9 @@ void CRectangle2D::Draw(CObject2DData* object_2d_data)
 	CTexture* texture = texture_manager->Get(object_2d_data->texture_name().c_str());
 	CRenderstate* renderstate = object_2d_data->renderstate();
 
-	//matrix = GetWorldMatrix(object_2d_data);
+	matrix = GetWorldMatrix(object_2d_data);
 
-	//CObject2D::Draw(object_2d_data);
-	
-	//CObject2D::Draw(object_2d_data);
-	CObject2D::Draw(); //コミットビルドを通すための措置
-	//CObject2D::Draw(matrix,vertex_2d_,texture,renderstate);
+	CObject2D::Draw(matrix,vertex_2d_,texture,renderstate);
 }
 
 //=============================================================================
@@ -110,14 +106,10 @@ void CRectangle2D::Set(void)
 	{
 		case POINT_CENTER:
 		{
-			//m_Position[0] = VECTOR2(-m_Size.x * 0.5f,-m_Size.y * 0.5f);
-			//m_Position[1] = VECTOR2(-m_Size.x * 0.5f, m_Size.y * 0.5f);
-			//m_Position[2] = VECTOR2( m_Size.x * 0.5f,-m_Size.y * 0.5f);
-			//m_Position[3] = VECTOR2( m_Size.x * 0.5f, m_Size.y * 0.5f);
 			position_[0] = VECTOR2(-size_._x * 0.5f,-size_._y * 0.5f);
-			position_[1] = VECTOR2(-size_._x * 0.5f,size_._y * 0.5f);
+			position_[1] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
 			position_[2] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
-			position_[3] = VECTOR2( size_._x * 0.5f,size_._y * 0.5f);
+			position_[3] = VECTOR2( size_._x * 0.5f, size_._y * 0.5f);
 			break;
 		}
 		case POINT_LEFT_UP:
@@ -195,12 +187,6 @@ void CRectangle2D::Set(void)
 	pVertex2D->_position[1] = VECTOR2(position_[2]._x,position_[2]._y);
 	pVertex2D->_position[2] = VECTOR2(position_[1]._x,position_[1]._y);
 	pVertex2D->_position[3] = VECTOR2(position_[3]._x,position_[3]._y);
-
-	// 法線情報の設定
-	//pVertex2D->_normal[0] = VECTOR2(0.0f,0.0f);
-	//pVertex2D->_normal[1] = VECTOR2(0.0f,0.0f);
-	//pVertex2D->_normal[2] = VECTOR2(0.0f,0.0f);
-	//pVertex2D->_normal[3] = VECTOR2(0.0f,0.0f);
 
 	// テクスチャ座標の設定
 	pVertex2D->_texcoord[0] = VECTOR2(left_,top_);

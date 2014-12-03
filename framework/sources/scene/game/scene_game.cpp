@@ -103,18 +103,9 @@ void CSceneGame::Draw(void)
 {
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
-	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
-
-	// 描画
-	object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
 	
-	object_2d_manager->Draw(object_2d_key_,VECTOR2(),0.0f,VECTOR2(),MATRIX4x4(),"field000",NULL);
-
-
-	//object_2d_manager->Draw(2d_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
-
-	
+	object_2d_manager->Draw(object_2d_key_,VECTOR2(DEFAULT_SCREEN_WIDTH * 0.5f,DEFAULT_SCREEN_HEIGHT * 0.5f),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"field000",NULL);
 }
 
 //=============================================================================
@@ -156,44 +147,17 @@ void CSceneGame::Load(void)
 	// ライトの生成
 
 	// 以下テストプログラム
-
-	CRectangle3D* pRect3D =new CRectangle3D(device_holder);
-	pRect3D->set_size(VECTOR2(100,100));
-	pRect3D->Set();
-
 	CRectangle2D* pRect2D = new CRectangle2D(device_holder);
-	pRect2D->set_size(VECTOR2(10,10));
+	pRect2D->set_size(VECTOR2(1000,1000));
 	pRect2D->Set();
-
-	CBillboard* billboard = new CBillboard(device_holder);
-
-	billboard->set_size(VECTOR2(10,10));
-
-	billboard->Set();
-
-
 
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
 
-	// オブジェクトの生成
-	//test_object_key_ = object_3d_manager->AddList(billboard);
-
 	object_2d_key_ = object_2d_manager->AddList(pRect2D);
-
-	//test_object_key_ = object_3d_manager->AddList(pRect3D);
 
 	// ゲームのモデルのロード
 	model_manager->Load("resources/model/game");
-
-	// オブジェクトモデルの生成
-	//CObjectModel* object_model = new CObjectModel(device_holder,"ship");
-
-	// オブジェクトリストに追加
-	//test_object_key_ = object_3d_manager->AddList(object_model);
-
-	// カメラの取得
-	test_camera_ = camera_manager->GetCamera(camera_manager->CreateCamera());
 }
 
 //---------------------------------- EOF --------------------------------------
