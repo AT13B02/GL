@@ -15,7 +15,7 @@
 #include "object_2d_list.h"
 #include "object_2d.h"
 
-#include "common.h"
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -34,10 +34,7 @@
 //=============================================================================
 CObject2DList::CObject2DList(void)
 {
-	for(int i = 0;i < OBJECT_MAX;i++)
-	{
-		m_apObject[i] = NULL;
-	}
+
 }
 
 //=============================================================================
@@ -60,43 +57,41 @@ bool CObject2DList::Init(void)
 //=============================================================================
 void CObject2DList::Uninit(void)
 {
-	for(int i = 0;i < OBJECT_MAX;i++)
+	for(auto it = object_2d_list_.begin();it != object_2d_list_.end();++it)
 	{
-		SAFE_RELEASE(m_apObject[i]);
+		SAFE_RELEASE(it->second);
 	}
+
+	object_2d_list_.clear();
 }
 
 //=============================================================================
 // 追加
 //=============================================================================
-int CObject2DList::Add(CObject2D* pObject2D)
+u32 CObject2DList::AddList(CObject2D* object_2d)
 {
-	int nNumber = -1;
+	u32 key = CreateKey();
 
-	// 配列の空きを検索
-	nNumber = SearchBlank();
+	object_2d_list_.insert(std::pair<u32,CObject2D*>(key,object_2d));
 
-	if(nNumber != -1)
-	{
-		// 配列に登録
-		m_apObject[nNumber] = pObject2D;
-	}
-
-	// IDを返す
-	return nNumber;
+	return key;
 }
 
 //=============================================================================
 // オブジェクトの取得
 //=============================================================================
-CObject2D* CObject2DList::GetObject2D(int nNumber)
+CObject2D* CObject2DList::GetListData(const u32& object_key)
 {
-	if(nNumber < 0 || nNumber >= OBJECT_MAX)
+	CObject2D* object_2d = NULL;
+
+	auto it = object_2d_list_.find(object_key);
+
+	if(it != object_2d_list_.end())
 	{
-		return NULL;
+		object_2d = it->second;
 	}
 
-	return m_apObject[nNumber];
+	return object_2d;
 }
 
 //=============================================================================
@@ -104,29 +99,36 @@ CObject2D* CObject2DList::GetObject2D(int nNumber)
 //=============================================================================
 void CObject2DList::Refresh(void)
 {
-	for(int i = 0;i < OBJECT_MAX;i++)
+	for(auto it = object_2d_list_.begin();it != object_2d_list_.end();++it)
 	{
-		SAFE_RELEASE(m_apObject[i]);
-		//m_apObject[i] = NULL;
+		SAFE_RELEASE(it->second);
 	}
+
+	object_2d_list_.clear();
 }
 
+
 //=============================================================================
-// 配列の空きを検索
+// キーの発行
 //=============================================================================
-int CObject2DList::SearchBlank(void)
+u32 CObject2DList::CreateKey(void)
 {
-	// 配列をチェック
-	for(int i = 0;i < OBJECT_MAX;i++)
+	bool is_find = false;
+	u32 key = 0;
+
+	while(!is_find)
 	{
-		// 空きを発見
-		if(m_apObject[i] == NULL)
+		// キーの生成
+		key = rand();
+
+		// キーが存在しない
+		if(object_2d_list_.find(key) == object_2d_list_.end())
 		{
-			return i;
+			// キーとして使用
+			is_find = true;
 		}
 	}
 
-	return -1;
+	return key;
 }
-
 //---------------------------------- EOF --------------------------------------

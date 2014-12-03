@@ -20,8 +20,11 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "math.h"
-#include "basic.h"
+// stl
+#include <list>
+
+// basic
+#include "basic/basic.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -39,7 +42,9 @@
 // クラスの前方参照
 //*****************************************************************************
 class CObject2DData;
-template<class T> class CList;
+class CCamera;
+class CModelManager;
+class CTextureManager;
 
 //*****************************************************************************
 // クラス定義
@@ -57,20 +62,20 @@ public:
 	bool Init(void);
 
 	// 描画
-	void Draw(void);
+	void Draw(CCamera* camera,CTextureManager* texture_manager);
 
 	// 終了
 	void Uninit(void);
 
 	// 追加
-	void Add(CObject2DData* pObjectData);
+	void AddList(CObject2DData* pObjectData);
 
 	// リフレッシュ
 	void Refresh(void);
 
 private:
-	// バッファリスト
-	CList<CObject2DData*>* m_pList;
+// バッファリスト
+	std::list<CObject2DData*> object_2d_data_list_;
 };
 
 #endif	// _OBJECT_2D_BUFFER_H_

@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// オブジェクト2Dリストクラス [object_2d_list.h]
+// OpenGL2D頂点クラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/04/21(Mon)
-// Version		: 1.00
-// Update Date	: 2014/05/14(Wed)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -14,21 +11,19 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _OBJECT_2D_LIST_H_
-#define _OBJECT_2D_LIST_H_
+#ifndef _GL_VERTEX_2D_H_
+#define _GL_VERTEX_2D_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// stl
-#include <map>
-
 // basic
-#include "basic/basic.h"
+#include "basic/application.h"
 
-// common
-#include "common/math/math.h"
-
+#ifdef _USING_OPENGL_
+// graphic
+#include "interface/graphic/vertex/vertex_2d.h"
+#include "interface/graphic/device/opengl/opengl.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -45,44 +40,31 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CObject2D;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CObject2DList : public CBasic
+class CGLVertex2D : public CVertex2D
 {
 public:
 	// コンストラクタ
-	CObject2DList(void);
+	CGLVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number);
 
 	// デストラクタ
-	~CObject2DList(void);
+	virtual ~CGLVertex2D(void);
 
-	// 初期化
-	bool Init(void);
+	// 描画処理
+	void Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length);
 
-	// 終了
-	void Uninit(void);
-
-	// 追加
-	u32 AddList(CObject2D* object_2d);
-
-	// オブジェクトの取得
-	CObject2D* GetListData(const u32& object_key);
-
-
-	// 開放
-	void Refresh(void);
+	// 解除処理
+	void Unlock(void);
+protected:
 
 private:
-// オブジェクトリスト
-	std::map<u32,CObject2D*> object_2d_list_;
-
-	// キーの発行
-	u32 CreateKey(void);
 };
 
-#endif	// _OBJECT_2D_LIST_H_
+#endif	// _USING_OPENGL_
+
+#endif	// _GL_VERTEX_2D_H_
 
 //---------------------------------- EOF --------------------------------------

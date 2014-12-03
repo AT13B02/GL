@@ -15,7 +15,8 @@
 #include "object_2d.h"
 #include "object_2d_data.h"
 
-#include "common.h"
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // ƒ}ƒNƒ’è‹`
@@ -34,14 +35,13 @@
 //=============================================================================
 CObject2DData::CObject2DData(void)
 {
-	m_pObject2D = NULL;
-	m_pTexture = NULL;
-	m_Pos = VECTOR2(0.0f,0.0f);
-	m_Scale = VECTOR2(1.0f,1.0f);
-	m_fRot = 0.0f;
-	m_pRenderstate = NULL;
-	m_Matrix.SetIdentity();
-
+	object_2d_ = NULL;
+	texture_name_ = "";
+	position_ = VECTOR2(0.0f,0.0f);
+	scale_ = VECTOR2(1.0f,1.0f);
+	rotation_ = 0.0f;
+	renderstate_ = NULL;
+	matrix_.SetIdentity();
 }
 
 //=============================================================================
@@ -64,10 +64,10 @@ bool CObject2DData::Init(void)
 //=============================================================================
 void CObject2DData::Draw(void)
 {
-	if(m_pObject2D != NULL)
+	if(object_2d_ != NULL)
 	{
 		// •`‰æ
-		m_pObject2D->Draw(this);
+		object_2d_->Draw(this);
 	}
 }
 
