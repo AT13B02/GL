@@ -13,7 +13,7 @@
 
 // graphic
 #ifdef _USING_OPENGL_
-//#include "gl_light.h"
+#include "interface/graphic/light/opengl/gl_light.h"
 #endif
 #ifdef _USING_DIRECTX_
 #include "dx_light.h"
@@ -38,13 +38,21 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CLight::CLight(CDeviceHolder* device_holder)
+CLight::CLight(CDeviceHolder* device_holder) :
+light_index_(-1),
+light_type_(TYPE_MAX),
+vector_(0.0f, 0.0f, 0.0f),
+diffuse_(1.0f, 1.0f, 1.0f, 1.0f),
+ambient_(0.0f, 0.0f, 0.0f, 0.0f),
+specular_(0.0f, 0.0f, 0.0f, 0.0f),
+emissive_(0.0f, 0.0f, 0.0f, 0.0f),
+spec_power_(0.0f),
+position_(0.0f, 0.0f, 0.0f, 1.0f),
+att_constant_(1.0f),
+att_linear_(0.0f),
+att_quadratic_(0.0f)
 {
 	device_holder_ = device_holder;
-
-	vector_ = VECTOR3(0.0f,0.0f,0.0f);
-
-	color_ = COLOR4F(1.0f,1.0f,1.0f,1.0f);
 }
 
 //=============================================================================
@@ -66,7 +74,7 @@ CLight* CLight::Create(CDeviceHolder* device_holder)
 #endif
 
 #ifdef _USING_OPENGL_
-	//light = new CGLLight(pGraphicsDevice);
+	light = new CGLLight(device_holder);
 #endif
 
 	if(!light->Init())
@@ -83,6 +91,13 @@ CLight* CLight::Create(CDeviceHolder* device_holder)
 bool CLight::Init(void)
 {
 	return true;
+}
+
+//=============================================================================
+// 開放処理
+//=============================================================================
+void CLight::Uninit(void)
+{
 }
 
 //---------------------------------- EOF --------------------------------------
