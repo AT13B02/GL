@@ -48,10 +48,7 @@ CBillboard::CBillboard(CDeviceHolder* device_holder) : CObject3D(device_holder,O
 	top_    = 0.0f;
 	bottom_ = 1.0f;
 
-	point_ = POINT_CENTER;
-
 	size_ = VECTOR2(0.0f,0.0f);
-
 
 	for(int i = 0;i < VERTEX_MAX;i++)
 	{
@@ -97,7 +94,7 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 	// ‰ñ“]s—ñ‚Ì‹ts—ñ‚ð”²‚«o‚·
 
 	// ƒrƒ…[s—ñ‚Ì“]’us—ñ‚ðŽæ“¾
-	view_matrix = view_matrix.GetInverse();
+	view_matrix = view_matrix.GetTranspose();
 
 	// ‚¹‚ñ’f¬•ª‚ðÁ‚·
 	view_matrix._14 = 0.0f;
@@ -121,81 +118,10 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 //=============================================================================
 void CBillboard::Set(void)
 {
-	switch(point_)
-	{
-		case POINT_CENTER:
-		{
-			position_[0] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
-			position_[1] = VECTOR2(-size_._x * 0.5f,-size_._y * 0.5f);
-			position_[2] = VECTOR2( size_._x * 0.5f, size_._y * 0.5f);
-			position_[3] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
-			break;
-		}
-		case POINT_LEFT_UP:
-		{
-			position_[0] = VECTOR2(    0.0f,     0.0f);
-			position_[1] = VECTOR2(    0.0f,-size_._y);
-			position_[2] = VECTOR2(size_._x,     0.0f);
-			position_[3] = VECTOR2(size_._x,-size_._y);
-			break;
-		}
-		case POINT_LEFT_MIDDLE:
-		{
-			position_[0] = VECTOR2(    0.0f, size_._y * 0.5f);
-			position_[1] = VECTOR2(    0.0f,-size_._y * 0.5f);
-			position_[2] = VECTOR2(size_._x, size_._y * 0.5f);
-			position_[3] = VECTOR2(size_._x,-size_._y * 0.5f);
-			break;
-		}
-		case POINT_LEFT_DOWN:
-		{
-			position_[0] = VECTOR2(    0.0f,size_._y);
-			position_[1] = VECTOR2(    0.0f,    0.0f);
-			position_[2] = VECTOR2(size_._x,size_._y);
-			position_[3] = VECTOR2(size_._x,    0.0f);
-			break;
-		}
-		case POINT_RIGHT_UP:
-		{
-			position_[0] = VECTOR2(-size_._x,     0.0f);
-			position_[1] = VECTOR2(-size_._x,-size_._y);
-			position_[2] = VECTOR2(     0.0f,     0.0f);
-			position_[3] = VECTOR2(     0.0f,-size_._y);
-			break;
-		}
-		case POINT_RIGHT_MIDDLE:
-		{
-			position_[0] = VECTOR2(-size_._x, size_._y * 0.5f);
-			position_[1] = VECTOR2(-size_._x,-size_._y * 0.5f);
-			position_[2] = VECTOR2(     0.0f, size_._y * 0.5f);
-			position_[3] = VECTOR2(     0.0f,-size_._y * 0.5f);
-			break;
-		}
-		case POINT_RIGHT_DOWN:
-		{
-			position_[0] = VECTOR2(-size_._x,size_._y);
-			position_[1] = VECTOR2(-size_._x,    0.0f);
-			position_[2] = VECTOR2(     0.0f,size_._y);
-			position_[3] = VECTOR2(     0.0f,    0.0f);
-			break;
-		}
-		case POINT_MIDDLE_UP:
-		{
-			position_[0] = VECTOR2(-size_._x * 0.5f,     0.0f);
-			position_[1] = VECTOR2(-size_._x * 0.5f,-size_._y);
-			position_[2] = VECTOR2( size_._x * 0.5f,     0.0f);
-			position_[3] = VECTOR2( size_._x * 0.5f,-size_._y);
-			break;
-		}
-		case POINT_MIDDLE_DOWN:
-		{
-			position_[0] = VECTOR2(-size_._x * 0.5f,size_._y);
-			position_[1] = VECTOR2(-size_._x * 0.5f,    0.0f);
-			position_[2] = VECTOR2( size_._x * 0.5f,size_._y);
-			position_[3] = VECTOR2( size_._x * 0.5f,    0.0f);
-			break;
-		}
-	}
+	position_[0] = VECTOR2(-size_._x * 0.5f,-size_._y * 0.5f);
+	position_[1] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
+	position_[2] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
+	position_[3] = VECTOR2( size_._x * 0.5f, size_._y * 0.5f);
 
 	CVertex3D::VERTEX_3D* pVertex3D = NULL;
 

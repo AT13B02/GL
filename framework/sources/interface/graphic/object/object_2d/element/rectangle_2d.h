@@ -64,10 +64,7 @@ public:
 		POINT_MAX,
 	};
 
-
-//////////henkou
-
-// ‰Šú‰»ˆ—
+	// ‰Šú‰»ˆ—
 	bool Init(void);
 
 	// •`‰æˆ—
@@ -93,9 +90,6 @@ public:
 
 	// ’†S‚Ìİ’è
 	void set_point(POINT point){point_ = point;}
-
-
-	/////////////////////////////////////////
 protected:
 	static const int VERTEX_MAX = (4);
 

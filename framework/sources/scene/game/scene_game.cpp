@@ -113,10 +113,10 @@ void CSceneGame::Draw(void)
 
 
 	// TODO 描画テスト
-	object_3d_manager->Draw(test_rectangle_3d_key_,VECTOR3(),VECTOR3(90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
-	object_3d_manager->Draw(test_billboard_key_,VECTOR3(),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+	object_3d_manager->Draw(test_rectangle_3d_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(-90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+	object_3d_manager->Draw(test_billboard_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
 	object_3d_manager->Draw(test_model_key_,VECTOR3(),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"",NULL);
-	object_2d_manager->Draw(test_rectangle_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"",NULL);
+	object_2d_manager->Draw(test_rectangle_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"field000",NULL);
 }
 
 //=============================================================================
@@ -178,7 +178,6 @@ void CSceneGame::Load(void)
 	// ビルボード
 	CBillboard* billboard = new CBillboard(device_holder);
 	billboard->set_size(VECTOR2(10.0f,10.0f));
-	billboard->set_point(CBillboard::POINT_CENTER);
 	billboard->Set();
 	test_billboard_key_ = object_3d_manager->AddList(billboard);
 
@@ -195,8 +194,8 @@ void CSceneGame::Load(void)
 
 	// 矩形2D
 	CRectangle2D* rectangle_2d = new CRectangle2D(device_holder);
-	rectangle_2d->set_size(VECTOR2(1000.0f,1000.0f));
-	rectangle_2d->set_point(CRectangle2D::POINT_CENTER);
+	rectangle_2d->set_size(VECTOR2(100.0f,100.0f));
+	rectangle_2d->set_point(CRectangle2D::POINT_LEFT_UP);
 	rectangle_2d->Set();
 	test_rectangle_2d_key_ = object_2d_manager->AddList(rectangle_2d);
 }

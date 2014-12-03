@@ -96,7 +96,7 @@ void CObject3DManager::Draw(void)
 	light_manager_->Set();
 
 	// レンダーステートの設定
-	//renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Set();
+	renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Set();
 
 	for(int i = 0;i < camera_manager_->number_count();i++)
 	{
@@ -114,7 +114,7 @@ void CObject3DManager::Draw(void)
 	object_3d_buffer_->Refresh();
 
 	// レンダーステートの解除
-	//renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Unset();
+	renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Unset();
 }
 
 //=============================================================================
