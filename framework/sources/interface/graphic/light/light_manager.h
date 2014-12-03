@@ -63,6 +63,9 @@ public:
 	// İ’èˆ—
 	void Set(void);
 
+	// ‰ğœˆ—
+	void Unset(void);
+
 	// ’Ç‰Áˆ—
 	void Add(CLight* light);
 

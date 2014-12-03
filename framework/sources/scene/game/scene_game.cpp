@@ -141,6 +141,7 @@ void CSceneGame::Load(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CCameraManager* camera_manager = object_manager->camera_manager();
 	CModelManager* model_manager = graphic_manager->model_manager();
+	CLightManager* light_manager = graphic_manager->light_manager();
 
 	// プレイヤーの生成
 
@@ -149,7 +150,15 @@ void CSceneGame::Load(void)
 	// カメラの生成
 
 	// ライトの生成
+	CLight* light = CLight::Create(device_holder);
 
+	light->Init();
+
+	light->SetType(CLight::TYPE_DIRECTIONAL);
+
+	light->SetPosition(VECTOR3(1.0f,0.5f,1.0f).Normalize());
+
+	light_manager->Add(light);
 
 	// TODO 以下テストプログラム
 	test_camera_ = new CCharacterCamera(interface_manager_);

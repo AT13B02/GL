@@ -55,7 +55,7 @@ CObjectManager::CObjectManager(CDeviceHolder* device_holder,CTextureManager* tex
 	camera_manager_ = camera_manager;
 
 	// ライトマネージャーの生成
-	light_manager_ = light_manager_;
+	light_manager_ = light_manager;
 
 	// オブジェクト2Dマネージャーの生成
 	//object_2d_manager_ = new CObject2DManager(graphic_device_,renderstate_manager);

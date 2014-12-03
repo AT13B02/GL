@@ -67,7 +67,7 @@ void CLightManager::Uninit(void)
 {
 	for(auto it = light_list_.begin();it != light_list_.end();++it)
 	{
-		(*it)->Uninit();
+		SAFE_RELEASE((*it));
 	}
 
 	light_list_.clear();
@@ -82,6 +82,18 @@ void CLightManager::Set(void)
 	for(auto it = light_list_.begin();it != light_list_.end();++it)
 	{
 		(*it)->Set();
+	}
+}
+
+//=============================================================================
+// İ’èˆ—
+//=============================================================================
+void CLightManager::Unset(void)
+{
+	// ƒ‰ƒCƒg‚Ìİ’è
+	for(auto it = light_list_.begin();it != light_list_.end();++it)
+	{
+		(*it)->Unset();
 	}
 }
 

@@ -3,6 +3,7 @@
 // ライトクラス
 //
 // Author		: Kenji Kabutomori
+//				: Ryo Kobayashi
 //
 //*****************************************************************************
 
@@ -64,6 +65,7 @@ public:
 
 	// ライトの設定
 	virtual void Set(void) = 0;
+
 	// ライトの設定
 	virtual void Unset(void) = 0;
 
