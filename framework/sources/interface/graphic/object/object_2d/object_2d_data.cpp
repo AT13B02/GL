@@ -67,7 +67,7 @@ void CObject2DData::Draw(void)
 	if(object_2d_ != NULL)
 	{
 		// •`‰æ
-		object_2d_->Draw(this);
+		object_2d_->Draw();
 	}
 }
 

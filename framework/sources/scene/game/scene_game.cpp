@@ -32,6 +32,13 @@
 #include "interface/graphic/model/model_manager.h"
 #include "interface/graphic/object/object_3d/element/object_model.h"
 
+
+#include "interface/graphic/object/object_3d/element/rectangle_3d.h"
+
+#include "interface/graphic/object/object_2d/element/rectangle_2d.h"
+#include "interface/graphic/object/object_2d/object_2d_manager.h"
+
+
 // common
 #include "common/common.h"
 
@@ -97,9 +104,17 @@ void CSceneGame::Draw(void)
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
+	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	// 描画
 	object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+	
+	object_2d_manager->Draw(object_2d_key_,VECTOR2(),0.0f,VECTOR2(),MATRIX4x4(),"field000",NULL);
+
+
+	//object_2d_manager->Draw(2d_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+
+	
 }
 
 //=============================================================================
@@ -128,6 +143,7 @@ void CSceneGame::Load(void)
 	CTextureManager* texture_manager = graphic_manager->texture_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
+	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 	CCameraManager* camera_manager = object_manager->camera_manager();
 	CModelManager* model_manager = graphic_manager->model_manager();
 
@@ -141,17 +157,31 @@ void CSceneGame::Load(void)
 
 	// 以下テストプログラム
 
+	CRectangle3D* pRect3D =new CRectangle3D(device_holder);
+	pRect3D->set_size(VECTOR2(100,100));
+	pRect3D->Set();
+
+	CRectangle2D* pRect2D = new CRectangle2D(device_holder);
+	pRect2D->set_size(VECTOR2(10,10));
+	pRect2D->Set();
+
 	CBillboard* billboard = new CBillboard(device_holder);
 
 	billboard->set_size(VECTOR2(10,10));
 
 	billboard->Set();
 
+
+
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
 
 	// オブジェクトの生成
-	test_object_key_ = object_3d_manager->AddList(billboard);
+	//test_object_key_ = object_3d_manager->AddList(billboard);
+
+	object_2d_key_ = object_2d_manager->AddList(pRect2D);
+
+	//test_object_key_ = object_3d_manager->AddList(pRect3D);
 
 	// ゲームのモデルのロード
 	model_manager->Load("resources/model/game");

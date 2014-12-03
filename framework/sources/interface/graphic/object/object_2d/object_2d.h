@@ -74,7 +74,8 @@ public:
 	virtual ~CObject2D(void);
 
 	// 描画処理
-	virtual void Draw(CObject2DData* pObject2DData){}
+	virtual void Draw(void){} //今はコミットビルドを通すための措置
+	virtual void Draw(CVertex2D* pVertex2D);
 
 	// 設定処理
 	virtual void Set(void) = 0;

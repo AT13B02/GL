@@ -71,6 +71,7 @@ protected:
 
 private:
 	u32 test_object_key_;
+	u32 object_2d_key_;
 	CCamera* test_camera_;
 };
 

@@ -63,4 +63,17 @@ CObject2D::~CObject2D(void)
 {
 }
 
+//void CObject2D::Draw(CObject2DData* pObject2DData)
+//{
+//
+//}
+
+void CObject2D::Draw(CVertex2D* pVertex2D)
+{
+	if(pVertex2D !=NULL)
+	{
+		//pVertex2D->D
+	}
+}
+
 //---------------------------------- EOF --------------------------------------
