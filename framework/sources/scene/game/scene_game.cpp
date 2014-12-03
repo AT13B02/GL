@@ -161,7 +161,7 @@ void CSceneGame::Load(void)
 	CLight* light = CLight::Create(device_holder);
 	light->Init();
 	light->SetType(CLight::TYPE_DIRECTIONAL);
-	light->SetPosition(VECTOR3(1.0f,0.5f,1.0f).Normalize());
+	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
 	light_manager->Add(light);
 
 
