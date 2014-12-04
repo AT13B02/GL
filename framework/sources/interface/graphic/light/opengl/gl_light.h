@@ -53,6 +53,10 @@ public:
 
 	// ライトの設定
 	void Set(void);
+
+	// ライトの設定を切る
+	void Unset(void);
+
 protected:
 
 private:

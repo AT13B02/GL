@@ -70,6 +70,8 @@ public:
 
 	// オブジェクト3Dマネージャーの取得
 	CObject3DManager* object_3d_manager(void){return object_3d_manager_;}
+
+	// カメラマネージャーの取得
 	CCameraManager* camera_manager(void){return camera_manager_;}
 
 private:

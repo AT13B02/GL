@@ -2,22 +2,21 @@
 //
 // XAudio2サウンド処理 [xaudio2_sound.h]
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/03/28(Fri)
-// Version		: 1.00
-// Update Date	: 2014/09/11(Thu)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "sound.h"
-#include "xaudio2_sound.h"
-#include "sound_device.h"
-#include "xaudio2.h"
+// sound
+#include "interface/sound/sound.h"
+#include "interface/sound/xaudio2/xaudio2_sound.h"
+#include "interface/sound/device/sound_device.h"
+#include "interface/sound/device/xaudio2/xaudio2.h"
 
-#include "common.h"
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -35,19 +34,17 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CXAudio2Sound::CXAudio2Sound(CSoundDevice* pSoundDevice)
+CXAudio2Sound::CXAudio2Sound(CSoundDevice* sound_device) : CSound(sound_device)
 {
-	m_bPlayFlag = false;
+	is_play_ = false;
 
-	m_nSoundId = -1;
+	sound_id_ = -1;
 
-	m_pSourceVoice = NULL;
+	source_voice_ = NULL;
 
-	m_pDataAudio = NULL;
+	data_audio_ = NULL;
 
-	m_SizeAudio = 0;
-
-	m_pSoundDevice = pSoundDevice;
+	size_audio_ = 0;
 }
 
 //=============================================================================
@@ -64,15 +61,15 @@ bool CXAudio2Sound::Init(void)
 {
 	CSound::Init();
 
-	m_nSoundId = -1;
+	sound_id_ = -1;
 
-	m_pSourceVoice = NULL;
+	source_voice_ = NULL;
 
-	m_pDataAudio = NULL;
+	data_audio_ = NULL;
 
-	m_SizeAudio = 0;
+	size_audio_ = 0;
 
-	m_bPlayFlag = false;
+	is_play_ = false;
 
 	return true;
 }
@@ -86,13 +83,13 @@ void CXAudio2Sound::Uninit(void)
 	Stop();
 
 	// ソースボイスの破棄
-	if(m_pSourceVoice != NULL)
+	if(source_voice_ != NULL)
 	{
-		m_pSourceVoice->DestroyVoice();
-		m_pSourceVoice = NULL;
+		source_voice_->DestroyVoice();
+		source_voice_ = NULL;
 
 		// オーディオデータの開放
-		SAFE_DELETE(m_pDataAudio);
+		SAFE_DELETE(data_audio_);
 	}
 
 	CSound::Uninit();
@@ -101,7 +98,7 @@ void CXAudio2Sound::Uninit(void)
 //=============================================================================
 // ロード処理
 //=============================================================================
-bool CXAudio2Sound::Load(const char* pFilename)
+bool CXAudio2Sound::Load(const s8* filename)
 {
 	HANDLE hFile;
 	HRESULT hr;
@@ -112,14 +109,14 @@ bool CXAudio2Sound::Load(const char* pFilename)
 	XAUDIO2_BUFFER buffer;
 
 	// ファイル名の保存
-	SetFilename(pFilename);
+	SetFilename(filename);
 
 	// バッファのクリア
 	memset(&wfx, 0, sizeof(WAVEFORMATEXTENSIBLE));
 	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
 
 	// サウンドデータファイルの生成
-	hFile = CreateFile(pFilename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+	hFile = CreateFile(filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 
 	if(hFile == INVALID_HANDLE_VALUE)
 	{
@@ -133,14 +130,14 @@ bool CXAudio2Sound::Load(const char* pFilename)
 	}
 	
 	// WAVEファイルのチェック
-	hr = m_pSoundDevice->GetDevice()->CheckChunk(hFile, 'FFIR', &dwChunkSize, &dwChunkPosition);
+	hr = sound_device_->device()->CheckChunk(hFile, 'FFIR', &dwChunkSize, &dwChunkPosition);
 
 	if(FAILED(hr))
 	{
 		return false;
 	}
 
-	hr = m_pSoundDevice->GetDevice()->ReadChunkData(hFile,&dwFiletype,sizeof(DWORD),dwChunkPosition);
+	hr = sound_device_->device()->ReadChunkData(hFile,&dwFiletype,sizeof(DWORD),dwChunkPosition);
 
 	if(FAILED(hr))
 	{
@@ -152,29 +149,29 @@ bool CXAudio2Sound::Load(const char* pFilename)
 	}
 	
 	// フォーマットチェック
-	hr = m_pSoundDevice->GetDevice()->CheckChunk(hFile,' tmf',&dwChunkSize,&dwChunkPosition);
+	hr = sound_device_->device()->CheckChunk(hFile,' tmf',&dwChunkSize,&dwChunkPosition);
 
 	if(FAILED(hr))
 	{
 		return false;
 	}
-	hr = m_pSoundDevice->GetDevice()->ReadChunkData(hFile,&wfx,dwChunkSize,dwChunkPosition);
+	hr = sound_device_->device()->ReadChunkData(hFile,&wfx,dwChunkSize,dwChunkPosition);
 	if(FAILED(hr))
 	{
 		return false;
 	}
 
 	// オーディオデータ読み込み
-	hr = m_pSoundDevice->GetDevice()->CheckChunk(hFile,'atad', &m_SizeAudio, &dwChunkPosition);
+	hr = sound_device_->device()->CheckChunk(hFile,'atad', &size_audio_, &dwChunkPosition);
 
 	if(FAILED(hr))
 	{
 		return false;
 	}
 
-	m_pDataAudio = (BYTE*)malloc(m_SizeAudio);
+	data_audio_ = new BYTE[size_audio_];
 
-	hr = m_pSoundDevice->GetDevice()->ReadChunkData(hFile,m_pDataAudio,m_SizeAudio,dwChunkPosition);
+	hr = sound_device_->device()->ReadChunkData(hFile,data_audio_,size_audio_,dwChunkPosition);
 
 	if(FAILED(hr))
 	{
@@ -182,7 +179,7 @@ bool CXAudio2Sound::Load(const char* pFilename)
 	}
 	
 	// ソースボイスの生成
-	hr = m_pSoundDevice->GetDevice()->GetXAudio2()->CreateSourceVoice(&m_pSourceVoice, &(wfx.Format));
+	hr = sound_device_->device()->xaudio2()->CreateSourceVoice(&source_voice_, &(wfx.Format));
 
 	if(FAILED(hr))
 	{
@@ -190,13 +187,13 @@ bool CXAudio2Sound::Load(const char* pFilename)
 	}
 
 	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
-	buffer.AudioBytes = m_SizeAudio;
-	buffer.pAudioData = m_pDataAudio;
+	buffer.AudioBytes = size_audio_;
+	buffer.pAudioData = data_audio_;
 	buffer.Flags      = XAUDIO2_END_OF_STREAM;
 	buffer.LoopCount  = 0;
 
 	// オーディオバッファの登録
-	m_pSourceVoice->SubmitSourceBuffer(&buffer);
+	source_voice_->SubmitSourceBuffer(&buffer);
 
 	return true;
 }
@@ -209,8 +206,8 @@ void CXAudio2Sound::Play(bool bLoopFlag)
 	XAUDIO2_BUFFER buffer;
 
 	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
-	buffer.AudioBytes = m_SizeAudio;
-	buffer.pAudioData = m_pDataAudio;
+	buffer.AudioBytes = size_audio_;
+	buffer.pAudioData = data_audio_;
 	buffer.Flags      = XAUDIO2_END_OF_STREAM;
 
 	if(bLoopFlag)
@@ -223,20 +220,20 @@ void CXAudio2Sound::Play(bool bLoopFlag)
 	}
 
 	// 再生中
-	if(m_bPlayFlag)
+	if(is_play_)
 	{
 		// 停止
 		Stop();
 	}
 
 	// オーディオバッファの登録
-	m_pSourceVoice->SubmitSourceBuffer(&buffer);
+	source_voice_->SubmitSourceBuffer(&buffer);
 
 	// 再生
-	m_pSourceVoice->Start(0);
+	source_voice_->Start(0);
 
 	// 再生フラグを立てる
-	m_bPlayFlag = true;
+	is_play_ = true;
 }
 
 //=============================================================================
@@ -245,17 +242,17 @@ void CXAudio2Sound::Play(bool bLoopFlag)
 void CXAudio2Sound::Stop(void)
 {
 	// 再生中
-	if(m_bPlayFlag)
+	if(is_play_)
 	{
 		// 一時停止
-		m_pSourceVoice->Stop(0);
+		source_voice_->Stop(0);
 
 		// オーディオバッファの削除
-		m_pSourceVoice->FlushSourceBuffers();
+		source_voice_->FlushSourceBuffers();
 	}
 
 	// 再生フラグを折る
-	m_bPlayFlag = false;
+	is_play_ = false;
 }
 
 //=============================================================================
@@ -264,14 +261,14 @@ void CXAudio2Sound::Stop(void)
 void CXAudio2Sound::Pause(void)
 {
 	// 再生中
-	if(m_bPlayFlag)
+	if(is_play_)
 	{
 		// 一時停止
-		m_pSourceVoice->Stop(0);
+		source_voice_->Stop(0);
 	}
 
 	// 再生フラグを折る
-	m_bPlayFlag = false;
+	is_play_ = false;
 }
 
 //---------------------------------- EOF --------------------------------------

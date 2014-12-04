@@ -32,7 +32,8 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CLightManager::CLightManager(CDeviceHolder* device_holder)
+CLightManager::CLightManager(CDeviceHolder* device_holder) :
+number_light_(0)
 {
 	// グラフィックデバイスの設定
 	device_holder_ = device_holder;
@@ -67,7 +68,7 @@ void CLightManager::Uninit(void)
 {
 	for(auto it = light_list_.begin();it != light_list_.end();++it)
 	{
-		(*it)->Uninit();
+		SAFE_RELEASE((*it));
 	}
 
 	light_list_.clear();
@@ -79,9 +80,24 @@ void CLightManager::Uninit(void)
 void CLightManager::Set(void)
 {
 	// ライトの設定
+	int light_index = 0;
+	for(auto it = light_list_.begin();it != light_list_.end() && light_index < CLight::LIGHT_MAX;++it)
+	{
+		(*it)->SetLightIndex(light_index);
+		(*it)->Set();
+		light_index++;
+	}
+}
+
+//=============================================================================
+// 設定処理
+//=============================================================================
+void CLightManager::Unset(void)
+{
+	// ライトの設定
 	for(auto it = light_list_.begin();it != light_list_.end();++it)
 	{
-		(*it)->Set();
+		(*it)->Unset();
 	}
 }
 
@@ -90,8 +106,13 @@ void CLightManager::Set(void)
 //=============================================================================
 void CLightManager::Add(CLight* light)
 {
+	if(number_light_ >= CLight::LIGHT_MAX)
+	{
+		return;
+	}
 	// ライトの追加
 	light_list_.push_back(light);
+	number_light_++;
 }
 
 //---------------------------------- EOF --------------------------------------

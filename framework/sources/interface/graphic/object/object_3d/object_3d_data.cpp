@@ -38,7 +38,6 @@ CObject3DData::CObject3DData(void)
 	position_ = VECTOR3(0.0f,0.0f,0.0f);
 	scale_ = VECTOR3(1.0f,1.0f,1.0f);
 	rotation_ = VECTOR3(0.0f,0.0f,0.0f);
-	renderstate_ = NULL;
 	matrix_.SetIdentity();
 }
 

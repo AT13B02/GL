@@ -63,6 +63,9 @@ public:
 	// İ’èˆ—
 	void Set(void);
 
+	// ‰ğœˆ—
+	void Unset(void);
+
 	// ’Ç‰Áˆ—
 	void Add(CLight* light);
 
@@ -71,6 +74,8 @@ protected:
 private:
 	CDeviceHolder* device_holder_;
 	std::list<CLight*> light_list_;
+
+	s32 number_light_;
 };
 
 #endif	// _LIGHT_MANAGER_H_

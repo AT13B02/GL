@@ -11,8 +11,8 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _INTERFACE_MANAGER_H_
-#define _INTERFACE_MANAGER_H_
+#ifndef _RENDERSTATE_MANAGER_H_
+#define _RENDERSTATE_MANAGER_H_
 
 //*****************************************************************************
 // インクルード

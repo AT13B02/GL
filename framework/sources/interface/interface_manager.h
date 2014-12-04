@@ -70,6 +70,9 @@ public:
 	// ロード終了
 	void EndLoad(void);
 
+	// ウィンドウデータの取得
+	WINDOW_DATA* window_data(void){return window_data_;}
+
 	// インプットマネージャーの取得
 	CInputManager* input_manager(void){return input_manager_;}
 

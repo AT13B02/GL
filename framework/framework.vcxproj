@@ -32,6 +32,7 @@
     <ClInclude Include="sources\debug_tool\debug.h" />
     <ClInclude Include="sources\debug_tool\debug_console.h" />
     <ClInclude Include="sources\debug_tool\debug_manager.h" />
+    <ClInclude Include="sources\interface\character\camera\character_camera.h" />
     <ClInclude Include="sources\interface\character\character_manager_interface.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera_manager.h" />
@@ -47,6 +48,12 @@
     <ClInclude Include="sources\interface\graphic\model\model_manager.h" />
     <ClInclude Include="sources\interface\graphic\model\opengl\gl_model.h" />
     <ClInclude Include="sources\interface\graphic\object\object.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_buffer.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_data.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_list.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_manager.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\billboard.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_3d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_model.h" />
@@ -56,6 +63,7 @@
     <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_list.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_manager.h" />
     <ClInclude Include="sources\interface\graphic\object\object_manager.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_manager_interface.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\renderstate_manager.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.h" />
@@ -67,7 +75,9 @@
     <ClInclude Include="sources\interface\graphic\texture\opengl\gl_texture.h" />
     <ClInclude Include="sources\interface\graphic\texture\texture.h" />
     <ClInclude Include="sources\interface\graphic\texture\texture_manager.h" />
+    <ClInclude Include="sources\interface\graphic\vertex\opengl\gl_vertex_2d.h" />
     <ClInclude Include="sources\interface\graphic\vertex\opengl\gl_vertex_3d.h" />
+    <ClInclude Include="sources\interface\graphic\vertex\vertex_2d.h" />
     <ClInclude Include="sources\interface\graphic\vertex\vertex_3d.h" />
     <ClInclude Include="sources\interface\input\device\input_device.h" />
     <ClInclude Include="sources\interface\input\device\keyboard.h" />
@@ -80,6 +90,7 @@
     <ClInclude Include="sources\interface\sound\device\xaudio2\xaudio2.h" />
     <ClInclude Include="sources\interface\sound\sound.h" />
     <ClInclude Include="sources\interface\sound\sound_manager.h" />
+    <ClInclude Include="sources\interface\sound\xaudio2\xaudio2_sound.h" />
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
@@ -107,6 +118,7 @@
     <ClCompile Include="sources\debug_tool\debug.cpp" />
     <ClCompile Include="sources\debug_tool\debug_console.cpp" />
     <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
+    <ClCompile Include="sources\interface\character\camera\character_camera.cpp" />
     <ClCompile Include="sources\interface\character\character_manager_interface.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp" />
@@ -122,6 +134,12 @@
     <ClCompile Include="sources\interface\graphic\model\model_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\model\opengl\gl_model.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_buffer.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_data.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_list.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\billboard.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_3d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_model.cpp" />
@@ -131,6 +149,7 @@
     <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_list.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_manager_interface.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\renderstate_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.cpp" />
@@ -142,7 +161,9 @@
     <ClCompile Include="sources\interface\graphic\texture\opengl\gl_texture.cpp" />
     <ClCompile Include="sources\interface\graphic\texture\texture.cpp" />
     <ClCompile Include="sources\interface\graphic\texture\texture_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\vertex\opengl\gl_vertex_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\vertex\opengl\gl_vertex_3d.cpp" />
+    <ClCompile Include="sources\interface\graphic\vertex\vertex_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\vertex\vertex_3d.cpp" />
     <ClCompile Include="sources\interface\input\device\input_device.cpp" />
     <ClCompile Include="sources\interface\input\device\keyboard.cpp" />
@@ -154,6 +175,7 @@
     <ClCompile Include="sources\interface\sound\device\xaudio2\xaudio2.cpp" />
     <ClCompile Include="sources\interface\sound\sound.cpp" />
     <ClCompile Include="sources\interface\sound\sound_manager.cpp" />
+    <ClCompile Include="sources\interface\sound\xaudio2\xaudio2_sound.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />
