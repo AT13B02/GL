@@ -193,7 +193,7 @@ void CSceneGame::Load(void)
 
 	// ‹éŒ`2D
 	CRectangle2D* rectangle_2d = new CRectangle2D(device_holder);
-	rectangle_2d->set_size(VECTOR2(100.0f,100.0f));
+	rectangle_2d->set_size(VECTOR2(10.0f,100.0f));
 	rectangle_2d->set_point(CRectangle2D::POINT_LEFT_UP);
 	rectangle_2d->Set();
 	test_rectangle_2d_key_ = object_2d_manager->AddList(rectangle_2d);

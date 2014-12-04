@@ -403,6 +403,9 @@
     <ClInclude Include="sources\interface\graphic\object\object_manager_interface.h">
       <Filter>sources\interface\graphic\object</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\element\fade_2d.h">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -653,6 +656,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\object\object_manager_interface.cpp">
       <Filter>sources\interface\graphic\object</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\element\fade_2d.cpp">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

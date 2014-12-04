@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// シーンマネージャークラス
+// 矩形2Dクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -11,13 +11,13 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_MANAGER_H_
-#define _SCENE_MANAGER_H_
+#ifndef _FADE_2D_H_
+#define _FADE_2D_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic/basic.h"
+#include "../object_2d.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -34,71 +34,60 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CScene;
-class CSceneFactory;
-class CThread;
-class CInterfaceManager;
 class CTexture;
-class CFade2D;
+class CGraphicsDevice;
+class CVertex3D;
+class CRectangle2D;
+class CInterfaceManager;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneManager : public CBasic
+class CFade2D : public CObject2D
 {
 public:
+
 	// コンストラクタ
-	CSceneManager(CInterfaceManager* interface_manager);
+	CFade2D(CDeviceHolder* device_holder,CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CSceneManager(void);
+	virtual ~CFade2D(void);
 
-	// 初期化
+	enum FADE_TYPE
+	{
+		FADE_TYPE_NONE,
+		FADE_TYPE_IN,
+		FADE_TYPE_IN_END,
+		FADE_TYPE_OUT,
+		FADE_TYPE_OUT_END,
+	};
+
+	// 初期化処理
 	bool Init(void);
 
-	// 更新
-	void Update(void);
+	// 描画処理
+	void Draw(CObject2DData* pObject2DData);
 
-	// 描画
-	void Draw(void);
-
-	// 終了
+	// 終了処理
 	void Uninit(void);
 
-	// 次のシーンを設定
-	void set_next_scene(CSceneFactory* scene_factory){next_scene_ = scene_factory;}
-
-	// ロードフラグの取得
-	bool load_flag(void){return load_flag_;}
+	// 頂点情報の設定
+	void Set(void);
 
 protected:
+	// 頂点情報
+	CVertex2D* vertex_2d_;
+	CRectangle2D* rectangle_2d_;
+	u32 rectangle_2d_key_;
+	FADE_TYPE fadetype_;
+	f32 alpha_;
 
-private:
-	// 現在のシーン
-	CScene* scene_;
-
-	// ロード中のシーン
-	CScene* load_;
-
-	// 次のシーンのファクトリ
-	CSceneFactory* next_scene_;
-
-	// 入力デバイス
+	// インターフェースマネージャー
 	CInterfaceManager* interface_manager_;
+private:
 
-	// ロード中に使用するスレッド
-	CThread* thread_;
-
-	// ロードフラグ
-	volatile bool load_flag_;
-
-	// Fade
-	CFade2D* fade_2d_;
-
-	// ロード用関数
-	static void Load(CSceneManager* scene_manager);
 };
 
-#endif	// _SCENE_MANAGER_H_
+#endif	// _RECTANGLE_2D_H_
 
 //---------------------------------- EOF --------------------------------------

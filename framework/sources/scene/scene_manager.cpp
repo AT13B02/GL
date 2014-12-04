@@ -28,6 +28,9 @@
 #include "common/thread/thread.h"
 #include "common/common.h"
 
+//fade
+#include "interface/graphic/object/object_2d/element/fade_2d.h"
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -64,6 +67,7 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 	next_scene_ = new CTitleFactory();
 
 	// フェード
+	fade_2d_ = new CFade2D(interface_manager_->graphic_manager()->device_holder(),interface_manager_);
 }
 
 //=============================================================================
@@ -71,6 +75,7 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 //=============================================================================
 CSceneManager::~CSceneManager(void)
 {
+	
 }
 
 //=============================================================================
@@ -152,6 +157,8 @@ void CSceneManager::Update(void)
 //=============================================================================
 void CSceneManager::Draw(void)
 {
+	fade_2d_->Draw(nullptr);
+
 	// ロードしていないことを確認
 	if(!load_flag_)
 	{
@@ -186,6 +193,9 @@ void CSceneManager::Uninit(void)
 
 	// 次のシーンの破棄
 	SAFE_DELETE(next_scene_);
+
+	// フェードの破棄
+	SAFE_DELETE(fade_2d_);
 }
 
 //=============================================================================
