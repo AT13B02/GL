@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// オブジェクト2Dデータクラス
+// レンダーステートワイヤーフレームクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -9,14 +9,27 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "object_2d.h"
-#include "object_2d_data.h"
+// basic
+#include "basic/application.h"
+
+#include "interface/graphic/renderstate/state/renderstate_wireframe.h"
+#ifdef _USING_OPENGL_
+#include "interface/graphic/renderstate/state/opengl/gl_renderstate_wireframe.h"
+#endif
+
+#ifdef _USING_DIRECTX_
+#include "interface/graphic/renderstate/state/directx/dx_renderstate_2d.h"
+#endif
 
 // common
 #include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
+//*****************************************************************************
+
+//*****************************************************************************
+// 構造体定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -30,48 +43,33 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CObject2DData::CObject2DData(void)
+CRenderstateWireframe::CRenderstateWireframe(CDeviceHolder* device_holder) : CRenderstate(device_holder)
 {
-	object_2d_ = NULL;
-	texture_name_ = "";
-	position_ = VECTOR2(0.0f,0.0f);
-	scale_ = VECTOR2(1.0f,1.0f);
-	rotation_ = 0.0f;
-	matrix_.SetIdentity();
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CObject2DData::~CObject2DData(void)
+CRenderstateWireframe::~CRenderstateWireframe(void)
 {
 }
 
 //=============================================================================
-// 初期化処理
+// 作成処理
 //=============================================================================
-bool CObject2DData::Init(void)
+CRenderstateWireframe* CRenderstateWireframe::Create(CDeviceHolder* device_holder)
 {
-	return true;
-}
+	CRenderstateWireframe* renderstate_wireframe = NULL;
 
-//=============================================================================
-// 描画処理
-//=============================================================================
-void CObject2DData::Draw(void)
-{
-	if(object_2d_ != NULL)
-	{
-		// 描画
-		object_2d_->Draw(this);
-	}
-}
+#ifdef _USING_OPENGL_
+	renderstate_wireframe = new CGLRenderstateWireframe(device_holder);
+#endif
 
-//=============================================================================
-// 終了処理
-//=============================================================================
-void CObject2DData::Uninit(void)
-{
+#ifdef _USING_DIRECTX_
+	renderstate_2d = new CGLRenderstateWireframe(device_holder);
+#endif
+
+	return renderstate_wireframe;
 }
 
 //---------------------------------- EOF --------------------------------------

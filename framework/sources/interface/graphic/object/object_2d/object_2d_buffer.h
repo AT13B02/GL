@@ -42,6 +42,7 @@ class CObject2DData;
 class CCamera;
 class CModelManager;
 class CTextureManager;
+class CRenderstateManager;
 
 //*****************************************************************************
 // クラス定義
@@ -59,7 +60,7 @@ public:
 	bool Init(void);
 
 	// 描画
-	void Draw(CCamera* camera,CTextureManager* texture_manager);
+	void Draw(CCamera* camera,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager);
 
 	// 終了
 	void Uninit(void);
@@ -71,7 +72,7 @@ public:
 	void Refresh(void);
 
 private:
-// バッファリスト
+	// バッファリスト
 	std::list<CObject2DData*> object_2d_data_list_;
 };
 

@@ -99,7 +99,7 @@ void CObject2DManager::Draw(void)
 		//camera = camera_manager_->SetCamera(i);
 
 		// バッファの描画処理
-		object_2d_buffer_->Draw(camera,texture_manager_);
+		object_2d_buffer_->Draw(camera,texture_manager_,renderstate_manager_);
 	//}
 
 	// TODO バッファの破棄 スレッドを分けたらなくなる
@@ -166,10 +166,12 @@ void CObject2DManager::Draw(const u32& object_key,const VECTOR2& position,const 
 	object_2d_data->set_texture_name(texture_name);
 
 	// レンダーステートの設定
-	object_2d_data->set_renderstate(NULL);
+	object_2d_data->set_renderstate_list(renderstate_list_);
 
 	// バッファリストに追加
 	object_2d_buffer_->AddList(object_2d_data);
+
+	renderstate_list_.clear();
 }
 
 //---------------------------------- EOF --------------------------------------

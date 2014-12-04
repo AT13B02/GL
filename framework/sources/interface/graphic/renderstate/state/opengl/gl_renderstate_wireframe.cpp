@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// オブジェクト2Dバッファクラス
+// OpenGLレンダーステートワイヤーフレームクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -9,14 +9,23 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "object_2d_buffer.h"
-#include "object_2d_data.h"
+// basic
+#include "basic/application.h"
+
+#ifdef _USING_OPENGL_
+// graphic
+#include "interface/graphic/renderstate/state/opengl/gl_renderstate_wireframe.h"
+#include "interface/graphic/device/opengl/opengl.h"
 
 // common
 #include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
+//*****************************************************************************
+
+//*****************************************************************************
+// 構造体定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -30,82 +39,51 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CObject2DBuffer::CObject2DBuffer(void)
+CGLRenderstateWireframe::CGLRenderstateWireframe(CDeviceHolder* device_holder) : CRenderstateWireframe(device_holder)
 {
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CObject2DBuffer::~CObject2DBuffer(void)
+CGLRenderstateWireframe::~CGLRenderstateWireframe(void)
 {
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CObject2DBuffer::Init(void)
+bool CGLRenderstateWireframe::Init(void)
 {
 	return true;
 }
 
 //=============================================================================
-// 描画
-//=============================================================================
-void CObject2DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager)
-{
-	// TODO zソート
-
-	// リストの開始
-	for(auto it = object_2d_data_list_.begin();it != object_2d_data_list_.end();++it)
-	{
-		// カメラのセット
-		(*it)->set_camera(camera);
-
-		// テクスチャマネージャの設定
-		(*it)->set_texture_manager(texture_manager);
-
-		// モデルマネージャの設定
-		//(*it)->set_model_manager(model_manager);
-
-		// レンダーステートマネージャの設定
-		(*it)->set_renderstate_manager(renderstate_manager);
-
-		// 描画
-		(*it)->Draw();
-	}
-}
-
-//=============================================================================
 // 終了
 //=============================================================================
-void CObject2DBuffer::Uninit(void)
+void CGLRenderstateWireframe::Uninit(void)
 {
-	Refresh();
+
 }
 
 //=============================================================================
-// 追加
+// 設定
 //=============================================================================
-void CObject2DBuffer::AddList(CObject2DData* pObject2DData)
+void CGLRenderstateWireframe::Set(void)
 {
-	// データの追加
-	object_2d_data_list_.push_back(pObject2DData);
+	// ワイヤーフレーム
+	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 }
 
 //=============================================================================
-// リフレッシュ
+// 解除
 //=============================================================================
-void CObject2DBuffer::Refresh(void)
+void CGLRenderstateWireframe::Unset(void)
 {
-	// 中身の破棄
-	for(auto it = object_2d_data_list_.begin();it != object_2d_data_list_.end();++it)
-	{
-		SAFE_RELEASE((*it));
-	}
-
-	// バッファリストのクリア
-	object_2d_data_list_.clear();
+	// 元に戻す
+	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 }
+
+#endif	// _USING_OPENGL_
 
 //---------------------------------- EOF --------------------------------------

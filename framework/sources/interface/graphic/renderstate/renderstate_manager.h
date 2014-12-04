@@ -52,6 +52,7 @@ public:
 		TYPE_2D,			// 2D全体に掛ける
 		TYPE_3D,			// 3D全体に掛ける
 		TYPE_LIGHT_OFF,		// ライトのオフ
+		TYPE_WIREFRAME,		// ワイヤーフレーム
 		TYPE_MAX			// タイプの最大数
 	};
 

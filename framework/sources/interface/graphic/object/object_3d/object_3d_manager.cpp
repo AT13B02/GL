@@ -173,7 +173,7 @@ void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const 
 	object_3d_data->set_texture_name(texture_name);
 
 	// レンダーステートの設定
-	//object_3d_data->set_renderstate(renderstate_list_);
+	object_3d_data->set_renderstate(renderstate_list_);
 
 	// バッファリストに追加
 	object_3d_buffer_->AddList(object_3d_data);
