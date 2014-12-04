@@ -51,6 +51,7 @@ public:
 		TYPE_ALL = 0,		// 全体に掛ける
 		TYPE_2D,			// 2D全体に掛ける
 		TYPE_3D,			// 3D全体に掛ける
+		TYPE_LIGHT_OFF,		// ライトのオフ
 		TYPE_MAX			// タイプの最大数
 	};
 

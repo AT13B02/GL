@@ -92,10 +92,10 @@ public:
 	CObject3D* object_3d(void){return object_3d_;}
 	std::string& texture_name(void){return texture_name_;}
 	std::list<u32>& renderstate_list(void){return renderstate_list_;}
-	CRenderstateManager* renderstate_manager(void){return renderstate_manager_;}
 	CCamera* camera(void){return camera_;}
 	CModelManager* model_manager(void){return model_manager_;}
 	CTextureManager* texture_manager(void){return texture_manager_;}
+	CRenderstateManager* renderstate_manager(void){return renderstate_manager_;}
 
 private:
 	VECTOR3 position_;

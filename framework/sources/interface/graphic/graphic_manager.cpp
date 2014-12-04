@@ -9,6 +9,7 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+
 // graphic
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/device/device_holder.h"

@@ -1,27 +1,24 @@
 //*****************************************************************************
 //
-// オブジェクト3Dバッファクラス
+// レンダーステートライトオフクラス
 //
 // Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 多重定義防止
+// 二重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _OBJECT_3D_BUFFER_H_
-#define _OBJECT_3D_BUFFER_H_
+#ifndef _RENDERSTATE_LIGHT_OFF_H_
+#define _RENDERSTATE_LIGHT_OFF_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// stl
-#include <list>
-
-// basic
-#include "basic/basic.h"
+// graphic
+#include "interface/graphic/renderstate/state/renderstate.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,44 +35,34 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CObject3DData;
-class CCamera;
-class CModelManager;
-class CTextureManager;
-class CRenderstateManager;
+class CDeviceHolder;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CObject3DBuffer : public CBasic
+class CRenderstateLightOff : public CRenderstate
 {
 public:
 	// コンストラクタ
-	CObject3DBuffer(void);
+	CRenderstateLightOff(CDeviceHolder* device_holder);
 
 	// デストラクタ
-	~CObject3DBuffer(void);
+	virtual ~CRenderstateLightOff(void);
 
-	// 初期化
-	bool Init(void);
+	virtual bool Init(void) = 0;
 
-	// 描画
-	void Draw(CCamera* camera,CTextureManager* texture_manager,CModelManager* model_manager,CRenderstateManager* renderstate_manager);
+	virtual void Uninit(void) = 0;
 
-	// 終了
-	void Uninit(void);
+	virtual void Set(void) = 0;
 
-	// 追加
-	void AddList(CObject3DData* pObjectData);
+	virtual void Unset(void) = 0;
 
-	// リフレッシュ
-	void Refresh(void);
+	// 作成処理
+	static CRenderstateLightOff* Create(CDeviceHolder* device_holder);
 
 private:
-	// バッファリスト
-	std::list<CObject3DData*> object_3d_data_list_;
 };
 
-#endif	// _OBJECT_3D_BUFFER_H_
+#endif // _RENDERSTATE_LIGHT_OFF_H_
 
 //---------------------------------- EOF --------------------------------------

@@ -1,27 +1,28 @@
 //*****************************************************************************
 //
-// オブジェクト3Dバッファクラス
+// OpenGLレンダーステートライトオフクラス
 //
 // Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 多重定義防止
+// 二重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _OBJECT_3D_BUFFER_H_
-#define _OBJECT_3D_BUFFER_H_
+#ifndef _GL_RENDERSTATE_LIGHT_OFF_H_
+#define _GL_RENDERSTATE_LIGHT_OFF_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// stl
-#include <list>
-
 // basic
-#include "basic/basic.h"
+#include "basic/application.h"
+
+#ifdef _USING_OPENGL_
+// graphic
+#include "interface/graphic/renderstate/state/renderstate_light_off.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,44 +39,36 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CObject3DData;
-class CCamera;
-class CModelManager;
-class CTextureManager;
-class CRenderstateManager;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CObject3DBuffer : public CBasic
+class CGLRenderstateLightOff : public CRenderstateLightOff
 {
 public:
 	// コンストラクタ
-	CObject3DBuffer(void);
+	CGLRenderstateLightOff(CDeviceHolder* device_holder);
 
 	// デストラクタ
-	~CObject3DBuffer(void);
+	virtual ~CGLRenderstateLightOff(void);
 
 	// 初期化
 	bool Init(void);
 
-	// 描画
-	void Draw(CCamera* camera,CTextureManager* texture_manager,CModelManager* model_manager,CRenderstateManager* renderstate_manager);
-
 	// 終了
 	void Uninit(void);
 
-	// 追加
-	void AddList(CObject3DData* pObjectData);
+	// 設定
+	void Set(void);
 
-	// リフレッシュ
-	void Refresh(void);
+	// 解除
+	void Unset(void);
 
 private:
-	// バッファリスト
-	std::list<CObject3DData*> object_3d_data_list_;
 };
 
-#endif	// _OBJECT_3D_BUFFER_H_
+#endif // _USING_OPENGL_
+
+#endif // _GL_RENDERSTATE_LIGHT_OFF_H_
 
 //---------------------------------- EOF --------------------------------------

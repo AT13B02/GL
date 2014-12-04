@@ -18,6 +18,7 @@
 #include "interface/graphic/vertex/vertex_3d.h"
 #include "interface/graphic/texture/texture_manager.h"
 #include "interface/graphic/camera/camera.h"
+#include "interface/graphic/renderstate/renderstate_manager.h"
 
 // common
 #include "common/common.h"
@@ -88,6 +89,7 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 {
 	MATRIX4x4 matrix;
 	CTexture* texture = object_3d_data->texture_manager()->Get(object_3d_data->texture_name().c_str());
+	CRenderstate* renderstate = NULL;//object_3d_data->renderstate();
 	MATRIX4x4 view_matrix = object_3d_data->camera()->view_matrix();
 
 	// ‰ñ“]s—ñ‚Ì‹ts—ñ‚ğ”²‚«o‚·
@@ -108,6 +110,8 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 	matrix = GetWorldMatrix(object_3d_data);
 
 	matrix = view_matrix * matrix;
+
+	object_3d_data->renderstate_list().push_back(CRenderstateManager::TYPE_LIGHT_OFF);
 
 	CObject3D::Draw(matrix,vertex_3d_,texture,object_3d_data->renderstate_manager(),object_3d_data->renderstate_list());
 }

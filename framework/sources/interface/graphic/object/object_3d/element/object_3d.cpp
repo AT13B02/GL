@@ -9,8 +9,6 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <list>
-
 // basic
 #include "basic/application.h"
 
@@ -125,7 +123,7 @@ void CObject3D::Draw(const MATRIX4x4& matrix,CModel* model,CRenderstateManager* 
 {
 	for(auto it = renderstate_list.begin();it != renderstate_list.end();++it)
 	{
-		renderstate_manager->renderstate((CRenderstateManager::TYPE)*it)->Unset();
+		renderstate_manager->renderstate((CRenderstateManager::TYPE)*it)->Set();
 	}
 
 	if(model != NULL)
