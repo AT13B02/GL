@@ -1,8 +1,11 @@
 //*****************************************************************************
 //
-// プレイヤークラス
+// プレイヤークラス [player.cpp]
 //
-// Author		: Chiharu Kamiyama
+// Author		: KENJI KABUTOMORI
+// Date			: 2014/09/25(Thu)
+// Version		: 1.00
+// Update Date	: 2014/09/25(Thu)
 //
 //*****************************************************************************
 
@@ -10,84 +13,83 @@
 // インクルード
 //*****************************************************************************
 #include "player.h"
-#include "interface/graphic/model/model.h"
-#include "interface/graphic/object/object_3d/element/object_model.h"
-#include "interface/interface_manager.h"
-#include "interface/graphic/graphic_manager.h"
-#include "interface/graphic/object/object_manager.h"
-#include "interface/graphic/object/object_3d/object_3d_manager.h"
 
+#include "interface_manager.h"
+#include "object_manager.h"
+#include "object_3d_manager.h"
+#include "object_model.h"
+
+//*****************************************************************************
+// マクロ定義
+//*****************************************************************************
+
+//*****************************************************************************
+// プロトタイプ宣言
+//*****************************************************************************
+
+//*****************************************************************************
+// グローバル変数
+//*****************************************************************************
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CPlayer::CPlayer(CInterfaceManager* interface_manager )
+CPlayer::CPlayer(CInterfaceManager* pInterfaceManager)
 {
+	// インターフェースマネージャーの設定
+	m_pInterfaceManager = pInterfaceManager;
 
-	//インターフェースマネージャーの保存
-	interface_manager_ = interface_manager;
-
+	m_Pos = VECTOR3(0.0f,0.0f,0.0f);
+	m_Rot = VECTOR3(0.0f,0.0f,0.0f);
 }
-
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CPlayer::~CPlayer( )
+CPlayer::~CPlayer(void)
 {
-
-
-
 }
-
 
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CPlayer::Init( void )
+bool CPlayer::Init(void)
 {
-	// オブジェクトモデルの生成
-	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"ship");
-	// オブジェクトリストに追加
-	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList( object_model );
+	CObjectManager* pObjectManager = m_pInterfaceManager->GetObjectManager();
+	CObject3DManager* pObject3DManager = pObjectManager->GetObject3DManager();
+	CGraphicsDevice* pGraphicsDevice = pObjectManager->GetGraphicsDevice();
+	CObjectModel* pObjectModel = NULL;
 
-	//値初期化
-	pos = VECTOR3( 0.0f, 0.0f, 0.0f );
-	rot = VECTOR3( 0.0f, 0.0f, 0.0f );
-	scale = VECTOR3( 1.0f, 1.0f, 1.0f );
+	pObjectModel = CObjectModel::Create(pGraphicsDevice,"data/model/player");
 
+	m_nNumber = pObject3DManager->Add(pObjectModel);
 
 	return true;
 }
 
-
-
 //=============================================================================
 // 更新
 //=============================================================================
-void CPlayer::Update( void )
+void CPlayer::Update(void)
 {
-	
 }
 
 //=============================================================================
-// 描画処理
+// 描画
 //=============================================================================
-void CPlayer::Draw( void )
+void CPlayer::Draw(void)
 {
+	CObjectManager* pObjectManager = m_pInterfaceManager->GetObjectManager();
+	CObject3DManager* pObject3DManager = pObjectManager->GetObject3DManager();
 
-	// 描画
-	interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->
-		Draw(object_key_,pos,rot,scale,MATRIX4x4(), "field000",NULL);
-
-
+	//pObject3DManager->Draw(m_nNumber,m_Pos,m_Rot,NULL);
 }
 
-
 //=============================================================================
-// 終了処理
+// 終了
 //=============================================================================
-void CPlayer::Uninit( void )
+void CPlayer::Uninit(void)
 {
-
 }
+
+//---------------------------------- EOF --------------------------------------

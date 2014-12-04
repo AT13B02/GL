@@ -17,9 +17,6 @@
 // graphic
 #include "interface/graphic/graphic_manager.h"
 
-// character
-#include "interface/character/character_manager.h"
-
 // sound
 //#include "interface/sound/sound_manager.h"
 
@@ -47,7 +44,6 @@ CInterfaceManager::CInterfaceManager(WINDOW_DATA* window_data)
 	graphic_manager_ = new CGraphicManager(window_data);
 	sound_manager_ = NULL;//new CSoundManager();
 	network_manager_ = NULL;//new CNetworkManager();
-	character_manager_ = new CCharacterManager();
 }
 
 //=============================================================================
@@ -74,9 +70,6 @@ bool CInterfaceManager::Init(void)
 	// ネットワークマネージャーの初期化
 	//INIT(network_manager_);
 
-	//キャラクタマネージャーの初期化
-	INIT(character_manager_);
-
 	return true;
 }
 
@@ -87,8 +80,6 @@ void CInterfaceManager::Update(void)
 {
 	// インプットマネージャーの更新
 	input_manager_->Update();
-
-
 }
 
 //=============================================================================
@@ -105,10 +96,6 @@ void CInterfaceManager::Draw(void)
 //=============================================================================
 void CInterfaceManager::Uninit(void)
 {
-	
-	//キャラクタマネージャの解放
-	SAFE_RELEASE( character_manager_ );
-	
 	// インプットマネージャーの開放
 	SAFE_RELEASE(input_manager_);
 
@@ -120,7 +107,6 @@ void CInterfaceManager::Uninit(void)
 
 	// ネットワークマネージャーの開放
 	//SAFE_RELEASE(network_manager);
-
 }
 
 //=============================================================================

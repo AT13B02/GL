@@ -72,7 +72,6 @@ protected:
 private:
 	u32 test_object_key_;
 	CCamera* test_camera_;
-
 };
 
 #endif	// _SCENE_GAME_H_

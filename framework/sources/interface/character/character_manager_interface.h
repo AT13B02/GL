@@ -23,7 +23,7 @@
 //*****************************************************************************
 #include <windows.h>
 #include <string>
-#include <list>
+#include <map>
 
 // basic
 #include "basic/basic.h"
@@ -67,9 +67,6 @@ public:
 	// 更新処理
 	virtual void Update(void);
 
-	// 描画
-	virtual void Draw(void);
-
 	// 終了処理
 	virtual void Uninit(void);
 
@@ -77,7 +74,7 @@ public:
 	void Push(T character);
 
 	// キャラクターリストの取得
-	std::list<T>& character_list(void){return character_list_;}
+	const std::list<T>& character_list(void){return character_list_;}
 
 protected:
 	std::list<T> character_list_;
@@ -89,14 +86,14 @@ private:
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-template <class T> CCharacterManagerInterface<T>::CCharacterManagerInterface(void)
+template <class T> CCharacterManagerInterface::CCharacterManagerInterface(void)
 {
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-template <class T> CCharacterManagerInterface<T>::~CCharacterManagerInterface(void)
+template <class T> CCharacterManagerInterface::~CCharacterManagerInterface(void)
 {
 }
 
@@ -111,18 +108,6 @@ template <class T> void CCharacterManagerInterface<T>::Update(void)
 	}
 }
 
-
-//=============================================================================
-// 描画処理
-//=============================================================================
-template <class T> void CCharacterManagerInterface<T>::Draw(void)
-{
-	for(auto it = character_list_.begin();it != character_list_.end();++it)
-	{
-		(*it)->Draw();
-	}
-}
-
 //=============================================================================
 // 終了処理
 //=============================================================================
@@ -130,7 +115,7 @@ template <class T> void CCharacterManagerInterface<T>::Uninit(void)
 {
 	for(auto it = character_list_.begin();it != character_list_.end();++it)
 	{
-		(*it)->Release();
+		(*it)->Uninit();
 	}
 
 	character_list_.clear();

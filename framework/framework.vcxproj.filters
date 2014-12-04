@@ -128,9 +128,6 @@
     <Filter Include="sources\interface\sound\device\xaudio2">
       <UniqueIdentifier>{367f2dd6-dbb9-4134-bfe4-580f7be4b2d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\interface\character\player">
-      <UniqueIdentifier>{50fbae66-2808-49aa-b516-7dba34f12b90}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -361,15 +358,6 @@
     <ClInclude Include="sources\interface\sound\sound.h">
       <Filter>sources\interface\sound</Filter>
     </ClInclude>
-    <ClInclude Include="sources\interface\character\player\player.h">
-      <Filter>sources\interface\character\player</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\character\player\player_manager.h">
-      <Filter>sources\interface\character\player</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\character\character_manager.h">
-      <Filter>sources\interface\character</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -587,15 +575,6 @@
     </ClCompile>
     <ClCompile Include="sources\interface\sound\sound.cpp">
       <Filter>sources\interface\sound</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\character\player\player.cpp">
-      <Filter>sources\interface\character\player</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\character\player\player_manager.cpp">
-      <Filter>sources\interface\character\player</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\character\character_manager.cpp">
-      <Filter>sources\interface\character</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

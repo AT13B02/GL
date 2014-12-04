@@ -32,10 +32,7 @@
     <ClInclude Include="sources\debug_tool\debug.h" />
     <ClInclude Include="sources\debug_tool\debug_console.h" />
     <ClInclude Include="sources\debug_tool\debug_manager.h" />
-    <ClInclude Include="sources\interface\character\character_manager.h" />
     <ClInclude Include="sources\interface\character\character_manager_interface.h" />
-    <ClInclude Include="sources\interface\character\player\player.h" />
-    <ClInclude Include="sources\interface\character\player\player_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\opengl\gl_camera.h" />
@@ -110,10 +107,7 @@
     <ClCompile Include="sources\debug_tool\debug.cpp" />
     <ClCompile Include="sources\debug_tool\debug_console.cpp" />
     <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
-    <ClCompile Include="sources\interface\character\character_manager.cpp" />
     <ClCompile Include="sources\interface\character\character_manager_interface.cpp" />
-    <ClCompile Include="sources\interface\character\player\player.cpp" />
-    <ClCompile Include="sources\interface\character\player\player_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\opengl\gl_camera.cpp" />

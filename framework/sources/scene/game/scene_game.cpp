@@ -32,8 +32,6 @@
 #include "interface/graphic/model/model_manager.h"
 #include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/graphic/object/object_3d/element/rectangle_3d.h"
-#include "interface/character/player/player.h"
-#include "interface/character/character_manager.h"
 
 // common
 #include "common/common.h"
@@ -69,16 +67,7 @@ CSceneGame::~CSceneGame(void)
 //=============================================================================
 bool CSceneGame::Init(void)
 {
-	// キャラクターマネージャーの生成、初期化
-	CCharacterManager *character_manager = interface_manager_->character_manager();
-	character_manager->Init();
-
-	// プレイヤーの生成
-	CPlayer *player = new CPlayer(interface_manager_);
-	//プレイヤー初期化
-	player->Init();
-	//リストへ設定
-	character_manager->player_manager()->Push( player );
+	// キャラクターの初期化
 
 	// マップの初期化
 
@@ -97,7 +86,6 @@ void CSceneGame::Update(void)
 	// ネットワーク受信データの確認
 
 	// キャラクターの更新
-	interface_manager_->character_manager()->Update();
 
 	// サーバーにデータ送信
 }
@@ -110,11 +98,9 @@ void CSceneGame::Draw(void)
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-	CCharacterManager *character_manager = interface_manager_->character_manager();
 
 	// 描画
-	character_manager->Draw();
-	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+	object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
 }
 
 //=============================================================================
@@ -145,9 +131,8 @@ void CSceneGame::Load(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CCameraManager* camera_manager = object_manager->camera_manager();
 	CModelManager* model_manager = graphic_manager->model_manager();
-	CCharacterManager *character_manager = interface_manager_->character_manager();
 
-
+	// プレイヤーの生成
 
 	// マップの生成
 
@@ -173,12 +158,11 @@ void CSceneGame::Load(void)
 	model_manager->Load("resources/model/game");
 
 	// オブジェクトモデルの生成
-/*	CObjectModel* object_model = new CObjectModel(device_holder,"ship");
+	CObjectModel* object_model = new CObjectModel(device_holder,"ship");
 
 	// オブジェクトリストに追加
 	test_object_key_ = object_3d_manager->AddList(object_model);
 
-*/
 	// カメラの取得
 	test_camera_ = camera_manager->GetCamera(camera_manager->CreateCamera());
 }
