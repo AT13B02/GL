@@ -88,7 +88,7 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 {
 	MATRIX4x4 matrix;
 	CTexture* texture = object_3d_data->texture_manager()->Get(object_3d_data->texture_name().c_str());
-	CRenderstate* renderstate = object_3d_data->renderstate();
+	CRenderstate* renderstate = NULL;//object_3d_data->renderstate();
 	MATRIX4x4 view_matrix = object_3d_data->camera()->view_matrix();
 
 	// ‰ñ“]s—ñ‚Ì‹ts—ñ‚ğ”²‚«o‚·

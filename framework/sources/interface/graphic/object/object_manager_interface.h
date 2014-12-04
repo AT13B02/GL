@@ -1,33 +1,33 @@
 //*****************************************************************************
 //
-// レンダーステートマネージャークラス
+// オブジェクトマネージャーインターフェースクラス
 //
 // Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 二重定義防止
+// 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _RENDERSTATE_MANAGER_H_
-#define _RENDERSTATE_MANAGER_H_
+#ifndef _OBJECT_MANAGER_INTERFACE_H_
+#define _OBJECT_MANAGER_INTERFACE_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
+#include <list>
 
 // basic
 #include "basic/basic.h"
 
 //*****************************************************************************
-// マクロ定義
+// ライブラリのリンク
 //*****************************************************************************
 
 //*****************************************************************************
-// 定数定義
+// マクロ定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -37,44 +37,26 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CDeviceHolder;
-class CRenderstate;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CRenderstateManager : public CBasic
+class CObjectManagerInterface : public CBasic
 {
 public:
-	enum TYPE
-	{
-		TYPE_ALL = 0,		// 全体に掛ける
-		TYPE_2D,			// 2D全体に掛ける
-		TYPE_3D,			// 3D全体に掛ける
-		TYPE_MAX			// タイプの最大数
-	};
-
 	// コンストラクタ
-	CRenderstateManager(CDeviceHolder* device_holder);
+	CObjectManagerInterface(void);
 
 	// デストラクタ
-	~CRenderstateManager(void);
+	virtual ~CObjectManagerInterface(void);
 
-	// 初期化
-	bool Init(void);
+	// レンダーステートの設定
+	void SetRenderstate(const u32& state_type){renderstate_list_.push_back(state_type);}
 
-	// 終了
-	void Uninit(void);
-
-	// レンダーステートの取得
-	CRenderstate* renderstate(const TYPE& type);
 protected:
-
-private:
-	CDeviceHolder* device_holder_;
-	CRenderstate* renderstate_[TYPE_MAX];
+	std::list<u32> renderstate_list_;
 };
 
-#endif // _INTERFACE_MANAGER_H_
+#endif	// _OBJECT_MANAGER_INTERFACE_H_
 
 //---------------------------------- EOF --------------------------------------

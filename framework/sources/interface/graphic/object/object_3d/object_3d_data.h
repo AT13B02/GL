@@ -19,6 +19,7 @@
 //*****************************************************************************
 // stl
 #include <string>
+#include <list>
 
 // basic
 #include "basic/basic.h"
@@ -77,7 +78,7 @@ public:
 	void set_matrix(const MATRIX4x4& matrix){matrix_ = matrix;}
 	void set_object_3d(CObject3D* object_3d){object_3d_ = object_3d;}
 	void set_texture_name(const std::string& texture_name){texture_name_ = texture_name;}
-	void set_renderstate(CRenderstate* renderstate){renderstate_ = renderstate;}
+	void set_renderstate(std::list<u32> renderstate_list){renderstate_list_ = renderstate_list;}
 	void set_camera(CCamera* camera){camera_ = camera;}
 	void set_model_manager(CModelManager* model_manager){model_manager_ = model_manager;}
 	void set_texture_manager(CTextureManager* texture_manager){texture_manager_ = texture_manager;}
@@ -88,7 +89,7 @@ public:
 	const MATRIX4x4& matrix(void){return matrix_;}
 	CObject3D* object_3d(void){return object_3d_;}
 	std::string& texture_name(void){return texture_name_;}
-	CRenderstate* renderstate(void){return renderstate_;}
+	std::list<u32>& renderstate_list(void){return renderstate_list_;}
 	CCamera* camera(void){return camera_;}
 	CModelManager* model_manager(void){return model_manager_;}
 	CTextureManager* texture_manager(void){return texture_manager_;}
@@ -100,7 +101,7 @@ private:
 	MATRIX4x4 matrix_;
 	CObject3D* object_3d_;
 	std::string texture_name_;
-	CRenderstate* renderstate_;
+	std::list<u32> renderstate_list_;
 	CCamera* camera_;
 	CModelManager* model_manager_;
 	CTextureManager* texture_manager_;

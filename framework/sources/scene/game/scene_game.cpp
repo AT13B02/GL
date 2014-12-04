@@ -36,6 +36,7 @@
 #include "interface/graphic/object/object_2d/element/rectangle_2d.h"
 #include "interface/graphic/light/light_manager.h"
 #include "interface/graphic/light/light.h"
+#include "interface/graphic/renderstate/renderstate_manager.h"
 
 // character
 #include "interface/character/camera/character_camera.h"
@@ -110,13 +111,11 @@ void CSceneGame::Draw(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
-
-
 	// TODO •`‰æƒeƒXƒg
-	object_3d_manager->Draw(test_rectangle_3d_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(-90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
-	object_3d_manager->Draw(test_billboard_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
-	object_3d_manager->Draw(test_model_key_,VECTOR3(),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"",NULL);
-	object_2d_manager->Draw(test_rectangle_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+	object_3d_manager->Draw(test_rectangle_3d_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(-90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
+	object_3d_manager->Draw(test_billboard_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
+	object_3d_manager->Draw(test_model_key_,VECTOR3(),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
+	object_2d_manager->Draw(test_rectangle_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"field000");
 }
 
 //=============================================================================

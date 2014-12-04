@@ -63,6 +63,7 @@
     <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_list.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_manager.h" />
     <ClInclude Include="sources\interface\graphic\object\object_manager.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_manager_interface.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\renderstate_manager.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.h" />
@@ -148,6 +149,7 @@
     <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_list.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_manager_interface.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\renderstate_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.cpp" />

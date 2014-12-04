@@ -133,7 +133,7 @@ u32 CObject2DManager::AddList(CObject2D* object_2d)
 //=============================================================================
 // 描画リストに保存
 //=============================================================================
-void CObject2DManager::Draw(const u32& object_key,const VECTOR2& position,const float rotation,const VECTOR2& scale,MATRIX4x4 matrix,const std::string& texture_name,CRenderstate* renderstate)
+void CObject2DManager::Draw(const u32& object_key,const VECTOR2& position,const float rotation,const VECTOR2& scale,MATRIX4x4 matrix,const std::string& texture_name)
 {
 	CObject2DData* object_2d_data = NULL;
 	CObject2D* object_2d = object_2d_list_->GetListData(object_key);
@@ -166,7 +166,7 @@ void CObject2DManager::Draw(const u32& object_key,const VECTOR2& position,const 
 	object_2d_data->set_texture_name(texture_name);
 
 	// レンダーステートの設定
-	object_2d_data->set_renderstate(renderstate);
+	object_2d_data->set_renderstate(NULL);
 
 	// バッファリストに追加
 	object_2d_buffer_->AddList(object_2d_data);

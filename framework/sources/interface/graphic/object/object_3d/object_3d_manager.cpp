@@ -140,7 +140,7 @@ u32 CObject3DManager::AddList(CObject3D* object_3d)
 //=============================================================================
 // 描画リストに保存
 //=============================================================================
-void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,MATRIX4x4 matrix,const std::string& texture_name,CRenderstate* renderstate)
+void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,const MATRIX4x4& matrix,const std::string& texture_name)
 {
 	CObject3DData* object_3d_data = NULL;
 	CObject3D* object_3d = object_3d_list_->GetListData(object_key);
@@ -173,10 +173,13 @@ void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const 
 	object_3d_data->set_texture_name(texture_name);
 
 	// レンダーステートの設定
-	object_3d_data->set_renderstate(renderstate);
+	//object_3d_data->set_renderstate(renderstate_list_);
 
 	// バッファリストに追加
 	object_3d_buffer_->AddList(object_3d_data);
+
+	// クリア
+	renderstate_list_.clear();
 }
 
 //---------------------------------- EOF --------------------------------------
