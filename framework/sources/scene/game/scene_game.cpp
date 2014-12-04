@@ -10,7 +10,7 @@
 // インクルード
 //*****************************************************************************
 // scene
-#include "scene/title/scene_title.h"
+#include "scene/game/scene_game.h"
 #include "scene/factory/scene_factory.h"
 
 // interface
