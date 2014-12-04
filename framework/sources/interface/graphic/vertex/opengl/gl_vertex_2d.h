@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// ビルボードクラス
+// OpenGL2D頂点クラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -11,17 +11,19 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _BILLBOARD_H_
-#define _BILLBOARD_H_
+#ifndef _GL_VERTEX_2D_H_
+#define _GL_VERTEX_2D_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// graphic
-#include "interface/graphic/object/object_3d/element/object_3d.h"
+// basic
+#include "basic/application.h"
 
-// common
-#include "common/image/color/color4f.h"
+#ifdef _USING_OPENGL_
+// graphic
+#include "interface/graphic/vertex/vertex_2d.h"
+#include "interface/graphic/device/opengl/opengl.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,68 +40,31 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CVertex3D;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CBillboard : public CObject3D
+class CGLVertex2D : public CVertex2D
 {
 public:
 	// コンストラクタ
-	CBillboard(CDeviceHolder* device_holder);
+	CGLVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number);
 
 	// デストラクタ
-	virtual ~CBillboard(void);
-
-	// 初期化処理
-	bool Init(void);
+	virtual ~CGLVertex2D(void);
 
 	// 描画処理
-	void Draw(CObject3DData* object_3d_data);
+	void Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length);
 
-	// 終了処理
-	void Uninit(void);
-
-	// 頂点情報の設定
-	void Set(void);
-
-	// サイズの設定
-	void set_size(const VECTOR2& size){size_ = size;}
-
-	// テクスチャ座標の設定
-	void set_texcoord(const f32& left,const f32& right,const f32& top,const f32& bottom){left_ = left;right_ = right;top_ = top;bottom_ = bottom;}
-
-	// カラーの設定
-	void set_color(const COLOR4F& Color){for(int i = 0;i < VERTEX_MAX;i++){color_[i] = Color;}}
-
-	// カラーの設定
-	void set_color(const COLOR4F& LeftTop,const COLOR4F& RightTop,const COLOR4F& LeftBottom,const COLOR4F& RightBottom){color_[0] = LeftTop;color_[1] = LeftBottom;color_[2] = RightTop;color_[3] = RightBottom;}
-
+	// 解除処理
+	void Unlock(void);
 protected:
 
 private:
-	static const int VERTEX_MAX = (4);
-
-	// サイズ
-	VECTOR2 size_;
-
-	// 色
-	COLOR4F color_[VERTEX_MAX];
-
-	// テクスチャ座標
-	f32 left_;
-	f32 right_;
-	f32 top_;
-	f32 bottom_;
-
-	// 頂点座標
-	VECTOR2 position_[VERTEX_MAX];
-
-	// 頂点情報
-	CVertex3D* vertex_3d_;
 };
 
-#endif	// _OBJECT_3D_H_
+#endif	// _USING_OPENGL_
+
+#endif	// _GL_VERTEX_2D_H_
 
 //---------------------------------- EOF --------------------------------------

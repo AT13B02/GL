@@ -26,7 +26,7 @@
 //=============================================================================
 // 単位ベクトル化
 //=============================================================================
-void VECTOR3::Normalize(void)
+const VECTOR3& VECTOR3::Normalize(void)
 {
 	float fMagnitude = Magnitude();
 
@@ -37,6 +37,8 @@ void VECTOR3::Normalize(void)
 		_y /= fMagnitude;
 		_z /= fMagnitude;
 	}
+
+	return *this;
 }
 
 //=============================================================================
@@ -72,7 +74,7 @@ VECTOR3 VECTOR3::CrossProduct(const VECTOR3& vector) const
 //=============================================================================
 // スカラーとの足算
 //=============================================================================
-VECTOR3 VECTOR3::operator+(const float& fValue)
+VECTOR3 VECTOR3::operator+(const float& fValue) const
 {
 	return VECTOR3(_x + fValue,_y + fValue,_z + fValue);
 }
@@ -80,7 +82,7 @@ VECTOR3 VECTOR3::operator+(const float& fValue)
 //=============================================================================
 // スカラーとの引算
 //=============================================================================
-VECTOR3 VECTOR3::operator-(const float& fValue)
+VECTOR3 VECTOR3::operator-(const float& fValue) const
 {
 	return VECTOR3(_x - fValue,_y - fValue,_z - fValue);
 }
@@ -88,7 +90,7 @@ VECTOR3 VECTOR3::operator-(const float& fValue)
 //=============================================================================
 // スカラーとの掛算
 //=============================================================================
-VECTOR3 VECTOR3::operator*(const float& fValue)
+VECTOR3 VECTOR3::operator*(const float& fValue) const
 {
 	return VECTOR3(_x * fValue,_y * fValue,_z * fValue);
 }
@@ -96,7 +98,7 @@ VECTOR3 VECTOR3::operator*(const float& fValue)
 //=============================================================================
 // スカラーとの割算
 //=============================================================================
-VECTOR3 VECTOR3::operator/(const float& fValue)
+VECTOR3 VECTOR3::operator/(const float& fValue) const
 {
 	if(fValue != 0)
 	{

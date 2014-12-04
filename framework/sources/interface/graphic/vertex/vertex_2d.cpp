@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// カメラマネージャークラス
+// 2D頂点クラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Tomohiro Kouno
 //
 //*****************************************************************************
 
@@ -13,17 +13,15 @@
 #include "basic/application.h"
 
 // graphic
-#ifdef _USING_OPENGL_
-#include "interface/graphic/device/opengl/opengl.h"
-#endif
+#include "interface/graphic/vertex/vertex_2d.h"
 #ifdef _USING_DIRECTX_
-#include "interface/graphic/device/directx/directx.h"
+#include "interface/graphic/vertex/directx/dx_vertex_2d.h"
 #endif
-#include "interface/graphic/camera/camera.h"
-#include "interface/graphic/camera/camera_manager.h"
+#ifdef _USING_OPENGL_
+#include "interface/graphic/vertex/opengl/gl_vertex_2d.h"
+#endif
 
 // common
-#include "common/math/math.h"
 #include "common/common.h"
 
 //*****************************************************************************
@@ -41,144 +39,126 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CCameraManager::CCameraManager(CDeviceHolder* device_holder)
+CVertex2D::CVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number)
 {
-	number_count_ = 0;
-
 	device_holder_ = device_holder;
+
+	position_number_ = position_number;
+	color_number_    = color_number;
+	texcoord_number_ = texcoord_number;
+
+	vertex_2d_._position = new VECTOR2[position_number];
+	vertex_2d_._color    = new COLOR4F[color_number];
+	vertex_2d_._texcoord = new VECTOR2[texcoord_number];
+
+	vertex_2d_index_._position = NULL;
+	vertex_2d_index_._color    = NULL;
+	vertex_2d_index_._texcoord = NULL;
+
+	index_number_ = 0;
+	primitive_number_ = position_number - 2;
+
+	use_index_ = false;
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CCameraManager::~CCameraManager(void)
+CVertex2D::~CVertex2D(void)
 {
 }
 
 //=============================================================================
 // 初期化処理
 //=============================================================================
-bool CCameraManager::Init(void)
+bool CVertex2D::Init(void)
 {
 	return true;
 }
 
 //=============================================================================
-// 更新処理
+// 描画処理
 //=============================================================================
-void CCameraManager::Update(void)
+void CVertex2D::Draw(const MATRIX4x4& matrix)
 {
-	for(auto it = camera_.begin();it != camera_.end();++it)
-	{
-		// 更新
-		it->second->Update();
-	}
+	Draw(matrix,0,primitive_number_ + 2);
 }
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CCameraManager::Uninit(void)
+void CVertex2D::Uninit(void)
 {
-	for(auto it = camera_.begin();it != camera_.end();++it)
-	{
-		// 更新
-		SAFE_RELEASE(it->second);
-	}
+	SAFE_DELETE_ARRAY(vertex_2d_._position);
+	SAFE_DELETE_ARRAY(vertex_2d_._color);
+	SAFE_DELETE_ARRAY(vertex_2d_._texcoord);
 
-	camera_.clear();
-}
+	SAFE_DELETE_ARRAY(vertex_2d_index_._position);
+	SAFE_DELETE_ARRAY(vertex_2d_index_._color);
+	SAFE_DELETE_ARRAY(vertex_2d_index_._texcoord);
 
-//=============================================================================
-// 設定処理
-//=============================================================================
-CCamera* CCameraManager::SetCamera(const u32& idx)
-{
-	auto it = camera_.begin();
-
-	for(int i = 0;(i < idx) && (it != camera_.end());++i)
-	{
-		++it;
-	}
-
-	it->second->Set();
-
-	return it->second;
-}
-
-//=============================================================================
-// 取得処理
-//=============================================================================
-CCamera* CCameraManager::GetCamera(const u32& key)
-{
-	CCamera* camera = NULL;
-
-	auto it = camera_.find(key);
-
-	if(it != camera_.end())
-	{
-		camera = it->second;
-	}
-
-	return camera;
+	position_number_ = 0;
+	normal_number_   = 0;
+	color_number_    = 0;
+	texcoord_number_ = 0;
 }
 
 //=============================================================================
 // 作成処理
 //=============================================================================
-u32 CCameraManager::CreateCamera(void)
+CVertex2D* CVertex2D::Create(CDeviceHolder* device_holder,const u32& vertex_number)
 {
-	CCamera* camera = CCamera::Create(device_holder_);
-
-	u32 key = CreateKey();
-
-	camera_.insert(std::pair<u32,CCamera*>(key,camera));
-
-	number_count_++;
-
-	return key;
+	return Create(device_holder,vertex_number,vertex_number,vertex_number);
 }
 
 //=============================================================================
-// 削除処理
+// 作成処理
 //=============================================================================
-bool CCameraManager::EraseCamera(const u32& key)
+CVertex2D* CVertex2D::Create(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number)
 {
-	auto it = camera_.find(key);
+	CVertex2D* pVertex2D = NULL;
 
-	if(it != camera_.end())
-	{
-		// カメラの削除
-		SAFE_RELEASE((*it).second);
+#ifdef _USING_DIRECTX_
+	pVertex2D = new CDXVertex2D(device_holder,position_number,normal_number,color_number,texcoord_number);
+#endif
 
-		// リストから削除
-		camera_.erase(key);
+#ifdef _USING_OPENGL_
+	pVertex2D = new CGLVertex2D(device_holder,position_number,color_number,texcoord_number);
+#endif
 
-		return true;
-	}
-
-	return false;
+	return pVertex2D;
 }
 
 //=============================================================================
-// キー作成処理
+// インデックスの作成
 //=============================================================================
-u32 CCameraManager::CreateKey(void)
+void CVertex2D::CreateIndex(const int& index_number)
 {
-	bool is_find = false;
-	u32 key = 0;
+	vertex_2d_index_._position = new u32[index_number];
+	vertex_2d_index_._color = new u32[index_number];
+	vertex_2d_index_._texcoord = new u32[index_number];
 
-	while(!is_find)
+	index_number_ = index_number;
+
+	primitive_number_ = index_number;
+
+	use_index_ = true;
+}
+
+//=============================================================================
+// ロック処理
+//=============================================================================
+void CVertex2D::Lock(VERTEX_2D** vertex_2d,VERTEX_2D_INDEX** vertex_2d_index)
+{
+	if(vertex_2d != NULL)
 	{
-		key = rand();
-
-		if(camera_.find(key) == camera_.end())
-		{
-			is_find = true;
-		}
+		*vertex_2d = &vertex_2d_;
 	}
 
-	return key;
+	if(vertex_2d_index != NULL)
+	{
+		*vertex_2d_index = &vertex_2d_index_;
+	}
 }
 
 //---------------------------------- EOF --------------------------------------

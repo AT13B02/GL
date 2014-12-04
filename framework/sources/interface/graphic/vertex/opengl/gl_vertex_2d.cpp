@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// OpenGL3D頂点クラス
+// OpenGL2D頂点クラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -13,7 +13,7 @@
 
 #ifdef _USING_OPENGL_
 // graphic
-#include "interface/graphic/vertex/opengl/gl_vertex_3d.h"
+#include "interface/graphic/vertex/opengl/gl_vertex_2d.h"
 #include "interface/graphic/device/device_holder.h"
 #include "interface/graphic/device/opengl/opengl.h"
 
@@ -32,21 +32,21 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CGLVertex3D::CGLVertex3D(CDeviceHolder* device_holder,const u32& position_number,const u32& normal_number,const u32& color_number,const u32& texcoord_number) : CVertex3D(device_holder,position_number,normal_number,color_number,texcoord_number)
+CGLVertex2D::CGLVertex2D(CDeviceHolder* device_holder,const u32& position_number,const u32& color_number,const u32& texcoord_number) : CVertex2D(device_holder,position_number,color_number,texcoord_number)
 {
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CGLVertex3D::~CGLVertex3D(void)
+CGLVertex2D::~CGLVertex2D(void)
 {
 }
 
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length)
+void CGLVertex2D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length)
 {
 	u32 vertex_number = offset + length;
 
@@ -59,8 +59,6 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 	// マトリックスの設定
 	glMultMatrixf((f32*)&matrix);
 
-	glEnable(GL_LIGHTING);
-
 	// ポリゴン描画の開始(図形の描画形式を設定)
 	glBegin(GL_TRIANGLE_STRIP);
 
@@ -69,16 +67,13 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 		for(u32 i = offset;i < vertex_number;++i)
 		{
 			// 色の設定
-			glColor4f(vertex_3d_._color[vertex_3d_index_._color[i]]._red,vertex_3d_._color[vertex_3d_index_._color[i]]._green,vertex_3d_._color[vertex_3d_index_._color[i]]._blue,vertex_3d_._color[vertex_3d_index_._color[i]]._alpha);
+			glColor4f(vertex_2d_._color[vertex_2d_index_._color[i]]._red,vertex_2d_._color[vertex_2d_index_._color[i]]._green,vertex_2d_._color[vertex_2d_index_._color[i]]._blue,vertex_2d_._color[vertex_2d_index_._color[i]]._alpha);
 
 			// テクスチャ座標
-			glTexCoord2f(vertex_3d_._texcoord[vertex_3d_index_._texcoord[i]]._x,vertex_3d_._texcoord[vertex_3d_index_._texcoord[i]]._y);
-
-			// 法線
-			glNormal3f(vertex_3d_._normal[vertex_3d_index_._normal[i]]._x,vertex_3d_._normal[vertex_3d_index_._normal[i]]._y,vertex_3d_._normal[vertex_3d_index_._normal[i]]._z);
+			glTexCoord2f(vertex_2d_._texcoord[vertex_2d_index_._texcoord[i]]._x,vertex_2d_._texcoord[vertex_2d_index_._texcoord[i]]._y);
 
 			// 頂点座標
-			glVertex3f(vertex_3d_._position[vertex_3d_index_._position[i]]._x,vertex_3d_._position[vertex_3d_index_._position[i]]._y,vertex_3d_._position[vertex_3d_index_._position[i]]._z);
+			glVertex3f(vertex_2d_._position[vertex_2d_index_._position[i]]._x,vertex_2d_._position[vertex_2d_index_._position[i]]._y,0.0f);
 		}
 	}
 	else
@@ -86,16 +81,13 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 		for(u32 i = 0;i < vertex_number;++i)
 		{
 			// 色の設定
-			glColor4f(vertex_3d_._color[i]._red,vertex_3d_._color[i]._green,vertex_3d_._color[i]._blue,vertex_3d_._color[i]._alpha);
+			glColor4f(vertex_2d_._color[i]._red,vertex_2d_._color[i]._green,vertex_2d_._color[i]._blue,vertex_2d_._color[i]._alpha);
 
 			// テクスチャ座標
-			glTexCoord2f(vertex_3d_._texcoord[i]._x,vertex_3d_._texcoord[i]._y);
-
-			// 法線
-			glNormal3f(vertex_3d_._normal[i]._x,vertex_3d_._normal[i]._y,vertex_3d_._normal[i]._z);
+			glTexCoord2f(vertex_2d_._texcoord[i]._x,vertex_2d_._texcoord[i]._y);
 
 			// 頂点座標
-			glVertex3f(vertex_3d_._position[i]._x,vertex_3d_._position[i]._y,vertex_3d_._position[i]._z);
+			glVertex3f(vertex_2d_._position[i]._x,vertex_2d_._position[i]._y,0.0f);
 		}
 	}
 
@@ -109,7 +101,7 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 //=============================================================================
 // 解除処理
 //=============================================================================
-void CGLVertex3D::Unlock(void)
+void CGLVertex2D::Unlock(void)
 {
 
 }

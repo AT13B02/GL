@@ -187,3 +187,5 @@ framework/framework.pdb
 *.tlog
 *.cache
 *.suo
+*.user
+*.bak

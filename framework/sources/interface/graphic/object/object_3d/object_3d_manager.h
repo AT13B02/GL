@@ -20,8 +20,8 @@
 // stl
 #include <list>
 
-// basic
-#include "basic/basic.h"
+// graphic
+#include "interface/graphic/object/object_manager_interface.h"
 
 // math
 #include "common/math/math.h"
@@ -59,7 +59,7 @@ class CTextureManager;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CObject3DManager : public CBasic
+class CObject3DManager : public CObjectManagerInterface
 {
 public:
 	// コンストラクタ
@@ -86,7 +86,7 @@ public:
 	//-----------------------------------------------------
 	// 描画リストに保存
 
-	void Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,MATRIX4x4 matrix,const std::string& texture_name,CRenderstate* renderstate);
+	void Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,const MATRIX4x4& matrix,const std::string& texture_name);
 
 	//--------------------------------------------------------
 

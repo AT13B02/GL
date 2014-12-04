@@ -83,7 +83,7 @@ bool CGLModel::Load(const s8* filename)
 	// í∏ì_ÉJÉâÅ[
 	for(int i = 0; i < dh.uVtx; i++)
 	{
-		pVtx->_color[i]._red = 1.0f;
+		pVtx->_color[i]._red =	1.0f;
 		pVtx->_color[i]._green = 1.0f;
 		pVtx->_color[i]._blue = 1.0f;
 		pVtx->_color[i]._alpha = 1.0f;

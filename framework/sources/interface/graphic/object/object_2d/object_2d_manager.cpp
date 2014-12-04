@@ -1,29 +1,29 @@
 //*****************************************************************************
 //
-// オブジェクト2Dマネージャークラス [object_2d_manager.cpp]
+// オブジェクト2Dマネージャークラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/04/21(Mon)
-// Version		: 1.00
-// Update Date	: 2014/05/14(Wed)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "object_2d.h"
-#include "object_2d_list.h"
-#include "object_2d_data.h"
-#include "object_2d_buffer.h"
-#include "object_2d_manager.h"
+// graphic
+#include "interface/graphic/object/object_2d/object_2d_manager.h"
+#include "interface/graphic/object/object_2d/object_2d_list.h"
+#include "interface/graphic/object/object_2d/object_2d_data.h"
+#include "interface/graphic/object/object_2d/object_2d_buffer.h"
+#include "interface/graphic/renderstate/renderstate_manager.h"
+#include "interface/graphic/renderstate/state/renderstate.h"
+#include "interface/graphic/camera/camera_manager.h"
+#include "interface/graphic/camera/camera.h"
+#include "interface/graphic/light/light_manager.h"
+#include "interface/graphic/model/model_manager.h"
+#include "interface/graphic/device/device_holder.h"
 
-#include "renderstate.h"
-#include "renderstate_manager.h"
-
-#include "graphics_device.h"
-
-#include "common.h"
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -40,24 +40,28 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CObject2DManager::CObject2DManager(CGraphicsDevice* pGraphicsDevice,CRenderstateManager* pRenderstateManager)
+CObject2DManager::CObject2DManager(CDeviceHolder* device_holder,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager,CCameraManager* camera_manager,CLightManager* light_manager)
 {
 	// グラフィックデバイスの設定
-	m_pGraphicsDevice = pGraphicsDevice;
+	device_holder_ = device_holder;
 
 	// レンダーステートマネージャーの設定
-	m_pRenderstateManager = pRenderstateManager;
+	renderstate_manager_ = renderstate_manager;
+
+	// テクスチャマネージャの設定
+	texture_manager_ = texture_manager;
+
+	// カメラマネージャーの設定
+	camera_manager_ = camera_manager;
+
+	// ライトマネージャーの設定
+	light_manager_ = light_manager;
 
 	// オブジェクトリストの生成
-	for(int i = 0;i < LIST_TYPE_MAX;i++)
-	{
-		m_apObject2DList[i] = new CObject2DList();
-	}
-
-	m_bChangeFlag = false;
+	object_2d_list_ = new CObject2DList();
 
 	// オブジェクトバッファの生成
-	m_pBuffer = new CObject2DBuffer();
+	object_2d_buffer_ = new CObject2DBuffer();
 }
 
 //=============================================================================
@@ -72,6 +76,8 @@ CObject2DManager::~CObject2DManager(void)
 //=============================================================================
 bool CObject2DManager::Init(void)
 {
+	INIT(object_2d_list_);
+	INIT(object_2d_buffer_);
 	return true;
 }
 
@@ -80,11 +86,28 @@ bool CObject2DManager::Init(void)
 //=============================================================================
 void CObject2DManager::Draw(void)
 {
-	m_pRenderstateManager->GetRenderstate(CRenderstateManager::TYPE_2D)->Set();
+	CCamera* camera = NULL;
 
-	m_pBuffer->Draw();
+	//light Setting
 
-	m_pRenderstateManager->GetRenderstate(CRenderstateManager::TYPE_2D)->Unset();
+	//RenderState Setting
+	renderstate_manager_->renderstate(CRenderstateManager::TYPE_2D)->Set();
+
+	//for(int i = 0;i < camera_manager_->number_count();i++)
+	//{
+		// カメラの設定と設定したカメラの取得
+		//camera = camera_manager_->SetCamera(i);
+
+		// バッファの描画処理
+		object_2d_buffer_->Draw(camera,texture_manager_);
+	//}
+
+	// TODO バッファの破棄 スレッドを分けたらなくなる
+	object_2d_buffer_->Refresh();
+
+	//End of RenderState
+	renderstate_manager_->renderstate(CRenderstateManager::TYPE_2D)->Unset();
+	
 }
 
 //=============================================================================
@@ -93,137 +116,60 @@ void CObject2DManager::Draw(void)
 void CObject2DManager::Uninit(void)
 {
 	// オブジェクトリストの開放
-	for(int i = 0;i < LIST_TYPE_MAX;i++)
-	{
-		SAFE_RELEASE(m_apObject2DList[i]);
-	}
+	SAFE_RELEASE(object_2d_list_);
 
 	// バッファの開放
-	SAFE_RELEASE(m_pBuffer);
-
+	SAFE_RELEASE(object_2d_buffer_);
 }
 
 //=============================================================================
-// 追加処理
+// オブジェクト追加処理
 //=============================================================================
-int CObject2DManager::Add(CObject2D* pObject2D,int nListType)
+u32 CObject2DManager::AddList(CObject2D* object_2d)
 {
-	if(nListType < 0 || nListType >= LIST_TYPE_MAX)
-	{
-		return -1;
-	}
-
-	return m_apObject2DList[nListType]->Add(pObject2D);
-}
-
-//=============================================================================
-// 変更処理
-//=============================================================================
-void CObject2DManager::Change(void)
-{
-	if(m_bChangeFlag)
-	{
-		CObject2DList* pObjectList = NULL;
-		pObjectList = m_apObject2DList[LIST_TYPE_USE];
-		m_apObject2DList[LIST_TYPE_USE] = m_apObject2DList[LIST_TYPE_LOAD];
-		m_apObject2DList[LIST_TYPE_LOAD] = pObjectList;
-		pObjectList->Refresh();
-		m_bChangeFlag = false;
-	}
-}
-
-//=============================================================================
-// 変更処理
-//=============================================================================
-void CObject2DManager::RaiseChangeFlag(void)
-{
-	m_bChangeFlag = true;
+	return object_2d_list_->AddList(object_2d);
 }
 
 //=============================================================================
 // 描画リストに保存
 //=============================================================================
-void CObject2DManager::Draw(const int& nObjectNumber,const VECTOR2& Pos)
+void CObject2DManager::Draw(const u32& object_key,const VECTOR2& position,const float rotation,const VECTOR2& scale,MATRIX4x4 matrix,const std::string& texture_name)
 {
-	Draw(nObjectNumber,Pos,NULL);
-}
-
-//=============================================================================
-// 描画リストに保存
-//=============================================================================
-void CObject2DManager::Draw(const int& nObjectNumber,const VECTOR2& Pos,CTexture* pTexture)
-{
-	Draw(nObjectNumber,Pos,0.0f,pTexture);
-}
-
-//=============================================================================
-// 描画リストに保存
-//=============================================================================
-void CObject2DManager::Draw(const int& nObjectNumber,const VECTOR2& Pos,float fRot,CTexture* pTexture)
-{
-	Draw(nObjectNumber,Pos,fRot,VECTOR2(1.0f,1.0f),pTexture);
-}
-
-//=============================================================================
-// 描画リストに保存
-//=============================================================================
-void CObject2DManager::Draw(const int& nObjectNumber,const VECTOR2& Pos,const float& fRot,const VECTOR2& Scale,CTexture* pTexture)
-{
-	MATRIX4x4 Matrix;
-
-	Matrix.SetIdentity();
-
-	Draw(nObjectNumber,Pos,fRot,Scale,Matrix,pTexture);
-}
-
-//=============================================================================
-// 描画リストに保存
-//=============================================================================
-void CObject2DManager::Draw(const int& nObjectNumber,const VECTOR2& Pos,const float& fRot,const VECTOR2& Scale,const MATRIX4x4& Matrix,CTexture* pTexture)
-{
-	Draw(nObjectNumber,Pos,fRot,Scale,Matrix,pTexture,NULL);
-}
-
-//=============================================================================
-// 描画リストに保存
-//=============================================================================
-void CObject2DManager::Draw(const int& nObjectNumber,const VECTOR2& Pos,const float& fRot,const VECTOR2& Scale,const MATRIX4x4& Matrix,CTexture* pTexture,CRenderstate* pRenderstate)
-{
-	CObject2DData* pData = NULL;
-	CObject2D* pObject2D = m_apObject2DList[LIST_TYPE_USE]->GetObject2D(nObjectNumber);
+	CObject2DData* object_2d_data = NULL;
+	CObject2D* object_2d = object_2d_list_->GetListData(object_key);
 
 	// オブジェクト番号の確認
-	if(pObject2D == NULL)
+	if(object_2d == NULL)
 	{
 		return;
 	}
 
 	// バッファの生成
-	pData = new CObject2DData();
+	object_2d_data = new CObject2DData();
 
 	// バッファ番号の設定
-	pData->SetObject(pObject2D);
+	object_2d_data->set_object_2d(object_2d);
 
 	// 座標の設定
-	pData->SetPosition(Pos);
+	object_2d_data->set_position(position);
 
 	// 回転角の設定
-	pData->SetRotation(fRot);
+	object_2d_data->set_rotation(rotation);
 
 	// スケールの設定
-	pData->SetScale(Scale);
+	object_2d_data->set_scale(scale);
 
 	// マトリックスの設定
-	pData->SetMatrix(Matrix);
+	object_2d_data->set_matrix(matrix);
 
 	// テクスチャの設定
-	pData->SetTexture(pTexture);
+	object_2d_data->set_texture_name(texture_name);
 
 	// レンダーステートの設定
-	pData->SetRenderstate(pRenderstate);
+	object_2d_data->set_renderstate(NULL);
 
-	// バッファリストに保存
-	m_pBuffer->Add(pData);
+	// バッファリストに追加
+	object_2d_buffer_->AddList(object_2d_data);
 }
 
 //---------------------------------- EOF --------------------------------------

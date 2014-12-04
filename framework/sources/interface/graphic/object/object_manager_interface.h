@@ -1,69 +1,62 @@
 //*****************************************************************************
 //
-// XAudioクラス
+// オブジェクトマネージャーインターフェースクラス
 //
 // Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 二重定義防止
+// 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _XAUDIO_H_
-#define _XAUDIO_H_
+#ifndef _OBJECT_MANAGER_INTERFACE_H_
+#define _OBJECT_MANAGER_INTERFACE_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <xaudio2.h>
+#include <list>
 
 // basic
 #include "basic/basic.h"
+
+//*****************************************************************************
+// ライブラリのリンク
+//*****************************************************************************
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
 
 //*****************************************************************************
+// 構造体定義
+//*****************************************************************************
+
+//*****************************************************************************
+// クラスの前方参照
+//*****************************************************************************
+
+//*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CXAudio2 : public CBasic
+class CObjectManagerInterface : public CBasic
 {
 public:
 	// コンストラクタ
-	CXAudio2(void);
+	CObjectManagerInterface(void);
 
 	// デストラクタ
-	virtual ~CXAudio2(void);
+	virtual ~CObjectManagerInterface(void);
 
-	// 初期化
-	bool Init(void);
-
-	// 終了
-	void Uninit(void);
-
-	// チャンクのチェック
-	HRESULT CheckChunk(HANDLE h_file, DWORD format, DWORD *chunk_size, DWORD *chunk_data_position);
-
-	// チャンクデータの読み込み
-	HRESULT ReadChunkData(HANDLE h_file, void* buffer, DWORD buffer_size, DWORD buffer_offset);
-
-	// XAudio2の取得
-	IXAudio2* xaudio2(void){return xaudio2_;}
-
-	// XAudio2の取得
-	IXAudio2MasteringVoice* mastering_voice(void){return mastering_voice_;}
+	// レンダーステートの設定
+	void SetRenderstate(const u32& state_type){renderstate_list_.push_back(state_type);}
 
 protected:
-
-private:
-	IXAudio2* xaudio2_;							// XAudio2オブジェクトへのインターフェイス
-
-	IXAudio2MasteringVoice* mastering_voice_;		// マスターボイス
+	std::list<u32> renderstate_list_;
 };
 
-#endif // _XAUDIO_H_
+#endif	// _OBJECT_MANAGER_INTERFACE_H_
 
 //---------------------------------- EOF --------------------------------------
