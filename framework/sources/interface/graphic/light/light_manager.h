@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// ライトマネージャークラス [light_manager.h]
+// ライトマネージャークラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/05/07(Wed)
-// Version		: 1.00
-// Update Date	: 2014/05/07(Wed)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -20,6 +17,8 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+#include <list>
+
 // basic
 #include "basic/basic.h"
 
@@ -37,7 +36,7 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CGraphicsDevice;
+class CDeviceHolder;
 class CLight;
 
 //*****************************************************************************
@@ -47,7 +46,7 @@ class CLightManager : public CBasic
 {
 public:
 	// コンストラクタ
-	CLightManager(CGraphicsDevice* pGraphicsDevice);
+	CLightManager(CDeviceHolder* device_holder);
 
 	// デストラクタ
 	~CLightManager(void);
@@ -64,13 +63,14 @@ public:
 	// 設定処理
 	void Set(void);
 
-	CLight* Get(int nNumber);
+	// 追加処理
+	void Add(CLight* light);
+
 protected:
 
 private:
-	static const int LIGHT_MAX = (3);
-	CGraphicsDevice* m_pGraphicsDevice;
-	CLight** m_pLight;
+	CDeviceHolder* device_holder_;
+	std::list<CLight*> light_list_;
 };
 
 #endif	// _LIGHT_MANAGER_H_

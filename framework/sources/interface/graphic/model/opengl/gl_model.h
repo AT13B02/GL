@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// OpenGL3D頂点クラス
+// GLモデルクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Ryo Kobayashi
 //
 //*****************************************************************************
 
@@ -11,19 +11,16 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _GL_VERTEX_3D_H_
-#define _GL_VERTEX_3D_H_
+#ifndef _GLMODEL_H_
+#define _GLMODEL_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// basic
-#include "basic/application.h"
-
-#ifdef _USING_OPENGL_
-// graphic
+#include <Windows.h>
+#include "interface/graphic/model/model.h"
 #include "interface/graphic/vertex/vertex_3d.h"
-#include "interface/graphic/device/opengl/opengl.h"
+#include "common/math/math.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,33 +35,92 @@
 //*****************************************************************************
 
 //*****************************************************************************
+// プロトタイプ宣言
+//*****************************************************************************
+
+//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
+class CDeviceHolder;
+class Vertex3D;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CGLVertex3D : public CVertex3D
+class CGLModel : public CModel
 {
 public:
+
 	// コンストラクタ
-	CGLVertex3D(CDeviceHolder* device_holder,const u32& position_number,const u32& normal_number,const u32& color_number,const u32& texcoord_number);
+	CGLModel(CDeviceHolder* device_holder);
 
 	// デストラクタ
-	virtual ~CGLVertex3D(void);
+	~CGLModel(void);
 
-	// 描画処理
-	void Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length);
+	// 初期化
+	bool Init(void);
 
-	// 解除処理
-	void Unlock(void);
-protected:
+	// 終了
+	void Uninit(void);
+
+	// ロード
+	bool Load(const s8* filename);
+
+	// 描画
+	void Draw(const MATRIX4x4& matrix);
 
 private:
+
+	// データヘッダ
+	struct DataHeader
+	{
+		u32 uVtx;
+		u32 uIdx;
+		u32 uMat;
+		u32 uAtt;
+	};
+	
+	// メッシュアトリビュート
+	struct MeshAttribute
+	{
+		u32 idxStart;	// 開始インデックス
+		u32 idxNum;	// インデックス数
+		u32 vtxStart;	// 開始頂点番号
+		u32 vtxNum;	// 頂点数
+		u32 faceNum;	// プリミティブ数
+	};
+	
+	// マテリアル情報
+	struct Material
+	{
+		VECTOR4 Diffuse;
+		VECTOR4 Ambient;
+		VECTOR4 Specular;
+		VECTOR4 Emissive;
+		f32 SpecPower;
+	};
+
+	// テクスチャ付マテリアル情報
+	struct TexMaterial
+	{
+		Material mat;
+		s8 TexFileName[MAX_PATH];
+	};
+
+private:
+
+	// 頂点バッファ
+	CVertex3D *m_pVtxBuffer;
+	
+	// マテリアル数
+	u32 m_uNumMaterial;
+	// マテリアル
+	TexMaterial* m_pMaterial;
+
+	// アトリビュート
+	MeshAttribute* m_pMeshAttribute;
 };
 
-#endif	// _USING_OPENGL_
-
-#endif	// _GL_VERTEX_3D_H_
+#endif	// _MODEL_H_
 
 //---------------------------------- EOF --------------------------------------

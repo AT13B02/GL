@@ -32,6 +32,7 @@
     <ClInclude Include="sources\debug_tool\debug.h" />
     <ClInclude Include="sources\debug_tool\debug_console.h" />
     <ClInclude Include="sources\debug_tool\debug_manager.h" />
+    <ClInclude Include="sources\interface\character\character_manager_interface.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\opengl\gl_camera.h" />
@@ -39,8 +40,12 @@
     <ClInclude Include="sources\interface\graphic\device\graphic_device.h" />
     <ClInclude Include="sources\interface\graphic\device\opengl\opengl.h" />
     <ClInclude Include="sources\interface\graphic\graphic_manager.h" />
+    <ClInclude Include="sources\interface\graphic\light\light.h" />
+    <ClInclude Include="sources\interface\graphic\light\light_manager.h" />
+    <ClInclude Include="sources\interface\graphic\light\opengl\gl_light.h" />
     <ClInclude Include="sources\interface\graphic\model\model.h" />
     <ClInclude Include="sources\interface\graphic\model\model_manager.h" />
+    <ClInclude Include="sources\interface\graphic\model\opengl\gl_model.h" />
     <ClInclude Include="sources\interface\graphic\object\object.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\billboard.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_3d.h" />
@@ -71,6 +76,10 @@
     <ClInclude Include="sources\interface\input\input_alias.h" />
     <ClInclude Include="sources\interface\input\input_manager.h" />
     <ClInclude Include="sources\interface\interface_manager.h" />
+    <ClInclude Include="sources\interface\sound\device\sound_device.h" />
+    <ClInclude Include="sources\interface\sound\device\xaudio2\xaudio2.h" />
+    <ClInclude Include="sources\interface\sound\sound.h" />
+    <ClInclude Include="sources\interface\sound\sound_manager.h" />
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
@@ -98,6 +107,7 @@
     <ClCompile Include="sources\debug_tool\debug.cpp" />
     <ClCompile Include="sources\debug_tool\debug_console.cpp" />
     <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
+    <ClCompile Include="sources\interface\character\character_manager_interface.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\opengl\gl_camera.cpp" />
@@ -105,8 +115,12 @@
     <ClCompile Include="sources\interface\graphic\device\graphic_device.cpp" />
     <ClCompile Include="sources\interface\graphic\device\opengl\opengl.cpp" />
     <ClCompile Include="sources\interface\graphic\graphic_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\light\light.cpp" />
+    <ClCompile Include="sources\interface\graphic\light\light_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\light\opengl\gl_light.cpp" />
     <ClCompile Include="sources\interface\graphic\model\model.cpp" />
     <ClCompile Include="sources\interface\graphic\model\model_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\model\opengl\gl_model.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\billboard.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_3d.cpp" />
@@ -136,6 +150,10 @@
     <ClCompile Include="sources\interface\input\event_buffer.cpp" />
     <ClCompile Include="sources\interface\input\input_manager.cpp" />
     <ClCompile Include="sources\interface\interface_manager.cpp" />
+    <ClCompile Include="sources\interface\sound\device\sound_device.cpp" />
+    <ClCompile Include="sources\interface\sound\device\xaudio2\xaudio2.cpp" />
+    <ClCompile Include="sources\interface\sound\sound.cpp" />
+    <ClCompile Include="sources\interface\sound\sound_manager.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />

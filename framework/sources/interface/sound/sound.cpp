@@ -1,27 +1,27 @@
 //*****************************************************************************
 //
-// テクスチャクラス [texture.cpp]
+// サウンドクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/06/10(Tue)
-// Version		: 1.00
-// Update Date	: 2014/06/10(Tue)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "application.h"
-
-#ifdef _USING_XAUDIO2_
-#include "xaudio2_sound.h"
-#endif
-
-#include "sound.h"
 #include <stdio.h>
 
-#include "common.h"
+// basic
+#include "basic/application.h"
+
+// sound
+#ifdef _USING_XAUDIO2_
+#include "interface/sound/xaudio2/xaudio2_sound.h"
+#endif
+#include "interface/sound/sound.h"
+
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -38,10 +38,13 @@
 //=============================================================================
 // デフォルトコンストラクタ
 //=============================================================================
-CSound::CSound(void)
+CSound::CSound(CSoundDevice* sound_device)
 {
+	// サウンドデバイスの設定
+	sound_device_ = sound_device;
+
 	// ファイル名
-	m_pFilename = NULL;
+	filename_ = NULL;
 }
 
 //=============================================================================
@@ -56,7 +59,7 @@ CSound::~CSound(void)
 //=============================================================================
 bool CSound::Init(void)
 {
-	m_pFilename = NULL;
+	filename_ = NULL;
 
 	return true;
 }
@@ -66,37 +69,37 @@ bool CSound::Init(void)
 //=============================================================================
 void CSound::Uninit(void)
 {
-	SAFE_DELETE_ARRAY(m_pFilename);
+	SAFE_DELETE_ARRAY(filename_);
 }
 
 //=============================================================================
 // 作成処理
 //=============================================================================
-CSound* CSound::Create(CSoundDevice* pSoundDevice)
+CSound* CSound::Create(CSoundDevice* sound_device)
 {
-	CSound* pSound = NULL;
+	CSound* sound = NULL;
 
 #ifdef _USING_XAUDIO2_
-	pSound = new CXAudio2Sound(pSoundDevice);
+	//sound = new CXAudio2Sound(sound_device);
 #endif
-	return pSound;
+	return sound;
 }
 
 //=============================================================================
 // ファイル名の設定処理
 //=============================================================================
-void CSound::SetFilename(const char* pFilename)
+void CSound::SetFilename(const s8* filename)
 {
 	int nLen = 0;
 
 	// ファイル名の長さの取得
-	nLen = strlen(pFilename);
+	nLen = strlen(filename);
 
 	// ファイル名分確保
-	m_pFilename = new char[nLen + 1];
+	filename_ = new s8[nLen + 1];
 
 	// ファイル名のコピー
-	strcpy(m_pFilename,pFilename);
+	strcpy(filename_,filename);
 }
 
 //---------------------------------- EOF --------------------------------------

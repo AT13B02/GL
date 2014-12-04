@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// サウンドクラス [sound.h]
+// サウンドクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/06/10(Tue)
-// Version		: 1.00
-// Update Date	: 2014/06/10(Tue)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -20,7 +17,8 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
+// basic
+#include "basic/basic.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -50,7 +48,7 @@ class CSound : public CBasic
 {
 public:
 	// 作成処理
-	static CSound* Create(CSoundDevice* pSoundDevice);
+	static CSound* Create(CSoundDevice* sound_device);
 
 	// 初期化
 	virtual bool Init(void);
@@ -59,10 +57,10 @@ public:
 	virtual void Uninit(void);
 
 	// ロード
-	virtual bool Load(const char* pFilename) = 0;
+	virtual bool Load(const s8* filename) = 0;
 
 	// 再生
-	virtual void Play(bool bLoopFlag) = 0;
+	virtual void Play(bool loop_flag) = 0;
 
 	// 停止
 	virtual void Stop(void) = 0;
@@ -75,17 +73,20 @@ public:
 
 protected:
 	// コンストラクタ
-	CSound(void);
+	CSound(CSoundDevice* sound_device);
 
 	// デストラクタ
 	virtual ~CSound(void);
 
+	// サウンドデバイス
+	CSoundDevice* sound_device_;
+
 	// ファイル名の設定
-	void SetFilename(const char* pFilename);
+	void SetFilename(const s8* filename);
 
 private:
 	// ファイル名
-	char* m_pFilename;
+	char* filename_;
 };
 
 #endif	// _SOUND_H_

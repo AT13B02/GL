@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// OpenGL3D頂点クラス
+// OpenGLライトクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -11,26 +11,21 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _GL_VERTEX_3D_H_
-#define _GL_VERTEX_3D_H_
+#ifndef _GL_LIGHT_H_
+#define _GL_LIGHT_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
 // basic
 #include "basic/application.h"
-
 #ifdef _USING_OPENGL_
+#include "basic/basic.h"
 // graphic
-#include "interface/graphic/vertex/vertex_3d.h"
-#include "interface/graphic/device/opengl/opengl.h"
+#include "interface/graphic/light/light.h"
 
 //*****************************************************************************
-// ライブラリのリンク
-//*****************************************************************************
-
-//*****************************************************************************
-// マクロ定義
+// 定数定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -44,27 +39,27 @@
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CGLVertex3D : public CVertex3D
+class CGLLight : public CLight
 {
 public:
 	// コンストラクタ
-	CGLVertex3D(CDeviceHolder* device_holder,const u32& position_number,const u32& normal_number,const u32& color_number,const u32& texcoord_number);
+	CGLLight(CDeviceHolder* device_holder);
 
 	// デストラクタ
-	virtual ~CGLVertex3D(void);
+	virtual ~CGLLight(void);
 
-	// 描画処理
-	void Draw(const MATRIX4x4& matrix,const u32& offset,const u32 length);
+	// 初期化処理
+	bool Init(void);
 
-	// 解除処理
-	void Unlock(void);
+	// ライトの設定
+	void Set(void);
 protected:
 
 private:
+
 };
 
-#endif	// _USING_OPENGL_
-
-#endif	// _GL_VERTEX_3D_H_
+#endif // _USING_OPENGL_
+#endif // _GL_LIGHT_H_
 
 //---------------------------------- EOF --------------------------------------

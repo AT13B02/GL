@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// ライトクラス [light.h]
+// ライトクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/09/19(Fri)
-// Version		: 1.00
-// Update Date	: 2014/09/19(Fri)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -20,9 +17,12 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
-#include "math.h"
-#include "color4f.h"
+// basic
+#include "basic/basic.h"
+
+// common
+#include "common/math/math.h"
+#include "common/image/color/color4f.h"
 
 //*****************************************************************************
 // 定数定義
@@ -35,7 +35,7 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CGraphicsDevice;
+class CDeviceHolder;
 
 //*****************************************************************************
 // クラス定義
@@ -44,7 +44,7 @@ class CLight : public CBasic
 {
 public:
 	// 作成処理
-	static CLight* Create(CGraphicsDevice* pGraphicsDevice);
+	static CLight* Create(CDeviceHolder* device_holder);
 
 	// 初期化処理
 	bool Init(void);
@@ -53,25 +53,25 @@ public:
 	virtual void Set(void) = 0;
 
 	// 色情報の設定
-	void SetColor(COLOR4F Color){m_Color = Color;}
+	void SetColor(COLOR4F color){color_ = color;}
 
 	// 向きの設定
-	void SetVector(VECTOR3 Vector){m_Vector = Vector;m_Vector.Normalize();}
+	void SetVector(VECTOR3 vector){vector_ = vector;vector_.Normalize();}
 protected:
 	// コンストラクタ
-	CLight(CGraphicsDevice* pGraphicsDevice);
+	CLight(CDeviceHolder* device_holder);
 
 	// デストラクタ
 	virtual ~CLight(void);
 
 	// グラフィックデバイス
-	CGraphicsDevice* m_pGraphicsDevice;
+	CDeviceHolder* device_holder_;
 
 	// ベクトル
-	VECTOR3 m_Vector;
+	VECTOR3 vector_;
 
 	// 色
-	COLOR4F m_Color;
+	COLOR4F color_;
 private:
 
 };

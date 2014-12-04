@@ -9,16 +9,13 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+// basic
 #include "basic/application.h"
 
-// graphic
 #ifdef _USING_OPENGL_
-//#include "gl_light.h"
-#endif
-#ifdef _USING_DIRECTX_
-#include "dx_light.h"
-#endif
-#include "interface/graphic/light/light.h"
+// graphic
+#include "interface/graphic/light/opengl/gl_light.h"
+#include "interface/graphic/device/opengl/opengl.h"
 
 // common
 #include "common/common.h"
@@ -38,51 +35,32 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CLight::CLight(CDeviceHolder* device_holder)
+CGLLight::CGLLight(CDeviceHolder* device_holder) : CLight(device_holder)
 {
-	device_holder_ = device_holder;
-
-	vector_ = VECTOR3(0.0f,0.0f,0.0f);
-
-	color_ = COLOR4F(1.0f,1.0f,1.0f,1.0f);
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CLight::~CLight(void)
+CGLLight::~CGLLight(void)
 {
-}
-
-//=============================================================================
-// 作成処理
-//=============================================================================
-CLight* CLight::Create(CDeviceHolder* device_holder)
-{
-	CLight* light = NULL;
-
-#ifdef _USING_DIRECTX_
-	light = new CDXLight(pGraphicsDevice);
-#endif
-
-#ifdef _USING_OPENGL_
-	//light = new CGLLight(pGraphicsDevice);
-#endif
-
-	if(!light->Init())
-	{
-		return NULL;
-	}
-
-	return light;
 }
 
 //=============================================================================
 // 初期化処理
 //=============================================================================
-bool CLight::Init(void)
+bool CGLLight::Init(void)
 {
 	return true;
 }
+
+//=============================================================================
+// 設定処理
+//=============================================================================
+void CGLLight::Set(void)
+{
+}
+
+#endif // _USING_OPENGL_
 
 //---------------------------------- EOF --------------------------------------
