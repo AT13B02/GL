@@ -83,6 +83,9 @@ public:
 	// モデルマネージャーの取得
 	CModelManager* GetModelManager(void){return model_manager_;}
 
+	// レンダーステートの設定
+	void SetRenderstate(const u32& state_type){renderstate_list_.push_back(state_type);}
+
 	//-----------------------------------------------------
 	// 描画リストに保存
 

@@ -78,9 +78,8 @@ void CObjectModel::Draw(CObject3DData* object_3d_data)
 {
 	MATRIX4x4 matrix = GetWorldMatrix(object_3d_data);
 	CModel* model = object_3d_data->model_manager()->Get(model_name_);
-	CRenderstate* renderstate = NULL;//object_3d_data->renderstate();
 
-	object_3d_data->object_3d()->Draw(matrix,model,renderstate);
+	object_3d_data->object_3d()->Draw(matrix,model,object_3d_data->renderstate_manager(),object_3d_data->renderstate_list());
 }
 
 //=============================================================================

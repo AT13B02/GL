@@ -53,7 +53,7 @@ bool CObject3DBuffer::Init(void)
 //=============================================================================
 // 描画
 //=============================================================================
-void CObject3DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager,CModelManager* model_manager)
+void CObject3DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager,CModelManager* model_manager,CRenderstateManager* renderstate_manager)
 {
 	// TODO zソート
 
@@ -68,6 +68,9 @@ void CObject3DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager,CMod
 
 		// モデルマネージャーの設定
 		(*it)->set_model_manager(model_manager);
+
+		// モデルマネージャーの設定
+		(*it)->set_renderstate_manager(renderstate_manager);
 
 		// 描画
 		(*it)->Draw();

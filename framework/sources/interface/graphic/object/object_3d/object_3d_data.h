@@ -44,6 +44,7 @@
 //*****************************************************************************
 class CObject3D;
 class CRenderstate;
+class CRenderstateManager;
 class CCamera;
 class CModelManager;
 class CTextureManager;
@@ -79,6 +80,7 @@ public:
 	void set_object_3d(CObject3D* object_3d){object_3d_ = object_3d;}
 	void set_texture_name(const std::string& texture_name){texture_name_ = texture_name;}
 	void set_renderstate(std::list<u32> renderstate_list){renderstate_list_ = renderstate_list;}
+	void set_renderstate_manager(CRenderstateManager* renderstate_manager){renderstate_manager_ = renderstate_manager;}
 	void set_camera(CCamera* camera){camera_ = camera;}
 	void set_model_manager(CModelManager* model_manager){model_manager_ = model_manager;}
 	void set_texture_manager(CTextureManager* texture_manager){texture_manager_ = texture_manager;}
@@ -90,6 +92,7 @@ public:
 	CObject3D* object_3d(void){return object_3d_;}
 	std::string& texture_name(void){return texture_name_;}
 	std::list<u32>& renderstate_list(void){return renderstate_list_;}
+	CRenderstateManager* renderstate_manager(void){return renderstate_manager_;}
 	CCamera* camera(void){return camera_;}
 	CModelManager* model_manager(void){return model_manager_;}
 	CTextureManager* texture_manager(void){return texture_manager_;}
@@ -102,6 +105,7 @@ private:
 	CObject3D* object_3d_;
 	std::string texture_name_;
 	std::list<u32> renderstate_list_;
+	CRenderstateManager* renderstate_manager_;
 	CCamera* camera_;
 	CModelManager* model_manager_;
 	CTextureManager* texture_manager_;

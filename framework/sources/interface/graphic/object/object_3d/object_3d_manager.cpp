@@ -104,7 +104,7 @@ void CObject3DManager::Draw(void)
 		light_manager_->Set();
 
 		// バッファの描画処理
-		object_3d_buffer_->Draw(camera,texture_manager_,model_manager_);
+		object_3d_buffer_->Draw(camera,texture_manager_,model_manager_,renderstate_manager_);
 	}
 
 	// ライトの解除
