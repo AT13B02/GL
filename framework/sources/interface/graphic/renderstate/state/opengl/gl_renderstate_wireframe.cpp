@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// オブジェクト3Dバッファクラス
+// OpenGLレンダーステートワイヤーフレームクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -9,15 +9,23 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+// basic
+#include "basic/application.h"
+
+#ifdef _USING_OPENGL_
 // graphic
-#include "interface/graphic/object/object_3d/object_3d_buffer.h"
-#include "interface/graphic/object/object_3d/object_3d_data.h"
+#include "interface/graphic/renderstate/state/opengl/gl_renderstate_wireframe.h"
+#include "interface/graphic/device/opengl/opengl.h"
 
 // common
 #include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
+//*****************************************************************************
+
+//*****************************************************************************
+// 構造体定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -31,82 +39,51 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CObject3DBuffer::CObject3DBuffer(void)
+CGLRenderstateWireframe::CGLRenderstateWireframe(CDeviceHolder* device_holder) : CRenderstateWireframe(device_holder)
 {
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CObject3DBuffer::~CObject3DBuffer(void)
+CGLRenderstateWireframe::~CGLRenderstateWireframe(void)
 {
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CObject3DBuffer::Init(void)
+bool CGLRenderstateWireframe::Init(void)
 {
 	return true;
 }
 
 //=============================================================================
-// 描画
-//=============================================================================
-void CObject3DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager,CModelManager* model_manager,CRenderstateManager* renderstate_manager)
-{
-	// TODO zソート
-
-	// リストの開始
-	for(auto it = object_3d_data_list_.begin();it != object_3d_data_list_.end();++it)
-	{
-		// カメラのセット
-		(*it)->set_camera(camera);
-
-		// テクスチャマネージャの設定
-		(*it)->set_texture_manager(texture_manager);
-
-		// モデルマネージャーの設定
-		(*it)->set_model_manager(model_manager);
-
-		// レンダーステートマネージャーの設定
-		(*it)->set_renderstate_manager(renderstate_manager);
-
-		// 描画
-		(*it)->Draw();
-	}
-}
-
-//=============================================================================
 // 終了
 //=============================================================================
-void CObject3DBuffer::Uninit(void)
+void CGLRenderstateWireframe::Uninit(void)
 {
-	Refresh();
+
 }
 
 //=============================================================================
-// 追加
+// 設定
 //=============================================================================
-void CObject3DBuffer::AddList(CObject3DData* pObject3DData)
+void CGLRenderstateWireframe::Set(void)
 {
-	// データの追加
-	object_3d_data_list_.push_back(pObject3DData);
+	// ワイヤーフレーム
+	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 }
 
 //=============================================================================
-// リフレッシュ
+// 解除
 //=============================================================================
-void CObject3DBuffer::Refresh(void)
+void CGLRenderstateWireframe::Unset(void)
 {
-	// 中身の破棄
-	for(auto it = object_3d_data_list_.begin();it != object_3d_data_list_.end();++it)
-	{
-		SAFE_RELEASE((*it));
-	}
-
-	// バッファリストのクリア
-	object_3d_data_list_.clear();
+	// 元に戻す
+	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 }
+
+#endif	// _USING_OPENGL_
 
 //---------------------------------- EOF --------------------------------------

@@ -403,6 +403,18 @@
     <ClInclude Include="sources\interface\graphic\object\object_manager_interface.h">
       <Filter>sources\interface\graphic\object</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_light_off.h">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_light_off.h">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_wireframe.h">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_wireframe.h">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -653,6 +665,18 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\object\object_manager_interface.cpp">
       <Filter>sources\interface\graphic\object</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_light_off.cpp">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_light_off.cpp">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_wireframe.cpp">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_wireframe.cpp">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

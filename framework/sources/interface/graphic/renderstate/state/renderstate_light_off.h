@@ -1,29 +1,24 @@
 //*****************************************************************************
 //
-// オブジェクト2Dクラス
+// レンダーステートライトオフクラス
 //
 // Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 多重定義防止
+// 二重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _OBJECT_2D_H_
-#define _OBJECT_2D_H_
+#ifndef _RENDERSTATE_LIGHT_OFF_H_
+#define _RENDERSTATE_LIGHT_OFF_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <list>
-
 // graphic
-#include "interface/graphic/object/object.h"
-
-// common
-#include "common/math/math.h"
+#include "interface/graphic/renderstate/state/renderstate.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -40,49 +35,34 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CObject2DData;
 class CDeviceHolder;
-class CModel;
-class CVertex2D;
-class CTexture;
-class CRenderstateManager;
-
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CObject2D : public CObject
+class CRenderstateLightOff : public CRenderstate
 {
 public:
-	enum OBJECT_2D_TYPE
-	{
-		OBJECT_2D_TYPE_RECTANGLE = 0,
-		OBJECT_2D_TYPE_MAX
-	};
-
 	// コンストラクタ
-	explicit CObject2D(CDeviceHolder* device_holder,OBJECT_2D_TYPE type);
+	CRenderstateLightOff(CDeviceHolder* device_holder);
 
 	// デストラクタ
-	virtual ~CObject2D(void);
+	virtual ~CRenderstateLightOff(void);
 
-	// 描画処理
-	virtual void Draw(CObject2DData* object_2d_data) = 0;
+	virtual bool Init(void) = 0;
 
-	// 描画処理
-	void Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* texture,CRenderstateManager* renderstate_manager,std::list<u32> renderstate_list);
+	virtual void Uninit(void) = 0;
 
-	// 設定処理
 	virtual void Set(void) = 0;
 
-protected:
-	CDeviceHolder* device_holder_;
-	MATRIX4x4 GetWorldMatrix(CObject2DData* object_2d_data);
+	virtual void Unset(void) = 0;
+
+	// 作成処理
+	static CRenderstateLightOff* Create(CDeviceHolder* device_holder);
 
 private:
-	OBJECT_2D_TYPE object_2d_type_;
 };
 
-#endif	// _OBJECT_2D_H_
+#endif // _RENDERSTATE_LIGHT_OFF_H_
 
 //---------------------------------- EOF --------------------------------------

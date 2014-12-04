@@ -59,8 +59,6 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 	// マトリックスの設定
 	glMultMatrixf((f32*)&matrix);
 
-	glEnable(GL_LIGHTING);
-
 	// ポリゴン描画の開始(図形の描画形式を設定)
 	glBegin(GL_TRIANGLE_STRIP);
 

@@ -114,7 +114,9 @@ void CSceneGame::Draw(void)
 	// TODO •`‰æƒeƒXƒg
 	object_3d_manager->Draw(test_rectangle_3d_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(-90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
 	object_3d_manager->Draw(test_billboard_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
+
 	object_3d_manager->Draw(test_model_key_,VECTOR3(),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
+
 	object_2d_manager->Draw(test_rectangle_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"field000");
 }
 

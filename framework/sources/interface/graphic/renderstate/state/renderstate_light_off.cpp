@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// オブジェクトモデルクラス
+// レンダーステートライトオフクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -12,16 +12,14 @@
 // basic
 #include "basic/application.h"
 
-// graphic
+#include "interface/graphic/renderstate/state/renderstate_light_off.h"
 #ifdef _USING_OPENGL_
-//#include "interface/graphic/model/opengl/gl_object_model.h"
+#include "interface/graphic/renderstate/state/opengl/gl_renderstate_light_off.h"
 #endif
+
 #ifdef _USING_DIRECTX_
-#include "interface/graphic/model/dx_object_model.h"
+#include "interface/graphic/renderstate/state/directx/dx_renderstate_2d.h"
 #endif
-#include "interface/graphic/object/object_3d/element/object_model.h"
-#include "interface/graphic/object/object_3d/object_3d_data.h"
-#include "interface/graphic/model/model_manager.h"
 
 // common
 #include "common/common.h"
@@ -31,7 +29,7 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// 定数定義
+// 構造体定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -45,48 +43,33 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CObjectModel::CObjectModel(CDeviceHolder* device_holder,const char* model_name) : CObject3D(device_holder,OBJECT_3D_TYPE_OBJECT_MODEL)
+CRenderstateLightOff::CRenderstateLightOff(CDeviceHolder* device_holder) : CRenderstate(device_holder)
 {
-	int nLen = 0;
-	nLen = strlen(model_name);
-
-	model_name_ = new char[nLen + 1];
-
-	strcpy(model_name_,model_name);
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CObjectModel::~CObjectModel(void)
+CRenderstateLightOff::~CRenderstateLightOff(void)
 {
-	SAFE_DELETE_ARRAY(model_name_);
 }
 
 //=============================================================================
-// 初期化
+// 作成処理
 //=============================================================================
-bool CObjectModel::Init(void)
+CRenderstateLightOff* CRenderstateLightOff::Create(CDeviceHolder* device_holder)
 {
-	return true;
-}
+	CRenderstateLightOff* renderstate_light_off = NULL;
 
-//=============================================================================
-// 描画
-//=============================================================================
-void CObjectModel::Draw(CObject3DData* object_3d_data)
-{
-	MATRIX4x4 matrix = GetWorldMatrix(object_3d_data);
-	CModel* model = object_3d_data->model_manager()->Get(model_name_);
+#ifdef _USING_OPENGL_
+	renderstate_light_off = new CGLRenderstateLightOff(device_holder);
+#endif
 
-	object_3d_data->object_3d()->Draw(matrix,model,object_3d_data->renderstate_manager(),object_3d_data->renderstate_list());
-}
+#ifdef _USING_DIRECTX_
+	renderstate_2d = new CGLRenderstateLightOff(device_holder);
+#endif
 
-//=============================================================================
-// 終了
-//=============================================================================
-void CObjectModel::Uninit(void)
-{
+	return renderstate_light_off;
 }
 
 //---------------------------------- EOF --------------------------------------

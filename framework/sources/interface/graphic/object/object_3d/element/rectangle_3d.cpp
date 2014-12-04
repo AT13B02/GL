@@ -87,7 +87,7 @@ void CRectangle3D::Draw(CObject3DData* object_3d_data)
 
 	matrix = GetWorldMatrix(object_3d_data);
 
-	CObject3D::Draw(matrix,vertex_3d_,texture,renderstate);
+	CObject3D::Draw(matrix,vertex_3d_,texture,object_3d_data->renderstate_manager(),object_3d_data->renderstate_list());
 }
 
 //=============================================================================
