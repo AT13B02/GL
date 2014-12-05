@@ -1,41 +1,35 @@
 //*****************************************************************************
 //
-// プレイヤークラス
+// キャラクタマネージャークラス
 //
 // Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
+
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "player.h"
-#include "interface/graphic/model/model.h"
-#include "interface/graphic/object/object_3d/element/object_model.h"
-#include "interface/interface_manager.h"
-#include "interface/graphic/graphic_manager.h"
-#include "interface/graphic/object/object_manager.h"
-#include "interface/graphic/object/object_3d/object_3d_manager.h"
 
+#include "character_manager.h"
+#include "player/player_manager.h"
+
+#include "common/common.h"
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CPlayer::CPlayer(CInterfaceManager* interface_manager )
+CCharacterManager::CCharacterManager()
 {
-
-	//インターフェースマネージャーの保存
-	interface_manager_ = interface_manager;
+	player_manager_ = new CPlayerManager;
 
 }
-
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CPlayer::~CPlayer( )
+CCharacterManager::~CCharacterManager()
 {
-
 
 
 }
@@ -44,50 +38,38 @@ CPlayer::~CPlayer( )
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CPlayer::Init( void )
+bool CCharacterManager::Init(void)
 {
-	// オブジェクトモデルの生成
-	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"ship");
-	// オブジェクトリストに追加
-	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList( object_model );
-
-	//値初期化
-	pos = VECTOR3( 0.0f, 0.0f, 0.0f );
-	rot = VECTOR3( 0.0f, 0.0f, 0.0f );
-	scale = VECTOR3( 1.0f, 1.0f, 1.0f );
-
+	
+	player_manager_->Init();
 
 	return true;
 }
 
-
-
 //=============================================================================
 // 更新
 //=============================================================================
-void CPlayer::Update( void )
+void CCharacterManager::Update(void)
 {
-	//pos._x += 0.1f;
+	player_manager_->Update();
 }
 
 //=============================================================================
-// 描画処理
+// 描画
 //=============================================================================
-void CPlayer::Draw( void )
+void CCharacterManager::Draw(void)
 {
-
-	// 描画
-	interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->
-		Draw(object_key_,pos,rot,scale,MATRIX4x4(), "field000",NULL);
-
+	player_manager_->Draw();
 
 }
 
-
 //=============================================================================
-// 終了処理
+// 終了
 //=============================================================================
-void CPlayer::Uninit( void )
+void CCharacterManager::Uninit( void )
 {
-
+	SAFE_RELEASE( player_manager_ );
 }
+
+
+//---------------------------------- EOF --------------------------------------
