@@ -28,6 +28,7 @@
 #include "interface/graphic/object/object_2d/object_2d_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/object/object_3d/element/billboard.h"
+#include "interface/graphic/object/object_3d/element/meshfield.h"
 #include "interface/graphic/camera/camera.h"
 #include "interface/graphic/camera/camera_manager.h"
 #include "interface/graphic/model/model_manager.h"
@@ -113,7 +114,8 @@ void CSceneGame::Draw(void)
 
 
 	// TODO 描画テスト
-	object_3d_manager->Draw(test_rectangle_3d_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(-90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+	object_3d_manager->Draw(test_meshfield_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
+	object_3d_manager->Draw(test_rectangle_3d_key_,VECTOR3(0.0f,-10.0f,0.0f),VECTOR3(-90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
 	object_3d_manager->Draw(test_billboard_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000",NULL);
 	object_3d_manager->Draw(test_model_key_,VECTOR3(),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"",NULL);
 	object_2d_manager->Draw(test_rectangle_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"field000",NULL);
@@ -163,7 +165,12 @@ void CSceneGame::Load(void)
 	light->SetType(CLight::TYPE_DIRECTIONAL);
 	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
 	light_manager->Add(light);
-
+	
+	CLight* light2 = CLight::Create(device_holder);
+	light->Init();
+	light->SetType(CLight::TYPE_DIRECTIONAL);
+	light->SetDirection(VECTOR3(0.0f,-1.0f,0.0f).Normalize());
+	light_manager->Add(light2);
 
 
 
@@ -174,6 +181,14 @@ void CSceneGame::Load(void)
 	// カメラ
 	test_camera_ = new CCharacterCamera(interface_manager_);
 	test_camera_->Init();
+	
+	// メッシュフィールド
+	CMeshfield* meshfield = new CMeshfield(device_holder);
+	meshfield->set_grid_number(50, 50);
+	meshfield->set_grid_length(20.0f, 20.0f);
+	meshfield->set_position(VECTOR2(0.0f, 0.0f));
+	meshfield->Set();
+	test_meshfield_key_ = object_3d_manager->AddList(meshfield);
 
 	// ビルボード
 	CBillboard* billboard = new CBillboard(device_holder);

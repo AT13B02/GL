@@ -400,6 +400,9 @@
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d.h">
       <Filter>sources\interface\graphic\object\object_2d\element</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshfield.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -647,6 +650,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d.cpp">
       <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshfield.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
