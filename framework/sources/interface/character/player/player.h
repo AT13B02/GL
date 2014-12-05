@@ -22,10 +22,6 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
-#include <string>
-#include <map>
-
 // basic
 #include "basic/basic.h"
 #include "common/math/vector/vector3.h"
@@ -61,7 +57,7 @@ class CPlayer : public CBasic
 {
 public:
 	// コンストラクタ
-	CPlayer( CInterfaceManager* interface_manager );
+	CPlayer(CInterfaceManager* interface_manager);
 
 	// デストラクタ
 	~CPlayer(void);
@@ -76,8 +72,7 @@ public:
 	void Uninit(void);
 
 	//描画
-	void Draw( void );
-
+	void Draw(void);
 
 protected:
 
@@ -85,17 +80,16 @@ protected:
 private:
 	//インターフェースマネージャーのポインタ
 	CInterfaceManager* interface_manager_;
+
 	//オブジェクトキー
 	u32 object_key_;
 
 	//各種値
-	VECTOR3 pos;
-	VECTOR3 rot;
-	VECTOR3 scale;
-
+	VECTOR3 pos_;
+	VECTOR3 rot_;
+	VECTOR3 scale_;
 };
 
 //---------------------------------- EOF --------------------------------------
 
-
-#endif
+#endif // _PLAYER_H_

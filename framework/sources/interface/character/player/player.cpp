@@ -17,34 +17,26 @@
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 
-
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CPlayer::CPlayer(CInterfaceManager* interface_manager )
+CPlayer::CPlayer(CInterfaceManager* interface_manager)
 {
-
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
-
 }
-
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CPlayer::~CPlayer( )
+CPlayer::~CPlayer(void)
 {
-
-
-
 }
-
 
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CPlayer::Init( void )
+bool CPlayer::Init(void)
 {
 	// オブジェクトモデルの生成
 	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"ship");
@@ -52,20 +44,17 @@ bool CPlayer::Init( void )
 	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList( object_model );
 
 	//値初期化
-	pos = VECTOR3( 0.0f, 0.0f, 0.0f );
-	rot = VECTOR3( 0.0f, 0.0f, 0.0f );
-	scale = VECTOR3( 1.0f, 1.0f, 1.0f );
-
+	pos_   = VECTOR3( 0.0f, 0.0f, 0.0f );
+	rot_   = VECTOR3( 0.0f, 0.0f, 0.0f );
+	scale_ = VECTOR3( 1.0f, 1.0f, 1.0f );
 
 	return true;
 }
 
-
-
 //=============================================================================
 // 更新
 //=============================================================================
-void CPlayer::Update( void )
+void CPlayer::Update(void)
 {
 	//pos._x += 0.1f;
 }
@@ -73,21 +62,18 @@ void CPlayer::Update( void )
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CPlayer::Draw( void )
+void CPlayer::Draw(void)
 {
-
 	// 描画
 	interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->
-		Draw(object_key_,pos,rot,scale,MATRIX4x4(), "field000");
-
-
+		Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(), "field000");
 }
-
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CPlayer::Uninit( void )
+void CPlayer::Uninit(void)
 {
-
 }
+
+//---------------------------------- EOF --------------------------------------

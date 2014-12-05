@@ -57,7 +57,6 @@ public:
 
 	// I—¹
 	void Uninit(void);
-
 protected:
 
 private:
