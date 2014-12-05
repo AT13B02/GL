@@ -88,7 +88,8 @@ void CInterfaceManager::Update(void)
 	// インプットマネージャーの更新
 	input_manager_->Update();
 
-
+	// キャラクターマネージャーの更新
+	character_manager_->Update();
 }
 
 //=============================================================================
@@ -107,8 +108,8 @@ void CInterfaceManager::Uninit(void)
 {
 	
 	//キャラクタマネージャの解放
-	SAFE_RELEASE( character_manager_ );
-	
+	SAFE_RELEASE(character_manager_);
+
 	// インプットマネージャーの開放
 	SAFE_RELEASE(input_manager_);
 

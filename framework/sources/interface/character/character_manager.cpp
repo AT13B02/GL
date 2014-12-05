@@ -3,17 +3,19 @@
 // キャラクタマネージャークラス
 //
 // Author		: Chiharu Kamiyama
+//				: Kenji Kabutomori
 //
 //*****************************************************************************
-
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-
+// character
 #include "character_manager.h"
 #include "player/player_manager.h"
+#include "camera/character_camera_manager.h"
 
+// common
 #include "common/common.h"
 
 //=============================================================================
@@ -21,8 +23,11 @@
 //=============================================================================
 CCharacterManager::CCharacterManager()
 {
-	player_manager_ = new CPlayerManager;
+	// プレイヤーマネージャーの生成
+	player_manager_ = new CPlayerManager();
 
+	// キャラクターカメラマネージャーの生成
+	character_camera_manager_ = new CCharacterCameraManager();
 }
 
 //=============================================================================
@@ -30,18 +35,18 @@ CCharacterManager::CCharacterManager()
 //=============================================================================
 CCharacterManager::~CCharacterManager()
 {
-
-
 }
-
 
 //=============================================================================
 // 初期化
 //=============================================================================
 bool CCharacterManager::Init(void)
 {
-	
-	player_manager_->Init();
+	// プレイヤーマネージャーの初期化
+	INIT(player_manager_);
+
+	// カメラマネージャーの初期化
+	INIT(character_camera_manager_);
 
 	return true;
 }
@@ -51,7 +56,11 @@ bool CCharacterManager::Init(void)
 //=============================================================================
 void CCharacterManager::Update(void)
 {
+	// プレイヤーマネージャーの更新
 	player_manager_->Update();
+
+	// キャラクターカメラマネージャーの更新
+	character_camera_manager_->Update();
 }
 
 //=============================================================================
@@ -59,8 +68,8 @@ void CCharacterManager::Update(void)
 //=============================================================================
 void CCharacterManager::Draw(void)
 {
+	// プレイヤーマネージャーの描画
 	player_manager_->Draw();
-
 }
 
 //=============================================================================
@@ -68,8 +77,11 @@ void CCharacterManager::Draw(void)
 //=============================================================================
 void CCharacterManager::Uninit( void )
 {
-	SAFE_RELEASE( player_manager_ );
-}
+	// プレイヤーマネージャーの開放
+	SAFE_RELEASE(player_manager_);
 
+	// キャラクターカメラマネージャーの開放
+	SAFE_RELEASE(character_camera_manager_);
+}
 
 //---------------------------------- EOF --------------------------------------

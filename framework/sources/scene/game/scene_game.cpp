@@ -39,7 +39,10 @@
 #include "interface/graphic/renderstate/renderstate_manager.h"
 
 // character
+#include "interface/character/character_manager.h"
 #include "interface/character/camera/character_camera.h"
+#include "interface/character/camera/character_camera_manager.h"
+
 
 // common
 #include "common/common.h"
@@ -93,12 +96,11 @@ void CSceneGame::Update(void)
 {
 	// ネットワーク受信データの確認
 
-	// キャラクターの更新
+	// 受信データを元に更新(生成や座標の調整)
+
+	// 当たり判定
 
 	// サーバーにデータ送信
-
-	// TODO テスト
-	test_camera_->Update();
 }
 
 //=============================================================================
@@ -125,7 +127,6 @@ void CSceneGame::Draw(void)
 //=============================================================================
 void CSceneGame::Uninit(void)
 {
-	SAFE_RELEASE(test_camera_);
 }
 
 //=============================================================================
@@ -151,6 +152,8 @@ void CSceneGame::Load(void)
 	CCameraManager* camera_manager = object_manager->camera_manager();
 	CModelManager* model_manager = graphic_manager->model_manager();
 	CLightManager* light_manager = graphic_manager->light_manager();
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
@@ -165,16 +168,16 @@ void CSceneGame::Load(void)
 	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
 	light_manager->Add(light);
 
+	// カメラの生成
+	CCharacterCamera* camera = new CCharacterCamera(interface_manager_);
+	camera->Init();
+	character_camera_manager->Push(camera);
 
 
 
 
 
 	// TODO 以下テストプログラム
-
-	// カメラ
-	test_camera_ = new CCharacterCamera(interface_manager_);
-	test_camera_->Init();
 
 	// ビルボード
 	CBillboard* billboard = new CBillboard(device_holder);

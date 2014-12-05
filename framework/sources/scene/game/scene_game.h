@@ -77,7 +77,6 @@ private:
 	u32 test_rectangle_3d_key_;
 	u32 test_billboard_key_;
 	u32 test_model_key_;
-	CCharacterCamera* test_camera_;
 };
 
 #endif	// _SCENE_GAME_H_

@@ -55,6 +55,8 @@ public:
 	// XV
 	void Update(void);
 
+	void Draw(void){}
+
 	// I—¹
 	void Uninit(void);
 protected:

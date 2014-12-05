@@ -427,6 +427,9 @@
     <ClInclude Include="sources\interface\character\character_manager.h">
       <Filter>sources\interface\character</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\character_camera_manager.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -698,6 +701,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\character_manager.cpp">
       <Filter>sources\interface\character</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\character_camera_manager.cpp">
+      <Filter>sources\interface\character\camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
