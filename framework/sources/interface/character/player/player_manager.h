@@ -1,31 +1,43 @@
 //*****************************************************************************
 //
-// インターフェースマネージャークラス
+// プレイヤーマネージャークラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 二重定義防止
+// 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _INTERFACE_MANAGER_H_
-#define _INTERFACE_MANAGER_H_
+#ifndef _PLAYER_MANAGER_H_
+#define _PLAYER_MANAGER_H_
+
+//*****************************************************************************
+// warning消し
+//*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+#include <windows.h>
+#include <string>
+#include <map>
+
+// basic
 #include "basic/basic.h"
-#include "basic/main_window.h"
+
+//character_manager
+#include "interface/character/character_manager_interface.h"
+#include "player.h"
+
+//*****************************************************************************
+// ライブラリのリンク
+//*****************************************************************************
 
 //*****************************************************************************
 // マクロ定義
-//*****************************************************************************
-
-//*****************************************************************************
-// 定数定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -33,73 +45,36 @@
 //*****************************************************************************
 
 //*****************************************************************************
+// プロトタイプ宣言
+//*****************************************************************************
+
+//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CInputManager;
-class CSoundManager;
-class CGraphicManager;
-class CNetworkManager;
-class CCharacterManager;
-
+class CPlayer;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CInterfaceManager : public CBasic
+class CPlayerManager : public CCharacterManagerInterface<CPlayer*>
 {
 public:
 	// コンストラクタ
-	CInterfaceManager(WINDOW_DATA* window_data);
+	CPlayerManager();
 
 	// デストラクタ
-	~CInterfaceManager(void);
+	~CPlayerManager(void);
 
 	// 初期化処理
 	bool Init(void);
 
-	// 更新処理
-	void Update(void);
-
-	// 描画処理
-	void Draw(void);
-
-	// 終了処理
-	void Uninit(void);
-
-	// ロード開始
-	void BeginLoad(void);
-
-	// ロード終了
-	void EndLoad(void);
-
-	// ウィンドウデータの取得
-	WINDOW_DATA* window_data(void){return window_data_;}
-
-	// インプットマネージャーの取得
-	CInputManager* input_manager(void){return input_manager_;}
-
-	// サウンドマネージャーの取得
-	CSoundManager* sound_manager(void){return sound_manager_;}
-
-	// グラフィックマネージャーの取得
-	CGraphicManager* graphic_manager(void){return graphic_manager_;}
-
-	// ネットワークマネージャーの取得
-	CNetworkManager* network_manager(void){return network_manager_;}
-
-	//キャラクタマネージャーの取得
-	CCharacterManager* character_manager( void ){ return character_manager_; }
-
 protected:
 
+
 private:
-	WINDOW_DATA* window_data_;
-	CInputManager* input_manager_;
-	CSoundManager* sound_manager_;
-	CGraphicManager* graphic_manager_;
-	CNetworkManager* network_manager_;
-	CCharacterManager* character_manager_;
+
 };
 
-#endif // _INTERFACE_MANAGER_H_
-
 //---------------------------------- EOF --------------------------------------
+
+
+#endif

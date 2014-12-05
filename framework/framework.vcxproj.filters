@@ -140,6 +140,9 @@
     <Filter Include="sources\interface\graphic\object\object_2d\element">
       <UniqueIdentifier>{eb8d28fb-0050-493a-b4e7-af669125317d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\character\player">
+      <UniqueIdentifier>{5d2b6333-2369-4d7f-826f-2931d3f16f61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -415,6 +418,15 @@
     <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_wireframe.h">
       <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\player\player.h">
+      <Filter>sources\interface\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player\player_manager.h">
+      <Filter>sources\interface\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\character_manager.h">
+      <Filter>sources\interface\character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -677,6 +689,15 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_wireframe.cpp">
       <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player\player.cpp">
+      <Filter>sources\interface\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player\player_manager.cpp">
+      <Filter>sources\interface\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\character_manager.cpp">
+      <Filter>sources\interface\character</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
