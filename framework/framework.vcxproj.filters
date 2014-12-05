@@ -430,6 +430,9 @@
     <ClInclude Include="sources\interface\character\camera\character_camera_manager.h">
       <Filter>sources\interface\character\camera</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshfield.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -704,6 +707,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\camera\character_camera_manager.cpp">
       <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshfield.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

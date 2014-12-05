@@ -76,11 +76,10 @@ void CMeshfield::Draw(CObject3DData* object_3d_data)
 	MATRIX4x4 matrix;
 	CTextureManager* texture_manager = object_3d_data->texture_manager();
 	CTexture* texture = texture_manager->Get(object_3d_data->texture_name().c_str());
-	CRenderstate* renderstate = object_3d_data->renderstate();
 
 	matrix = GetWorldMatrix(object_3d_data);
 
-	CObject3D::Draw(matrix,p_vertex_3d_,texture,renderstate);
+	CObject3D::Draw(matrix,p_vertex_3d_,texture,object_3d_data->renderstate_manager(),object_3d_data->renderstate_list());
 }
 
 //=============================================================================

@@ -57,9 +57,6 @@ public:
 	// 頂点情報の設定
 	virtual void Set(void);
 
-	// 座標の設定
-	void set_position(const VECTOR2& position){position_ = position;}
-
 	// グリッド分割数設定
 	void set_grid_number(const u32& grid_x, const u32& grid_z);
 
@@ -68,11 +65,9 @@ public:
 
 	// 高さ取得
 	float get_height(const VECTOR3& in_position, VECTOR3* p_out_normal);
-
 protected:
 
 private:
-
 	// ハイトマップ生成
 	void CreateHeightMap();
 
@@ -90,9 +85,8 @@ private:
 
 	// インデックス設定
 	void SetIndex(u32* p_index);
-	
-private:
 
+private:
 	// グリッド数
 	u32 number_grid_x_;
 	u32 number_grid_z_;

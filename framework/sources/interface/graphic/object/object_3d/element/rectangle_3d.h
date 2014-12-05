@@ -92,7 +92,6 @@ public:
 
 	// ’†S‚Ìİ’è
 	void set_point(POINT point){point_ = point;}
-
 protected:
 
 private:

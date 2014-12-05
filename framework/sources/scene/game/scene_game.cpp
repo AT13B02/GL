@@ -37,9 +37,12 @@
 #include "interface/graphic/light/light_manager.h"
 #include "interface/graphic/light/light.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
+#include "interface/graphic/object/object_3d/element/meshfield.h"
 
 // character
 #include "interface/character/character_manager.h"
+#include "interface/character/player/player_manager.h"
+#include "interface/character/player/player.h"
 #include "interface/character/camera/character_camera.h"
 #include "interface/character/camera/character_camera_manager.h"
 
@@ -114,12 +117,7 @@ void CSceneGame::Draw(void)
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	// TODO 描画テスト
-	object_3d_manager->Draw(test_rectangle_3d_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(-90.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
-	object_3d_manager->Draw(test_billboard_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
-
-	object_3d_manager->Draw(test_model_key_,VECTOR3(),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
-
-	object_2d_manager->Draw(test_rectangle_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"field000");
+	object_3d_manager->Draw(test_meshfield_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
 }
 
 //=============================================================================
@@ -153,6 +151,7 @@ void CSceneGame::Load(void)
 	CModelManager* model_manager = graphic_manager->model_manager();
 	CLightManager* light_manager = graphic_manager->light_manager();
 	CCharacterManager* character_manager = interface_manager_->character_manager();
+	CPlayerManager* player_manager = character_manager->player_manager();
 	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 
 	// ゲームのテクスチャのロード
@@ -168,6 +167,11 @@ void CSceneGame::Load(void)
 	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
 	light_manager->Add(light);
 
+	// プレイヤーの生成
+	CPlayer* player = new CPlayer(interface_manager_);
+	player->Init();
+	player_manager->Push(player);
+
 	// カメラの生成
 	CCharacterCamera* camera = new CCharacterCamera(interface_manager_);
 	camera->Init();
@@ -179,29 +183,13 @@ void CSceneGame::Load(void)
 
 	// TODO 以下テストプログラム
 
-	// ビルボード
-	CBillboard* billboard = new CBillboard(device_holder);
-	billboard->set_size(VECTOR2(10.0f,10.0f));
-	billboard->Set();
-	test_billboard_key_ = object_3d_manager->AddList(billboard);
-
-	// モデル
-	CObjectModel* object_model = new CObjectModel(device_holder,"ship");
-	test_model_key_ = object_3d_manager->AddList(object_model);
-
-	// 矩形3D
-	CRectangle3D* rectangle_3d = new CRectangle3D(device_holder);
-	rectangle_3d->set_size(VECTOR2(1000.0f,1000.0f));
-	rectangle_3d->set_point(CRectangle3D::POINT_CENTER);
-	rectangle_3d->Set();
-	test_rectangle_3d_key_ = object_3d_manager->AddList(rectangle_3d);
-
-	// 矩形2D
-	CRectangle2D* rectangle_2d = new CRectangle2D(device_holder);
-	rectangle_2d->set_size(VECTOR2(100.0f,100.0f));
-	rectangle_2d->set_point(CRectangle2D::POINT_LEFT_UP);
-	rectangle_2d->Set();
-	test_rectangle_2d_key_ = object_2d_manager->AddList(rectangle_2d);
+	// メッシュフィールド
+	CMeshfield* mesh_field = new CMeshfield(device_holder);
+	mesh_field->Init();
+	mesh_field->set_grid_number(10,10);
+	mesh_field->set_grid_length(100.0f,100.0f);
+	mesh_field->Set();
+	test_meshfield_key_ = object_3d_manager->AddList(mesh_field);
 }
 
 //---------------------------------- EOF --------------------------------------
