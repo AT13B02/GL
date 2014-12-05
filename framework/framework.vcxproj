@@ -59,6 +59,7 @@
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_list.h" />
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_manager.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\billboard.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshfield.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_3d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_model.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\rectangle_3d.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_list.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\billboard.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshfield.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_3d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_model.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\rectangle_3d.cpp" />

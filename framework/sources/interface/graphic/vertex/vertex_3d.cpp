@@ -146,7 +146,7 @@ void CVertex3D::CreateIndex(const int& index_number)
 
 	index_number_ = index_number;
 
-	primitive_number_ = index_number;
+	primitive_number_ = index_number - 2;
 
 	use_index_ = true;
 }
