@@ -14,6 +14,7 @@
 #include "character_manager.h"
 #include "player/player_manager.h"
 #include "camera/character_camera_manager.h"
+#include "attitude_controller/attitude_controller_manager.h"
 
 // common
 #include "common/common.h"
@@ -28,6 +29,8 @@ CCharacterManager::CCharacterManager()
 
 	// キャラクターカメラマネージャーの生成
 	character_camera_manager_ = new CCharacterCameraManager();
+
+	attitude_controller_manager_ = new CAttitudeControllerManager();
 }
 
 //=============================================================================
@@ -48,6 +51,9 @@ bool CCharacterManager::Init(void)
 	// カメラマネージャーの初期化
 	INIT(character_camera_manager_);
 
+	// 姿勢制御コントローラーマネージャーの初期化
+	INIT(attitude_controller_manager_);
+
 	return true;
 }
 
@@ -56,6 +62,9 @@ bool CCharacterManager::Init(void)
 //=============================================================================
 void CCharacterManager::Update(void)
 {
+	// 姿勢制御コントローラーの更新
+	attitude_controller_manager_->Update();
+
 	// プレイヤーマネージャーの更新
 	player_manager_->Update();
 
@@ -75,7 +84,7 @@ void CCharacterManager::Draw(void)
 //=============================================================================
 // 終了
 //=============================================================================
-void CCharacterManager::Uninit( void )
+void CCharacterManager::Uninit(void)
 {
 	// プレイヤーマネージャーの開放
 	SAFE_RELEASE(player_manager_);

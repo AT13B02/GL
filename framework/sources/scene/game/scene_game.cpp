@@ -45,7 +45,8 @@
 #include "interface/character/player/player.h"
 #include "interface/character/camera/character_camera.h"
 #include "interface/character/camera/character_camera_manager.h"
-
+#include "interface/character/attitude_controller/attitude_controller.h"
+#include "interface/character/attitude_controller/attitude_controller_manager.h"
 
 // common
 #include "common/common.h"
@@ -177,9 +178,11 @@ void CSceneGame::Load(void)
 	camera->Init();
 	character_camera_manager->Push(camera);
 
-
-
-
+	// 姿勢制御の生成
+	CAttitudeController* attitude_controller = new CAttitudeController(interface_manager_);
+	attitude_controller->set_axis(VECTOR3(0.0f,1.0f,0.0f));
+	//attitude_controller->Push(player);
+	//attitude_controller->Push(camera);
 
 	// TODO 以下テストプログラム
 

@@ -11,14 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _CHARACTER_CAMERA_H_
-#define _CHARACTER_CAMERA_H_
+#ifndef _PLAYER_CAMERA_H_
+#define _PLAYER_CAMERA_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
 // character
-#include "../character_interface.h"
+#include "character_camera.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -36,38 +36,39 @@
 // クラスの前方参照
 //*****************************************************************************
 class CInterfaceManager;
+class CPlayer;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCharacterCamera : public CCharacterInterface
+class CPlayerCamera : public CCharacterCamera
 {
 public:
 	// コンストラクタ
-	CCharacterCamera(CInterfaceManager* interface_manager);
+	CPlayerCamera(CInterfaceManager* interface_manager,CPlayer* player);
 
 	// デストラクタ
-	virtual ~CCharacterCamera(void);
+	virtual ~CPlayerCamera(void);
 
 	// 初期化
 	bool Init(void);
 
 	// 更新
-	virtual void Update(void);
+	void Update(void);
 
 	// 描画
-	virtual void Draw(void){}
+	void Draw(void){}
 
 	// 終了
 	void Uninit(void);
 protected:
-	CInterfaceManager* interface_manager_;
 
 private:
 	u32 camera_key_;
 	f32 move_speed_;
+	CPlayer* player_;
 };
 
-#endif	// _CHARACTER_CAMERA_H_
+#endif	// _PLAYER_CAMERA_H_
 
 //---------------------------------- EOF --------------------------------------

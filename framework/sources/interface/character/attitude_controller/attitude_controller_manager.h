@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// キャラクターカメラクラス
+// 姿勢制御マネージャークラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -11,14 +11,15 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _CHARACTER_CAMERA_H_
-#define _CHARACTER_CAMERA_H_
+#ifndef _ATTITUDE_CONTROLLER_MANAGER_H_
+#define _ATTITUDE_CONTROLLER_MANAGER_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
 // character
-#include "../character_interface.h"
+#include "interface/character/character_manager_interface.h"
+#include "interface/character/attitude_controller/attitude_controller.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -33,6 +34,10 @@
 //*****************************************************************************
 
 //*****************************************************************************
+// プロトタイプ宣言
+//*****************************************************************************
+
+//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
 class CInterfaceManager;
@@ -40,34 +45,24 @@ class CInterfaceManager;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCharacterCamera : public CCharacterInterface
+class CAttitudeControllerManager : public CCharacterManagerInterface<CAttitudeController*>
 {
 public:
 	// コンストラクタ
-	CCharacterCamera(CInterfaceManager* interface_manager);
+	CAttitudeControllerManager(void);
 
 	// デストラクタ
-	virtual ~CCharacterCamera(void);
+	~CAttitudeControllerManager(void);
 
 	// 初期化
 	bool Init(void);
 
-	// 更新
-	virtual void Update(void);
-
-	// 描画
-	virtual void Draw(void){}
-
 	// 終了
 	void Uninit(void);
-protected:
-	CInterfaceManager* interface_manager_;
 
 private:
-	u32 camera_key_;
-	f32 move_speed_;
 };
 
-#endif	// _CHARACTER_CAMERA_H_
+#endif // _ATTITUDE_CONTROLLER_MANAGER_H_
 
 //---------------------------------- EOF --------------------------------------

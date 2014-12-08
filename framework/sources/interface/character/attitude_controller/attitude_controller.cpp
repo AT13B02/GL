@@ -11,6 +11,7 @@
 //*****************************************************************************
 // character
 #include "attitude_controller.h"
+#include "../character_interface.h"
 
 // interface
 #include "interface/interface_manager.h"
@@ -77,6 +78,24 @@ void CAttitudeController::Update(void)
 	// 前方ベクトルを求める
 	front_vector_ = basic_vector_.RotationAxis(axis_,rotation_);
 	front_vector_.Normalize();
+
+	// 右ベクトル
+	right_vector_ = front_vector_.CrossProduct(VECTOR3(0.0f,0.0f,0.0f));
+	right_vector_.Normalize();
+
+	for(auto it = character_container_.begin();it != character_container_.end();++it)
+	{
+		(*it)->set_front_vector(front_vector_);
+		(*it)->set_right_vector(right_vector_);
+	}
+}
+
+//=============================================================================
+// 追加処理
+//=============================================================================
+void CAttitudeController::Push(CCharacterInterface* character_interface)
+{
+	character_container_.push_back(character_interface);
 }
 
 //---------------------------------- EOF --------------------------------------

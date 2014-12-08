@@ -58,8 +58,12 @@ public:
 
 	// 前方ベクトルの設定
 	void set_front_vector(const VECTOR3& front_vector){front_vector_ = front_vector;}
+
+	// 右ベクトルの設定
+	void set_right_vector(const VECTOR3& right_vector){right_vector_ = right_vector;}
 protected:
 	VECTOR3 front_vector_;
+	VECTOR3 right_vector_;
 };
 
 #endif // _CHARACTER_INTERFACE_H_

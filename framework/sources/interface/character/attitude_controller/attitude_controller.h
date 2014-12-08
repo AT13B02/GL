@@ -17,6 +17,8 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+#include <list>
+
 // basic
 #include "basic/basic.h"
 
@@ -43,6 +45,7 @@
 // クラスの前方参照
 //*****************************************************************************
 class CInterfaceManager;
+class CCharacterInterface;
 
 //*****************************************************************************
 // クラス定義
@@ -65,6 +68,12 @@ public:
 	// 更新処理
 	void Update(void);
 
+	// 描画処理
+	void Draw(void){}
+
+	// 追加処理
+	void Push(CCharacterInterface* character_interface);
+
 	// 回転軸の設定
 	void set_axis(const VECTOR3& axis){axis_ = axis;}
 
@@ -79,8 +88,12 @@ private:
 	f32 rotation_;
 
 	VECTOR3 front_vector_;
+	VECTOR3 right_vector_;
 
 	CInterfaceManager* interface_manager_;
+
+	// 制御するキャラクターコンテナ
+	std::list<CCharacterInterface*> character_container_;
 };
 
 #endif // _ATTITUDE_CONTROLLER_H_

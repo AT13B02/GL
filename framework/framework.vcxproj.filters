@@ -448,6 +448,12 @@
     <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller.h">
       <Filter>sources\interface\character\attitude_controller</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller_manager.h">
+      <Filter>sources\interface\character\attitude_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\player_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -734,6 +740,12 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller.cpp">
       <Filter>sources\interface\character\attitude_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller_manager.cpp">
+      <Filter>sources\interface\character\attitude_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\player_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
