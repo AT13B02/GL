@@ -81,6 +81,9 @@ bool CPlayerCamera::Init(void)
 	camera->SetPerspective(60.0f,((f32)(window_data->_width) / window_data->_height),1.0f,10000.0f);
 
 	move_speed_ = 1.0f;
+
+	length_ = 50.0f;
+
 	return true;
 }
 
@@ -94,13 +97,12 @@ void CPlayerCamera::Update(void)
 	CCameraManager* camera_manager = graphic_manager->camera_manager();
 	CCamera* camera = camera_manager->GetCamera(camera_key_);
 
-	VECTOR3 eye = camera->eye();
-	VECTOR3 look_at = camera->look_at();
-	VECTOR3 translation;
-	VECTOR3 rotation = camera->rotation();
+	VECTOR3 look_at = player_->pos();
+	VECTOR3 eye;
 
-	camera->SetTranslation(translation);
-	camera->SetRotationEyeToLookAt(rotation);
+	eye = look_at - (front_vector_ * length_);
+
+	camera->SetPosition(eye,look_at);
 }
 
 //=============================================================================

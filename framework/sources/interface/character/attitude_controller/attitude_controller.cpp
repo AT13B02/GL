@@ -34,6 +34,8 @@ CAttitudeController::CAttitudeController(CInterfaceManager* interface_manager) :
 	axis_ = VECTOR3(0.0f,1.0f,0.0f);
 
 	axis_.Normalize();
+
+	rotation_ = VECTOR3(0.0f,0.0f,0.0f);
 }
 
 //=============================================================================
@@ -67,20 +69,32 @@ void CAttitudeController::Update(void)
 
 	if(input_manager->CheckPress(INPUT_EVENT_U))
 	{
-		rotation_ += MTH_DEGREE * 1.0f;
+		rotation_._y += MTH_DEGREE * 1.0f;
 	}
 
 	if(input_manager->CheckPress(INPUT_EVENT_O))
 	{
-		rotation_ -= MTH_DEGREE * 1.0f;
+		rotation_._y -= MTH_DEGREE * 1.0f;
+	}
+
+	if(input_manager->CheckPress(INPUT_EVENT_I))
+	{
+		rotation_._x -= MTH_DEGREE * 1.0f;
+	}
+
+	if(input_manager->CheckPress(INPUT_EVENT_K))
+	{
+		rotation_._x += MTH_DEGREE * 1.0f;
 	}
 
 	// 前方ベクトルを求める
-	front_vector_ = basic_vector_.RotationAxis(axis_,rotation_);
+	front_vector_ = basic_vector_.RotationAxis(VECTOR3(1.0f,0.0f,0.0f),rotation_._x);
+	front_vector_.Normalize();
+	front_vector_ = front_vector_.RotationAxis(VECTOR3(0.0f,1.0f,0.0f),rotation_._y);
 	front_vector_.Normalize();
 
 	// 右ベクトル
-	right_vector_ = front_vector_.CrossProduct(VECTOR3(0.0f,0.0f,0.0f));
+	right_vector_ = front_vector_.CrossProduct(VECTOR3(0.0f,1.0f,0.0f));
 	right_vector_.Normalize();
 
 	for(auto it = character_container_.begin();it != character_container_.end();++it)

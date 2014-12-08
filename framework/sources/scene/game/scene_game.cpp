@@ -43,7 +43,7 @@
 #include "interface/character/character_manager.h"
 #include "interface/character/player/player_manager.h"
 #include "interface/character/player/player.h"
-#include "interface/character/camera/character_camera.h"
+#include "interface/character/camera/player_camera.h"
 #include "interface/character/camera/character_camera_manager.h"
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
@@ -154,6 +154,7 @@ void CSceneGame::Load(void)
 	CCharacterManager* character_manager = interface_manager_->character_manager();
 	CPlayerManager* player_manager = character_manager->player_manager();
 	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
+	CAttitudeControllerManager* attitude_controller_manager = character_manager->attitude_controller_manager();
 
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
@@ -174,7 +175,7 @@ void CSceneGame::Load(void)
 	player_manager->Push(player);
 
 	// カメラの生成
-	CCharacterCamera* camera = new CCharacterCamera(interface_manager_);
+	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
 	camera->Init();
 	character_camera_manager->Push(camera);
 
@@ -182,7 +183,8 @@ void CSceneGame::Load(void)
 	CAttitudeController* attitude_controller = new CAttitudeController(interface_manager_);
 	attitude_controller->set_axis(VECTOR3(0.0f,1.0f,0.0f));
 	//attitude_controller->Push(player);
-	//attitude_controller->Push(camera);
+	attitude_controller->Push(camera);
+	attitude_controller_manager->Push(attitude_controller);
 
 	// TODO 以下テストプログラム
 

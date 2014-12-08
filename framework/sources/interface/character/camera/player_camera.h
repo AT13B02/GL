@@ -67,6 +67,7 @@ private:
 	u32 camera_key_;
 	f32 move_speed_;
 	CPlayer* player_;
+	f32 length_;
 };
 
 #endif	// _PLAYER_CAMERA_H_

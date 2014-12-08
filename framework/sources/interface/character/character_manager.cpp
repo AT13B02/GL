@@ -91,6 +91,9 @@ void CCharacterManager::Uninit(void)
 
 	// キャラクターカメラマネージャーの開放
 	SAFE_RELEASE(character_camera_manager_);
+
+	// キャラクターカメラマネージャーの開放
+	SAFE_RELEASE(attitude_controller_manager_);
 }
 
 //---------------------------------- EOF --------------------------------------

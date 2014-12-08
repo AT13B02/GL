@@ -78,6 +78,7 @@ VECTOR3 VECTOR3::CrossProduct(const VECTOR3& vector) const
 VECTOR3 VECTOR3::RotationAxis(const VECTOR3& axis, const float rotRad)
 {
 	QUATERNION src, rotQ, rotQconj, temp, dest;
+	VECTOR3 vector;
 
 	// 座標をクォータニオンに変換
 	src._x = _x;
@@ -99,9 +100,9 @@ VECTOR3 VECTOR3::RotationAxis(const VECTOR3& axis, const float rotRad)
 	dest = temp * rotQ;
 
 	// destのxyz成分がそのまま座標になっている。便利
-	_x = dest._x; _y = dest._y; _z = dest._z;
+	vector._x = dest._x; vector._y = dest._y; vector._z = dest._z;
 	
-	return (*this);
+	return vector;
 }
 
 //=============================================================================

@@ -85,7 +85,7 @@ public:
 private:
 	VECTOR3 basic_vector_;
 	VECTOR3 axis_;
-	f32 rotation_;
+	VECTOR3 rotation_;
 
 	VECTOR3 front_vector_;
 	VECTOR3 right_vector_;

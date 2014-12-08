@@ -76,6 +76,10 @@ public:
 
 	// キャラクターカメラマネージャーの取得
 	CCharacterCameraManager* character_camera_manager(void){return character_camera_manager_;}
+
+	// 姿勢制御マネージャーの取得
+	CAttitudeControllerManager* attitude_controller_manager(void){return attitude_controller_manager_;}
+
 private:
 	CPlayerManager* player_manager_;
 	CCharacterCameraManager* character_camera_manager_;
