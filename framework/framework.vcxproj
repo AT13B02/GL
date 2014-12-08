@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collision_manager.h" />
     <ClInclude Include="sources\basic\application.h" />
     <ClInclude Include="sources\basic\application_manager.h" />
     <ClInclude Include="sources\basic\basic.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="sources\scene\title\scene_title.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="collision_manager.cpp" />
     <ClCompile Include="sources\basic\application_manager.cpp" />
     <ClCompile Include="sources\basic\basic.cpp" />
     <ClCompile Include="sources\basic\fps_manager.cpp" />
