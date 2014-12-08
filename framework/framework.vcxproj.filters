@@ -140,6 +140,9 @@
     <Filter Include="sources\interface\graphic\object\object_2d\element">
       <UniqueIdentifier>{eb8d28fb-0050-493a-b4e7-af669125317d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\common\math\quaternion">
+      <UniqueIdentifier>{f92ce0d8-bf84-4496-98b1-18088c16bad6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -403,6 +406,9 @@
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshfield.h">
       <Filter>sources\interface\graphic\object\object_3d\element</Filter>
     </ClInclude>
+    <ClInclude Include="sources\common\math\quaternion\quaternion.h">
+      <Filter>sources\common\math\quaternion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -653,6 +659,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshfield.cpp">
       <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\math\quaternion\quaternion.cpp">
+      <Filter>sources\common\math\quaternion</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
