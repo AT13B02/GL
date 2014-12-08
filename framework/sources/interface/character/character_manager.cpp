@@ -15,8 +15,6 @@
 #include "player/player_manager.h"
 #include "camera/character_camera_manager.h"
 
-#include "attitude_controller.h"
-
 // common
 #include "common/common.h"
 

@@ -146,6 +146,9 @@
     <Filter Include="sources\common\math\quaternion">
       <UniqueIdentifier>{dba51e8a-1719-4da3-835a-4cee04b2b936}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\character\attitude_controller">
+      <UniqueIdentifier>{566bbd0d-dac5-4914-8560-3b16ef38ef8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -439,11 +442,11 @@
     <ClInclude Include="sources\common\math\quaternion\quaternion.h">
       <Filter>sources\common\math\quaternion</Filter>
     </ClInclude>
-    <ClInclude Include="sources\interface\character\attitude_controller.h">
-      <Filter>sources\interface\character</Filter>
-    </ClInclude>
     <ClInclude Include="sources\interface\character\character_interface.h">
       <Filter>sources\interface\character</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller.h">
+      <Filter>sources\interface\character\attitude_controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -726,11 +729,11 @@
     <ClCompile Include="sources\common\math\quaternion\quaternion.cpp">
       <Filter>sources\common\math\quaternion</Filter>
     </ClCompile>
-    <ClCompile Include="sources\interface\character\attitude_controller.cpp">
-      <Filter>sources\interface\character</Filter>
-    </ClCompile>
     <ClCompile Include="sources\interface\character\character_interface.cpp">
       <Filter>sources\interface\character</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller.cpp">
+      <Filter>sources\interface\character\attitude_controller</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

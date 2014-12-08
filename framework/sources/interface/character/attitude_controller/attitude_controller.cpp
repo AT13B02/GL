@@ -13,10 +13,10 @@
 #include "attitude_controller.h"
 
 // interface
-#include "../interface_manager.h"
+#include "interface/interface_manager.h"
 
 // input
-#include "../input/input_manager.h"
+#include "interface/input/input_manager.h"
 
 // common
 #include "common/common.h"
