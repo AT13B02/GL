@@ -67,7 +67,7 @@ public:
 	virtual ~CObject2D(void);
 
 	// •`‰æˆ—
-	virtual void Draw(CObject2DData* object_2d_data) = 0;
+	virtual void Draw(CObject2DData* object_2d_data){}
 
 	// 2Dƒ|ƒŠƒSƒ“‚Ì•`‰æˆ—
 	void Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* texture,CRenderstate* renderstate);

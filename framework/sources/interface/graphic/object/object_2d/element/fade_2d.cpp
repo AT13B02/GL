@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// 矩形2Dクラス
+// Fade2Dクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Tomohiro Kouno
 //
 //*****************************************************************************
 
@@ -42,10 +42,16 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CFade2D::CFade2D(CDeviceHolder* device_holder,CInterfaceManager* interface_manager) : CObject2D(device_holder,OBJECT_2D_TYPE_RECTANGLE)
-,alpha_(1.0f)
+CFade2D::CFade2D(CInterfaceManager* interface_manager):
+vertex_2d_(nullptr),
+rectangle_2d_(nullptr),
+rectangle_2d_key_(NULL),
+fadetype_(FADE_TYPE_IN),
+alpha_(1.0f),
+speed_(0.01f)
 {
-	rectangle_2d_ =new  CRectangle2D(device_holder);
+	
+	rectangle_2d_ =new  CRectangle2D(interface_manager->graphic_manager()->device_holder());
 	rectangle_2d_->set_size(VECTOR2(DEFAULT_SCREEN_WIDTH,DEFAULT_SCREEN_HEIGHT));
 	rectangle_2d_->set_point(CRectangle2D::POINT_LEFT_UP);
 	rectangle_2d_->Set();
@@ -55,7 +61,6 @@ CFade2D::CFade2D(CDeviceHolder* device_holder,CInterfaceManager* interface_manag
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 	rectangle_2d_key_ = object_2d_manager->AddList(rectangle_2d_);
-
 }
 
 //=============================================================================
@@ -74,18 +79,43 @@ bool CFade2D::Init(void)
 }
 
 //=============================================================================
+// 更新処理
+//=============================================================================
+void CFade2D::Update(void)
+{
+	//フェード状態に従いαを遷移
+	if(fadetype_ == FADE_TYPE_IN)
+	{
+		alpha_ -= speed_;
+	}
+	else if(fadetype_ == FADE_TYPE_OUT)
+	{
+		alpha_ += speed_;
+	}
+
+	//限界値に達したらフェード終了状態を設定
+	if(alpha_ <= 0.0f && fadetype_ == FADE_TYPE_IN)
+	{
+		fadetype_ = FADE_TYPE_IN_END;
+	}
+	else if(alpha_ >= 1.0f && fadetype_ == FADE_TYPE_OUT)
+	{
+		fadetype_ = FADE_TYPE_OUT_END;
+	}
+
+	//フェードポリゴンに色情報を適用
+	rectangle_2d_->set_color(COLOR4F(1.0f,1.0f,1.0f,alpha_));
+	rectangle_2d_->Set();
+}
+
+//=============================================================================
 // 描画処理
 //=============================================================================
-void CFade2D::Draw(CObject2DData* object_2d_data)
+void CFade2D::Draw(void)
 {
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
-
-	alpha_ -= 0.01f;
-	rectangle_2d_->set_color(COLOR4F(1.0f,1.0f,1.0f,alpha_));
-	rectangle_2d_->Set();
-
 	object_2d_manager->Draw(rectangle_2d_key_,VECTOR2(0,0),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"field000");
 }
 
@@ -94,99 +124,6 @@ void CFade2D::Draw(CObject2DData* object_2d_data)
 //=============================================================================
 void CFade2D::Uninit (void)
 {
-	SAFE_RELEASE(rectangle_2d_);
+	
 }
-
-//=============================================================================
-// 設定処理
-//=============================================================================
-void CFade2D::Set(void)
-{
-	rectangle_2d_->Set();
-}
-
-
-#if 0
-//=============================================================================
-// 設定処理
-//=============================================================================
-void CFade2D::Set(void)
-{
-	switch(m_Point)
-	{
-		case POINT_CENTER:
-		{
-			m_Position[0] = VECTOR2(-m_Size.x * 0.5f,-m_Size.y * 0.5f);
-			m_Position[1] = VECTOR2(-m_Size.x * 0.5f, m_Size.y * 0.5f);
-			m_Position[2] = VECTOR2( m_Size.x * 0.5f,-m_Size.y * 0.5f);
-			m_Position[3] = VECTOR2( m_Size.x * 0.5f, m_Size.y * 0.5f);
-			break;
-		}
-		case POINT_LEFT_UP:
-		{
-			m_Position[0] = VECTOR2(    0.0f,    0.0f);
-			m_Position[1] = VECTOR2(    0.0f,m_Size.y);
-			m_Position[2] = VECTOR2(m_Size.x,    0.0f);
-			m_Position[3] = VECTOR2(m_Size.x,m_Size.y);
-			break;
-		}
-		case POINT_LEFT_MIDDLE:
-		{
-			m_Position[0] = VECTOR2(    0.0f,-m_Size.y * 0.5f);
-			m_Position[1] = VECTOR2(    0.0f, m_Size.y * 0.5f);
-			m_Position[2] = VECTOR2(m_Size.x,-m_Size.y * 0.5f);
-			m_Position[3] = VECTOR2(m_Size.x, m_Size.y * 0.5f);
-			break;
-		}
-		case POINT_LEFT_DOWN:
-		{
-			m_Position[0] = VECTOR2(    0.0f,-m_Size.y);
-			m_Position[1] = VECTOR2(    0.0f,     0.0f);
-			m_Position[2] = VECTOR2(m_Size.x,-m_Size.y);
-			m_Position[3] = VECTOR2(m_Size.x,     0.0f);
-			break;
-		}
-		case POINT_RIGHT_UP:
-		{
-			m_Position[0] = VECTOR2(-m_Size.x,    0.0f);
-			m_Position[1] = VECTOR2(-m_Size.x,m_Size.y);
-			m_Position[2] = VECTOR2(     0.0f,    0.0f);
-			m_Position[3] = VECTOR2(     0.0f,m_Size.y);
-			break;
-		}
-		case POINT_RIGHT_MIDDLE:
-		{
-			m_Position[0] = VECTOR2(-m_Size.x,-m_Size.y * 0.5f);
-			m_Position[1] = VECTOR2(-m_Size.x, m_Size.y * 0.5f);
-			m_Position[2] = VECTOR2(     0.0f,-m_Size.y * 0.5f);
-			m_Position[3] = VECTOR2(     0.0f, m_Size.y * 0.5f);
-			break;
-		}
-		case POINT_RIGHT_DOWN:
-		{
-			m_Position[0] = VECTOR2(-m_Size.x,-m_Size.y);
-			m_Position[1] = VECTOR2(-m_Size.x,     0.0f);
-			m_Position[2] = VECTOR2(     0.0f,-m_Size.y);
-			m_Position[3] = VECTOR2(     0.0f,     0.0f);
-			break;
-		}
-		case POINT_MIDDLE_UP:
-		{
-			m_Position[0] = VECTOR2(-m_Size.x * 0.5f,    0.0f);
-			m_Position[1] = VECTOR2(-m_Size.x * 0.5f,m_Size.y);
-			m_Position[2] = VECTOR2( m_Size.x * 0.5f,    0.0f);
-			m_Position[3] = VECTOR2( m_Size.x * 0.5f,m_Size.y);
-			break;
-		}
-		case POINT_MIDDLE_DOWN:
-		{
-			m_Position[0] = VECTOR2(-m_Size.x * 0.5f,-m_Size.y);
-			m_Position[1] = VECTOR2(-m_Size.x * 0.5f,     0.0f);
-			m_Position[2] = VECTOR2( m_Size.x * 0.5f,-m_Size.y);
-			m_Position[3] = VECTOR2( m_Size.x * 0.5f,     0.0f);
-			break;
-		}
-	}
-}
-#endif
 //---------------------------------- EOF --------------------------------------

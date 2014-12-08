@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// 矩形2Dクラス
+// Fade2Dクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Tomohiro Kouno
 //
 //*****************************************************************************
 
@@ -18,7 +18,7 @@
 // インクルード
 //*****************************************************************************
 #include "../object_2d.h"
-
+#include "basic/basic.h"
 //*****************************************************************************
 // ライブラリのリンク
 //*****************************************************************************
@@ -43,12 +43,12 @@ class CInterfaceManager;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CFade2D : public CObject2D
+class CFade2D : public CBasic
 {
 public:
 
 	// コンストラクタ
-	CFade2D(CDeviceHolder* device_holder,CInterfaceManager* interface_manager);
+	CFade2D(CInterfaceManager* interface_manager);
 
 	// デストラクタ
 	virtual ~CFade2D(void);
@@ -65,14 +65,26 @@ public:
 	// 初期化処理
 	bool Init(void);
 
+	// 更新処理
+	void Update(void);
+
 	// 描画処理
-	void Draw(CObject2DData* pObject2DData);
+	void Draw(void);
 
 	// 終了処理
 	void Uninit(void);
 
-	// 頂点情報の設定
-	void Set(void);
+	// フェードイン
+	void FadeIn(f32 time = 0.01f){speed_ = time;fadetype_ = FADE_TYPE_IN;}
+
+	// フェードアウト
+	void FadeOut(f32 time =  0.01f){speed_ = time;fadetype_ = FADE_TYPE_OUT;}
+
+	//フェードチェック
+	bool IsFadeIn(void){return fadetype_ == FADE_TYPE_IN;}
+	bool IsFadeOut(void){return fadetype_ == FADE_TYPE_OUT;}
+	bool IsFadeInEnd(void){return fadetype_ == FADE_TYPE_IN_END;}
+	bool IsFadeOutEnd(void){return fadetype_ == FADE_TYPE_OUT_END;}
 
 protected:
 	// 頂点情報
@@ -81,6 +93,7 @@ protected:
 	u32 rectangle_2d_key_;
 	FADE_TYPE fadetype_;
 	f32 alpha_;
+	f32 speed_;
 
 	// インターフェースマネージャー
 	CInterfaceManager* interface_manager_;
