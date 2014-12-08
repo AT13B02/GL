@@ -41,6 +41,7 @@
     <ClInclude Include="sources\interface\character\character_interface.h" />
     <ClInclude Include="sources\interface\character\character_manager.h" />
     <ClInclude Include="sources\interface\character\character_manager_interface.h" />
+    <ClInclude Include="sources\interface\character\collision\collision_manager.h" />
     <ClInclude Include="sources\interface\character\player\player.h" />
     <ClInclude Include="sources\interface\character\player\player_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
@@ -142,6 +143,7 @@
     <ClCompile Include="sources\interface\character\character_interface.cpp" />
     <ClCompile Include="sources\interface\character\character_manager.cpp" />
     <ClCompile Include="sources\interface\character\character_manager_interface.cpp" />
+    <ClCompile Include="sources\interface\character\collision\collision_manager.cpp" />
     <ClCompile Include="sources\interface\character\player\player.cpp" />
     <ClCompile Include="sources\interface\character\player\player_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
