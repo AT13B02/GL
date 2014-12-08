@@ -1,9 +1,8 @@
 //*****************************************************************************
 //
-// キャラクタマネージャークラス
+// 姿勢制御クラス
 //
-// Author		: Chiharu Kamiyama
-//				: Kenji Kabutomori
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -11,11 +10,13 @@
 // インクルード
 //*****************************************************************************
 // character
-#include "character_manager.h"
-#include "player/player_manager.h"
-#include "camera/character_camera_manager.h"
-
 #include "attitude_controller.h"
+
+// interface
+#include "../interface_manager.h"
+
+// input
+#include "../input/input_manager.h"
 
 // common
 #include "common/common.h"
@@ -23,67 +24,59 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CCharacterManager::CCharacterManager()
+CAttitudeController::CAttitudeController(CInterfaceManager* interface_manager) : interface_manager_(interface_manager)
 {
-	// プレイヤーマネージャーの生成
-	player_manager_ = new CPlayerManager();
+	basic_vector_ = VECTOR3(0.0f,0.0f,1.0f);
 
-	// キャラクターカメラマネージャーの生成
-	character_camera_manager_ = new CCharacterCameraManager();
+	basic_vector_.Normalize();
+
+	axis_ = VECTOR3(0.0f,1.0f,0.0f);
+
+	axis_.Normalize();
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CCharacterManager::~CCharacterManager()
+CAttitudeController::~CAttitudeController(void)
 {
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CCharacterManager::Init(void)
+bool CAttitudeController::Init(void)
 {
-	// プレイヤーマネージャーの初期化
-	INIT(player_manager_);
-
-	// カメラマネージャーの初期化
-	INIT(character_camera_manager_);
-
 	return true;
-}
-
-//=============================================================================
-// 更新
-//=============================================================================
-void CCharacterManager::Update(void)
-{
-	// プレイヤーマネージャーの更新
-	player_manager_->Update();
-
-	// キャラクターカメラマネージャーの更新
-	character_camera_manager_->Update();
-}
-
-//=============================================================================
-// 描画
-//=============================================================================
-void CCharacterManager::Draw(void)
-{
-	// プレイヤーマネージャーの描画
-	player_manager_->Draw();
 }
 
 //=============================================================================
 // 終了
 //=============================================================================
-void CCharacterManager::Uninit( void )
+void CAttitudeController::Uninit(void)
 {
-	// プレイヤーマネージャーの開放
-	SAFE_RELEASE(player_manager_);
+}
 
-	// キャラクターカメラマネージャーの開放
-	SAFE_RELEASE(character_camera_manager_);
+//=============================================================================
+// 更新
+//=============================================================================
+void CAttitudeController::Update(void)
+{
+	CInputManager* input_manager = interface_manager_->input_manager();
+
+	if(input_manager->CheckPress(INPUT_EVENT_U))
+	{
+		rotation_ += MTH_DEGREE * 1.0f;
+	}
+
+	if(input_manager->CheckPress(INPUT_EVENT_O))
+	{
+		rotation_ -= MTH_DEGREE * 1.0f;
+	}
+
+	// 前方ベクトルを求める
+	front_vector_ = basic_vector_.RotationAxis(axis_,rotation_);
+	front_vector_.Normalize();
 }
 
 //---------------------------------- EOF --------------------------------------

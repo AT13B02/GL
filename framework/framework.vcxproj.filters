@@ -439,6 +439,12 @@
     <ClInclude Include="sources\common\math\quaternion\quaternion.h">
       <Filter>sources\common\math\quaternion</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\attitude_controller.h">
+      <Filter>sources\interface\character</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\character_interface.h">
+      <Filter>sources\interface\character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -719,6 +725,12 @@
     </ClCompile>
     <ClCompile Include="sources\common\math\quaternion\quaternion.cpp">
       <Filter>sources\common\math\quaternion</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\attitude_controller.cpp">
+      <Filter>sources\interface\character</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\character_interface.cpp">
+      <Filter>sources\interface\character</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,9 +1,8 @@
 //*****************************************************************************
 //
-// キャラクタマネージャークラス
+// キャラクターインターフェースクラス
 //
-// Author		: Chiharu Kamiyama
-//				: Kenji Kabutomori
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -12,8 +11,8 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _CHARACTER_MANAGER_H_
-#define _CHARACTER_MANAGER_H_
+#ifndef _CHARACTER_INTERFACE_H_
+#define _CHARACTER_INTERFACE_H_
 
 //*****************************************************************************
 // インクルード
@@ -21,8 +20,8 @@
 // basic
 #include "basic/basic.h"
 
-// character
-#include "interface/character/character_manager_interface.h"
+// math
+#include "common/math/math.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -43,45 +42,26 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CPlayerManager;
-class CCharacterCameraManager;
-class CAttitudeControllerManager;
+class CInterfaceManager;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCharacterManager : public CBasic
+class CCharacterInterface : public CBasic
 {
 public:
 	// コンストラクタ
-	CCharacterManager(void);
+	CCharacterInterface(void);
 
 	// デストラクタ
-	~CCharacterManager(void);
+	~CCharacterInterface(void);
 
-	// 初期化処理
-	bool Init(void);
-
-	// 描画
-	void Draw(void);
-
-	// 終了処理
-	void Uninit(void);
-
-	// 更新処理
-	void Update(void);
-
-	// プレイヤーマネージャーの取得
-	CPlayerManager* player_manager(void){return player_manager_;}
-
-	// キャラクターカメラマネージャーの取得
-	CCharacterCameraManager* character_camera_manager(void){return character_camera_manager_;}
-private:
-	CPlayerManager* player_manager_;
-	CCharacterCameraManager* character_camera_manager_;
-	CAttitudeControllerManager* attitude_controller_manager_;
+	// 前方ベクトルの設定
+	void set_front_vector(const VECTOR3& front_vector){front_vector_ = front_vector;}
+protected:
+	VECTOR3 front_vector_;
 };
 
-#endif // _CHARACTER_MANAGER_H_
+#endif // _CHARACTER_INTERFACE_H_
 
 //---------------------------------- EOF --------------------------------------
