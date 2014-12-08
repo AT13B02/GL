@@ -17,13 +17,15 @@
 // graphic
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/vertex/vertex_2d.h"
-#include "interface/graphic/object/object_2d/element/fade_2d.h"
 #include "interface/graphic/object/object_2d/element/rectangle_2d.h"
 #include "interface/graphic/object/object_2d/object_2d_data.h"
 #include "interface/graphic/texture/texture_manager.h"
 #include "interface/graphic/texture/texture.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_2d/object_2d_manager.h"
+
+#include "fade_2d.h"
+
 // common
 #include "common/common.h"
 
@@ -43,7 +45,6 @@
 // コンストラクタ
 //=============================================================================
 CFade2D::CFade2D(CInterfaceManager* interface_manager):
-vertex_2d_(nullptr),
 rectangle_2d_(nullptr),
 rectangle_2d_key_(NULL),
 fadetype_(FADE_TYPE_IN),
@@ -52,7 +53,7 @@ speed_(0.01f)
 {
 	
 	rectangle_2d_ =new  CRectangle2D(interface_manager->graphic_manager()->device_holder());
-	rectangle_2d_->set_size(VECTOR2(DEFAULT_SCREEN_WIDTH,DEFAULT_SCREEN_HEIGHT));
+	rectangle_2d_->set_size(VECTOR2((f32)DEFAULT_SCREEN_WIDTH,(f32)DEFAULT_SCREEN_HEIGHT));
 	rectangle_2d_->set_point(CRectangle2D::POINT_LEFT_UP);
 	rectangle_2d_->Set();
 

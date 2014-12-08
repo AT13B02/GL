@@ -24,12 +24,12 @@
 // sound
 #include "interface/sound/sound_manager.h"
 
+//fade
+#include "scene/fade_2d.h"
+
 // common
 #include "common/thread/thread.h"
 #include "common/common.h"
-
-//fade
-#include "interface/graphic/object/object_2d/element/fade_2d.h"
 
 //*****************************************************************************
 // É}ÉNÉçíËã`

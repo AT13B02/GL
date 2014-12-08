@@ -57,7 +57,6 @@
     <ClInclude Include="sources\interface\graphic\model\model_manager.h" />
     <ClInclude Include="sources\interface\graphic\model\opengl\gl_model.h" />
     <ClInclude Include="sources\interface\graphic\object\object.h" />
-    <ClInclude Include="sources\interface\graphic\object\object_2d\element\fade_2d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_buffer.h" />
@@ -108,6 +107,7 @@
     <ClInclude Include="sources\interface\sound\xaudio2\xaudio2_sound.h" />
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
+    <ClInclude Include="sources\scene\fade_2d.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
     <ClInclude Include="sources\scene\load\scene_load.h" />
     <ClInclude Include="sources\scene\scene.h" />
@@ -158,7 +158,6 @@
     <ClCompile Include="sources\interface\graphic\model\model_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\model\opengl\gl_model.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object.cpp" />
-    <ClCompile Include="sources\interface\graphic\object\object_2d\element\fade_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_buffer.cpp" />
@@ -208,6 +207,7 @@
     <ClCompile Include="sources\interface\sound\xaudio2\xaudio2_sound.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
+    <ClCompile Include="sources\scene\fade_2d.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />
     <ClCompile Include="sources\scene\load\scene_load.cpp" />
     <ClCompile Include="sources\scene\scene.cpp" />

@@ -454,6 +454,9 @@
     <ClInclude Include="sources\interface\character\camera\player_camera.h">
       <Filter>sources\interface\character\camera</Filter>
     </ClInclude>
+    <ClInclude Include="sources\scene\fade_2d.h">
+      <Filter>sources\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -746,6 +749,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\camera\player_camera.cpp">
       <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\fade_2d.cpp">
+      <Filter>sources\scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
