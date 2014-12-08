@@ -57,6 +57,7 @@
     <ClInclude Include="sources\interface\graphic\model\model_manager.h" />
     <ClInclude Include="sources\interface\graphic\model\opengl\gl_model.h" />
     <ClInclude Include="sources\interface\graphic\object\object.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_2d\element\fade_2d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_buffer.h" />
@@ -157,6 +158,7 @@
     <ClCompile Include="sources\interface\graphic\model\model_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\model\opengl\gl_model.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_2d\element\fade_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_buffer.cpp" />

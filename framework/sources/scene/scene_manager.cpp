@@ -28,6 +28,9 @@
 #include "common/thread/thread.h"
 #include "common/common.h"
 
+//fade
+#include "interface/graphic/object/object_2d/element/fade_2d.h"
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -64,6 +67,7 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 	next_scene_ = new CTitleFactory();
 
 	// フェード
+	fade_2d_ = new CFade2D(interface_manager_);
 }
 
 //=============================================================================
@@ -71,6 +75,7 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 //=============================================================================
 CSceneManager::~CSceneManager(void)
 {
+	
 }
 
 //=============================================================================
@@ -89,6 +94,9 @@ bool CSceneManager::Init(void)
 //=============================================================================
 void CSceneManager::Update(void)
 {
+	//フェード更新
+	fade_2d_->Update();
+
 	// ロードしていないことを確認
 	if(!load_flag_)
 	{
@@ -112,7 +120,7 @@ void CSceneManager::Update(void)
 
 			// 次のシーンが存在しない時
 			if(next_scene_ == NULL)
-			{
+			{	
 				next_scene_ = scene_->next_scene();
 			}
 		}
@@ -152,6 +160,9 @@ void CSceneManager::Update(void)
 //=============================================================================
 void CSceneManager::Draw(void)
 {
+	//フェード描画
+	fade_2d_->Draw();
+
 	// ロードしていないことを確認
 	if(!load_flag_)
 	{
@@ -186,6 +197,9 @@ void CSceneManager::Uninit(void)
 
 	// 次のシーンの破棄
 	SAFE_DELETE(next_scene_);
+
+	// フェードの破棄
+	SAFE_RELEASE(fade_2d_);
 }
 
 //=============================================================================
