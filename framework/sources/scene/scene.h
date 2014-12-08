@@ -85,9 +85,18 @@ public:
 	// 現在のシーンを取得
 	int scene_type(void){return scene_type_;}
 
+	// フェード中か確認
+	void set_is_fade(bool is_fade){is_fade_ = is_fade;}
+
 protected:
 	// インターフェースマネージャー
 	CInterfaceManager* interface_manager_;
+
+	// フェード(シーンからフェード処理をしたい場合)
+	
+
+	// フェード中か
+	bool is_fade_;
 
 private:
 	// 現在のシーン
