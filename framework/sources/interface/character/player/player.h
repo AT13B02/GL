@@ -22,16 +22,13 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
-#include <string>
-#include <map>
-
 // basic
 #include "basic/basic.h"
 #include "common/math/vector/vector3.h"
 
-//player_manager
+//character
 #include "player_manager.h"
+#include "interface/character/character_interface.h"
 
 
 //*****************************************************************************
@@ -57,11 +54,11 @@
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CPlayer : public CBasic
+class CPlayer : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CPlayer( CInterfaceManager* interface_manager );
+	CPlayer(CInterfaceManager* interface_manager);
 
 	// デストラクタ
 	~CPlayer(void);
@@ -76,8 +73,13 @@ public:
 	void Uninit(void);
 
 	//描画
-	void Draw( void );
+	void Draw(void);
 
+	//ポジションの取得
+	VECTOR3 pos( void ){ return pos_; }
+
+	//角度の取得
+	VECTOR3 rot( void ){ return rot_; }
 
 protected:
 
@@ -85,17 +87,27 @@ protected:
 private:
 	//インターフェースマネージャーのポインタ
 	CInterfaceManager* interface_manager_;
+
 	//オブジェクトキー
 	u32 object_key_;
 
-	//各種値
-	VECTOR3 pos;
-	VECTOR3 rot;
-	VECTOR3 scale;
+	//スピード
+	static const f32 SPEED;
+	static const f32 SPEED_DEST;
+	static const f32 ROTATION_DEST;
 
+
+	//各種値
+	VECTOR3 pos_;
+	VECTOR3 rot_;
+	VECTOR3 scale_;
+
+	
+	//移動目標値変数
+	VECTOR3 pos_dest_;
+	VECTOR3 rot_dest_;
 };
 
 //---------------------------------- EOF --------------------------------------
 
-
-#endif
+#endif // _PLAYER_H_
