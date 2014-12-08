@@ -46,7 +46,6 @@
 #include "interface/character/camera/character_camera.h"
 #include "interface/character/camera/character_camera_manager.h"
 
-
 // common
 #include "common/common.h"
 

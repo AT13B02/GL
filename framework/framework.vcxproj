@@ -103,6 +103,7 @@
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
+    <ClInclude Include="sources\scene\game\stage\stage_manager.h" />
     <ClInclude Include="sources\scene\load\scene_load.h" />
     <ClInclude Include="sources\scene\scene.h" />
     <ClInclude Include="sources\scene\scene_manager.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />
+    <ClCompile Include="sources\scene\game\stage\stage_manager.cpp" />
     <ClCompile Include="sources\scene\load\scene_load.cpp" />
     <ClCompile Include="sources\scene\scene.cpp" />
     <ClCompile Include="sources\scene\scene_manager.cpp" />
