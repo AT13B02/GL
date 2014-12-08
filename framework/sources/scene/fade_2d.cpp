@@ -47,7 +47,7 @@
 CFade2D::CFade2D(CInterfaceManager* interface_manager):
 rectangle_2d_(nullptr),
 rectangle_2d_key_(NULL),
-fadetype_(FADE_TYPE_IN),
+fadetype_(FADE_TYPE_OUT_END),
 alpha_(1.0f),
 speed_(0.01f)
 {
