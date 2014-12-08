@@ -24,6 +24,7 @@
     <ClInclude Include="sources\common\image\tga.h" />
     <ClInclude Include="sources\common\math\math.h" />
     <ClInclude Include="sources\common\math\matrix\matrix4x4.h" />
+    <ClInclude Include="sources\common\math\quaternion\quaternion.h" />
     <ClInclude Include="sources\common\math\vector\vector2.h" />
     <ClInclude Include="sources\common\math\vector\vector3.h" />
     <ClInclude Include="sources\common\math\vector\vector4.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="sources\common\image\tga.cpp" />
     <ClCompile Include="sources\common\math\math.cpp" />
     <ClCompile Include="sources\common\math\matrix\matrix4x4.cpp" />
+    <ClCompile Include="sources\common\math\quaternion\quaternion.cpp" />
     <ClCompile Include="sources\common\math\vector\vector2.cpp" />
     <ClCompile Include="sources\common\math\vector\vector3.cpp" />
     <ClCompile Include="sources\common\math\vector\vector4.cpp" />
