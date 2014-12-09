@@ -1,18 +1,19 @@
 //*****************************************************************************
 //
-// 衝突判定クラス
+// フィールドクラス
 //
-// Author		: Yuki Sakamoto
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 // 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _COLLISION_MANAGER_H_
-#define _COLLISION_MANAGER_H_
+#ifndef _FIELD_H_
+#define _FIELD_H_
 
 //*****************************************************************************
 // warning消し
@@ -24,6 +25,10 @@
 // basic
 #include "basic/basic.h"
 #include "common/math/vector/vector3.h"
+
+// character
+#include "field_manager.h"
+#include "interface/character/character_interface.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -44,35 +49,44 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CCharacterManager;
+class CMeshfield;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCollisionManager : public CBasic
+class CField : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CCollisionManager(CCharacterManager* charater_manager);
+	CField(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	~CCollisionManager(void);
+	~CField(void);
 
 	// 初期化処理
 	bool Init(void);
 
+	// 更新処理
+	void Update(void);
+
 	// 終了処理
 	void Uninit(void);
 
-	// 更新
-	void Update(void);
+	//描画
+	void Draw(void);
+protected:
 
-	// 球体と球体の当たり判定処理
-	bool JudgeSphereCross(VECTOR3 p1,f32 r1,VECTOR3 p2,f32 r2);
+
 private:
-	CCharacterManager* character_manager_;
+	//インターフェースマネージャー
+	CInterfaceManager* interface_manager_;
+
+	//オブジェクトキー
+	u32 object_key_;
+
+	CMeshfield* meshfield_;
 };
 
-#endif // 
-
 //---------------------------------- EOF --------------------------------------
+
+#endif // _FIELD_H_

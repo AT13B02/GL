@@ -15,6 +15,7 @@
 #include "player/player_manager.h"
 #include "camera/character_camera_manager.h"
 #include "bullet/bullet_manager.h"
+#include "field/field_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
 
 // common
@@ -23,7 +24,7 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CCharacterManager::CCharacterManager()
+CCharacterManager::CCharacterManager(void)
 {
 	// プレイヤーマネージャーの生成
 	player_manager_ = new CPlayerManager();
@@ -34,6 +35,9 @@ CCharacterManager::CCharacterManager()
 	// バレットマネージャーの生成
 	bullet_manager_ = new CBulletManager();
 
+	// フィールドマネージャーの生成
+	field_manager_ = new CFieldManager();
+
 	// 姿勢制御マネージャーの生成
 	attitude_controller_manager_ = new CAttitudeControllerManager();
 }
@@ -41,7 +45,7 @@ CCharacterManager::CCharacterManager()
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CCharacterManager::~CCharacterManager()
+CCharacterManager::~CCharacterManager(void)
 {
 }
 
@@ -58,6 +62,9 @@ bool CCharacterManager::Init(void)
 
 	// バレットマネージャーの初期化
 	INIT(bullet_manager_);
+
+	// フィールドマネージャーの初期化
+	INIT(field_manager_);
 
 	// 姿勢制御コントローラーマネージャーの初期化
 	INIT(attitude_controller_manager_);
@@ -79,6 +86,9 @@ void CCharacterManager::Update(void)
 	// バレットマネージャーの更新
 	bullet_manager_->Update();
 
+	// フィールドマネージャーの更新
+	field_manager_->Update();
+
 	// キャラクターカメラマネージャーの更新
 	character_camera_manager_->Update();
 }
@@ -88,6 +98,9 @@ void CCharacterManager::Update(void)
 //=============================================================================
 void CCharacterManager::Draw(void)
 {
+	// フィールドマネージャーの描画
+	field_manager_->Draw();
+
 	// プレイヤーマネージャーの描画
 	player_manager_->Draw();
 
@@ -108,6 +121,9 @@ void CCharacterManager::Uninit(void)
 
 	// バレットマネージャーの開放
 	SAFE_RELEASE(bullet_manager_);
+
+	// フィールドマネージャーの開放
+	SAFE_RELEASE(field_manager_);
 
 	// 姿勢制御マネージャーの開放
 	SAFE_RELEASE(attitude_controller_manager_);

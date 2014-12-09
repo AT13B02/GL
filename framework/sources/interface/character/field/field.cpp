@@ -1,90 +1,86 @@
 //*****************************************************************************
 //
-// 衝突判定クラス
+// フィールドクラス
 //
-// Author		: Yuki Sakamoto
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
-
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <list>
+#include "field.h"
+#include "interface/graphic/object/object_3d/element/meshfield.h"
+#include "interface/interface_manager.h"
+#include "interface/graphic/graphic_manager.h"
+#include "interface/graphic/object/object_manager.h"
+#include "interface/graphic/object/object_3d/object_3d_manager.h"
 
-#include "collision_manager.h"
 #include "../character_manager.h"
-
-#include "../player/player.h"
-#include "../player/player_manager.h"
-
-#include "../bullet/bullet.h"
 #include "../bullet/bullet_manager.h"
+#include "../bullet/bullet.h"
 
 #include "common/common.h"
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CCollisionManager::CCollisionManager(CCharacterManager* character_manager)
+CField::CField(CInterfaceManager* interface_manager)
 {
-	character_manager_ = character_manager;
+	// インターフェースマネージャーの保存
+	interface_manager_ = interface_manager;
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CCollisionManager::~CCollisionManager(void)
+CField::~CField(void)
 {
-
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CCollisionManager::Init(void)
+bool CField::Init(void)
 {
+	// オブジェクトモデルの生成
+	meshfield_ = new CMeshfield(interface_manager_->graphic_manager()->device_holder());
+	meshfield_->Init();
+	meshfield_->set_grid_length(50.0f,50.0f);
+	meshfield_->set_grid_number(10,10);
+	meshfield_->Set();
+
+	// オブジェクトリストに追加
+	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(meshfield_);
+
 	return true;
+}
+
+//=============================================================================
+// 更新
+//=============================================================================
+void CField::Update(void)
+{
+}
+
+//=============================================================================
+// 描画処理
+//=============================================================================
+void CField::Draw(void)
+{
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
+
+	// 描画
+	object_3d_manager->Draw(object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
 }
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CCollisionManager::Uninit(void)
+void CField::Uninit(void)
 {
-}
-
-//=============================================================================
-// 更新処理
-//=============================================================================
-void CCollisionManager::Update(void)
-{
-	CPlayerManager* player_manager = character_manager_->player_manager();
-	CBulletManager* bullet_manager = character_manager_->bullet_manager();
-	std::list<CPlayer*> player_list = player_manager->character_list();
-	std::list<CBullet*> bullet_list = bullet_manager->character_list();
-
-	// プレイヤーと弾の当たり判定
-	for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
-	{
-		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
-		{
-			// 当たり判定
-		}
-	}
-}
-
-//=============================================================================
-// 球体と球体の当たり判定処理
-//=============================================================================
-bool CCollisionManager::JudgeSphereCross(VECTOR3 p1,float r1,VECTOR3 p2,float r2)
-{
-	if((p2._x-p1._x)*(p2._x-p1._x)+(p2._y-p1._y)*(p2._y-p1._y)+(p2._z-p1._z)*(p2._z-p1._z)<=(r1+r2)*(r1+r2))
-	{
-		return true;
-	}
-
-	return false;
 }
 
 //---------------------------------- EOF --------------------------------------

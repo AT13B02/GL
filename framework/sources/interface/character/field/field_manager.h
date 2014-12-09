@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// 衝突判定クラス
+// フィールドマネージャークラス
 //
-// Author		: Yuki Sakamoto
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -11,8 +11,8 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _COLLISION_MANAGER_H_
-#define _COLLISION_MANAGER_H_
+#ifndef _FIELD_MANAGER_H_
+#define _FIELD_MANAGER_H_
 
 //*****************************************************************************
 // warning消し
@@ -21,9 +21,16 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+#include <windows.h>
+#include <string>
+#include <map>
+
 // basic
 #include "basic/basic.h"
-#include "common/math/vector/vector3.h"
+
+//character_manager
+#include "interface/character/character_manager_interface.h"
+#include "field.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -44,35 +51,31 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CCharacterManager;
+class CField;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCollisionManager : public CBasic
+class CFieldManager : public CCharacterManagerInterface<CField*>
 {
 public:
 	// コンストラクタ
-	CCollisionManager(CCharacterManager* charater_manager);
+	CFieldManager();
 
 	// デストラクタ
-	~CCollisionManager(void);
+	~CFieldManager(void);
 
 	// 初期化処理
 	bool Init(void);
 
-	// 終了処理
-	void Uninit(void);
+protected:
 
-	// 更新
-	void Update(void);
 
-	// 球体と球体の当たり判定処理
-	bool JudgeSphereCross(VECTOR3 p1,f32 r1,VECTOR3 p2,f32 r2);
 private:
-	CCharacterManager* character_manager_;
+
 };
 
-#endif // 
-
 //---------------------------------- EOF --------------------------------------
+
+
+#endif
