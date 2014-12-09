@@ -76,10 +76,10 @@ public:
 	void Draw(void);
 
 	//ポジションの取得
-	VECTOR3 pos( void ){ return pos_; }
+	VECTOR3& pos(void){return pos_;}
 
 	//角度の取得
-	VECTOR3 rot( void ){ return rot_; }
+	VECTOR3& rot(void){return rot_;}
 
 protected:
 
@@ -102,7 +102,6 @@ private:
 	VECTOR3 rot_;
 	VECTOR3 scale_;
 
-	
 	//移動目標値変数
 	VECTOR3 pos_dest_;
 	VECTOR3 rot_dest_;

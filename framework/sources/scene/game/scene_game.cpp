@@ -82,14 +82,6 @@ CSceneGame::~CSceneGame(void)
 //=============================================================================
 bool CSceneGame::Init(void)
 {
-	// キャラクターの初期化
-
-	// マップの初期化
-
-	// カメラの初期化
-
-	// ネットワークの初期化
-
 	return true;
 }
 
@@ -98,13 +90,6 @@ bool CSceneGame::Init(void)
 //=============================================================================
 void CSceneGame::Update(void)
 {
-	// ネットワーク受信データの確認
-
-	// 受信データを元に更新(生成や座標の調整)
-
-	// 当たり判定
-
-	// サーバーにデータ送信
 }
 
 //=============================================================================
@@ -115,10 +100,8 @@ void CSceneGame::Draw(void)
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
-	// TODO 描画テスト
-	object_3d_manager->Draw(test_meshfield_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
+	object_3d_manager->Draw(test_meshfield_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
 }
 
 //=============================================================================
@@ -169,6 +152,13 @@ void CSceneGame::Load(void)
 	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
 	light_manager->Add(light);
 
+	// ライトの設定
+	light = CLight::Create(device_holder);
+	light->Init();
+	light->SetType(CLight::TYPE_DIRECTIONAL);
+	light->SetDirection(VECTOR3(0.0f,-1.0f,0.0f).Normalize());
+	light_manager->Add(light);
+
 	// プレイヤーの生成
 	CPlayer* player = new CPlayer(interface_manager_);
 	player->Init();
@@ -182,7 +172,7 @@ void CSceneGame::Load(void)
 	// 姿勢制御の生成
 	CAttitudeController* attitude_controller = new CAttitudeController(interface_manager_);
 	attitude_controller->set_axis(VECTOR3(0.0f,1.0f,0.0f));
-	//attitude_controller->Push(player);
+	attitude_controller->Push(player);
 	attitude_controller->Push(camera);
 	attitude_controller_manager->Push(attitude_controller);
 
@@ -192,7 +182,7 @@ void CSceneGame::Load(void)
 	CMeshfield* mesh_field = new CMeshfield(device_holder);
 	mesh_field->Init();
 	mesh_field->set_grid_number(10,10);
-	mesh_field->set_grid_length(100.0f,100.0f);
+	mesh_field->set_grid_length(50.0f,50.0f);
 	mesh_field->Set();
 	test_meshfield_key_ = object_3d_manager->AddList(mesh_field);
 }

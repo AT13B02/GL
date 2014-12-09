@@ -57,9 +57,6 @@ public:
 	// ‰Šú‰»
 	bool Init(void);
 
-	// I—¹
-	void Uninit(void);
-
 private:
 };
 

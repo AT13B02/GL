@@ -3,6 +3,7 @@
 // プレイヤークラス
 //
 // Author		: Chiharu Kamiyama
+//              : Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -73,96 +74,73 @@ bool CPlayer::Init(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
-	//カメラの角度を持ってくる
-	f32 camera_rot_y = 0.0f;
+	VECTOR3 front_vector = front_vector_;
+	VECTOR3 right_vector = right_vector_;
+	VECTOR3 center_vector = front_vector + right_vector;
 
-	//カメラの前ベクトルと右ベクトル持ってくる
-	VECTOR3 camera_flont_vec = VECTOR3( 0.0f, 1.0f, 0.0f );
-	VECTOR3 camera_right_vec = VECTOR3( 1.0f, 0.0f, 0.0f );
+	front_vector._y = 0.0f;
+	front_vector.Normalize();
 
+	right_vector._y = 0.0f;
+	right_vector.Normalize();
 
-
-	//右移動
-	if( interface_manager_->input_manager()->CheckPress( INPUT_EVENT_D ) )
+	// 左上移動
+	if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
-		//右斜め後ろ
-		if( interface_manager_->input_manager()->CheckPress( INPUT_EVENT_S ) )
-		{
-			//カメラの角度を持ってくる
-			rot_._y = camera_rot_y + MTH_PI/2;
-			//移動
-			pos_dest_ = pos_ + ((camera_right_vec + camera_flont_vec  ) / 2) * SPEED;
-		}
-		//右斜め前
-		else if( interface_manager_->input_manager()->CheckPress( INPUT_EVENT_W ) )
-		{
-			//カメラの角度を持ってくる
-			rot_._y = camera_rot_y + MTH_PI *3; 
-			//移動
-			pos_dest_ = pos_ + ((camera_right_vec + -camera_flont_vec  ) / 2) * SPEED;
-		}
-		else
-		{
-			//カメラの角度を持ってくる
-			rot_._y = camera_rot_y + MTH_PI/2; 
-			//移動
-			pos_dest_ = pos_ + ((camera_right_vec + -camera_flont_vec  ) / 2) * SPEED;
-
-		}
+		pos_ += (front_vector - right_vector).Normalize() * 1.0f;
+		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 45.0f;
 	}
-	//左移動
-	if( interface_manager_->input_manager()->CheckPress( INPUT_EVENT_A ) )
-	{		
-		//右斜め後ろ
-		if( interface_manager_->input_manager()->CheckPress( INPUT_EVENT_S ) )
-		{
-			//カメラの角度を持ってくる
-			rot_dest_._y = camera_rot_y - MTH_PI/4;
-			//移動
-			pos_dest_ = pos_ + ((camera_right_vec + camera_flont_vec  ) / 2) * SPEED;
-		}
-		//右斜め前
-		else if( interface_manager_->input_manager()->CheckPress( INPUT_EVENT_W) )
-		{
-			//カメラの角度を持ってくる
-			rot_dest_._y = camera_rot_y - MTH_PI/4 * 5; 
-			//移動
-			pos_dest_ = pos_dest_ + ((camera_right_vec + -camera_flont_vec  ) / 2) * SPEED;
-		}
-		else
-		{
-			//カメラの角度を持ってくる
-			rot_dest_._y = camera_rot_y - MTH_PI/2; 
-			//移動
-			pos_dest_ = pos_ - ((camera_right_vec + -camera_flont_vec  ) / 2) * SPEED;
-
-		}
-	}
-	
-	//奥移動
-	if(( interface_manager_->input_manager()->CheckPress( INPUT_EVENT_W )))
+	// 右上移動
+	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
-		pos_dest_ = pos_ - camera_flont_vec * SPEED;
-		rot_dest_._y = camera_rot_y + MTH_PI;
+		pos_ += (front_vector + right_vector).Normalize() * 1.0f;
+		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 135.0f;
 	}
-
-	//手前移動
-	if(( interface_manager_->input_manager()->CheckPress( INPUT_EVENT_S )))
-	
+	// 左下移動
+	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
-		pos_dest_ = pos_ + camera_flont_vec * SPEED;
-		rot_dest_._y = camera_rot_y;
+		pos_ -= (front_vector + right_vector).Normalize() * 1.0f;
+		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 45.0f;
+	}
+	// 右下移動
+	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
+	{
+		pos_ -= (front_vector - right_vector).Normalize() * 1.0f;
+		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 135.0f;
+	}
+	// 右移動
+	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
+	{
+		pos_ += right_vector * 1.0f;
+		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 180.0f;
+	}
+	// 左移動
+	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
+	{
+		pos_ -= right_vector * 1.0f;
+		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN;
+	}
+	// 奥移動
+	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W))
+	{
+		pos_ += front_vector * 1.0f;
+		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 90.0f;
+	}
+	// 手前移動
+	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S))
+	{
+		pos_ -= front_vector * 1.0f;
+		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 90.0f;
 	}
 
+	rot_dest_._y = GetRotationNormalize(rot_dest_._y);
 
-	pos_._x += ( pos_dest_._x - pos_._x ) * SPEED_DEST;
-	pos_._z += ( pos_dest_._z - pos_._z ) * SPEED_DEST;
+	f32 def = rot_dest_._y - rot_._y;
 
-	rot_._y += ( rot_dest_._y - rot_._y ) * ROTATION_DEST;
+	def = GetRotationNormalize(def);
+	rot_._y += def * 0.1f;
 
-	DEBUG_TOOL.debug_console()->Print("Player Pos  : %.1f, %.1f, %.1f\n", pos_._x, pos_._y, pos_._z);
-	DEBUG_TOOL.debug_console()->Print("Player Rot  : %.1f, %.1f, %.1f\n", rot_._x, rot_._y, rot_._z);
-
+	rot_._y = GetRotationNormalize(rot_._y);
 }
 
 //=============================================================================
