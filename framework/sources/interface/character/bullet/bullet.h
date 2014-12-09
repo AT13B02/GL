@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// シーンクラス
+// バレットクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Kazuma Ooigawa
 //
 //*****************************************************************************
 
@@ -11,14 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_H_
-#define _SCENE_H_
+#ifndef _BULLET_H_
+#define _BULLET_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+#include"common/math/math.h"
 #include "basic/basic.h"
-
 //*****************************************************************************
 // ライブラリのリンク
 //*****************************************************************************
@@ -34,73 +34,35 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CSceneFactory;
-class CTextureManager;
 class CInterfaceManager;
-
+class CBillboard;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CScene : public CBasic
+class CBullet : public CBasic
 {
 public:
-	enum TYPE
-	{
-		TYPE_TITLE = 0,		// タイトル
-		TYPE_GAME,			// ゲーム
-		TYPE_LOAD,			// ロード
-		TYPE_MAX			// タイプの最大数
-	};
-
-	// コンストラクタ
-	CScene(CInterfaceManager* interface_manager,TYPE scene_type);
-
-	// デストラクタ
-	virtual ~CScene(void);
-
-	// 更新処理
-	virtual bool Init(void);
-
-	// 更新処理
-	virtual void Update(void) = 0;
-
-	// 描画処理
-	virtual void Draw(void) = 0;
-
-	// 終了処理
-	virtual void Uninit(void) = 0;
-
-	// ロード処理
-	virtual void Load(void) = 0;
-
-	// 自身のファクトリの生成
-	virtual CSceneFactory* MakeFactory(void) = 0;
-
-	// 次のシーンの設定
-	bool set_next_scene(CSceneFactory* next_scene);
-
-	// 次のシーンの取得
-	CSceneFactory* next_scene(void){return next_scene_;}
-
-	// 現在のシーンを取得
-	int scene_type(void){return scene_type_;}
-
-protected:
-	// インターフェースマネージャー
-	CInterfaceManager* interface_manager_;
-
+	//コンストラクタ
+	CBullet(CInterfaceManager* interface_manager);
+	//デストラクタ
+	~CBullet();
+	//初期化処理
+	bool Init(void);
+	//更新処理
+	void Update(void);
+	//描画処理
+	void Draw(void);
+	//終了処理
+	void Uninit(void);
+	void CreateBullet( VECTOR3 pos , VECTOR3 rot );
 private:
-	// 現在のシーン
-	TYPE scene_type_;
-
-	// 次のシーンファクトリー
-	CSceneFactory* next_scene_;
-
-	// シーン切り替え中フラグ
-	bool changing_flag_;
-
+	u32 object_key_;
+	VECTOR3 pos;
+	VECTOR3 rot;
+	f32 speed;
+	CBillboard* billboard;
+	CInterfaceManager* interface_manager_;
+protected:
 };
-
-#endif	// _SCENE_H_
-
+#endif //_BULLET_H_
 //---------------------------------- EOF --------------------------------------

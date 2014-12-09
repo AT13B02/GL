@@ -17,8 +17,8 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// character
-#include "../character_interface.h"
+// basic
+#include "basic/basic.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -40,7 +40,7 @@ class CInterfaceManager;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCharacterCamera : public CCharacterInterface
+class CCharacterCamera : public CBasic
 {
 public:
 	// コンストラクタ
@@ -53,17 +53,16 @@ public:
 	bool Init(void);
 
 	// 更新
-	virtual void Update(void);
+	void Update(void);
 
-	// 描画
-	virtual void Draw(void){}
+	void Draw(void){}
 
 	// 終了
 	void Uninit(void);
 protected:
-	CInterfaceManager* interface_manager_;
 
 private:
+	CInterfaceManager* interface_manager_;
 	u32 camera_key_;
 	f32 move_speed_;
 };

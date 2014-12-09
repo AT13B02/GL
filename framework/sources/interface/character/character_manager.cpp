@@ -14,8 +14,7 @@
 #include "character_manager.h"
 #include "player/player_manager.h"
 #include "camera/character_camera_manager.h"
-#include "attitude_controller/attitude_controller_manager.h"
-
+#include "bullet\bullet_manager.h"
 // common
 #include "common/common.h"
 
@@ -26,11 +25,11 @@ CCharacterManager::CCharacterManager()
 {
 	// プレイヤーマネージャーの生成
 	player_manager_ = new CPlayerManager();
+	// バレットマネージャーの生成
+	bullet_manager_ = new CBulletManager();
 
 	// キャラクターカメラマネージャーの生成
 	character_camera_manager_ = new CCharacterCameraManager();
-
-	attitude_controller_manager_ = new CAttitudeControllerManager();
 }
 
 //=============================================================================
@@ -47,12 +46,11 @@ bool CCharacterManager::Init(void)
 {
 	// プレイヤーマネージャーの初期化
 	INIT(player_manager_);
+	// バレットマネージャーの初期化
+	INIT(bullet_manager_);
 
 	// カメラマネージャーの初期化
 	INIT(character_camera_manager_);
-
-	// 姿勢制御コントローラーマネージャーの初期化
-	INIT(attitude_controller_manager_);
 
 	return true;
 }
@@ -62,11 +60,10 @@ bool CCharacterManager::Init(void)
 //=============================================================================
 void CCharacterManager::Update(void)
 {
-	// 姿勢制御コントローラーの更新
-	attitude_controller_manager_->Update();
-
 	// プレイヤーマネージャーの更新
 	player_manager_->Update();
+	// バレットマネージャーの更新
+	bullet_manager_->Update();
 
 	// キャラクターカメラマネージャーの更新
 	character_camera_manager_->Update();
@@ -79,21 +76,22 @@ void CCharacterManager::Draw(void)
 {
 	// プレイヤーマネージャーの描画
 	player_manager_->Draw();
+	// バレットマネージャーの描画
+	bullet_manager_->Draw();
 }
 
 //=============================================================================
 // 終了
 //=============================================================================
-void CCharacterManager::Uninit(void)
+void CCharacterManager::Uninit( void )
 {
 	// プレイヤーマネージャーの開放
 	SAFE_RELEASE(player_manager_);
+	// プレイヤーマネージャーの開放
+	SAFE_RELEASE(bullet_manager_);
 
 	// キャラクターカメラマネージャーの開放
 	SAFE_RELEASE(character_camera_manager_);
-
-	// キャラクターカメラマネージャーの開放
-	SAFE_RELEASE(attitude_controller_manager_);
 }
 
 //---------------------------------- EOF --------------------------------------

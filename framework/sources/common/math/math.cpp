@@ -76,43 +76,4 @@ VECTOR3 GetTransform(const VECTOR4& Vector,const MATRIX4x4& matrix)
 	return VECTOR3();
 }
 
-//=============================================================================
-// 角度の正規化の取得
-//=============================================================================
-f32 GetRotationNormalize(const f32& rotation_degree)
-{
-	f32 rotation = rotation_degree;
-
-	if(rotation_degree > 180.0f)
-	{
-		rotation = -180.0f + (rotation - 180.0f);
-	}
-
-	if(rotation_degree <= -180.0f)
-	{
-		rotation = 180.0f + (rotation + 180.0f);
-	}
-
-	/*
-		// 180度を超えた時
-	if(*pRot > D3DX_PI)
-	{
-		*pRot = -D3DX_PI + (*pRot - D3DX_PI);
-	}
-	// -180度を超えた時
-	else if(*pRot < -D3DX_PI)
-	{
-		*pRot = D3DX_PI + (*pRot + D3DX_PI);
-	}
-	// 正常な値の時
-	else
-	{
-		return;
-	}
-	// 正常な状態に戻っているかチェック
-	RotNormalization(pRot);
-	*/
-	return rotation;
-}
-
 //-----------------------------------EOF---------------------------------------

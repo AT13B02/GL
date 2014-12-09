@@ -1,82 +1,88 @@
 //*****************************************************************************
 //
-// プレイヤークラス
+// バレットクラス
 //
-// Author		: Chiharu Kamiyama
+// Author		: Kazuma Ooigawa
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "player.h"
-#include "interface/graphic/model/model.h"
-#include "interface/graphic/object/object_3d/element/object_model.h"
+#include "bullet.h"
+//billboard
+#include "interface/graphic/object/object_3d/element/billboard.h"
 #include "interface/interface_manager.h"
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
+#include "interface/graphic/object/object_3d/object_3d_data.h"
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CPlayer::CPlayer(CInterfaceManager* interface_manager)
+CBullet::CBullet( CInterfaceManager* interface_manager )
 {
-	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
 }
-
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CPlayer::~CPlayer(void)
+CBullet::~CBullet( void )
 {
 }
-
 //=============================================================================
-// 初期化
+// 生成処理
 //=============================================================================
-bool CPlayer::Init(void)
+void CBullet::CreateBullet( VECTOR3 _pos , VECTOR3 _rot )
 {
-	// オブジェクトモデルの生成
-	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"ship");
+	pos = _pos;
+	rot = _rot;
+	speed = 0.5f;
+	Init();
+}
+//=============================================================================
+// 初期化処理
+//=============================================================================
+bool CBullet::Init( void )
+{
+	// オブジェクトビルボードの生成
+	CBillboard* object_bill = new CBillboard( interface_manager_->graphic_manager()->device_holder());
+	object_bill->set_size( VECTOR2( 10 , 10 ) );
+	object_bill->Set();
 	// オブジェクトリストに追加
-	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList( object_model );
+	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList( object_bill );
 
-	//値初期化
-	pos_   = VECTOR3( 0.0f, 0.0f, 0.0f );
-	rot_   = VECTOR3( 0.0f, 0.0f, 0.0f );
-	scale_ = VECTOR3( 1.0f, 1.0f, 1.0f );
 
 	return true;
 }
-
 //=============================================================================
-// 更新
+// 更新処理
 //=============================================================================
-void CPlayer::Update(void)
+void CBullet::Update( void )
 {
-	//pos._x += 0.1f;
+	pos._y += sinf( rot._x )*speed;
+	pos._x += sinf( rot._y )*speed;
+	pos._z += cosf( rot._y )*speed;
 }
-
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CPlayer::Draw(void)
+void CBullet::Draw( void )
 {
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-
 	// 描画
-	object_3d_manager->Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(),"");
+	object_3d_manager->Draw(object_key_,pos,rot,VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
 }
-
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CPlayer::Uninit(void)
+void CBullet::Uninit( void )
 {
+	//billboard->Release();
 }
 
 //---------------------------------- EOF --------------------------------------

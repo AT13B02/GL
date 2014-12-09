@@ -36,7 +36,7 @@ struct QUATERNION
 	*
 	*	@param	void
 	*/
-	QUATERNION(f32 x, f32 y, f32 z, f32 w) :
+	QUATERNION(float x, float y, float z, float w) :
 	_x(x), _y(y), _z(z), _w(w){}
 	
 	/**
@@ -50,9 +50,9 @@ struct QUATERNION
 	*	ˆø”‚Å‰Šú‰»
 	*
 	*	@param	VECTOR3	”CˆÓ²
-	*	@param	f32	‰ñ“]—Ê
+	*	@param	float	‰ñ“]—Ê
 	*/
-	QUATERNION RotationAxis(const VECTOR3& axis, const f32 angle);
+	QUATERNION RotationAxis(const VECTOR3& axis, const float angle);
 
 	//-----------------------------------------------------
 	// •„†•ÏŠ·
@@ -74,9 +74,9 @@ struct QUATERNION
 	{
 		struct
 		{
-			f32 _x, _y, _z, _w;
+			float _x, _y, _z, _w;
 		};
-		f32 _q[4];
+		float _q[4];
 	};
 };
 

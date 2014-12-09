@@ -16,7 +16,7 @@
 //=============================================================================
 // ‰ñ“]Ž²
 //=============================================================================
-QUATERNION QUATERNION::RotationAxis(const VECTOR3& axis, const f32 angle)
+QUATERNION QUATERNION::RotationAxis(const VECTOR3& axis, const float angle)
 {
 	_x = axis._x * sinf(angle * 0.5f);
 	_y = axis._y * sinf(angle * 0.5f);
