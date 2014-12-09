@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// キャラクタマネージャークラス
+// バレットクラス
 //
-// Author		: Chiharu Kamiyama
+// Author		: Kazuma Ooigawa
 //				: Kenji Kabutomori
 //
 //*****************************************************************************
@@ -12,17 +12,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _CHARACTER_MANAGER_H_
-#define _CHARACTER_MANAGER_H_
+#ifndef _BULLET_H_
+#define _BULLET_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// basic
-#include "basic/basic.h"
-
-// character
-#include "interface/character/character_manager_interface.h"
+#include "common/math/math.h"
+#include "../character_interface.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -37,60 +34,45 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// プロトタイプ宣言
-//*****************************************************************************
-
-//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CPlayerManager;
-class CCharacterCameraManager;
-class CBulletManager;
-class CAttitudeControllerManager;
+class CInterfaceManager;
+class CBillboard;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCharacterManager : public CBasic
+class CBullet : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CCharacterManager(void);
+	CBullet(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	~CCharacterManager(void);
+	~CBullet(void);
 
-	// 初期化処理
+	// 初期化
 	bool Init(void);
+
+	// 更新
+	void Update(void);
 
 	// 描画
 	void Draw(void);
 
-	// 終了処理
+	// 終了
 	void Uninit(void);
 
-	// 更新処理
-	void Update(void);
-
-	// プレイヤーマネージャーの取得
-	CPlayerManager* player_manager(void){return player_manager_;}
-
-	// キャラクターカメラマネージャーの取得
-	CCharacterCameraManager* character_camera_manager(void){return character_camera_manager_;}
-
-	// バレットマネージャー
-	CBulletManager* bullet_manager(void){return bullet_manager_;}
-
-	// 姿勢制御マネージャーの取得
-	CAttitudeControllerManager* attitude_controller_manager(void){return attitude_controller_manager_;}
+	// パラメータの設定
+	void SetParameter(const VECTOR3& position,const VECTOR3& vector,const f32& speed);
 
 private:
-	CPlayerManager* player_manager_;
-	CCharacterCameraManager* character_camera_manager_;
-	CBulletManager* bullet_manager_;
-	CAttitudeControllerManager* attitude_controller_manager_;
+	u32 object_key_;
+	VECTOR3 position_;
+	VECTOR3 vector_;
+	f32 speed_;
+	CInterfaceManager* interface_manager_;
+
 };
-
-#endif // _CHARACTER_MANAGER_H_
-
+#endif //_BULLET_H_
 //---------------------------------- EOF --------------------------------------

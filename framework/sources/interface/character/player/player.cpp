@@ -3,7 +3,7 @@
 // プレイヤークラス
 //
 // Author		: Chiharu Kamiyama
-//              : Kenji Kabutomori
+//				: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -19,6 +19,10 @@
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/input/input_manager.h"
 
+#include "../character_manager.h"
+#include "../bullet/bullet_manager.h"
+#include "../bullet/bullet.h"
+
 #include "common/common.h"
 
 //*****************************************************************************
@@ -27,8 +31,6 @@
 const f32 CPlayer::SPEED = 0.5f;
 const f32 CPlayer::SPEED_DEST = 0.3f;
 const f32 CPlayer::ROTATION_DEST = 0.3f;
-
-
 
 //=============================================================================
 // コンストラクタ
@@ -141,6 +143,17 @@ void CPlayer::Update(void)
 	rot_._y += def * 0.1f;
 
 	rot_._y = GetRotationNormalize(rot_._y);
+
+	// 弾の発射
+	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE))
+	{
+		CBulletManager* bullet_manager = interface_manager_->character_manager()->bullet_manager();
+		CBullet* bullet = new CBullet(interface_manager_);
+
+		bullet->Init();
+		bullet->SetParameter(pos_,front_vector.RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rot_._y + 180.0f) * MTH_DEGREE),1.0f);
+		bullet_manager->Push(bullet);
+	}
 }
 
 //=============================================================================

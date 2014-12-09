@@ -35,6 +35,8 @@
     <ClInclude Include="sources\debug_tool\debug_manager.h" />
     <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller.h" />
     <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller_manager.h" />
+    <ClInclude Include="sources\interface\character\bullet\bullet.h" />
+    <ClInclude Include="sources\interface\character\bullet\bullet_manager.h" />
     <ClInclude Include="sources\interface\character\camera\character_camera.h" />
     <ClInclude Include="sources\interface\character\camera\character_camera_manager.h" />
     <ClInclude Include="sources\interface\character\camera\player_camera.h" />
@@ -137,6 +139,8 @@
     <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
     <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller.cpp" />
     <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller_manager.cpp" />
+    <ClCompile Include="sources\interface\character\bullet\bullet.cpp" />
+    <ClCompile Include="sources\interface\character\bullet\bullet_manager.cpp" />
     <ClCompile Include="sources\interface\character\camera\character_camera.cpp" />
     <ClCompile Include="sources\interface\character\camera\character_camera_manager.cpp" />
     <ClCompile Include="sources\interface\character\camera\player_camera.cpp" />

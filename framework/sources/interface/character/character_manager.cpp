@@ -14,6 +14,7 @@
 #include "character_manager.h"
 #include "player/player_manager.h"
 #include "camera/character_camera_manager.h"
+#include "bullet/bullet_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
 
 // common
@@ -30,6 +31,10 @@ CCharacterManager::CCharacterManager()
 	// キャラクターカメラマネージャーの生成
 	character_camera_manager_ = new CCharacterCameraManager();
 
+	// バレットマネージャーの生成
+	bullet_manager_ = new CBulletManager();
+
+	// 姿勢制御マネージャーの生成
 	attitude_controller_manager_ = new CAttitudeControllerManager();
 }
 
@@ -51,6 +56,9 @@ bool CCharacterManager::Init(void)
 	// カメラマネージャーの初期化
 	INIT(character_camera_manager_);
 
+	// バレットマネージャーの初期化
+	INIT(bullet_manager_);
+
 	// 姿勢制御コントローラーマネージャーの初期化
 	INIT(attitude_controller_manager_);
 
@@ -68,6 +76,9 @@ void CCharacterManager::Update(void)
 	// プレイヤーマネージャーの更新
 	player_manager_->Update();
 
+	// バレットマネージャーの更新
+	bullet_manager_->Update();
+
 	// キャラクターカメラマネージャーの更新
 	character_camera_manager_->Update();
 }
@@ -79,6 +90,9 @@ void CCharacterManager::Draw(void)
 {
 	// プレイヤーマネージャーの描画
 	player_manager_->Draw();
+
+	// バレットマネージャーの描画
+	bullet_manager_->Draw();
 }
 
 //=============================================================================
@@ -92,7 +106,10 @@ void CCharacterManager::Uninit(void)
 	// キャラクターカメラマネージャーの開放
 	SAFE_RELEASE(character_camera_manager_);
 
-	// キャラクターカメラマネージャーの開放
+	// バレットマネージャーの開放
+	SAFE_RELEASE(bullet_manager_);
+
+	// 姿勢制御マネージャーの開放
 	SAFE_RELEASE(attitude_controller_manager_);
 }
 

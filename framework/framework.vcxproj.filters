@@ -152,6 +152,9 @@
     <Filter Include="sources\interface\character\collision">
       <UniqueIdentifier>{e39f9c32-3515-4dcb-b361-78ab015464cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\character\bullet">
+      <UniqueIdentifier>{0d9b14b9-375c-4a6e-9f08-8e6d3f29185b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -463,6 +466,12 @@
     <ClInclude Include="sources\interface\character\collision\collision_manager.h">
       <Filter>sources\interface\character\collision</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\bullet\bullet.h">
+      <Filter>sources\interface\character\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\bullet\bullet_manager.h">
+      <Filter>sources\interface\character\bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -761,6 +770,12 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\collision\collision_manager.cpp">
       <Filter>sources\interface\character\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\bullet\bullet_manager.cpp">
+      <Filter>sources\interface\character\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\bullet\bullet.cpp">
+      <Filter>sources\interface\character\bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
