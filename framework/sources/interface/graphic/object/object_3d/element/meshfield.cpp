@@ -305,7 +305,7 @@ void CMeshfield::CreateHeightMap()
 	{
 		for(u32 x = 0; x < number_vertex_x_; x++)
 		{
-			p_height_map_[idx] = m_fMaxHeight * noise.GetNoise(x, z);
+			p_height_map_[idx] = m_fMaxHeight * noise.GetNoise((float)x, (float)z);
 			idx++;
 		}
 	}
