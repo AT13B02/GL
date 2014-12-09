@@ -53,6 +53,15 @@ struct QUATERNION
 	*	@param	f32	回転量
 	*/
 	QUATERNION RotationAxis(const VECTOR3& axis, const f32 angle);
+	
+	/**
+	*	クォータニオンから回転量取得
+	*
+	*	引数で初期化
+	*
+	*	@param	QUATERNION	クォータニオン
+	*/
+	VECTOR3 YawPitchRollFromQuaternion(const QUATERNION& q);
 
 	//-----------------------------------------------------
 	// 符号変換

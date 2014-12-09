@@ -158,6 +158,12 @@
     <Filter Include="sources\interface\character\field">
       <UniqueIdentifier>{3ccf576b-36ae-4c38-b77c-3158adae5846}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\general">
+      <UniqueIdentifier>{6f65da65-4245-45d1-8bb4-807b528047dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\general\procedural">
+      <UniqueIdentifier>{a37d9216-d4df-4e28-b1d1-ce746188bc4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -481,6 +487,9 @@
     <ClInclude Include="sources\interface\character\field\field_manager.h">
       <Filter>sources\interface\character\field</Filter>
     </ClInclude>
+    <ClInclude Include="sources\general\procedural\perlin_noise.h">
+      <Filter>sources\general\procedural</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -791,6 +800,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\field\field_manager.cpp">
       <Filter>sources\interface\character\field</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\general\procedural\perlin_noise.cpp">
+      <Filter>sources\general\procedural</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
