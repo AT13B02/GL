@@ -18,6 +18,7 @@
 #include "interface/graphic/vertex/vertex_2d.h"
 #include "interface/graphic/texture/texture.h"
 #include "interface/graphic/renderstate/state/renderstate.h"
+#include "interface/graphic/renderstate/renderstate_manager.h"
 
 // common
 #include "common/common.h"
@@ -54,11 +55,11 @@ CObject2D::~CObject2D(void)
 //=============================================================================
 // •`‰æˆ—
 //=============================================================================
-void CObject2D::Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* texture,CRenderstate* renderstate)
+void CObject2D::Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* texture,CRenderstateManager* renderstate_manager,std::list<u32> renderstate_list)
 {
-	if(renderstate != NULL)
+	for(auto it = renderstate_list.begin();it != renderstate_list.end();++it)
 	{
-		renderstate->Set();
+		renderstate_manager->renderstate((CRenderstateManager::TYPE)*it)->Set();
 	}
 
 	if(texture != NULL)
@@ -71,14 +72,14 @@ void CObject2D::Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* text
 		vertex_2d->Draw(matrix);
 	}
 
-	if(renderstate != NULL)
-	{
-		renderstate->Unset();
-	}
-
 	if(texture != NULL)
 	{
 		texture->Unset();
+	}
+
+	for(auto it = renderstate_list.begin();it != renderstate_list.end();++it)
+	{
+		renderstate_manager->renderstate((CRenderstateManager::TYPE)*it)->Unset();
 	}
 }
 

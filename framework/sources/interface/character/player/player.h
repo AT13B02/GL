@@ -1,13 +1,11 @@
 //*****************************************************************************
 //
-// プレイヤークラス [player.h]
+// プレイヤークラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/09/25(Thu)
-// Version		: 1.00
-// Update Date	: 2014/09/25(Thu)
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 // 多重定義防止
@@ -18,10 +16,20 @@
 #define _PLAYER_H_
 
 //*****************************************************************************
+// warning消し
+//*****************************************************************************
+
+//*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
-#include "vector3.h"
+// basic
+#include "basic/basic.h"
+#include "common/math/vector/vector3.h"
+
+//character
+#include "player_manager.h"
+#include "interface/character/character_interface.h"
+
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -36,43 +44,69 @@
 //*****************************************************************************
 
 //*****************************************************************************
+// プロトタイプ宣言
+//*****************************************************************************
+
+//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CInterfaceManager;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CPlayer : public CBasic
+class CPlayer : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CPlayer(CInterfaceManager* pInterfaceManager);
+	CPlayer(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CPlayer(void);
+	~CPlayer(void);
 
-	// 初期化
+	// 初期化処理
 	bool Init(void);
 
-	// 更新
+	// 更新処理
 	void Update(void);
 
-	// 描画
+	// 終了処理
+	void Uninit(void);
+
+	//描画
 	void Draw(void);
 
-	// 終了
-	void Uninit(void);
+	//ポジションの取得
+	VECTOR3& pos(void){return pos_;}
+
+	//角度の取得
+	VECTOR3& rot(void){return rot_;}
 
 protected:
 
+
 private:
-	CInterfaceManager* m_pInterfaceManager;
-	VECTOR3 m_Pos;
-	VECTOR3 m_Rot;
-	int m_nNumber;
+	//インターフェースマネージャーのポインタ
+	CInterfaceManager* interface_manager_;
+
+	//オブジェクトキー
+	u32 object_key_;
+
+	//スピード
+	static const f32 SPEED;
+	static const f32 SPEED_DEST;
+	static const f32 ROTATION_DEST;
+
+
+	//各種値
+	VECTOR3 pos_;
+	VECTOR3 rot_;
+	VECTOR3 scale_;
+
+	//移動目標値変数
+	VECTOR3 pos_dest_;
+	VECTOR3 rot_dest_;
 };
 
-#endif	// _PLAYER_H_
-
 //---------------------------------- EOF --------------------------------------
+
+#endif // _PLAYER_H_

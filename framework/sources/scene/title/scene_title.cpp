@@ -87,7 +87,7 @@ void CSceneTitle::Draw(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// •`‰æ
-	object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"",NULL);
+	object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 }
 
 //=============================================================================

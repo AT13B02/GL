@@ -79,11 +79,10 @@ void CRectangle2D::Draw(CObject2DData* object_2d_data)
 	MATRIX4x4 matrix;
 	CTextureManager* texture_manager = object_2d_data->texture_manager();
 	CTexture* texture = texture_manager->Get(object_2d_data->texture_name().c_str());
-	CRenderstate* renderstate = object_2d_data->renderstate();
 
 	matrix = GetWorldMatrix(object_2d_data);
 
-	CObject2D::Draw(matrix,vertex_2d_,texture,renderstate);
+	CObject2D::Draw(matrix,vertex_2d_,texture,object_2d_data->renderstate_manager(),object_2d_data->renderstate_list());
 }
 
 //=============================================================================

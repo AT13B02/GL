@@ -17,6 +17,8 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+#include <list>
+
 // graphic
 #include "interface/graphic/object/object.h"
 
@@ -39,7 +41,7 @@ class CObject3DData;
 class CModel;
 class CVertex3D;
 class CTexture;
-class CRenderstate;
+class CRenderstateManager;
 
 //*****************************************************************************
 // クラス定義
@@ -65,10 +67,10 @@ public:
 	virtual void Draw(CObject3DData* object_3d_data) = 0;
 
 	// 描画処理
-	void Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* texture,CRenderstate* renderstate);
+	void Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* texture,CRenderstateManager* renderstate_manager,std::list<u32> renderstate_list);
 
 	// 描画処理
-	void Draw(const MATRIX4x4& matrix,CModel* model,CRenderstate* renderstate);
+	void Draw(const MATRIX4x4& matrix,CModel* model,CRenderstateManager* renderstate_manager,std::list<u32> renderstate_list);
 
 	// 設定処理
 	virtual void Set(void) = 0;

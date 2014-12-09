@@ -33,9 +33,21 @@
     <ClInclude Include="sources\debug_tool\debug.h" />
     <ClInclude Include="sources\debug_tool\debug_console.h" />
     <ClInclude Include="sources\debug_tool\debug_manager.h" />
-    <ClInclude Include="sources\general\procedural\perlin_noise.h" />
+    <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller.h" />
+    <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller_manager.h" />
+    <ClInclude Include="sources\interface\character\bullet\bullet.h" />
+    <ClInclude Include="sources\interface\character\bullet\bullet_manager.h" />
     <ClInclude Include="sources\interface\character\camera\character_camera.h" />
+    <ClInclude Include="sources\interface\character\camera\character_camera_manager.h" />
+    <ClInclude Include="sources\interface\character\camera\player_camera.h" />
+    <ClInclude Include="sources\interface\character\character_interface.h" />
+    <ClInclude Include="sources\interface\character\character_manager.h" />
     <ClInclude Include="sources\interface\character\character_manager_interface.h" />
+    <ClInclude Include="sources\interface\character\collision\collision_manager.h" />
+    <ClInclude Include="sources\interface\character\field\field.h" />
+    <ClInclude Include="sources\interface\character\field\field_manager.h" />
+    <ClInclude Include="sources\interface\character\player\player.h" />
+    <ClInclude Include="sources\interface\character\player\player_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\opengl\gl_camera.h" />
@@ -66,14 +78,19 @@
     <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_list.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\object_3d_manager.h" />
     <ClInclude Include="sources\interface\graphic\object\object_manager.h" />
+    <ClInclude Include="sources\interface\graphic\object\object_manager_interface.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\renderstate_manager.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_all.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_light_off.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_wireframe.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_2d.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_3d.h" />
     <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_all.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_light_off.h" />
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_wireframe.h" />
     <ClInclude Include="sources\interface\graphic\texture\opengl\gl_texture.h" />
     <ClInclude Include="sources\interface\graphic\texture\texture.h" />
     <ClInclude Include="sources\interface\graphic\texture\texture_manager.h" />
@@ -95,6 +112,7 @@
     <ClInclude Include="sources\interface\sound\xaudio2\xaudio2_sound.h" />
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
+    <ClInclude Include="sources\scene\fade_2d.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
     <ClInclude Include="sources\scene\load\scene_load.h" />
     <ClInclude Include="sources\scene\scene.h" />
@@ -121,9 +139,21 @@
     <ClCompile Include="sources\debug_tool\debug.cpp" />
     <ClCompile Include="sources\debug_tool\debug_console.cpp" />
     <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
-    <ClCompile Include="sources\general\procedural\perlin_noise.cpp" />
+    <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller.cpp" />
+    <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller_manager.cpp" />
+    <ClCompile Include="sources\interface\character\bullet\bullet.cpp" />
+    <ClCompile Include="sources\interface\character\bullet\bullet_manager.cpp" />
     <ClCompile Include="sources\interface\character\camera\character_camera.cpp" />
+    <ClCompile Include="sources\interface\character\camera\character_camera_manager.cpp" />
+    <ClCompile Include="sources\interface\character\camera\player_camera.cpp" />
+    <ClCompile Include="sources\interface\character\character_interface.cpp" />
+    <ClCompile Include="sources\interface\character\character_manager.cpp" />
     <ClCompile Include="sources\interface\character\character_manager_interface.cpp" />
+    <ClCompile Include="sources\interface\character\collision\collision_manager.cpp" />
+    <ClCompile Include="sources\interface\character\field\field.cpp" />
+    <ClCompile Include="sources\interface\character\field\field_manager.cpp" />
+    <ClCompile Include="sources\interface\character\player\player.cpp" />
+    <ClCompile Include="sources\interface\character\player\player_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\opengl\gl_camera.cpp" />
@@ -154,14 +184,19 @@
     <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_list.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\object_3d_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_manager.cpp" />
+    <ClCompile Include="sources\interface\graphic\object\object_manager_interface.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\renderstate_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_3d.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_all.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_light_off.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_wireframe.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_2d.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_3d.cpp" />
     <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_all.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_light_off.cpp" />
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_wireframe.cpp" />
     <ClCompile Include="sources\interface\graphic\texture\opengl\gl_texture.cpp" />
     <ClCompile Include="sources\interface\graphic\texture\texture.cpp" />
     <ClCompile Include="sources\interface\graphic\texture\texture_manager.cpp" />
@@ -182,6 +217,7 @@
     <ClCompile Include="sources\interface\sound\xaudio2\xaudio2_sound.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
+    <ClCompile Include="sources\scene\fade_2d.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />
     <ClCompile Include="sources\scene\load\scene_load.cpp" />
     <ClCompile Include="sources\scene\scene.cpp" />
@@ -219,7 +255,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath);$(SolutionDir)sources</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath);$(SolutionDir)sources;$(SolutionDir)sources\interface</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

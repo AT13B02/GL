@@ -39,6 +39,7 @@ class CInputManager;
 class CSoundManager;
 class CGraphicManager;
 class CNetworkManager;
+class CCharacterManager;
 
 //*****************************************************************************
 // クラス定義
@@ -84,6 +85,10 @@ public:
 
 	// ネットワークマネージャーの取得
 	CNetworkManager* network_manager(void){return network_manager_;}
+
+	//キャラクタマネージャーの取得
+	CCharacterManager* character_manager( void ){ return character_manager_; }
+
 protected:
 
 private:
@@ -92,6 +97,7 @@ private:
 	CSoundManager* sound_manager_;
 	CGraphicManager* graphic_manager_;
 	CNetworkManager* network_manager_;
+	CCharacterManager* character_manager_;
 };
 
 #endif // _INTERFACE_MANAGER_H_

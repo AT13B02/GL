@@ -133,8 +133,8 @@ public:
 	*	@param	VECTOR3 ‰ñ“]—Ê
 	*	@return	VECTOR3 ”CˆÓ²‰ñ“]Œ‹‰Ê
 	*/
-	VECTOR3 RotationAxis(const VECTOR3& axis, const float rotRad);
-	
+	VECTOR3 RotationAxis(const VECTOR3& axis, const f32 rotRad);
+
 	//-----------------------------------------------------
 	// •„†•ÏŠ·
 

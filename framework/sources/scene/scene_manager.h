@@ -39,6 +39,7 @@ class CSceneFactory;
 class CThread;
 class CInterfaceManager;
 class CTexture;
+class CFade2D;
 
 //*****************************************************************************
 // クラス定義
@@ -90,6 +91,9 @@ private:
 
 	// ロードフラグ
 	volatile bool load_flag_;
+
+	// Fade
+	CFade2D* fade_2d_;
 
 	// ロード用関数
 	static void Load(CSceneManager* scene_manager);

@@ -23,6 +23,9 @@
 // basic
 #include "basic/basic.h"
 
+// graphic
+#include "interface/graphic/object/object_manager_interface.h"
+
 // math
 #include "common/math/math.h"
 
@@ -60,7 +63,7 @@ class CTextureManager;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CObject2DManager : public CBasic
+class CObject2DManager : public CObjectManagerInterface
 {
 public:
 	// コンストラクタ
@@ -84,7 +87,7 @@ public:
 
 	//-----------------------------------------------------
 	// 描画リストに保存
-	void Draw(const u32& object_key,const VECTOR2& position,const float rotation,const VECTOR2& scale,MATRIX4x4 matrix,const std::string& texture_name,CRenderstate* renderstate);
+	void Draw(const u32& object_key,const VECTOR2& position,const float rotation,const VECTOR2& scale,MATRIX4x4 matrix,const std::string& texture_name);
 
 private:
 

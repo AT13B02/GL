@@ -73,12 +73,7 @@ private:
 
 
 	// TODO テスト用メンバー変数
-	u32 test_rectangle_2d_key_;
-	u32 test_rectangle_3d_key_;
-	u32 test_billboard_key_;
-	u32 test_model_key_;
 	u32 test_meshfield_key_;
-	CCharacterCamera* test_camera_;
 };
 
 #endif	// _SCENE_GAME_H_

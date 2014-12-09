@@ -21,9 +21,7 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
-#include <string>
-#include <map>
+#include <list>
 
 // basic
 #include "basic/basic.h"
@@ -66,6 +64,9 @@ public:
 
 	// 更新処理
 	virtual void Update(void);
+	
+	// 描画処理
+	virtual void Draw(void);
 
 	// 終了処理
 	virtual void Uninit(void);
@@ -109,13 +110,24 @@ template <class T> void CCharacterManagerInterface<T>::Update(void)
 }
 
 //=============================================================================
+// 描画処理
+//=============================================================================
+template <class T> void CCharacterManagerInterface<T>::Draw(void)
+{
+	for(auto it = character_list_.begin();it != character_list_.end();++it)
+	{
+		(*it)->Draw();
+	}
+}
+
+//=============================================================================
 // 終了処理
 //=============================================================================
 template <class T> void CCharacterManagerInterface<T>::Uninit(void)
 {
 	for(auto it = character_list_.begin();it != character_list_.end();++it)
 	{
-		(*it)->Uninit();
+		(*it)->Release();
 	}
 
 	character_list_.clear();
