@@ -54,7 +54,7 @@ CPlayer::~CPlayer(void)
 bool CPlayer::Init(void)
 {
 	// オブジェクトモデルの生成
-	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma1");
+	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
 	// オブジェクトリストに追加
 	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList( object_model );
 
