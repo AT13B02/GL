@@ -24,7 +24,7 @@
 //#include "interface/sound/sound_manager.h"
 
 // network
-//#include "interface/network/network_manager.h"
+#include "interface/network/network_manager.h"
 
 #include "common/common.h"
 
@@ -46,7 +46,7 @@ CInterfaceManager::CInterfaceManager(WINDOW_DATA* window_data)
 	input_manager_ = new CInputManager(window_data);
 	graphic_manager_ = new CGraphicManager(window_data);
 	sound_manager_ = NULL;//new CSoundManager();
-	network_manager_ = NULL;//new CNetworkManager();
+	network_manager_ = new CNetworkManager();
 	character_manager_ = new CCharacterManager();
 }
 
@@ -72,7 +72,7 @@ bool CInterfaceManager::Init(void)
 	//INIT(sound_manager_);
 
 	// ネットワークマネージャーの初期化
-	//INIT(network_manager_);
+	INIT(network_manager_);
 
 	//キャラクタマネージャーの初期化
 	INIT(character_manager_);
@@ -120,10 +120,10 @@ void CInterfaceManager::Uninit(void)
 	SAFE_RELEASE(graphic_manager_);
 
 	// サウンドマネージャーの開放
-	//SAFE_RELEASE(sound_manager);
+	//SAFE_RELEASE(sound_manager_);
 
 	// ネットワークマネージャーの開放
-	//SAFE_RELEASE(network_manager);
+	SAFE_RELEASE(network_manager_);
 
 }
 

@@ -164,6 +164,9 @@
     <Filter Include="sources\general\procedural">
       <UniqueIdentifier>{a37d9216-d4df-4e28-b1d1-ce746188bc4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\network">
+      <UniqueIdentifier>{39602657-9715-4ad0-9226-a115601872f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -490,6 +493,21 @@
     <ClInclude Include="sources\general\procedural\perlin_noise.h">
       <Filter>sources\general\procedural</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\network\network_client.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\network_data.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\network_data_buffer.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\network_manager.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\windows_sockets.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -803,6 +821,21 @@
     </ClCompile>
     <ClCompile Include="sources\general\procedural\perlin_noise.cpp">
       <Filter>sources\general\procedural</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\network_client.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\network_data.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\network_data_buffer.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\network_manager.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\windows_sockets.cpp">
+      <Filter>sources\interface\network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
