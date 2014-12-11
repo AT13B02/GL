@@ -1,8 +1,9 @@
 //*****************************************************************************
 //
-// 衝突判定クラス
+// バレットクラス
 //
-// Author		: Yuki Sakamoto
+// Author		: Kazuma Ooigawa
+//				: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -11,26 +12,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _COLLISION_MANAGER_H_
-#define _COLLISION_MANAGER_H_
-
-//*****************************************************************************
-// warning消し
-//*****************************************************************************
+#ifndef _BULLET_H_
+#define _BULLET_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
-#include <string>
-#include <map>
-
-// basic
-#include "basic/basic.h"
-#include "common/math/vector/vector3.h"
-
-//character_manager
-#include "interface/character/character_manager_interface.h"
+#include "common/math/math.h"
+#include "../character_interface.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -45,43 +34,45 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// プロトタイプ宣言
-//*****************************************************************************
-
-//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CPlayer;
+class CInterfaceManager;
+class CBillboard;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCollisionManager : public CBasic
+class CBullet : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CCollisionManager();
+	CBullet(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	~CCollisionManager(void);
+	~CBullet(void);
 
-	// 初期化処理
+	// 初期化
 	bool Init(void);
 
-	// 終了処理
+	// 更新
+	void Update(void);
+
+	// 描画
+	void Draw(void);
+
+	// 終了
 	void Uninit(void);
 
-	// 球体と球体の当たり判定処理
-	bool JudgeSphereCross(VECTOR3 p1,f32 r1,VECTOR3 p2,f32 r2);
-
-protected:
-
+	// パラメータの設定
+	void SetParameter(const VECTOR3& position,const VECTOR3& vector,const f32& speed);
 
 private:
+	u32 object_key_;
+	VECTOR3 position_;
+	VECTOR3 vector_;
+	f32 speed_;
+	CInterfaceManager* interface_manager_;
 
 };
-
+#endif //_BULLET_H_
 //---------------------------------- EOF --------------------------------------
-
-
-#endif

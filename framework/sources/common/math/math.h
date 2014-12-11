@@ -42,20 +42,23 @@
 const f64 MTH_PI			= (3.1415926535897932386);		// 円周率
 const f64 MTH_DEGREE		= (MTH_PI / 180.0);				// 1度
 const f64 MTH_RADIAN		= (180.0 / MTH_PI);				// 1ラジアン
-const f64 MTH_OVER_RT2	= (0.7071067811865475);				// 2の平方根の逆数
-const f64 MTH_LOG2		= (0.693147180559945309147);		// log2
+const f64 MTH_OVER_RT2		= (0.7071067811865475);				// 2の平方根の逆数
+const f64 MTH_LOG2			= (0.693147180559945309147);		// log2
 
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
 // 2次元ベクトルの2点間の距離を取得
-float GetVector2Length(const VECTOR2& Vector1,const VECTOR2 Vector2);
+f32 GetVector2Length(const VECTOR2& Vector1,const VECTOR2 Vector2);
 
 // 3次元ベクトルの2点間の距離を取得
-float GetVector3Length(const VECTOR3& Vector1,const VECTOR3 Vector2);
+f32 GetVector3Length(const VECTOR3& Vector1,const VECTOR3 Vector2);
 
 // 行列変換後の座標の取得
 VECTOR3 GetTransformCoord(const VECTOR3& Vector,const MATRIX4x4& Matrix);
+
+// 角度の最適化
+f32 GetRotationNormalize(const f32& rotation_degree);
 
 #endif	// _MATH_H_
 

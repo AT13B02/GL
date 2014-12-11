@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-//　キャラクタマネージャークラス
+// キャラクタマネージャークラス
 //
 // Author		: Chiharu Kamiyama
 //				: Kenji Kabutomori
@@ -14,10 +14,6 @@
 
 #ifndef _CHARACTER_MANAGER_H_
 #define _CHARACTER_MANAGER_H_
-
-//*****************************************************************************
-// warning消し
-//*****************************************************************************
 
 //*****************************************************************************
 // インクルード
@@ -49,6 +45,9 @@
 //*****************************************************************************
 class CPlayerManager;
 class CCharacterCameraManager;
+class CBulletManager;
+class CFieldManager;
+class CAttitudeControllerManager;
 
 //*****************************************************************************
 // クラス定義
@@ -80,12 +79,23 @@ public:
 	// キャラクターカメラマネージャーの取得
 	CCharacterCameraManager* character_camera_manager(void){return character_camera_manager_;}
 
+	// バレットマネージャー取得
+	CBulletManager* bullet_manager(void){return bullet_manager_;}
+
+	// フィールドマネージャーの取得
+	CFieldManager* field_manager(void){return field_manager_;}
+
+	// 姿勢制御マネージャーの取得
+	CAttitudeControllerManager* attitude_controller_manager(void){return attitude_controller_manager_;}
+
 private:
 	CPlayerManager* player_manager_;
 	CCharacterCameraManager* character_camera_manager_;
+	CBulletManager* bullet_manager_;
+	CFieldManager* field_manager_;
+	CAttitudeControllerManager* attitude_controller_manager_;
 };
 
+#endif // _CHARACTER_MANAGER_H_
+
 //---------------------------------- EOF --------------------------------------
-
-
-#endif

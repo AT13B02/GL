@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="collision_manager.h" />
     <ClInclude Include="sources\basic\application.h" />
     <ClInclude Include="sources\basic\application_manager.h" />
     <ClInclude Include="sources\basic\basic.h" />
@@ -34,10 +33,20 @@
     <ClInclude Include="sources\debug_tool\debug.h" />
     <ClInclude Include="sources\debug_tool\debug_console.h" />
     <ClInclude Include="sources\debug_tool\debug_manager.h" />
+    <ClInclude Include="sources\general\procedural\perlin_noise.h" />
+    <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller.h" />
+    <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller_manager.h" />
+    <ClInclude Include="sources\interface\character\bullet\bullet.h" />
+    <ClInclude Include="sources\interface\character\bullet\bullet_manager.h" />
     <ClInclude Include="sources\interface\character\camera\character_camera.h" />
     <ClInclude Include="sources\interface\character\camera\character_camera_manager.h" />
+    <ClInclude Include="sources\interface\character\camera\player_camera.h" />
+    <ClInclude Include="sources\interface\character\character_interface.h" />
     <ClInclude Include="sources\interface\character\character_manager.h" />
     <ClInclude Include="sources\interface\character\character_manager_interface.h" />
+    <ClInclude Include="sources\interface\character\collision\collision_manager.h" />
+    <ClInclude Include="sources\interface\character\field\field.h" />
+    <ClInclude Include="sources\interface\character\field\field_manager.h" />
     <ClInclude Include="sources\interface\character\player\player.h" />
     <ClInclude Include="sources\interface\character\player\player_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
@@ -104,6 +113,7 @@
     <ClInclude Include="sources\interface\sound\xaudio2\xaudio2_sound.h" />
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
+    <ClInclude Include="sources\scene\fade_2d.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
     <ClInclude Include="sources\scene\load\scene_load.h" />
     <ClInclude Include="sources\scene\scene.h" />
@@ -111,7 +121,6 @@
     <ClInclude Include="sources\scene\title\scene_title.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="collision_manager.cpp" />
     <ClCompile Include="sources\basic\application_manager.cpp" />
     <ClCompile Include="sources\basic\basic.cpp" />
     <ClCompile Include="sources\basic\fps_manager.cpp" />
@@ -131,10 +140,20 @@
     <ClCompile Include="sources\debug_tool\debug.cpp" />
     <ClCompile Include="sources\debug_tool\debug_console.cpp" />
     <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
+    <ClCompile Include="sources\general\procedural\perlin_noise.cpp" />
+    <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller.cpp" />
+    <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller_manager.cpp" />
+    <ClCompile Include="sources\interface\character\bullet\bullet.cpp" />
+    <ClCompile Include="sources\interface\character\bullet\bullet_manager.cpp" />
     <ClCompile Include="sources\interface\character\camera\character_camera.cpp" />
     <ClCompile Include="sources\interface\character\camera\character_camera_manager.cpp" />
+    <ClCompile Include="sources\interface\character\camera\player_camera.cpp" />
+    <ClCompile Include="sources\interface\character\character_interface.cpp" />
     <ClCompile Include="sources\interface\character\character_manager.cpp" />
     <ClCompile Include="sources\interface\character\character_manager_interface.cpp" />
+    <ClCompile Include="sources\interface\character\collision\collision_manager.cpp" />
+    <ClCompile Include="sources\interface\character\field\field.cpp" />
+    <ClCompile Include="sources\interface\character\field\field_manager.cpp" />
     <ClCompile Include="sources\interface\character\player\player.cpp" />
     <ClCompile Include="sources\interface\character\player\player_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
@@ -200,6 +219,7 @@
     <ClCompile Include="sources\interface\sound\xaudio2\xaudio2_sound.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
+    <ClCompile Include="sources\scene\fade_2d.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />
     <ClCompile Include="sources\scene\load\scene_load.cpp" />
     <ClCompile Include="sources\scene\scene.cpp" />
