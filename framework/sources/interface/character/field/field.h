@@ -74,8 +74,12 @@ public:
 
 	//描画
 	void Draw(void);
-protected:
 
+	// 高さ取得
+	f32 get_height(const VECTOR3& in_position, VECTOR3* p_out_normal);
+
+protected:
+	
 
 private:
 	//インターフェースマネージャー

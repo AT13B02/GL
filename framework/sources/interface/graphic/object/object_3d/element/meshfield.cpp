@@ -135,7 +135,7 @@ void CMeshfield::set_grid_length(const f32& length_x, const f32& length_z)
 //=============================================================================
 // ‚‚³æ“¾
 //=============================================================================
-float CMeshfield::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
+f32 CMeshfield::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
 {
 	// ˆÈ‰º‚ÌÀ•WŒn‚É•ÏŠ·‚·‚é
 	//     (0,0) ---------- (Width,0) ---x
@@ -301,13 +301,23 @@ void CMeshfield::CreateHeightMap()
 	noise.SetSeed(time((time_t*)NULL));
 	noise.SetPersistence(0.7f);
 	u32 idx = 0;
+	f32 min_height = FLT_MAX;
 	for(u32 z = 0; z < number_vertex_z_; z++)
 	{
 		for(u32 x = 0; x < number_vertex_x_; x++)
 		{
-			p_height_map_[idx] = m_fMaxHeight * noise.GetNoise((float)x, (float)z);
+			p_height_map_[idx] = m_fMaxHeight * (noise.GetNoise((float)x, (float)z) * 0.5f + 0.5f);
+			if(min_height > p_height_map_[idx])
+			{
+				min_height = p_height_map_[idx];
+			}
 			idx++;
 		}
+	}
+	// ˆê”Ô’á‚¢êŠ‚ğ0‚É‡‚í‚¹‚é
+	for(u32 i = 0; i < number_vertex_z_ * number_vertex_x_; i++)
+	{
+		p_height_map_[i] -= min_height;
 	}
 }
 

@@ -64,7 +64,7 @@ public:
 	void set_grid_length(const f32& length_x, const f32& length_z);
 
 	// çÇÇ≥éÊìæ
-	float get_height(const VECTOR3& in_position, VECTOR3* p_out_normal);
+	f32 get_height(const VECTOR3& in_position, VECTOR3* p_out_normal);
 protected:
 
 private:
