@@ -10,6 +10,7 @@
 // インクルード
 //*****************************************************************************
 #include "common/math/math.h"
+#include "common/math/quaternion/quaternion.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -69,6 +70,39 @@ VECTOR3 VECTOR3::CrossProduct(const VECTOR3& vector) const
 	Cross._z = _x * vector._y - _y * vector._x;
 
 	return Cross;
+}
+
+//=============================================================================
+// ベクトルの任意軸回転
+//=============================================================================
+VECTOR3 VECTOR3::RotationAxis(const VECTOR3& axis, const float rotRad)
+{
+	QUATERNION src, rotQ, rotQconj, temp, dest;
+	VECTOR3 vector;
+
+	// 座標をクォータニオンに変換
+	src._x = _x;
+	src._y = _y;
+	src._z = _z;
+	src._w = 0.0f;
+
+	// 回転クォータニオン作成
+	rotQ.RotationAxis(axis, rotRad);
+	// 共役作成
+	rotQconj._x = -rotQ._x;
+	rotQconj._y = -rotQ._y;
+	rotQconj._z = -rotQ._z;
+	rotQconj._w =  rotQ._w;
+
+	// (q^-1)src
+	temp = rotQconj * src;
+	// (q^-1)src(q)
+	dest = temp * rotQ;
+
+	// destのxyz成分がそのまま座標になっている。便利
+	vector._x = dest._x; vector._y = dest._y; vector._z = dest._z;
+	
+	return vector;
 }
 
 //=============================================================================

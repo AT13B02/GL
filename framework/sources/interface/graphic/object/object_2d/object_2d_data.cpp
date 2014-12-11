@@ -37,7 +37,6 @@ CObject2DData::CObject2DData(void)
 	position_ = VECTOR2(0.0f,0.0f);
 	scale_ = VECTOR2(1.0f,1.0f);
 	rotation_ = 0.0f;
-	renderstate_ = NULL;
 	matrix_.SetIdentity();
 }
 

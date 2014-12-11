@@ -122,6 +122,18 @@ public:
 	*	@return	VECTOR3 外積結果
 	*/
 	VECTOR3 CrossProduct(const VECTOR3& vector) const;
+	
+	/**
+	*	ベクトルの任意軸回転
+	*
+	*	ベクトルの任意軸回転を行う
+	*	演算結果は返り値
+	*
+	*	@param	VECTOR3 任意軸
+	*	@param	VECTOR3 回転量
+	*	@return	VECTOR3 任意軸回転結果
+	*/
+	VECTOR3 RotationAxis(const VECTOR3& axis, const f32 rotRad);
 
 	//-----------------------------------------------------
 	// 符号変換

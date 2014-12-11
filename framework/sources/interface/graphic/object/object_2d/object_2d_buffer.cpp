@@ -52,7 +52,7 @@ bool CObject2DBuffer::Init(void)
 //=============================================================================
 // 描画
 //=============================================================================
-void CObject2DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager)
+void CObject2DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager)
 {
 	// TODO zソート
 
@@ -65,8 +65,11 @@ void CObject2DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager)
 		// テクスチャマネージャの設定
 		(*it)->set_texture_manager(texture_manager);
 
-		// モデルマネージャーの設定
+		// モデルマネージャの設定
 		//(*it)->set_model_manager(model_manager);
+
+		// レンダーステートマネージャの設定
+		(*it)->set_renderstate_manager(renderstate_manager);
 
 		// 描画
 		(*it)->Draw();

@@ -98,7 +98,6 @@ private:
 
 	// シーン切り替え中フラグ
 	bool changing_flag_;
-
 };
 
 #endif	// _SCENE_H_

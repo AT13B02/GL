@@ -17,6 +17,8 @@
 //*****************************************************************************
 // ƒCƒ“ƒNƒ‹[ƒh
 //*****************************************************************************
+#include <list>
+
 // graphic
 #include "interface/graphic/object/object.h"
 
@@ -43,7 +45,7 @@ class CDeviceHolder;
 class CModel;
 class CVertex2D;
 class CTexture;
-class CRenderstate;
+class CRenderstateManager;
 
 
 //*****************************************************************************
@@ -55,8 +57,6 @@ public:
 	enum OBJECT_2D_TYPE
 	{
 		OBJECT_2D_TYPE_RECTANGLE = 0,
-		OBJECT_2D_TYPE_BILLBOARD,
-		OBJECT_2D_TYPE_OBJECT_MODEL,
 		OBJECT_2D_TYPE_MAX
 	};
 
@@ -67,10 +67,10 @@ public:
 	virtual ~CObject2D(void);
 
 	// •`‰æˆ—
-	virtual void Draw(CObject2DData* object_2d_data) = 0;
+	virtual void Draw(CObject2DData* object_2d_data){}
 
-	// 2Dƒ|ƒŠƒSƒ“‚Ì•`‰æˆ—
-	void Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* texture,CRenderstate* renderstate);
+	// •`‰æˆ—
+	void Draw(const MATRIX4x4& matrix,CVertex2D* vertex_2d,CTexture* texture,CRenderstateManager* renderstate_manager,std::list<u32> renderstate_list);
 
 	// İ’èˆ—
 	virtual void Set(void) = 0;
