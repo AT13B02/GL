@@ -15,6 +15,7 @@
 //*****************************************************************************
 #include "windows_sockets.h"
 #include <stdio.h>
+#include "network_data_buffer.h"
 
 #include "../../common/common.h"
 
@@ -50,6 +51,8 @@ CWindowsSockets::CWindowsSockets(const char* pIpAddress)
 
 	// IPアドレスの設定
 	strcpy(m_pIpAddress,("255.255.255.255\0"));
+
+	m_DataBuffer = NULL;
 }
 
 //=============================================================================
@@ -131,12 +134,12 @@ void CWindowsSockets::Uninit(void)
 //=============================================================================
 // データの送信
 //=============================================================================
-void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id, int player_id)
+void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id)
 {
 	NETWORK_DATA Data = {0};
 	strcpy(Data.game_ID, kGameID);
 	Data.my_type = MY_TYPE_CHARCTER;
-	Data.my_ID = player_id;
+	Data.my_ID = m_DataBuffer->GetID();
 	sockaddr_in Send;
 
 	Send.sin_port = m_Sendaddr.sin_port;
@@ -175,12 +178,12 @@ void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int
 //=============================================================================
 // データの送信
 //=============================================================================
-void CWindowsSockets::SendDataBullet(VECTOR3* position, VECTOR3* front_vector, float speed, int player_id)
+void CWindowsSockets::SendDataBullet(VECTOR3* position, VECTOR3* front_vector, float speed)
 {
 	NETWORK_DATA Data = {0};
 	strcpy(Data.game_ID, kGameID);
 	Data.my_type = MY_TYPE_BULLET;
-	Data.my_ID = player_id;
+	Data.my_ID = m_DataBuffer->GetID();
 	sockaddr_in Send;
 
 	Send.sin_port = m_Sendaddr.sin_port;
@@ -233,7 +236,18 @@ void CWindowsSockets::RequestID(void)
 	//TODO
 	m_Sendaddr.sin_port = htons(20002);
 }
-
+//=============================================================================
+// リザルトに切り替え通知
+//=============================================================================
+void CWindowsSockets::SendDataGoToResultScene(void)
+{
+	NETWORK_DATA Data = {0};
+	Data.my_ID = -1;
+	strcpy(Data.game_ID, kGameID);
+	Data.my_type = MY_TYPE_CHARCTER;
+	Data.data_type = NETWORK_DATA_TYPE_GO_TO_RESULT;
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&m_Sendaddr, sizeof(m_Sendaddr));
+}
 
 //=============================================================================
 // データの送信

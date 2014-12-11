@@ -72,6 +72,8 @@ bool CNetworkClient::Init(void)
 	// 受信スレッドの起動
 	m_pThread->Start(ReceiveThread,this);
 
+	// バッファポインタセット
+	m_pWinsock->SetNetworkDataBufferPointer(m_pNetworkDataBuffer);
 	return true;
 }
 
@@ -123,15 +125,20 @@ unsigned __stdcall CNetworkClient::ReceiveThread(CNetworkClient* pNetworkClient)
 			continue;
 		}
 
-		// ＩＤセット
-		if(Data.data_type == NETWORK_DATA_TYPE_SEND_PLAYER_NUMBER)
-		{
-			pNetworkClient->m_pNetworkDataBuffer->SetID(&Data);
-		}
-		
+		// ネットワーク終了なら
 		if(Data.data_type == NETWORK_DATA_TYPE_END)
 		{
 			pNetworkClient->m_bLoopFlag = false;
+		}
+		// ＩＤセット
+		else if(Data.data_type == NETWORK_DATA_TYPE_SEND_PLAYER_NUMBER)
+		{
+			pNetworkClient->m_pNetworkDataBuffer->SetID(&Data);
+		}
+		// リザルトへ行くなら
+		else if(Data.data_type == NETWORK_DATA_TYPE_GO_TO_RESULT)
+		{
+			pNetworkClient->m_pNetworkDataBuffer->SetGameSceneEndFlag(true);
 		}
 		else
 		{

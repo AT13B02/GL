@@ -46,6 +46,7 @@
 // クラスの前方参照
 //*****************************************************************************
 class CNetworkData;
+class CNetworkDataBuffer;
 
 //*****************************************************************************
 // クラス定義
@@ -68,9 +69,15 @@ public:
 	// プレイヤーIDリクエスト
 	void RequestID(void);
 
+	// バッファのポインタセット
+	void SetNetworkDataBufferPointer(CNetworkDataBuffer* buffer_pointer){m_DataBuffer = buffer_pointer;};
+
+	// リザルトに切り替え通知
+	void SendDataGoToResultScene(void);
+
 	// データの送信
-	void SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id, int player_id);
-	void SendDataBullet(VECTOR3* position, VECTOR3* front_vector, float speed, int player_id);
+	void SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id);	// プレイヤー
+	void SendDataBullet(VECTOR3* position, VECTOR3* front_vector, float speed);		// 弾
 
 	void SendDataMyself(char* pData,int nSize);
 
@@ -84,6 +91,7 @@ private:
 	char m_pIpAddress[256];
 	struct sockaddr_in m_Sendaddr;
 	struct sockaddr_in m_Recieveaddr;
+	CNetworkDataBuffer* m_DataBuffer;
 
 	// マルチキャストアドレス
 

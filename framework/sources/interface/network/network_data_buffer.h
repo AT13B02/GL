@@ -59,6 +59,15 @@ typedef struct
 	VECTOR3 front_vector;
 }BULLET_INFO;
 
+typedef struct
+{
+	bool recive_position;
+	bool recive_rotation;
+	bool recive_animation_ID;
+	bool recive_speed;
+	bool recive_frontvector;
+}RECIVE_STATE;
+
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
@@ -92,10 +101,15 @@ public:
 	int GetID(void){return m_MyID;};
 
 	// キャラクター情報バッファ取得
-	CHARCTER_INFO* GetCharcterInfoBuffer(void){return &m_CharcterInfoBuffer[0];};
+	CHARCTER_INFO* GetCharcterInfoBuffer(void);
 
 	// 弾情報バッファ取得
-	BULLET_INFO* GetBulletInfoBuffer(void){return &m_BulletInfoBuffer[0];};
+	BULLET_INFO* GetBulletInfoBuffer(void);
+
+	// ゲームシーン終了フラグをセット
+	void SetGameSceneEndFlag(bool flag){m_GameSceneEnd = flag;};
+	// ゲームシーン終了フラグをゲット
+	bool GetGameSceneEndFlag(void){return m_GameSceneEnd;};
 
 protected:
 	// キャラデータの追加
@@ -109,6 +123,8 @@ private:
 	CHARCTER_INFO m_CharcterInfoBuffer[kMaxPlayer];
 	BULLET_INFO m_BulletInfoBuffer[kMaxPlayer];
 	int m_MyID;
+	RECIVE_STATE m_ReciveState[kMaxPlayer];
+	bool m_GameSceneEnd;
 };
 
 #endif	// _NETWORK_DATA_BUFFER_H_
