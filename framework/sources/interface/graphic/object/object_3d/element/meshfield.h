@@ -63,6 +63,9 @@ public:
 	// グリッド幅設定
 	void set_grid_length(const f32& length_x, const f32& length_z);
 
+	// height生成
+	void set_height_seed(const s32& seed);
+
 	// 高さ取得
 	f32 get_height(const VECTOR3& in_position, VECTOR3* p_out_normal);
 protected:
@@ -98,6 +101,9 @@ private:
 	// 頂点数
 	u32 number_vertex_x_;
 	u32 number_vertex_z_;
+
+	// シード
+	s32 seed_;
 
 	// ハイトマップ
 	f32 *p_height_map_;

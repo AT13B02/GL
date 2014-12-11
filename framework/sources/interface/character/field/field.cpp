@@ -48,6 +48,7 @@ bool CField::Init(void)
 	meshfield_->Init();
 	meshfield_->set_grid_length(50.0f,50.0f);
 	meshfield_->set_grid_number(10,10);
+	meshfield_->set_height_seed(0);
 	meshfield_->Set();
 
 	// オブジェクトリストに追加

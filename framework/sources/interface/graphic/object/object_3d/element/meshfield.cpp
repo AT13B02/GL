@@ -49,6 +49,7 @@ CMeshfield::CMeshfield(CDeviceHolder* device_holder)
 	:	CObject3D(device_holder,OBJECT_3D_TYPE_RECTANGLE),
 		number_grid_x_(1), number_grid_z_(1),
 		length_grid_x_(1.0f), length_grid_z_(1.0f),
+		seed_(0),
 		number_vertex_x_(number_grid_x_ + 1), number_vertex_z_(number_grid_z_ + 1),
 		p_height_map_(nullptr),
 		p_face_normal_map_(nullptr),
@@ -130,6 +131,14 @@ void CMeshfield::set_grid_length(const f32& length_x, const f32& length_z)
 {
 	length_grid_x_ = length_x;
 	length_grid_z_ = length_z;
+}
+
+//=============================================================================
+// height生成用シード値設定
+//=============================================================================
+void CMeshfield::set_height_seed(const s32& seed)
+{
+	seed_ = seed;
 }
 
 //=============================================================================
@@ -298,8 +307,7 @@ void CMeshfield::CreateHeightMap()
 	p_height_map_ = new f32[number_vertex_x_ * number_vertex_z_];
 
 	PerlinNoise noise;
-	//noise.SetSeed(time((time_t*)NULL));
-	noise.SetSeed(0);
+	noise.SetSeed(seed_);
 	noise.SetPersistence(0.7f);
 	u32 idx = 0;
 	f32 min_height = FLT_MAX;
