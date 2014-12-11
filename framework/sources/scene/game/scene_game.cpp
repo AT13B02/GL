@@ -43,10 +43,12 @@
 #include "interface/character/character_manager.h"
 #include "interface/character/player/player_manager.h"
 #include "interface/character/player/player.h"
-#include "interface/character/camera/character_camera.h"
+#include "interface/character/field/field.h"
+#include "interface/character/field/field_manager.h"
+#include "interface/character/camera/player_camera.h"
 #include "interface/character/camera/character_camera_manager.h"
-#include "interface/character/bullet/bullet_manager.h"
-#include "interface/character/bullet/bullet.h"
+#include "interface/character/attitude_controller/attitude_controller.h"
+#include "interface/character/attitude_controller/attitude_controller_manager.h"
 
 // common
 #include "common/common.h"
@@ -82,14 +84,6 @@ CSceneGame::~CSceneGame(void)
 //=============================================================================
 bool CSceneGame::Init(void)
 {
-	// キャラクターの初期化
-
-	// マップの初期化
-
-	// カメラの初期化
-
-	// ネットワークの初期化
-
 	return true;
 }
 
@@ -98,13 +92,6 @@ bool CSceneGame::Init(void)
 //=============================================================================
 void CSceneGame::Update(void)
 {
-	// ネットワーク受信データの確認
-
-	// 受信データを元に更新(生成や座標の調整)
-
-	// 当たり判定
-
-	// サーバーにデータ送信
 }
 
 //=============================================================================
@@ -112,13 +99,6 @@ void CSceneGame::Update(void)
 //=============================================================================
 void CSceneGame::Draw(void)
 {
-	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
-	CObjectManager* object_manager = graphic_manager->object_manager();
-	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
-
-	// TODO 描画テスト
-	object_3d_manager->Draw(test_meshfield_key_,VECTOR3(0.0f,0.0f,0.0f),VECTOR3(0.0f,0.0f,0.0f),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
 }
 
 //=============================================================================
@@ -153,8 +133,10 @@ void CSceneGame::Load(void)
 	CLightManager* light_manager = graphic_manager->light_manager();
 	CCharacterManager* character_manager = interface_manager_->character_manager();
 	CPlayerManager* player_manager = character_manager->player_manager();
+	CFieldManager* field_manager = character_manager->field_manager();
 	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
-	CBulletManager* bullet_manager = character_manager->bullet_manager();
+	CAttitudeControllerManager* attitude_controller_manager = character_manager->attitude_controller_manager();
+
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
 
@@ -168,34 +150,34 @@ void CSceneGame::Load(void)
 	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
 	light_manager->Add(light);
 
+	// ライトの設定
+	light = CLight::Create(device_holder);
+	light->Init();
+	light->SetType(CLight::TYPE_DIRECTIONAL);
+	light->SetDirection(VECTOR3(0.0f,-1.0f,0.0f).Normalize());
+	light_manager->Add(light);
+
 	// プレイヤーの生成
 	CPlayer* player = new CPlayer(interface_manager_);
 	player->Init();
 	player_manager->Push(player);
 
-	// バレットの生成
-	CBullet* bullet = new CBullet( interface_manager_ );
-	bullet->CreateBullet( VECTOR3(0,0,0) , VECTOR3(0,0,0) );
-	bullet_manager->Push(bullet);
-
 	// カメラの生成
-	CCharacterCamera* camera = new CCharacterCamera(interface_manager_);
+	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
 	camera->Init();
 	character_camera_manager->Push(camera);
 
+	// 姿勢制御の生成
+	CAttitudeController* attitude_controller = new CAttitudeController(interface_manager_);
+	attitude_controller->set_axis(VECTOR3(0.0f,1.0f,0.0f));
+	attitude_controller->Push(player);
+	attitude_controller->Push(camera);
+	attitude_controller_manager->Push(attitude_controller);
 
-
-
-
-	// TODO 以下テストプログラム
-
-	// メッシュフィールド
-	CMeshfield* mesh_field = new CMeshfield(device_holder);
-	mesh_field->Init();
-	mesh_field->set_grid_number(10,10);
-	mesh_field->set_grid_length(100.0f,100.0f);
-	mesh_field->Set();
-	test_meshfield_key_ = object_3d_manager->AddList(mesh_field);
+	// フィールドの生成
+	CField* field = new CField(interface_manager_);
+	field->Init();
+	field_manager->Push(field);
 }
 
 //---------------------------------- EOF --------------------------------------

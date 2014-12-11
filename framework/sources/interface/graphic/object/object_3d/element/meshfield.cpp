@@ -21,6 +21,11 @@
 // common
 #include "common/common.h"
 
+// general
+#include "general/procedural/perlin_noise.h"
+
+#include <time.h>
+
 //*****************************************************************************
 // É}ÉNÉçíËã`
 //*****************************************************************************
@@ -49,7 +54,8 @@ CMeshfield::CMeshfield(CDeviceHolder* device_holder)
 		p_face_normal_map_(nullptr),
 		position_(0.0f, 0.0f),
 		number_index_(4),
-		p_vertex_3d_(nullptr)
+		p_vertex_3d_(nullptr),
+		m_fMaxHeight(500.0f)
 {
 }
 
@@ -291,12 +297,15 @@ void CMeshfield::CreateHeightMap()
 	// ê∂ê¨
 	p_height_map_ = new f32[number_vertex_x_ * number_vertex_z_];
 
+	PerlinNoise noise;
+	noise.SetSeed(time((time_t*)NULL));
+	noise.SetPersistence(0.7f);
 	u32 idx = 0;
 	for(u32 z = 0; z < number_vertex_z_; z++)
 	{
 		for(u32 x = 0; x < number_vertex_x_; x++)
 		{
-			p_height_map_[idx] = 0.0f;
+			p_height_map_[idx] = m_fMaxHeight * noise.GetNoise((float)x, (float)z);
 			idx++;
 		}
 	}

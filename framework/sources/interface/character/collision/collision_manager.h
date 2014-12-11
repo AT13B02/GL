@@ -21,16 +21,9 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
-#include <string>
-#include <map>
-
 // basic
 #include "basic/basic.h"
 #include "common/math/vector/vector3.h"
-
-//character_manager
-#include "interface/character/character_manager_interface.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -51,7 +44,7 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CPlayer;
+class CCharacterManager;
 
 //*****************************************************************************
 // クラス定義
@@ -60,7 +53,7 @@ class CCollisionManager : public CBasic
 {
 public:
 	// コンストラクタ
-	CCollisionManager();
+	CCollisionManager(CCharacterManager* charater_manager);
 
 	// デストラクタ
 	~CCollisionManager(void);
@@ -71,17 +64,15 @@ public:
 	// 終了処理
 	void Uninit(void);
 
+	// 更新
+	void Update(void);
+
 	// 球体と球体の当たり判定処理
 	bool JudgeSphereCross(VECTOR3 p1,f32 r1,VECTOR3 p2,f32 r2);
-
-protected:
-
-
 private:
-
+	CCharacterManager* character_manager_;
 };
 
+#endif // 
+
 //---------------------------------- EOF --------------------------------------
-
-
-#endif

@@ -1,27 +1,34 @@
 //*****************************************************************************
 //
-// ネットワークマネージャークラス [network_manager.h]
+// フィールドクラス
 //
-// Author		: KENJI KABUTOMORI
-//				  NAOKI NOJIRI
-// Date			: 2014/09/17(Wed)
-// Version		: 1.01
-// Update Date	: 2014/12/01(Mon)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 // 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _NETWORK_MANAGER_H_
-#define _NETWORK_MANAGER_H_
+#ifndef _FIELD_H_
+#define _FIELD_H_
+
+//*****************************************************************************
+// warning消し
+//*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "../../basic/basic.h"
+// basic
+#include "basic/basic.h"
+#include "common/math/vector/vector3.h"
+
+// character
+#include "field_manager.h"
+#include "interface/character/character_interface.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -36,35 +43,50 @@
 //*****************************************************************************
 
 //*****************************************************************************
+// プロトタイプ宣言
+//*****************************************************************************
+
+//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CNetworkClient;
+class CMeshfield;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CNetworkManager : public CBasic
+class CField : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CNetworkManager(void);
+	CField(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CNetworkManager(void);
+	~CField(void);
 
 	// 初期化処理
 	bool Init(void);
 
+	// 更新処理
+	void Update(void);
+
 	// 終了処理
 	void Uninit(void);
 
-	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
+	//描画
+	void Draw(void);
 protected:
 
+
 private:
-	CNetworkClient* m_pNetworkClient;
+	//インターフェースマネージャー
+	CInterfaceManager* interface_manager_;
+
+	//オブジェクトキー
+	u32 object_key_;
+
+	CMeshfield* meshfield_;
 };
 
-#endif	// _NETWORK_MANAGER_H_
-
 //---------------------------------- EOF --------------------------------------
+
+#endif // _FIELD_H_

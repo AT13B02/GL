@@ -1,12 +1,8 @@
 //*****************************************************************************
 //
-// ネットワークマネージャークラス [network_manager.h]
+// フィールドマネージャークラス
 //
-// Author		: KENJI KABUTOMORI
-//				  NAOKI NOJIRI
-// Date			: 2014/09/17(Wed)
-// Version		: 1.01
-// Update Date	: 2014/12/01(Mon)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -15,13 +11,26 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _NETWORK_MANAGER_H_
-#define _NETWORK_MANAGER_H_
+#ifndef _FIELD_MANAGER_H_
+#define _FIELD_MANAGER_H_
+
+//*****************************************************************************
+// warning消し
+//*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "../../basic/basic.h"
+#include <windows.h>
+#include <string>
+#include <map>
+
+// basic
+#include "basic/basic.h"
+
+//character_manager
+#include "interface/character/character_manager_interface.h"
+#include "field.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -36,35 +45,37 @@
 //*****************************************************************************
 
 //*****************************************************************************
+// プロトタイプ宣言
+//*****************************************************************************
+
+//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CNetworkClient;
+class CField;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CNetworkManager : public CBasic
+class CFieldManager : public CCharacterManagerInterface<CField*>
 {
 public:
 	// コンストラクタ
-	CNetworkManager(void);
+	CFieldManager();
 
 	// デストラクタ
-	virtual ~CNetworkManager(void);
+	~CFieldManager(void);
 
 	// 初期化処理
 	bool Init(void);
 
-	// 終了処理
-	void Uninit(void);
-
-	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
 protected:
 
+
 private:
-	CNetworkClient* m_pNetworkClient;
+
 };
 
-#endif	// _NETWORK_MANAGER_H_
-
 //---------------------------------- EOF --------------------------------------
+
+
+#endif

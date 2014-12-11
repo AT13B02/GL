@@ -1,95 +1,86 @@
 //*****************************************************************************
 //
-// バレットクラス
+// フィールドクラス
 //
-// Author		: Kazuma Ooigawa
-//				: Kenji Kabutomori
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
-
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "bullet.h"
-//billboard
-#include "interface/graphic/object/object_3d/element/billboard.h"
+#include "field.h"
+#include "interface/graphic/object/object_3d/element/meshfield.h"
 #include "interface/interface_manager.h"
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
-#include "interface/graphic/object/object_3d/object_3d_data.h"
-//*****************************************************************************
-// 定数定義
-//*****************************************************************************
-const f32 CBullet::DEFAULT_RADIUS = 5.0f;
+
+#include "../character_manager.h"
+#include "../bullet/bullet_manager.h"
+#include "../bullet/bullet.h"
+
+#include "common/common.h"
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CBullet::CBullet(CInterfaceManager* interface_manager)
+CField::CField(CInterfaceManager* interface_manager)
 {
+	// インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CBullet::~CBullet(void)
+CField::~CField(void)
 {
 }
 
 //=============================================================================
-// 生成処理
+// 初期化
 //=============================================================================
-void CBullet::SetParameter(const VECTOR3& position,const VECTOR3& vector,const f32& speed , const s32& player_id )
+bool CField::Init(void)
 {
-	position_ = position;
-	vector_ = vector;
-	speed_ = speed;
-	player_id_ = player_id;
-}
-
-//=============================================================================
-// 初期化処理
-//=============================================================================
-bool CBullet::Init(void)
-{
-	// オブジェクトビルボードの生成
-	CBillboard* object_bill = new CBillboard(interface_manager_->graphic_manager()->device_holder());
-	object_bill->set_size(VECTOR2(10.0f,10.0f));
-	object_bill->Set();
+	// オブジェクトモデルの生成
+	meshfield_ = new CMeshfield(interface_manager_->graphic_manager()->device_holder());
+	meshfield_->Init();
+	meshfield_->set_grid_length(50.0f,50.0f);
+	meshfield_->set_grid_number(10,10);
+	meshfield_->Set();
 
 	// オブジェクトリストに追加
-	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_bill);
-	radius_ = DEFAULT_RADIUS;
+	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(meshfield_);
+
 	return true;
 }
 
 //=============================================================================
-// 更新処理
+// 更新
 //=============================================================================
-void CBullet::Update(void)
+void CField::Update(void)
 {
-	position_ += vector_ * speed_;
 }
 
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CBullet::Draw(void)
+void CField::Draw(void)
 {
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// 描画
-	object_3d_manager->Draw(object_key_,position_,VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
+	object_3d_manager->Draw(object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
 }
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CBullet::Uninit( void )
+void CField::Uninit(void)
 {
 }
+
 //---------------------------------- EOF --------------------------------------

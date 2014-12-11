@@ -36,7 +36,7 @@ struct QUATERNION
 	*
 	*	@param	void
 	*/
-	QUATERNION(float x, float y, float z, float w) :
+	QUATERNION(f32 x, f32 y, f32 z, f32 w) :
 	_x(x), _y(y), _z(z), _w(w){}
 	
 	/**
@@ -50,9 +50,18 @@ struct QUATERNION
 	*	引数で初期化
 	*
 	*	@param	VECTOR3	任意軸
-	*	@param	float	回転量
+	*	@param	f32	回転量
 	*/
-	QUATERNION RotationAxis(const VECTOR3& axis, const float angle);
+	QUATERNION RotationAxis(const VECTOR3& axis, const f32 angle);
+	
+	/**
+	*	クォータニオンから回転量取得
+	*
+	*	引数で初期化
+	*
+	*	@param	QUATERNION	クォータニオン
+	*/
+	VECTOR3 YawPitchRollFromQuaternion(const QUATERNION& q);
 
 	//-----------------------------------------------------
 	// 符号変換
@@ -74,9 +83,9 @@ struct QUATERNION
 	{
 		struct
 		{
-			float _x, _y, _z, _w;
+			f32 _x, _y, _z, _w;
 		};
-		float _q[4];
+		f32 _q[4];
 	};
 };
 
