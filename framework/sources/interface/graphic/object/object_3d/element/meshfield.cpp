@@ -298,7 +298,8 @@ void CMeshfield::CreateHeightMap()
 	p_height_map_ = new f32[number_vertex_x_ * number_vertex_z_];
 
 	PerlinNoise noise;
-	noise.SetSeed(time((time_t*)NULL));
+	//noise.SetSeed(time((time_t*)NULL));
+	noise.SetSeed(0);
 	noise.SetPersistence(0.7f);
 	u32 idx = 0;
 	f32 min_height = FLT_MAX;
