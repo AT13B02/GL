@@ -113,6 +113,9 @@ private:
 
 	// ’¸“_î•ñ
 	CVertex3D* p_vertex_3d_;
+
+	// Å‘å‚Ì‚‚³
+	f32 m_fMaxHeight;
 };
 
 #endif	// _OBJECT_3D_H_
