@@ -49,7 +49,7 @@ CMeshfield::CMeshfield(CDeviceHolder* device_holder)
 	:	CObject3D(device_holder,OBJECT_3D_TYPE_RECTANGLE),
 		number_grid_x_(1), number_grid_z_(1),
 		length_grid_x_(1.0f), length_grid_z_(1.0f),
-		seed_(0),
+		height_seed_(0),
 		number_vertex_x_(number_grid_x_ + 1), number_vertex_z_(number_grid_z_ + 1),
 		p_height_map_(nullptr),
 		p_face_normal_map_(nullptr),
@@ -117,38 +117,9 @@ void CMeshfield::Set(void)
 }
 
 //=============================================================================
-// グリッド分割数設定
-//=============================================================================
-void CMeshfield::set_grid_number(const u32& grid_x, const u32& grid_z)
-{
-	number_grid_x_ = grid_x;
-	number_grid_z_ = grid_z;
-
-	number_vertex_x_ = grid_x + 1;
-	number_vertex_z_ = grid_z + 1;
-}
-
-//=============================================================================
-// グリッド幅設定
-//=============================================================================
-void CMeshfield::set_grid_length(const f32& length_x, const f32& length_z)
-{
-	length_grid_x_ = length_x;
-	length_grid_z_ = length_z;
-}
-
-//=============================================================================
-// height生成用シード値設定
-//=============================================================================
-void CMeshfield::set_height_seed(const s32& seed)
-{
-	seed_ = seed;
-}
-
-//=============================================================================
 // 高さ取得
 //=============================================================================
-f32 CMeshfield::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
+f32 CMeshfield::GetHeight(const VECTOR3& in_position, VECTOR3* p_out_normal) const
 {
 	// 以下の座標系に変換する
 	//     (0,0) ---------- (Width,0) ---x
@@ -298,41 +269,9 @@ f32 CMeshfield::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
 }
 
 //=============================================================================
-// フィールドX座標最大値
-//=============================================================================
-f32 CMeshfield::get_max_x(void)
-{
-	return max_x_;
-}
-
-//=============================================================================
-// フィールドX座標最小値
-//=============================================================================
-f32 CMeshfield::get_min_x(void)
-{
-	return min_x_;
-}
-
-//=============================================================================
-// フィールドZ座標最大値
-//=============================================================================
-f32 CMeshfield::get_max_z(void)
-{
-	return max_z_;
-}
-
-//=============================================================================
-// フィールドZ座標最小値
-//=============================================================================
-f32 CMeshfield::get_min_z(void)
-{
-	return min_z_;
-}
-
-//=============================================================================
 // ハイトマップ生成
 //=============================================================================
-void CMeshfield::CreateHeightMap()
+void CMeshfield::CreateHeightMap(void)
 {
 	if(nullptr != p_height_map_)
 	{
@@ -343,7 +282,7 @@ void CMeshfield::CreateHeightMap()
 	p_height_map_ = new f32[number_vertex_x_ * number_vertex_z_];
 
 	PerlinNoise noise;
-	noise.SetSeed(seed_);
+	noise.SetSeed(height_seed_);
 	noise.SetPersistence(0.7f);
 	u32 idx = 0;
 	f32 min_height = FLT_MAX;
@@ -369,7 +308,7 @@ void CMeshfield::CreateHeightMap()
 //=============================================================================
 // 頂点とインデックスを生成
 //=============================================================================
-void CMeshfield::CreateVertexAndIndex()
+void CMeshfield::CreateVertexAndIndex(void)
 {
 	if(nullptr != p_vertex_3d_)
 	{
@@ -410,24 +349,23 @@ void CMeshfield::CreateVertexAndIndex()
 //=============================================================================
 // 頂点の値設定
 //=============================================================================
-void CMeshfield::SetVertex(VECTOR3* p_position, COLOR4F* p_color, VECTOR2* p_texcoord)
+void CMeshfield::SetVertex(VECTOR3* p_out_position,COLOR4F* p_out_color,VECTOR2* p_out_texcoord)
 {
 	u32 idx = 0;
 	for(u32 z = 0; z < number_vertex_z_; z++)
 	{
 		for(u32 x = 0; x < number_vertex_x_; x++)
 		{
-			p_position[idx]._x	= (f32)(x * length_grid_x_ - number_grid_x_ * length_grid_x_ * 0.5f);
-			p_position[idx]._z	= (f32)(z * length_grid_z_ - number_grid_z_ * length_grid_z_ * 0.5f);
-
-			p_position[idx]._y	= p_height_map_[idx];
+			p_out_position[idx]._x = (f32)(x * length_grid_x_ - number_grid_x_ * length_grid_x_ * 0.5f);
+			p_out_position[idx]._z = (f32)(z * length_grid_z_ - number_grid_z_ * length_grid_z_ * 0.5f);
+			p_out_position[idx]._y = p_height_map_[idx];
 			
-			p_color[idx]._red	= 1.0f;
-			p_color[idx]._green	= 1.0f;
-			p_color[idx]._blue	= 1.0f;
-			p_color[idx]._alpha	= 1.0f;
+			p_out_color[idx]._red   = 1.0f;
+			p_out_color[idx]._green = 1.0f;
+			p_out_color[idx]._blue  = 1.0f;
+			p_out_color[idx]._alpha = 1.0f;
 
-			p_texcoord[idx]	= VECTOR2((f32)x, (f32)z);
+			p_out_texcoord[idx] = VECTOR2((f32)x, (f32)z);
 
 			// インデックスインクリメント
 			idx++;
@@ -438,7 +376,7 @@ void CMeshfield::SetVertex(VECTOR3* p_position, COLOR4F* p_color, VECTOR2* p_tex
 //=============================================================================
 // 法線マップ生成
 //=============================================================================
-void CMeshfield::CreateNormalMap(VECTOR3* p_position)
+void CMeshfield::CreateNormalMap(const VECTOR3* p_position)
 {
 	if(nullptr != p_face_normal_map_)
 	{
@@ -451,6 +389,7 @@ void CMeshfield::CreateNormalMap(VECTOR3* p_position)
 	VECTOR3 v0;
 	VECTOR3 v1;
 	VECTOR3 nor;
+
 	for(u32 z = 0; z < number_grid_z_; z++)
 	{
 		for(u32 x = 0; x < number_grid_x_; x++)
@@ -488,13 +427,14 @@ void CMeshfield::CreateNormalMap(VECTOR3* p_position)
 //=============================================================================
 // 法線設定
 //=============================================================================
-void CMeshfield::SetNormal(VECTOR3* p_normal)
+void CMeshfield::SetNormal(VECTOR3* p_out_normal)
 {
 	// 面法線総数
 	DWORD number_face_normal = number_grid_x_ * number_grid_z_ * 2;
 
 	// 法線設定
 	VECTOR3 nor;
+
 	for(u32 z = 0; z < number_vertex_z_; z++)
 	{
 		for(u32 x = 0; x < number_vertex_x_; x++)
@@ -572,7 +512,7 @@ void CMeshfield::SetNormal(VECTOR3* p_normal)
 			
 			// 法線設定
 			nor.Normalize();
-			p_normal[uVtxIndex] = nor;
+			p_out_normal[uVtxIndex] = nor;
 		}
 	}
 }
@@ -580,34 +520,34 @@ void CMeshfield::SetNormal(VECTOR3* p_normal)
 //=============================================================================
 // インデックス設定
 //=============================================================================
-void CMeshfield::SetIndex(u32* p_index)
+void CMeshfield::SetIndex(u32* p_out_index)
 {
 	// インデックス設定
 	for(u32 z = 0; z < number_grid_z_; z++)
 	{
 		// 一番左上から始める
-		p_index[0] = z * number_vertex_x_;
+		p_out_index[0] = z * number_vertex_x_;
 		for(u32 x = 0; x < number_grid_x_; x++)
 		{
-			p_index[x * 2 + 1]	= (z + 1) * number_vertex_x_ + x;
-			p_index[x * 2 + 2]	= z * number_vertex_x_ + (x + 1);
+			p_out_index[x * 2 + 1]	= (z + 1) * number_vertex_x_ + x;
+			p_out_index[x * 2 + 2]	= z * number_vertex_x_ + (x + 1);
 		}
-		p_index[number_grid_x_ * 2 + 1] = (z + 1) * (number_grid_x_ + 1) + number_grid_x_;
+		p_out_index[number_grid_x_ * 2 + 1] = (z + 1) * (number_grid_x_ + 1) + number_grid_x_;
 
 		if(z != (number_grid_z_ - 1))
 		{
-			p_index[number_grid_x_ * 2 + 2] = (z + 1) * (number_grid_x_ + 1) + number_grid_x_;
-			p_index[number_grid_x_ * 2 + 3] = (z + 1) * (number_grid_x_ + 1);
+			p_out_index[number_grid_x_ * 2 + 2] = (z + 1) * (number_grid_x_ + 1) + number_grid_x_;
+			p_out_index[number_grid_x_ * 2 + 3] = (z + 1) * (number_grid_x_ + 1);
 		}
 		// アドレスのインクリメント
-		p_index += (number_grid_x_ * 2 + 4);
+		p_out_index += (number_grid_x_ * 2 + 4);
 	}
 }
 
 //=============================================================================
 // フィールドの四隅を設定
 //=============================================================================
-void CMeshfield::SetFieldRect()
+void CMeshfield::SetFieldRect(void)
 {
 	f32 half_field_width = number_grid_x_ * (length_grid_x_ * 0.5f);
 	f32 half_field_depth = number_grid_z_ * (length_grid_z_ * 0.5f);

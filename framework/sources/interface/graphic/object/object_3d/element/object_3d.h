@@ -76,7 +76,7 @@ public:
 	virtual void Set(void) = 0;
 
 protected:
-	MATRIX4x4 GetWorldMatrix(CObject3DData* object_3d_data);
+	MATRIX4x4 GetWorldMatrix(CObject3DData* object_3d_data) const;
 	CDeviceHolder* device_holder_;
 
 private:

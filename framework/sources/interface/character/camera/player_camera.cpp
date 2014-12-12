@@ -97,7 +97,7 @@ void CPlayerCamera::Update(void)
 	CCameraManager* camera_manager = graphic_manager->camera_manager();
 	CCamera* camera = camera_manager->GetCamera(camera_key_);
 
-	VECTOR3 look_at = player_->pos();
+	VECTOR3 look_at = player_->position();
 	VECTOR3 eye;
 
 	eye = look_at - (front_vector_ * length_);

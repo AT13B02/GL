@@ -46,8 +46,8 @@ bool CField::Init(void)
 	// オブジェクトモデルの生成
 	meshfield_ = new CMeshfield(interface_manager_->graphic_manager()->device_holder());
 	meshfield_->Init();
-	meshfield_->set_grid_length(50.0f,50.0f);
-	meshfield_->set_grid_number(10,10);
+	meshfield_->set_length_grid(50.0f,50.0f);
+	meshfield_->set_number_grid(10,10);
 	meshfield_->set_height_seed(0);
 	meshfield_->Set();
 
@@ -87,41 +87,41 @@ void CField::Uninit(void)
 //=============================================================================
 // 高さ取得
 //=============================================================================
-f32 CField::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
+f32 CField::GetHeight(const VECTOR3& in_position, VECTOR3* p_out_normal) const
 {
-	return meshfield_->get_height(in_position, p_out_normal);
+	return meshfield_->GetHeight(in_position,p_out_normal);
 }
 
 //=============================================================================
 // フィールドX座標最大値
 //=============================================================================
-f32 CField::get_max_x(void)
+f32 CField::get_max_x(void) const
 {
-	return meshfield_->get_max_x();
+	return meshfield_->max_x();
 }
 
 //=============================================================================
 // フィールドX座標最小値
 //=============================================================================
-f32 CField::get_min_x(void)
+f32 CField::get_min_x(void) const
 {
-	return meshfield_->get_min_x();
+	return meshfield_->min_x();
 }
 
 //=============================================================================
 // フィールドZ座標最大値
 //=============================================================================
-f32 CField::get_max_z(void)
+f32 CField::get_max_z(void) const
 {
-	return meshfield_->get_max_z();
+	return meshfield_->max_z();
 }
 
 //=============================================================================
 // フィールドZ座標最小値
 //=============================================================================
-f32 CField::get_min_z(void)
+f32 CField::get_min_z(void) const
 {
-	return meshfield_->get_min_z();
+	return meshfield_->min_z();
 }
 
 //---------------------------------- EOF --------------------------------------

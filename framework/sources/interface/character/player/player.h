@@ -3,6 +3,7 @@
 // プレイヤークラス
 //
 // Author		: Chiharu Kamiyama
+//				: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -76,13 +77,13 @@ public:
 	void Draw(void);
 
 	//ポジションの取得
-	VECTOR3& pos(void){return pos_;}
+	const VECTOR3& position(void) const {return position_;}
 
 	//ポジションのセット
-	void set_pos(VECTOR3 position){pos_=position;}
+	void set_position(const VECTOR3& position){position_ = position;}
 
-	//角度の取得
-	VECTOR3& rot(void){return rot_;}
+	// 角度の取得
+	const VECTOR3& rotation(void) const {return rotation_;}
 
 protected:
 
@@ -99,15 +100,13 @@ private:
 	static const f32 SPEED_DEST;
 	static const f32 ROTATION_DEST;
 
-
 	//各種値
-	VECTOR3 pos_;
-	VECTOR3 rot_;
+	VECTOR3 position_;
+	VECTOR3 rotation_;
 	VECTOR3 scale_;
 
 	//移動目標値変数
-	VECTOR3 pos_dest_;
-	VECTOR3 rot_dest_;
+	VECTOR3 rotation_dest_;
 };
 
 //---------------------------------- EOF --------------------------------------

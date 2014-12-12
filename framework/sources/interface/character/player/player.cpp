@@ -55,18 +55,19 @@ bool CPlayer::Init(void)
 {
 	// オブジェクトモデルの生成
 	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+
 	// オブジェクトリストに追加
-	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList( object_model );
+	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
 
 	//値初期化
-	pos_   = VECTOR3( 0.0f, 0.0f, 0.0f );
-	rot_   = VECTOR3( 0.0f, 0.0f, 0.0f );
-	scale_ = VECTOR3( 1.0f, 1.0f, 1.0f );
+	position_ = VECTOR3(0.0f,0.0f,0.0f);
+	rotation_ = VECTOR3(0.0f,0.0f,0.0f);
+	scale_    = VECTOR3(1.0f,1.0f,1.0f);
 
 	
 	//移動目標値変数
-	VECTOR3 pos_dest_ = VECTOR3( 0.0f, 0.0f, 0.0f );
-	VECTOR3 rot_dest_ = VECTOR3( 0.0f, 0.0f, 0.0f );
+	VECTOR3 pos_dest_ = VECTOR3(0.0f,0.0f,0.0f );
+	VECTOR3 rot_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 
 	return true;
 }
@@ -89,60 +90,60 @@ void CPlayer::Update(void)
 	// 左上移動
 	if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
-		pos_ += (front_vector - right_vector).Normalize() * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 45.0f;
+		position_ += (front_vector - right_vector).Normalize() * 1.0f;
+		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 45.0f;
 	}
 	// 右上移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
-		pos_ += (front_vector + right_vector).Normalize() * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 135.0f;
+		position_ += (front_vector + right_vector).Normalize() * 1.0f;
+		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 135.0f;
 	}
 	// 左下移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
-		pos_ -= (front_vector + right_vector).Normalize() * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 45.0f;
+		position_ -= (front_vector + right_vector).Normalize() * 1.0f;
+		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 45.0f;
 	}
 	// 右下移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
-		pos_ -= (front_vector - right_vector).Normalize() * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 135.0f;
+		position_ -= (front_vector - right_vector).Normalize() * 1.0f;
+		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 135.0f;
 	}
 	// 右移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
-		pos_ += right_vector * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 180.0f;
+		position_ += right_vector * 1.0f;
+		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 180.0f;
 	}
 	// 左移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
-		pos_ -= right_vector * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN;
+		position_ -= right_vector * 1.0f;
+		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN;
 	}
 	// 奥移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W))
 	{
-		pos_ += front_vector * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 90.0f;
+		position_ += front_vector * 1.0f;
+		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 90.0f;
 	}
 	// 手前移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S))
 	{
-		pos_ -= front_vector * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 90.0f;
+		position_ -= front_vector * 1.0f;
+		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 90.0f;
 	}
 
-	rot_dest_._y = GetRotationNormalize(rot_dest_._y);
+	rotation_dest_._y = GetRotationNormalize(rotation_dest_._y);
 
-	f32 def = rot_dest_._y - rot_._y;
+	f32 def = rotation_dest_._y - rotation_._y;
 
 	def = GetRotationNormalize(def);
-	rot_._y += def * 0.1f;
+	rotation_._y += def * 0.1f;
 
-	rot_._y = GetRotationNormalize(rot_._y);
+	rotation_._y = GetRotationNormalize(rotation_._y);
 
 	// 弾の発射
 	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE))
@@ -151,7 +152,7 @@ void CPlayer::Update(void)
 		CBullet* bullet = new CBullet(interface_manager_);
 
 		bullet->Init();
-		bullet->SetParameter(pos_,front_vector.RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rot_._y + 180.0f) * MTH_DEGREE),1.0f,0);
+		bullet->SetParameter(position_,front_vector.RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rotation_._y + 180.0f) * MTH_DEGREE),1.0f,0);
 		bullet_manager->Push(bullet);
 	}
 }
@@ -166,7 +167,7 @@ void CPlayer::Draw(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// 描画
-	object_3d_manager->Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(),"");
+	object_3d_manager->Draw(object_key_,position_,rotation_,scale_,MATRIX4x4(),"");
 }
 
 //=============================================================================

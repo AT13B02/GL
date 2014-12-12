@@ -84,7 +84,7 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
 		{
 			// 当たり判定
-			if(JudgeSphereCross((*player_it)->pos(),10,(*bullet_it)->position(),10))
+			if(JudgeSphereCross((*player_it)->position(),10,(*bullet_it)->position(),10))
 			{
 				//リザルトへ移動
 
@@ -123,13 +123,13 @@ void CCollisionManager::JudgeFieldIn(void)
 		// プレイヤー
 		for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
 		{
-			pos=(*player_it)->pos();
+			pos=(*player_it)->position();
 			// 当たり判定
 			if(pos._x>=FieldXmax)
 			{
 				//フィールド外にいる時の処理
 				pos._x=FieldXmax;
-				(*player_it)->set_pos(pos);
+				(*player_it)->set_position(pos);
 
 			}
 			// 当たり判定
@@ -137,7 +137,7 @@ void CCollisionManager::JudgeFieldIn(void)
 			{
 				//フィールド外にいる時の処理
 				pos._z=FieldZmax;
-				(*player_it)->set_pos(pos);
+				(*player_it)->set_position(pos);
 			}
 
 			// 当たり判定
@@ -145,7 +145,7 @@ void CCollisionManager::JudgeFieldIn(void)
 			{
 				//フィールド外にいる時の処理
 				pos._x=FieldXmin;
-				(*player_it)->set_pos(pos);
+				(*player_it)->set_position(pos);
 			}
 
 			// 当たり判定
@@ -153,7 +153,7 @@ void CCollisionManager::JudgeFieldIn(void)
 			{
 				//フィールド外にいる時の処理
 				pos._z=FieldZmin;
-				(*player_it)->set_pos(pos);
+				(*player_it)->set_position(pos);
 			}
 		}
 
@@ -193,13 +193,13 @@ void CCollisionManager::JudgeFieldOn(void)
 		// プレイヤー
 		for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
 		{
-			pos=(*player_it)->pos();
-			height=(*field_it)->get_height(pos,&up);
+			pos=(*player_it)->position();
+			height=(*field_it)->GetHeight(pos,&up);
 			// 当たり判定
 			//if(pos._y<=height)
 			{
 				pos._y=height;
-				(*player_it)->set_pos(pos);
+				(*player_it)->set_position(pos);
 			}
 
 		}

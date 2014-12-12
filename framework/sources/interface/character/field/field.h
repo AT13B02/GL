@@ -76,18 +76,19 @@ public:
 	void Draw(void);
 
 	// 高さ取得
-	f32 get_height(const VECTOR3& in_position, VECTOR3* p_out_normal);
+	f32 GetHeight(const VECTOR3& in_position, VECTOR3* p_out_normal) const;
 
 	// フィールドX座標最大値
-	f32 get_max_x(void);
+	f32 get_max_x(void) const;
+
 	// フィールドX座標最小値
-	f32 get_min_x(void);
+	f32 get_min_x(void) const;
 	
 	// フィールドZ座標最大値
-	f32 get_max_z(void);
-	// フィールドZ座標最小値
-	f32 get_min_z(void);
+	f32 get_max_z(void) const;
 
+	// フィールドZ座標最小値
+	f32 get_min_z(void) const;
 protected:
 	
 

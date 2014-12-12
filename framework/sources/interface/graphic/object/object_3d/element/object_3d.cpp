@@ -56,7 +56,7 @@ CObject3D::~CObject3D(void)
 //=============================================================================
 // •`‰æˆ—
 //=============================================================================
-MATRIX4x4 CObject3D::GetWorldMatrix(CObject3DData* object_3d_data)
+MATRIX4x4 CObject3D::GetWorldMatrix(CObject3DData* object_3d_data) const
 {
 	VECTOR3 position = object_3d_data->position();
 	VECTOR3 rotation = object_3d_data->rotation();

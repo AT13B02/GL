@@ -85,17 +85,17 @@ public:
 	void set_model_manager(CModelManager* model_manager){model_manager_ = model_manager;}
 	void set_texture_manager(CTextureManager* texture_manager){texture_manager_ = texture_manager;}
 
-	const VECTOR3& position(void){return position_;}
-	const VECTOR3& rotation(void){return rotation_;}
-	const VECTOR3& scale(void){return scale_;}
-	const MATRIX4x4& matrix(void){return matrix_;}
-	CObject3D* object_3d(void){return object_3d_;}
-	std::string& texture_name(void){return texture_name_;}
+	const VECTOR3& position(void) const {return position_;}
+	const VECTOR3& rotation(void) const {return rotation_;}
+	const VECTOR3& scale(void) const {return scale_;}
+	const MATRIX4x4& matrix(void) const {return matrix_;}
+	CObject3D* object_3d(void) const {return object_3d_;}
+	const std::string& texture_name(void) const {return texture_name_;}
 	std::list<u32>& renderstate_list(void){return renderstate_list_;}
-	CCamera* camera(void){return camera_;}
-	CModelManager* model_manager(void){return model_manager_;}
-	CTextureManager* texture_manager(void){return texture_manager_;}
-	CRenderstateManager* renderstate_manager(void){return renderstate_manager_;}
+	CCamera* camera(void) const {return camera_;}
+	CModelManager* model_manager(void) const {return model_manager_;}
+	CTextureManager* texture_manager(void) const {return texture_manager_;}
+	CRenderstateManager* renderstate_manager(void) const {return renderstate_manager_;}
 
 private:
 	VECTOR3 position_;

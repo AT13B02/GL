@@ -19,10 +19,12 @@
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_data.h"
+
 //*****************************************************************************
 // 定数定義
 //*****************************************************************************
 const f32 CBullet::DEFAULT_RADIUS = 5.0f;
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
