@@ -68,6 +68,17 @@ public:
 
 	// 高さ取得
 	f32 get_height(const VECTOR3& in_position, VECTOR3* p_out_normal);
+	
+	// フィールドX座標最大値
+	f32 get_max_x(void);
+	// フィールドX座標最小値
+	f32 get_min_x(void);
+	
+	// フィールドZ座標最大値
+	f32 get_max_z(void);
+	// フィールドZ座標最小値
+	f32 get_min_z(void);
+
 protected:
 
 private:
@@ -88,6 +99,9 @@ private:
 
 	// インデックス設定
 	void SetIndex(u32* p_index);
+
+	// フィールドの四隅を設定
+	void SetFieldRect();
 
 private:
 	// グリッド数
@@ -110,6 +124,12 @@ private:
 
 	// 面法線マップ
 	VECTOR3 *p_face_normal_map_;
+
+	// 四隅の座標
+	f32 max_x_;
+	f32 min_x_;
+	f32 max_z_;
+	f32 min_z_;
 
 	// 頂点座標
 	VECTOR2 position_;

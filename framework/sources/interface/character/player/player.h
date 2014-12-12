@@ -78,6 +78,9 @@ public:
 	//ポジションの取得
 	VECTOR3& pos(void){return pos_;}
 
+	//ポジションのセット
+	void set_pos(VECTOR3 position){pos_=position;}
+
 	//角度の取得
 	VECTOR3& rot(void){return rot_;}
 
