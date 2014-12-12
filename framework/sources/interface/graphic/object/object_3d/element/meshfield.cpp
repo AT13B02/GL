@@ -49,6 +49,7 @@ CMeshfield::CMeshfield(CDeviceHolder* device_holder)
 	:	CObject3D(device_holder,OBJECT_3D_TYPE_RECTANGLE),
 		number_grid_x_(1), number_grid_z_(1),
 		length_grid_x_(1.0f), length_grid_z_(1.0f),
+		seed_(0),
 		number_vertex_x_(number_grid_x_ + 1), number_vertex_z_(number_grid_z_ + 1),
 		p_height_map_(nullptr),
 		p_face_normal_map_(nullptr),
@@ -133,9 +134,17 @@ void CMeshfield::set_grid_length(const f32& length_x, const f32& length_z)
 }
 
 //=============================================================================
+// height生成用シード値設定
+//=============================================================================
+void CMeshfield::set_height_seed(const s32& seed)
+{
+	seed_ = seed;
+}
+
+//=============================================================================
 // 高さ取得
 //=============================================================================
-float CMeshfield::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
+f32 CMeshfield::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
 {
 	// 以下の座標系に変換する
 	//     (0,0) ---------- (Width,0) ---x
@@ -298,16 +307,26 @@ void CMeshfield::CreateHeightMap()
 	p_height_map_ = new f32[number_vertex_x_ * number_vertex_z_];
 
 	PerlinNoise noise;
-	noise.SetSeed(time((time_t*)NULL));
+	noise.SetSeed(seed_);
 	noise.SetPersistence(0.7f);
 	u32 idx = 0;
+	f32 min_height = FLT_MAX;
 	for(u32 z = 0; z < number_vertex_z_; z++)
 	{
 		for(u32 x = 0; x < number_vertex_x_; x++)
 		{
-			p_height_map_[idx] = m_fMaxHeight * noise.GetNoise((float)x, (float)z);
+			p_height_map_[idx] = m_fMaxHeight * (noise.GetNoise((float)x, (float)z) * 0.5f + 0.5f);
+			if(min_height > p_height_map_[idx])
+			{
+				min_height = p_height_map_[idx];
+			}
 			idx++;
 		}
+	}
+	// 一番低い場所を0に合わせる
+	for(u32 i = 0; i < number_vertex_z_ * number_vertex_x_; i++)
+	{
+		p_height_map_[i] -= min_height;
 	}
 }
 

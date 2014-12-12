@@ -48,6 +48,7 @@ bool CField::Init(void)
 	meshfield_->Init();
 	meshfield_->set_grid_length(50.0f,50.0f);
 	meshfield_->set_grid_number(10,10);
+	meshfield_->set_height_seed(0);
 	meshfield_->Set();
 
 	// オブジェクトリストに追加
@@ -81,6 +82,14 @@ void CField::Draw(void)
 //=============================================================================
 void CField::Uninit(void)
 {
+}
+
+//=============================================================================
+// 高さ取得
+//=============================================================================
+f32 CField::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
+{
+	return meshfield_->get_height(in_position, p_out_normal);
 }
 
 //---------------------------------- EOF --------------------------------------
