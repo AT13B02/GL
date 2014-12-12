@@ -36,6 +36,8 @@
 //*****************************************************************************
 // TODO テスト用
 class CCharacterCamera;
+// ネットワークコマンダー
+class CNetworkCommandAssistant;
 
 //*****************************************************************************
 // クラス定義
@@ -74,6 +76,7 @@ private:
 
 	// TODO テスト用メンバー変数
 	u32 test_meshfield_key_;
+	CNetworkCommandAssistant *network_command_assistant_;
 };
 
 #endif	// _SCENE_GAME_H_

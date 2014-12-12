@@ -81,6 +81,12 @@ public:
 	//角度の取得
 	VECTOR3& rot(void){return rot_;}
 
+	//場所のセット
+	void set_position( const VECTOR3& pos ){ pos_ = pos; }
+
+	//角度のセット
+	void set_rotation( const VECTOR3& rot ){ rot_ = rot; }
+
 protected:
 	//インターフェースマネージャーのポインタ
 	CInterfaceManager* interface_manager_;

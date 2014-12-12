@@ -17,6 +17,7 @@
 #include "bullet/bullet_manager.h"
 #include "field/field_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
+#include "interface/character/player/network_player.h"
 
 // common
 #include "common/common.h"
@@ -69,6 +70,12 @@ bool CCharacterManager::Init(void)
 	// 姿勢制御コントローラーマネージャーの初期化
 	INIT(attitude_controller_manager_);
 
+	//ネットプレイヤー初期化
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		network_player_[ i ] = NULL;
+	}
+
 	return true;
 }
 
@@ -113,6 +120,19 @@ void CCharacterManager::Draw(void)
 //=============================================================================
 void CCharacterManager::Uninit(void)
 {
+	//ネットワークプレイヤーの終了処理
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		if( network_player_[ i ] != NULL )
+		{
+			network_player_[ i ] -> Uninit();
+
+			delete network_player_[ i ];
+
+			network_player_[ i ] = NULL;
+		}
+	}
+
 	// プレイヤーマネージャーの開放
 	SAFE_RELEASE(player_manager_);
 
@@ -127,6 +147,8 @@ void CCharacterManager::Uninit(void)
 
 	// 姿勢制御マネージャーの開放
 	SAFE_RELEASE(attitude_controller_manager_);
+
+
 }
 
 //---------------------------------- EOF --------------------------------------

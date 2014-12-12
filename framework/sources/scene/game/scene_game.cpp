@@ -16,6 +16,9 @@
 // interface
 #include "interface/interface_manager.h"
 
+//game
+#include "network_command_assistant.h"
+
 // input
 #include "interface/interface_manager.h"
 #include "interface/input/input_manager.h"
@@ -50,6 +53,14 @@
 #include "interface/character/camera/character_camera_manager.h"
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
+
+//network
+#include "interface/interface_manager.h"
+#include "interface/network/network_manager.h"
+#include "interface/network/network_client.h"
+#include "interface/network/network_data_buffer.h"
+#include "interface/network/windows_sockets.h"
+
 
 // common
 #include "common/common.h"
@@ -93,6 +104,7 @@ bool CSceneGame::Init(void)
 //=============================================================================
 void CSceneGame::Update(void)
 {
+	network_command_assistant_ -> Update();
 }
 
 //=============================================================================
@@ -100,6 +112,8 @@ void CSceneGame::Update(void)
 //=============================================================================
 void CSceneGame::Draw(void)
 {
+	network_command_assistant_ -> Draw();
+
 }
 
 //=============================================================================
@@ -107,6 +121,7 @@ void CSceneGame::Draw(void)
 //=============================================================================
 void CSceneGame::Uninit(void)
 {
+	SAFE_RELEASE( network_command_assistant_ );
 }
 
 //=============================================================================
@@ -158,16 +173,23 @@ void CSceneGame::Load(void)
 	light->SetDirection(VECTOR3(0.0f,-1.0f,0.0f).Normalize());
 	light_manager->Add(light);
 
+	//ネットワークコマンダーの作成
+	network_command_assistant_ = new CNetworkCommandAssistant( interface_manager_ );
+	network_command_assistant_ -> Init();
+
 	// プレイヤーの生成
-	//CPlayer* player = new CPlayer(interface_manager_);
-	CPlayer* player = new CNetWorkPlayer(interface_manager_);
+	CPlayer* player = new CPlayer(interface_manager_);
+	//CPlayer* player = new CNetWorkPlayer(interface_manager_);
 	player->Init();
+	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
+	player_manager->set_player( player );
 	player_manager->Push(player);
 
+/*
 	CPlayer* player2 = new CNetWorkPlayer(interface_manager_);
 	player2->Init();
 	player_manager->Push(player2);
-
+*/
 	// カメラの生成
 	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
 	camera->Init();

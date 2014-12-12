@@ -51,6 +51,7 @@
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
 #include "interface/character/bullet/bullet_manager.h"
+#include "interface/character/player/network_player.h"
 
 //network
 #include "interface/network/network_manager.h"
@@ -77,6 +78,7 @@
 CNetworkCommandAssistant::CNetworkCommandAssistant(CInterfaceManager* interface_manager)
 {
 	interface_manager_ = interface_manager;
+
 }
 
 //=============================================================================
@@ -91,6 +93,7 @@ CNetworkCommandAssistant::~CNetworkCommandAssistant(void)
 //=============================================================================
 bool CNetworkCommandAssistant::Init(void)
 {
+
 	return true;
 }
 
@@ -101,17 +104,31 @@ void CNetworkCommandAssistant::Update(void)
 {
 	//ネットワークバッファの取得
 	CHARCTER_INFO *net_chara_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharcterInfoBuffer();
-
+	
+	CCharacterManager *character_manager = interface_manager_->character_manager();
 	
 	//ネットのプレイヤーにアップデートしてー
 	for( int i = 0; i < kMaxPlayer; i++ )
 	{
-		if( net_chara_flag_buf[ i ] == false )
+		if( net_chara_buf->end_push_flag == true )
 		{
-			//つくる
+			if( character_manager->network_player( i ) == NULL )
+			{
+
+				//つくる
+				CNetWorkPlayer* player = new CNetWorkPlayer(interface_manager_);
+				player->Init();
+			
+				//ポインタ保存
+				character_manager->SetNetworkPlayer( player, i );
+			}
+
+			//更新
+			character_manager->network_player( i )->set_position( net_chara_buf->position );
+			character_manager->network_player( i )->set_rotation( net_chara_buf->rotation );
+			character_manager->network_player( i )->Update();
 		}
-		
-		//そいつをアップデート
+	
 	}
 
 	//弾バッファの取得
@@ -136,12 +153,28 @@ void CNetworkCommandAssistant::Update(void)
 	}
 }
 
+//=============================================================================
+// 描画
+//=============================================================================
+void CNetworkCommandAssistant::Draw(void)
+{
+	CCharacterManager *character_manager = interface_manager_->character_manager();
+	
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		if( character_manager->network_player( i ) != NULL )
+		{
+			character_manager->network_player( i ) ->Draw();
+		}
+	}
+}
 
 //=============================================================================
 // 終了処理
 //=============================================================================
 void CNetworkCommandAssistant::Uninit(void)
 {
+
 }
 
 

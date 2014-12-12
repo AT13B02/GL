@@ -55,6 +55,9 @@ public:
 
 	// çXêV
 	void Update(void);
+		
+	// ï`âÊ
+	void Draw(void);
 
 	// èIóπ
 	void Uninit(void);
@@ -63,7 +66,6 @@ protected:
 
 private:
 	CInterfaceManager *interface_manager_;
-	bool net_chara_flag_buf[ kMaxPlayer ];
 };
 
 #endif	// _NETWORK_COMMAND_ASSISTANT_H_

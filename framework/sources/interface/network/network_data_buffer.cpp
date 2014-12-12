@@ -111,7 +111,7 @@ void CNetworkDataBuffer::PushCharcter(NETWORK_DATA* pData)
 	switch(pData->data_type)
 	{
 		case NETWORK_DATA_TYPE_POSITION:
-			m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
+			//m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
 			m_CharcterInfoBuffer[pData->my_ID].position._x = pData->position.x;
 			m_CharcterInfoBuffer[pData->my_ID].position._y = pData->position.y;
 			m_CharcterInfoBuffer[pData->my_ID].position._z = pData->position.z;
@@ -120,7 +120,7 @@ void CNetworkDataBuffer::PushCharcter(NETWORK_DATA* pData)
 		break;
 
 		case NETWORK_DATA_TYPE_ROTATION:
-			m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
+			//m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
 			m_CharcterInfoBuffer[pData->my_ID].rotation._x = pData->rotation.x;
 			m_CharcterInfoBuffer[pData->my_ID].rotation._y = pData->rotation.y;
 			m_CharcterInfoBuffer[pData->my_ID].rotation._z = pData->rotation.z;
@@ -129,14 +129,14 @@ void CNetworkDataBuffer::PushCharcter(NETWORK_DATA* pData)
 		break;
 
 		case NETWORK_DATA_TYPE_ANIMATION_ID:
-			m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
+			//m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
 			m_CharcterInfoBuffer[pData->my_ID].animation_id = pData->animation_ID.animation_ID;
 
 			m_ReciveState[pData->my_ID].recive_animation_ID = true;
 		break;
 
 		case NETWORK_DATA_TYPE_ALL_SEND:
-			m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
+			//m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
 			m_CharcterInfoBuffer[pData->my_ID].player_id = pData->my_ID;
 
 			// ‚¿‚á‚ñ‚Æ‹l‚Ü‚Á‚Ä‚é‚È‚ç

@@ -23,7 +23,7 @@
 CNetWorkPlayer::CNetWorkPlayer(CInterfaceManager* interface_manager)
 	:CPlayer(interface_manager)
 {
-	interface_manager->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
+	//interface_manager->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 }
 
 CNetWorkPlayer::~CNetWorkPlayer(void)
@@ -34,10 +34,8 @@ CNetWorkPlayer::~CNetWorkPlayer(void)
 void CNetWorkPlayer::Update(void)
 {
 	int animationNo =0;
-	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&pos_,&rot_,animationNo);
 
-
-	CPlayer::Update();
+//	CPlayer::Update();
 }
 
 void CNetWorkPlayer::Uninit(void)
@@ -48,28 +46,15 @@ void CNetWorkPlayer::Uninit(void)
 void CNetWorkPlayer::Draw(void)
 {
 #if 1
-	CHARCTER_INFO *charcterInfo =nullptr;
 	object_key_;
 
-	charcterInfo = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharcterInfoBuffer();
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
-	for(int i =0; i <4; i++)
-	{
-		//myself
-		if(charcterInfo[i].player_id == interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetID())
-		{
-			//interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&pos_,&rot_,animationNo,interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetID());
+	// •`‰æ
+	object_3d_manager->Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(),"");
 
-			CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
-			CObjectManager* object_manager = graphic_manager->object_manager();
-			CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-
-			// •`‰æ
-			object_3d_manager->Draw(object_key_,charcterInfo[i].position,charcterInfo[i].rotation,scale_,MATRIX4x4(),"");
-			
-			break;
-		}
-	}
 #endif
 
 	//CPlayer::Draw();

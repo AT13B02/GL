@@ -68,11 +68,16 @@ public:
 	// ‰Šú‰»ˆ—
 	bool Init(void);
 
+	// I—¹ˆ—
+	void Uninit(void);
+
+	void set_player( CPlayer *player ){ player_ = player; }
+
 protected:
 
 
 private:
-
+	CPlayer* player_;
 };
 
 //---------------------------------- EOF --------------------------------------

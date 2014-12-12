@@ -23,6 +23,12 @@
 #include "../bullet/bullet_manager.h"
 #include "../bullet/bullet.h"
 
+//network
+#include "../../network/network_manager.h"
+#include "../../network/network_client.h"
+#include "../../network/network_data_buffer.h"
+#include "../../network/windows_sockets.h"
+
 #include "common/common.h"
 
 //*****************************************************************************
@@ -37,6 +43,7 @@ const f32 CPlayer::ROTATION_DEST = 0.3f;
 //=============================================================================
 CPlayer::CPlayer(CInterfaceManager* interface_manager)
 {
+	
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
 }
@@ -114,7 +121,7 @@ void CPlayer::Update(void)
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
 		pos_ += right_vector * 1.0f;
-		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 180.0f;
+ 		rot_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 180.0f;
 	}
 	// 左移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
@@ -154,6 +161,8 @@ void CPlayer::Update(void)
 		bullet->SetParameter(pos_,front_vector.RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rot_._y + 180.0f) * MTH_DEGREE),1.0f,0);
 		bullet_manager->Push(bullet);
 	}
+
+	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&pos_,&rot_,0);
 }
 
 //=============================================================================
@@ -161,12 +170,15 @@ void CPlayer::Update(void)
 //=============================================================================
 void CPlayer::Draw(void)
 {
+	/*
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// 描画
 	object_3d_manager->Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(),"");
+
+	*/
 }
 
 //=============================================================================
