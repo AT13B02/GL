@@ -164,8 +164,8 @@ void CCollisionManager::JudgeFieldIn(void)
 			// 当たり判定
 			if(pos._x>=FieldXmax||pos._z>=FieldZmax||pos._x<=FieldXmin||pos._z<=FieldZmin)
 			{
-				//フィールド外にいる時の処理
-
+				//フィールド外にいる時の処理(ここで弾を消して!!)
+				
 			}
 		}
 	}
