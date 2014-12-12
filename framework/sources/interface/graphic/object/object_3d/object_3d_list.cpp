@@ -80,11 +80,11 @@ u32 CObject3DList::AddList(CObject3D* object_3d)
 //=============================================================================
 bool CObject3DList::EraseList(u32 object_key)
 {
-	auto it = object_3d_list_.find(object_key);
+	//auto it = object_3d_list_.find(object_key);
 
-	SAFE_RELEASE(it->second);
+	//SAFE_RELEASE(it->second);
 
-	object_3d_list_.erase(it);
+	//object_3d_list_.erase(it);
 
 	return true;
 }
