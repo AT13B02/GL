@@ -53,6 +53,7 @@ CMeshfield::CMeshfield(CDeviceHolder* device_holder)
 		number_vertex_x_(number_grid_x_ + 1), number_vertex_z_(number_grid_z_ + 1),
 		p_height_map_(nullptr),
 		p_face_normal_map_(nullptr),
+		max_x_(0), min_x_(0), max_z_(0), min_z_(0),
 		position_(0.0f, 0.0f),
 		number_index_(4),
 		p_vertex_3d_(nullptr),
@@ -110,6 +111,9 @@ void CMeshfield::Set(void)
 	
 	// 頂点生成
 	CreateVertexAndIndex();
+
+	// 四隅の座標を設定
+	SetFieldRect();
 }
 
 //=============================================================================
@@ -291,6 +295,38 @@ f32 CMeshfield::get_height(const VECTOR3& in_position, VECTOR3* p_out_normal)
 
 	// 高さを返す
 	return fHeight;
+}
+
+//=============================================================================
+// フィールドX座標最大値
+//=============================================================================
+f32 CMeshfield::get_max_x(void)
+{
+	return max_x_;
+}
+
+//=============================================================================
+// フィールドX座標最小値
+//=============================================================================
+f32 CMeshfield::get_min_x(void)
+{
+	return min_x_;
+}
+
+//=============================================================================
+// フィールドZ座標最大値
+//=============================================================================
+f32 CMeshfield::get_max_z(void)
+{
+	return max_z_;
+}
+
+//=============================================================================
+// フィールドZ座標最小値
+//=============================================================================
+f32 CMeshfield::get_min_z(void)
+{
+	return min_z_;
 }
 
 //=============================================================================
@@ -566,6 +602,21 @@ void CMeshfield::SetIndex(u32* p_index)
 		// アドレスのインクリメント
 		p_index += (number_grid_x_ * 2 + 4);
 	}
+}
+
+//=============================================================================
+// フィールドの四隅を設定
+//=============================================================================
+void CMeshfield::SetFieldRect()
+{
+	f32 half_field_width = number_grid_x_ * (length_grid_x_ * 0.5f);
+	f32 half_field_depth = number_grid_z_ * (length_grid_z_ * 0.5f);
+
+	max_x_ =  half_field_width;
+	min_x_ = -half_field_width;
+	
+	max_z_ =  half_field_depth;
+	min_z_ = -half_field_depth;
 }
 
 //---------------------------------- EOF --------------------------------------

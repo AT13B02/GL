@@ -78,6 +78,16 @@ public:
 	// 高さ取得
 	f32 get_height(const VECTOR3& in_position, VECTOR3* p_out_normal);
 
+	// フィールドX座標最大値
+	f32 get_max_x(void);
+	// フィールドX座標最小値
+	f32 get_min_x(void);
+	
+	// フィールドZ座標最大値
+	f32 get_max_z(void);
+	// フィールドZ座標最小値
+	f32 get_min_z(void);
+
 protected:
 	
 
