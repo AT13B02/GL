@@ -133,6 +133,10 @@ void ReciveData(NETWORK_DATA* pData, sockaddr_in* pSendAdr)
 			}
 		break;
 
+		case NETWORK_DATA_TYPE_GO_TO_RESULT:
+			current_player_max = 0;
+		break;
+
 		default:
 			printf("Ç»Ç…Ç©éÛêM\n");
 		break;

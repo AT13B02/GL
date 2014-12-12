@@ -247,6 +247,14 @@ void CWindowsSockets::SendDataGoToResultScene(void)
 	Data.my_type = MY_TYPE_CHARCTER;
 	Data.data_type = NETWORK_DATA_TYPE_GO_TO_RESULT;
 	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&m_Sendaddr, sizeof(m_Sendaddr));
+
+	//TODO
+	m_Sendaddr.sin_port = htons(20001);
+
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&m_Sendaddr, sizeof(m_Sendaddr));
+
+	//TODO
+	m_Sendaddr.sin_port = htons(20002);
 }
 
 //=============================================================================
