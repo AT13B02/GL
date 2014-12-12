@@ -22,6 +22,7 @@
 // インクルード
 //*****************************************************************************
 #include <list>
+#include <algorithm>
 
 // basic
 #include "basic/basic.h"
@@ -75,7 +76,7 @@ public:
 	void Push(T character);
 
 	// キャラクターリストの取得
-	const std::list<T>& character_list(void){return character_list_;}
+	const std::list<T>& character_list(void) const {return character_list_;}
 
 protected:
 	std::list<T> character_list_;
@@ -107,6 +108,9 @@ template <class T> void CCharacterManagerInterface<T>::Update(void)
 	{
 		(*it)->Update();
 	}
+
+	static auto predfunc = [](const T character){return character->is_death();};
+	remove_if(character_list_.begin(),character_list_.end(),predfunc);
 }
 
 //=============================================================================

@@ -138,6 +138,14 @@ u32 CObject3DManager::AddList(CObject3D* object_3d)
 }
 
 //=============================================================================
+// オブジェクト削除処理
+//=============================================================================
+void CObject3DManager::EraseList(const u32& object_key)
+{
+	object_3d_list_->EraseList(object_key);
+}
+
+//=============================================================================
 // 描画リストに保存
 //=============================================================================
 void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,const MATRIX4x4& matrix,const std::string& texture_name)
