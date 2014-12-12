@@ -21,6 +21,8 @@
 CCharacterInterface::CCharacterInterface(void)
 {
 	front_vector_ = VECTOR3(0.0f,0.0f,0.0f);
+
+	is_death_ = false;
 }
 
 //=============================================================================

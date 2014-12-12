@@ -87,6 +87,8 @@ public:
 	//•ûŒüƒZƒbƒg
 	void set_vector( const VECTOR3& vec ){ vector_ = vec ;}
 
+	//’eÁ‹
+	void Erase( void );
 private:
 	static const f32 DEFAULT_RADIUS;
 	u32 object_key_;

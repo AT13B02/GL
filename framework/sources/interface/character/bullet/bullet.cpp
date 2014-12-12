@@ -91,5 +91,18 @@ void CBullet::Draw(void)
 //=============================================================================
 void CBullet::Uninit( void )
 {
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
+
+	object_3d_manager->EraseList( object_key_ );
+
+}
+//=============================================================================
+// íeè¡ãéèàóù
+//=============================================================================
+void CBullet::Erase( void )
+{
+	is_death_ = true;
 }
 //---------------------------------- EOF --------------------------------------
