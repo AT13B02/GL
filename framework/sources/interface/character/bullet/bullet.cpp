@@ -19,7 +19,10 @@
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_data.h"
-
+//*****************************************************************************
+// 定数定義
+//*****************************************************************************
+const f32 CBullet::DEFAULT_RADIUS = 5.0f;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -38,11 +41,12 @@ CBullet::~CBullet(void)
 //=============================================================================
 // 生成処理
 //=============================================================================
-void CBullet::SetParameter(const VECTOR3& position,const VECTOR3& vector,const f32& speed)
+void CBullet::SetParameter(const VECTOR3& position,const VECTOR3& vector,const f32& speed , const s32& player_id )
 {
 	position_ = position;
 	vector_ = vector;
 	speed_ = speed;
+	player_id_ = player_id;
 }
 
 //=============================================================================
@@ -57,7 +61,7 @@ bool CBullet::Init(void)
 
 	// オブジェクトリストに追加
 	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_bill);
-
+	radius_ = DEFAULT_RADIUS;
 	return true;
 }
 
@@ -88,5 +92,4 @@ void CBullet::Draw(void)
 void CBullet::Uninit( void )
 {
 }
-
 //---------------------------------- EOF --------------------------------------

@@ -151,7 +151,7 @@ void CPlayer::Update(void)
 		CBullet* bullet = new CBullet(interface_manager_);
 
 		bullet->Init();
-		bullet->SetParameter(pos_,front_vector.RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rot_._y + 180.0f) * MTH_DEGREE),1.0f);
+		bullet->SetParameter(pos_,front_vector.RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rot_._y + 180.0f) * MTH_DEGREE),1.0f,0);
 		bullet_manager->Push(bullet);
 	}
 }

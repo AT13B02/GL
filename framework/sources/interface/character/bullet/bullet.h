@@ -64,13 +64,28 @@ public:
 	void Uninit(void);
 
 	// パラメータの設定
-	void SetParameter(const VECTOR3& position,const VECTOR3& vector,const f32& speed);
+	void SetParameter(const VECTOR3& position,const VECTOR3& vector,const f32& speed , const s32& player_id );
+
+	//位置取得
+	VECTOR3 GetPosition( void ){ return position_; }
+
+	//方向取得
+	VECTOR3 GetVector( void ){ return vector_; }
+
+	//位置セット
+	void SetPosition( VECTOR3 _pos ){ position_ = _pos ;}
+
+	//方向セット
+	void SetVector( VECTOR3 _vec ){ vector_ = _vec ;}
 
 private:
+	static const f32 DEFAULT_RADIUS;
 	u32 object_key_;
 	VECTOR3 position_;
 	VECTOR3 vector_;
 	f32 speed_;
+	f32 radius_;
+	s32 player_id_;
 	CInterfaceManager* interface_manager_;
 
 };
