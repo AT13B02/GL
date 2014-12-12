@@ -80,6 +80,9 @@ public:
 	// リストに追加
 	u32 AddList(CObject3D* object_3d);
 
+	// リストから削除
+	void EraseList(const u32& object_key);
+
 	// モデルマネージャーの取得
 	CModelManager* GetModelManager(void){return model_manager_;}
 

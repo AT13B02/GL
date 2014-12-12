@@ -61,9 +61,13 @@ public:
 
 	// 右ベクトルの設定
 	void set_right_vector(const VECTOR3& right_vector){right_vector_ = right_vector;}
+
+	// 死亡フラグの取得
+	bool is_death(void) const {return is_death_;}
 protected:
 	VECTOR3 front_vector_;
 	VECTOR3 right_vector_;
+	bool is_death_;
 };
 
 #endif // _CHARACTER_INTERFACE_H_

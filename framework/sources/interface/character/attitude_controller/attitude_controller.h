@@ -20,7 +20,7 @@
 #include <list>
 
 // basic
-#include "basic/basic.h"
+#include "../character_interface.h"
 
 // math
 #include "common/math/math.h"
@@ -50,7 +50,7 @@ class CCharacterInterface;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CAttitudeController : public CBasic
+class CAttitudeController : public CCharacterInterface
 {
 public:
 	// コンストラクタ
