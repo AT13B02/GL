@@ -48,7 +48,7 @@ class CCharacterCameraManager;
 class CBulletManager;
 class CFieldManager;
 class CAttitudeControllerManager;
-
+class CCollisionManager;
 //*****************************************************************************
 // ƒNƒ‰ƒX’è‹`
 //*****************************************************************************
@@ -94,6 +94,8 @@ private:
 	CBulletManager* bullet_manager_;
 	CFieldManager* field_manager_;
 	CAttitudeControllerManager* attitude_controller_manager_;
+	CCollisionManager* collisionmanager_;
+	
 };
 
 #endif // _CHARACTER_MANAGER_H_

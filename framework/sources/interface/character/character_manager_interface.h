@@ -109,8 +109,8 @@ template <class T> void CCharacterManagerInterface<T>::Update(void)
 		(*it)->Update();
 	}
 
-	static auto predfunc = [](const T character){return character->is_death();};
-	remove_if(character_list_.begin(),character_list_.end(),predfunc);
+	auto predfunc = [](const T character)->bool{return character->is_death();};
+	character_list_.erase(remove_if(character_list_.begin(),character_list_.end(),predfunc),character_list_.end());
 }
 
 //=============================================================================

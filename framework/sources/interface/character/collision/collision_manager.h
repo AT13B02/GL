@@ -67,8 +67,15 @@ public:
 	// 更新
 	void Update(void);
 
+	// プレイヤと弾の当たり判定
+	void JudgePlayerAndBullet(void);
 	// 球体と球体の当たり判定処理
 	bool JudgeSphereCross(VECTOR3 p1,f32 r1,VECTOR3 p2,f32 r2);
+	// フィールド内にいるかどうか判定
+	void JudgeFieldIn(void);
+	// 地面の上に居るかどうか判定
+	void JudgeFieldOn(void);
+
 private:
 	CCharacterManager* character_manager_;
 };

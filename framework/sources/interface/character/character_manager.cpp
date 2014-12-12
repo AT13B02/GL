@@ -16,6 +16,7 @@
 #include "camera/character_camera_manager.h"
 #include "bullet/bullet_manager.h"
 #include "field/field_manager.h"
+#include "collision/collision_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
 
 // common
@@ -40,6 +41,8 @@ CCharacterManager::CCharacterManager(void)
 
 	// 姿勢制御マネージャーの生成
 	attitude_controller_manager_ = new CAttitudeControllerManager();
+
+	collisionmanager_ = new CCollisionManager(this);
 }
 
 //=============================================================================
@@ -69,6 +72,8 @@ bool CCharacterManager::Init(void)
 	// 姿勢制御コントローラーマネージャーの初期化
 	INIT(attitude_controller_manager_);
 
+	INIT(collisionmanager_);
+
 	return true;
 }
 
@@ -91,6 +96,8 @@ void CCharacterManager::Update(void)
 
 	// キャラクターカメラマネージャーの更新
 	character_camera_manager_->Update();
+
+	collisionmanager_->Update();
 }
 
 //=============================================================================
@@ -106,6 +113,7 @@ void CCharacterManager::Draw(void)
 
 	// バレットマネージャーの描画
 	bullet_manager_->Draw();
+
 }
 
 //=============================================================================
@@ -127,6 +135,8 @@ void CCharacterManager::Uninit(void)
 
 	// 姿勢制御マネージャーの開放
 	SAFE_RELEASE(attitude_controller_manager_);
+
+	SAFE_RELEASE(collisionmanager_);
 }
 
 //---------------------------------- EOF --------------------------------------
