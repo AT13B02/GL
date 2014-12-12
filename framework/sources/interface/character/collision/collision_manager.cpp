@@ -84,7 +84,7 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
 		{
 			// “–‚½‚è”»’è
-			if(JudgeSphereCross((*player_it)->pos(),10,(*bullet_it)->GetPosition(),10))
+			if(JudgeSphereCross((*player_it)->pos(),10,(*bullet_it)->position(),10))
 			{
 				//ƒŠƒUƒ‹ƒg‚ÖˆÚ“®
 
@@ -160,7 +160,7 @@ void CCollisionManager::JudgeFieldIn(void)
 		//’e
 		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
 		{
-			pos=(*bullet_it)->GetPosition();
+			pos=(*bullet_it)->position();
 			// “–‚½‚è”»’è
 			if(pos._x>=FieldXmax||pos._z>=FieldZmax||pos._x<=FieldXmin||pos._z<=FieldZmin)
 			{
