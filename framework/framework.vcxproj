@@ -119,6 +119,7 @@
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
     <ClInclude Include="sources\scene\fade_2d.h" />
+    <ClInclude Include="sources\scene\game\network_command_assistant.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
     <ClInclude Include="sources\scene\load\scene_load.h" />
     <ClInclude Include="sources\scene\scene.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
     <ClCompile Include="sources\scene\fade_2d.cpp" />
+    <ClCompile Include="sources\scene\game\network_command_assistant.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />
     <ClCompile Include="sources\scene\load\scene_load.cpp" />
     <ClCompile Include="sources\scene\scene.cpp" />

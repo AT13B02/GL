@@ -508,6 +508,9 @@
     <ClInclude Include="sources\interface\network\windows_sockets.h">
       <Filter>sources\interface\network</Filter>
     </ClInclude>
+    <ClInclude Include="sources\scene\game\network_command_assistant.h">
+      <Filter>sources\scene\game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -836,6 +839,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\network\windows_sockets.cpp">
       <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\game\network_command_assistant.cpp">
+      <Filter>sources\scene\game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
