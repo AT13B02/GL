@@ -67,16 +67,25 @@ public:
 	void SetParameter(const VECTOR3& position,const VECTOR3& vector,const f32& speed , const s32& player_id );
 
 	//位置取得
-	VECTOR3 GetPosition( void ){ return position_; }
+	VECTOR3 position( void ){ return position_; }
 
 	//方向取得
-	VECTOR3 GetVector( void ){ return vector_; }
+	VECTOR3 vector( void ){ return vector_; }
+
+	//半径取得
+	f32 radius( void ){ return radius_;}
+
+	//弾速取得
+	f32 speed( void ){ return speed_;}
+
+	//プレイヤーID取得
+	s32 player_id( void ){ return player_id_;}
 
 	//位置セット
-	void SetPosition( VECTOR3 _pos ){ position_ = _pos ;}
+	void set_position( const VECTOR3& pos ){ position_ = pos ;}
 
 	//方向セット
-	void SetVector( VECTOR3 _vec ){ vector_ = _vec ;}
+	void set_vector( const VECTOR3& vec ){ vector_ = vec ;}
 
 private:
 	static const f32 DEFAULT_RADIUS;
@@ -87,7 +96,6 @@ private:
 	f32 radius_;
 	s32 player_id_;
 	CInterfaceManager* interface_manager_;
-
 };
 #endif //_BULLET_H_
 //---------------------------------- EOF --------------------------------------
