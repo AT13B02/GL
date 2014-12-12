@@ -82,14 +82,18 @@ public:
 	VECTOR3& rot(void){return rot_;}
 
 protected:
-
-
-private:
 	//インターフェースマネージャーのポインタ
 	CInterfaceManager* interface_manager_;
 
 	//オブジェクトキー
 	u32 object_key_;
+
+		//各種値
+	VECTOR3 pos_;
+	VECTOR3 rot_;
+	VECTOR3 scale_;
+private:
+	
 
 	//スピード
 	static const f32 SPEED;
@@ -97,10 +101,7 @@ private:
 	static const f32 ROTATION_DEST;
 
 
-	//各種値
-	VECTOR3 pos_;
-	VECTOR3 rot_;
-	VECTOR3 scale_;
+
 
 	//移動目標値変数
 	VECTOR3 pos_dest_;

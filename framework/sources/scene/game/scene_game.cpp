@@ -42,6 +42,7 @@
 // character
 #include "interface/character/character_manager.h"
 #include "interface/character/player/player_manager.h"
+#include "interface/character/player/network_player.h"
 #include "interface/character/player/player.h"
 #include "interface/character/field/field.h"
 #include "interface/character/field/field_manager.h"
@@ -158,9 +159,14 @@ void CSceneGame::Load(void)
 	light_manager->Add(light);
 
 	// プレイヤーの生成
-	CPlayer* player = new CPlayer(interface_manager_);
+	//CPlayer* player = new CPlayer(interface_manager_);
+	CPlayer* player = new CNetWorkPlayer(interface_manager_);
 	player->Init();
 	player_manager->Push(player);
+
+	CPlayer* player2 = new CNetWorkPlayer(interface_manager_);
+	player2->Init();
+	player_manager->Push(player2);
 
 	// カメラの生成
 	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
