@@ -69,6 +69,11 @@ public:
 
 	// 球体と球体の当たり判定処理
 	bool JudgeSphereCross(VECTOR3 p1,f32 r1,VECTOR3 p2,f32 r2);
+	// フィールド内にいるかどうか判定
+	bool JudgeFieldIn(VECTOR3 pos);
+	// 地面の上に居るかどうか判定
+	f32 JudgeFieldOn(const VECTOR3& in_position, VECTOR3* p_out_normal);
+
 private:
 	CCharacterManager* character_manager_;
 };

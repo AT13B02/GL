@@ -70,6 +70,7 @@ void CCollisionManager::Update(void)
 		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
 		{
 			// “–‚½‚è”»’è
+
 		}
 	}
 }
