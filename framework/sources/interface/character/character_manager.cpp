@@ -98,6 +98,15 @@ void CCharacterManager::Update(void)
 
 	// キャラクターカメラマネージャーの更新
 	character_camera_manager_->Update();
+
+	//ネットプレイヤー更新
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		if(network_player_[ i ] != nullptr)
+		{
+			network_player_[ i ]->Update();
+		}
+	}
 }
 
 //=============================================================================
@@ -113,6 +122,15 @@ void CCharacterManager::Draw(void)
 
 	// バレットマネージャーの描画
 	bullet_manager_->Draw();
+
+	//ネットプレイヤー描画
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		if(network_player_[ i ] != nullptr)
+		{
+			network_player_[ i ]->Draw();
+		}
+	}
 }
 
 //=============================================================================

@@ -43,6 +43,8 @@ void CNetWorkPlayer::Uninit(void)
 	CPlayer::Uninit();
 }
 
+
+
 void CNetWorkPlayer::Draw(void)
 {
 #if 1
