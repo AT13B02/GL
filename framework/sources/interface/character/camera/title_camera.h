@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// ゲームクラス
+// タイトルカメラクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
@@ -11,13 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_GAME_H_
-#define _SCENE_GAME_H_
+#ifndef _TITLE_CAMERA_H_
+#define _TITLE_CAMERA_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "scene/scene.h"
+// character
+#include "character_camera.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -34,22 +35,20 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-// TODO テスト用
-class CCharacterCamera;
-// ネットワークコマンダー
-class CNetworkCommandAssistant;
+class CInterfaceManager;
+
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneGame : public CScene
+class CTitleCamera : public CCharacterCamera
 {
 public:
 	// コンストラクタ
-	CSceneGame(CInterfaceManager* interface_manager);
+	CTitleCamera(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CSceneGame(void);
+	virtual ~CTitleCamera(void);
 
 	// 初期化
 	bool Init(void);
@@ -58,27 +57,19 @@ public:
 	void Update(void);
 
 	// 描画
-	void Draw(void);
+	void Draw(void){}
 
 	// 終了
 	void Uninit(void);
-
-	// ロード
-	void Load(void);
-
-	// ファクトリの生成
-	CSceneFactory* MakeFactory(void);
-
 protected:
 
 private:
-
-
-	// TODO テスト用メンバー変数
-	u32 test_meshfield_key_;
-	CNetworkCommandAssistant *network_command_assistant_;
+	u32 camera_key_;
+	f32 move_speed_;
+	f32 length_;
+	f32 rot_;
 };
 
-#endif	// _SCENE_GAME_H_
+#endif	// _TITLE_CAMERA_H_
 
 //---------------------------------- EOF --------------------------------------

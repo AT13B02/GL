@@ -23,6 +23,8 @@
 
 // character
 #include "interface/character/character_manager_interface.h"
+#include "interface/network/network_data_buffer.h"
+
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -49,6 +51,8 @@ class CBulletManager;
 class CFieldManager;
 class CAttitudeControllerManager;
 class CCollisionManager;
+class CNetWorkPlayer;
+
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
@@ -85,6 +89,12 @@ public:
 	// フィールドマネージャーの取得
 	CFieldManager* field_manager(void){return field_manager_;}
 
+	//ネットワークプレイヤー取得
+	CNetWorkPlayer* network_player( int id ){ return network_player_[ id ]; }
+
+	//ネットワークプレイヤーセット処理
+	 void SetNetworkPlayer( CNetWorkPlayer* net_player, int id ){ network_player_[ id ] = net_player; }
+
 	// 姿勢制御マネージャーの取得
 	CAttitudeControllerManager* attitude_controller_manager(void){return attitude_controller_manager_;}
 
@@ -94,8 +104,8 @@ private:
 	CBulletManager* bullet_manager_;
 	CFieldManager* field_manager_;
 	CAttitudeControllerManager* attitude_controller_manager_;
-	CCollisionManager* collisionmanager_;
-	
+	CCollisionManager* collision_manager_;
+	CNetWorkPlayer* network_player_[ kMaxPlayer ];
 };
 
 #endif // _CHARACTER_MANAGER_H_

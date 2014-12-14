@@ -18,6 +18,7 @@
 #include "field/field_manager.h"
 #include "collision/collision_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
+#include "interface/character/player/network_player.h"
 
 // common
 #include "common/common.h"
@@ -42,7 +43,8 @@ CCharacterManager::CCharacterManager(void)
 	// 姿勢制御マネージャーの生成
 	attitude_controller_manager_ = new CAttitudeControllerManager();
 
-	collisionmanager_ = new CCollisionManager(this);
+	// 衝突判定マネージャーの生成
+	collision_manager_ = new CCollisionManager(this);
 }
 
 //=============================================================================
@@ -72,7 +74,14 @@ bool CCharacterManager::Init(void)
 	// 姿勢制御コントローラーマネージャーの初期化
 	INIT(attitude_controller_manager_);
 
-	INIT(collisionmanager_);
+	// 衝突判定マネージャーの初期化
+	INIT(collision_manager_);
+
+	//ネットプレイヤー初期化
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		network_player_[ i ] = NULL;
+	}
 
 	return true;
 }
@@ -97,7 +106,8 @@ void CCharacterManager::Update(void)
 	// キャラクターカメラマネージャーの更新
 	character_camera_manager_->Update();
 
-	collisionmanager_->Update();
+	// 衝突判定マネージャーの更新
+	collision_manager_->Update();
 }
 
 //=============================================================================
@@ -121,6 +131,19 @@ void CCharacterManager::Draw(void)
 //=============================================================================
 void CCharacterManager::Uninit(void)
 {
+	//ネットワークプレイヤーの終了処理
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		if( network_player_[ i ] != NULL )
+		{
+			network_player_[ i ] -> Uninit();
+
+			delete network_player_[ i ];
+
+			network_player_[ i ] = NULL;
+		}
+	}
+
 	// プレイヤーマネージャーの開放
 	SAFE_RELEASE(player_manager_);
 
@@ -136,7 +159,9 @@ void CCharacterManager::Uninit(void)
 	// 姿勢制御マネージャーの開放
 	SAFE_RELEASE(attitude_controller_manager_);
 
-	SAFE_RELEASE(collisionmanager_);
+	// 衝突判定マネージャーの開放
+	SAFE_RELEASE(collision_manager_);
+
 }
 
 //---------------------------------- EOF --------------------------------------

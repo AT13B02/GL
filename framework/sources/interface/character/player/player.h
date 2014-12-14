@@ -73,37 +73,36 @@ public:
 	// 終了処理
 	void Uninit(void);
 
-	//描画
+	// 描画処理
 	void Draw(void);
 
-	//ポジションの取得
+	// ポジションの取得
 	const VECTOR3& position(void) const {return position_;}
 
-	//ポジションのセット
+	// ポジションの設定
 	void set_position(const VECTOR3& position){position_ = position;}
 
 	// 角度の取得
 	const VECTOR3& rotation(void) const {return rotation_;}
 
+	// 角度の設定
+	void set_rotation(const VECTOR3& rotation){rotation_ = rotation;}
 protected:
-
-
-private:
-	//インターフェースマネージャーのポインタ
+	// インターフェースマネージャーのポインタ
 	CInterfaceManager* interface_manager_;
 
-	//オブジェクトキー
+	// オブジェクトキー
 	u32 object_key_;
 
-	//スピード
-	static const f32 SPEED;
-	static const f32 SPEED_DEST;
-	static const f32 ROTATION_DEST;
-
-	//各種値
+	// 各種値
 	VECTOR3 position_;
 	VECTOR3 rotation_;
 	VECTOR3 scale_;
+private:
+	// スピード
+	static const f32 SPEED;
+	static const f32 SPEED_DEST;
+	static const f32 ROTATION_DEST;
 
 	//移動目標値変数
 	VECTOR3 rotation_dest_;

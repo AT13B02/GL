@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// ゲームクラス
+// ネットゲームアシスタントクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
@@ -10,14 +10,12 @@
 // インクルード
 //*****************************************************************************
 // scene
+#include "scene/game/network_command_assistant.h"
 #include "scene/game/scene_game.h"
 #include "scene/factory/scene_factory.h"
 
 // interface
 #include "interface/interface_manager.h"
-
-//game
-#include "network_command_assistant.h"
 
 // input
 #include "interface/interface_manager.h"
@@ -45,7 +43,6 @@
 // character
 #include "interface/character/character_manager.h"
 #include "interface/character/player/player_manager.h"
-#include "interface/character/player/network_player.h"
 #include "interface/character/player/player.h"
 #include "interface/character/field/field.h"
 #include "interface/character/field/field_manager.h"
@@ -53,14 +50,12 @@
 #include "interface/character/camera/character_camera_manager.h"
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
+#include "interface/character/bullet/bullet_manager.h"
+#include "interface/character/player/network_player.h"
 
 //network
-#include "interface/interface_manager.h"
 #include "interface/network/network_manager.h"
 #include "interface/network/network_client.h"
-#include "interface/network/network_data_buffer.h"
-#include "interface/network/windows_sockets.h"
-
 
 // common
 #include "common/common.h"
@@ -80,132 +75,108 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CSceneGame::CSceneGame(CInterfaceManager* interface_manager) : CScene(interface_manager,TYPE_GAME)
+CNetworkCommandAssistant::CNetworkCommandAssistant(CInterfaceManager* interface_manager)
 {
+	interface_manager_ = interface_manager;
+
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CSceneGame::~CSceneGame(void)
+CNetworkCommandAssistant::~CNetworkCommandAssistant(void)
 {
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CSceneGame::Init(void)
+bool CNetworkCommandAssistant::Init(void)
 {
+
 	return true;
 }
 
 //=============================================================================
 // 更新
 //=============================================================================
-void CSceneGame::Update(void)
+void CNetworkCommandAssistant::Update(void)
 {
-	network_command_assistant_ -> Update();
+	//ネットワークバッファの取得
+	CHARCTER_INFO *net_chara_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharcterInfoBuffer();
+	
+	CCharacterManager *character_manager = interface_manager_->character_manager();
+	
+	//ネットのプレイヤーにアップデートしてー
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		if( net_chara_buf->end_push_flag == true )
+		{
+			if( character_manager->network_player( i ) == NULL )
+			{
+
+				//つくる
+				CNetWorkPlayer* player = new CNetWorkPlayer(interface_manager_);
+				player->Init();
+			
+				//ポインタ保存
+				character_manager->SetNetworkPlayer( player, i );
+			}
+
+			//更新
+			character_manager->network_player( i )->set_position( net_chara_buf->position );
+			character_manager->network_player( i )->set_rotation( net_chara_buf->rotation );
+			character_manager->network_player( i )->Update();
+		}
+	
+	}
+
+	//弾バッファの取得
+	BULLET_INFO *net_bullet_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetBulletInfoBuffer();
+	
+	for(int i = 0; i < kMaxPlayer; i++)
+	{
+		if( net_bullet_buf->end_push_flag == true )
+		{
+			CBullet* bullet = new CBullet(interface_manager_);
+
+			bullet->Init();
+			bullet->SetParameter(net_bullet_buf->position,
+								net_bullet_buf->front_vector, 
+								net_bullet_buf->speed,
+								net_bullet_buf->player_id);
+			
+			interface_manager_->character_manager()->bullet_manager()->Push(bullet);
+
+			net_bullet_buf->end_push_flag = false;
+		}
+	}
 }
 
 //=============================================================================
 // 描画
 //=============================================================================
-void CSceneGame::Draw(void)
+void CNetworkCommandAssistant::Draw(void)
 {
-	network_command_assistant_ -> Draw();
-
+	CCharacterManager *character_manager = interface_manager_->character_manager();
+	
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		if( character_manager->network_player( i ) != NULL )
+		{
+			character_manager->network_player( i ) ->Draw();
+		}
+	}
 }
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CSceneGame::Uninit(void)
+void CNetworkCommandAssistant::Uninit(void)
 {
-	SAFE_RELEASE( network_command_assistant_ );
+
 }
 
-//=============================================================================
-// 自分のファクトリーの生成
-//=============================================================================
-CSceneFactory* CSceneGame::MakeFactory(void)
-{
-	// ゲームファクトリーの生成
-	return new CGameFactory();
-}
 
-//=============================================================================
-// ロード処理
-//=============================================================================
-void CSceneGame::Load(void)
-{
-	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
-	CDeviceHolder* device_holder = graphic_manager->device_holder();
-	CTextureManager* texture_manager = graphic_manager->texture_manager();
-	CObjectManager* object_manager = graphic_manager->object_manager();
-	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
-	CCameraManager* camera_manager = object_manager->camera_manager();
-	CModelManager* model_manager = graphic_manager->model_manager();
-	CLightManager* light_manager = graphic_manager->light_manager();
-	CCharacterManager* character_manager = interface_manager_->character_manager();
-	CPlayerManager* player_manager = character_manager->player_manager();
-	CFieldManager* field_manager = character_manager->field_manager();
-	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
-	CAttitudeControllerManager* attitude_controller_manager = character_manager->attitude_controller_manager();
-
-	// ゲームのテクスチャのロード
-	texture_manager->Load("resources/texture/game");
-
-	// ゲームのモデルのロード
-	model_manager->Load("resources/model/game");
-
-	// ライトの設定
-	CLight* light = CLight::Create(device_holder);
-	light->Init();
-	light->SetType(CLight::TYPE_DIRECTIONAL);
-	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
-	light_manager->Add(light);
-
-	// ライトの設定
-	light = CLight::Create(device_holder);
-	light->Init();
-	light->SetType(CLight::TYPE_DIRECTIONAL);
-	light->SetDirection(VECTOR3(0.0f,-1.0f,0.0f).Normalize());
-	light_manager->Add(light);
-
-	//ネットワークコマンダーの作成
-	network_command_assistant_ = new CNetworkCommandAssistant( interface_manager_ );
-	network_command_assistant_ -> Init();
-
-	// プレイヤーの生成
-	CPlayer* player = new CPlayer(interface_manager_);
-	//CPlayer* player = new CNetWorkPlayer(interface_manager_);
-	player->Init();
-	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
-	player_manager->set_player( player );
-	player_manager->Push(player);
-
-/*
-	CPlayer* player2 = new CNetWorkPlayer(interface_manager_);
-	player2->Init();
-	player_manager->Push(player2);
-*/
-	// カメラの生成
-	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
-	camera->Init();
-	character_camera_manager->Push(camera);
-
-	// 姿勢制御の生成
-	CAttitudeController* attitude_controller = new CAttitudeController(interface_manager_);
-	attitude_controller->set_axis(VECTOR3(0.0f,1.0f,0.0f));
-	attitude_controller->Push(player);
-	attitude_controller->Push(camera);
-	attitude_controller_manager->Push(attitude_controller);
-
-	// フィールドの生成
-	CField* field = new CField(interface_manager_);
-	field->Init();
-	field_manager->Push(field);
-}
 
 //---------------------------------- EOF --------------------------------------

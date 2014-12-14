@@ -508,6 +508,12 @@
     <ClInclude Include="sources\interface\network\windows_sockets.h">
       <Filter>sources\interface\network</Filter>
     </ClInclude>
+    <ClInclude Include="sources\scene\game\network_command_assistant.h">
+      <Filter>sources\scene\game</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player\network_player.h">
+      <Filter>sources\interface\character\player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -836,6 +842,12 @@
     </ClCompile>
     <ClCompile Include="sources\interface\network\windows_sockets.cpp">
       <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\game\network_command_assistant.cpp">
+      <Filter>sources\scene\game</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player\network_player.cpp">
+      <Filter>sources\interface\character\player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

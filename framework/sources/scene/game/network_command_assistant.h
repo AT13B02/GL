@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// ゲームクラス
+// ネットゲームアシスタントクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
@@ -11,13 +11,15 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_GAME_H_
-#define _SCENE_GAME_H_
+#ifndef _NETWORK_COMMAND_ASSISTANT_H_
+#define _NETWORK_COMMAND_ASSISTANT_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "scene/scene.h"
+#include "basic/basic.h"
+#include "interface/network/network_data_buffer.h"
+
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -34,51 +36,38 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-// TODO テスト用
-class CCharacterCamera;
-// ネットワークコマンダー
-class CNetworkCommandAssistant;
+class CInterfaceManager;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneGame : public CScene
+class CNetworkCommandAssistant : public CBasic
 {
 public:
 	// コンストラクタ
-	CSceneGame(CInterfaceManager* interface_manager);
+	CNetworkCommandAssistant(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CSceneGame(void);
+	virtual ~CNetworkCommandAssistant(void);
 
 	// 初期化
 	bool Init(void);
 
 	// 更新
 	void Update(void);
-
+		
 	// 描画
 	void Draw(void);
 
 	// 終了
 	void Uninit(void);
 
-	// ロード
-	void Load(void);
-
-	// ファクトリの生成
-	CSceneFactory* MakeFactory(void);
-
 protected:
 
 private:
-
-
-	// TODO テスト用メンバー変数
-	u32 test_meshfield_key_;
-	CNetworkCommandAssistant *network_command_assistant_;
+	CInterfaceManager *interface_manager_;
 };
 
-#endif	// _SCENE_GAME_H_
+#endif	// _NETWORK_COMMAND_ASSISTANT_H_
 
 //---------------------------------- EOF --------------------------------------
