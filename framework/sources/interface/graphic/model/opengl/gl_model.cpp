@@ -12,6 +12,9 @@
 #include "gl_model.h"
 #include <stdio.h>
 
+// opengl
+#include "interface/graphic/device/opengl/opengl.h"
+
 // common
 #include "common/common.h"
 
@@ -117,10 +120,16 @@ bool CGLModel::Load(const s8* filename)
 //=============================================================================
 void CGLModel::Draw(const MATRIX4x4& matrix)
 {
+	// デフォルトマテリアル取得
+	VECTOR4 diffuse;
+	glGetMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&diffuse);
 	for(u32 uAtt = 0; uAtt < m_uNumMaterial; uAtt++)
 	{
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&m_pMaterial->mat.Diffuse);
 		m_pVtxBuffer->Draw(matrix, m_pMeshAttribute[uAtt].idxStart, m_pMeshAttribute[uAtt].idxNum);
 	}
+
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&diffuse);
 }
 
 // EOF
