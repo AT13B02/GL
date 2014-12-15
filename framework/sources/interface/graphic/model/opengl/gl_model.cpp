@@ -121,16 +121,29 @@ bool CGLModel::Load(const s8* filename)
 void CGLModel::Draw(const MATRIX4x4& matrix)
 {
 	// デフォルトマテリアル取得
-	VECTOR4 diffuse;
-	glGetMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&diffuse);
+	Material DefMat;
+	glGetMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&DefMat.Diffuse);
+	glGetMaterialfv(GL_FRONT, GL_AMBIENT, (GLfloat*)&DefMat.Ambient);
+	glGetMaterialfv(GL_FRONT, GL_SPECULAR, (GLfloat*)&DefMat.Specular);
+	glGetMaterialfv(GL_FRONT, GL_EMISSION, (GLfloat*)&DefMat.Emissive);
+	glGetMaterialfv(GL_FRONT, GL_SHININESS, (GLfloat*)&DefMat.SpecPower);
 
 	for(u32 uAtt = 0; uAtt < m_uNumMaterial; uAtt++)
 	{
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&m_pMaterial->mat.Diffuse);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&m_pMaterial[uAtt].mat.Diffuse);
+		glMaterialfv(GL_FRONT, GL_AMBIENT, (GLfloat*)&m_pMaterial[uAtt].mat.Ambient);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, (GLfloat*)&m_pMaterial[uAtt].mat.Specular);
+		glMaterialfv(GL_FRONT, GL_EMISSION, (GLfloat*)&m_pMaterial[uAtt].mat.Emissive);
+		glMaterialf(GL_FRONT, GL_SHININESS, m_pMaterial[uAtt].mat.SpecPower);
 		m_pVtxBuffer->Draw(matrix, m_pMeshAttribute[uAtt].idxStart, m_pMeshAttribute[uAtt].idxNum);
 	}
 
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&diffuse);
+	// デフォルトマテリアル設定
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&DefMat.Diffuse);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, (GLfloat*)&DefMat.Ambient);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, (GLfloat*)&DefMat.Specular);
+	glMaterialfv(GL_FRONT, GL_EMISSION, (GLfloat*)&DefMat.Emissive);
+	glMaterialf(GL_FRONT, GL_SHININESS, DefMat.SpecPower);
 }
 
 // EOF
