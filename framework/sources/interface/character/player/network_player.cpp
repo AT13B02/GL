@@ -16,6 +16,10 @@
 #include "../../network/network_data_buffer.h"
 #include "../../network/windows_sockets.h"
 
+#include "interface/character/character_manager.h"
+#include "interface/graphic/model/model.h"
+#include "interface/graphic/object/object_3d/element/object_model.h"
+#include "interface/interface_manager.h"
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
@@ -23,7 +27,11 @@
 CNetWorkPlayer::CNetWorkPlayer(CInterfaceManager* interface_manager)
 	:CPlayer(interface_manager)
 {
-	//interface_manager->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
+	// オブジェクトモデルの生成
+	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+
+	// オブジェクトリストに追加
+	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
 }
 
 CNetWorkPlayer::~CNetWorkPlayer(void)
@@ -40,14 +48,12 @@ void CNetWorkPlayer::Update(void)
 
 void CNetWorkPlayer::Uninit(void)
 {
-	CPlayer::Uninit();
+	//CPlayer::Uninit();
 }
 
 void CNetWorkPlayer::Draw(void)
 {
 #if 1
-	object_key_;
-
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();

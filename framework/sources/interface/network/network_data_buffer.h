@@ -124,6 +124,7 @@ private:
 	BULLET_INFO m_BulletInfoBuffer[kMaxPlayer];
 	int m_MyID;
 	RECIVE_STATE m_ReciveState[kMaxPlayer];
+	RECIVE_STATE m_ReciveStateBullet[kMaxPlayer];
 	bool m_GameSceneEnd;
 };
 
