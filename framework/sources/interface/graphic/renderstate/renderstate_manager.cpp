@@ -14,6 +14,8 @@
 #include "interface/graphic/renderstate/state/renderstate_2d.h"
 #include "interface/graphic/renderstate/state/renderstate_3d.h"
 #include "interface/graphic/renderstate/state/renderstate_all.h"
+#include "interface/graphic/renderstate/state/renderstate_light_off.h"
+#include "interface/graphic/renderstate/state/renderstate_wireframe.h"
 
 // common
 #include "common/common.h"
@@ -41,6 +43,8 @@ CRenderstateManager::CRenderstateManager(CDeviceHolder* device_holder)
 	renderstate_[TYPE_ALL] = CRenderstateAll::Create(device_holder);
 	renderstate_[TYPE_2D] = CRenderstate2D::Create(device_holder);
 	renderstate_[TYPE_3D] = CRenderstate3D::Create(device_holder);
+	renderstate_[TYPE_LIGHT_OFF] = CRenderstateLightOff::Create(device_holder);
+	renderstate_[TYPE_WIREFRAME] = CRenderstateWireframe::Create(device_holder);
 }
 
 //=============================================================================

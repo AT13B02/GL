@@ -104,6 +104,10 @@ bool CGLTexture::Load(const char* pFilename)
 	case EXTENSION_PNG:
 		m_nTexture = LoadPng(pFilename);
 		break;
+	// TXOファイル
+	case EXTENSION_TXO:
+		m_nTexture = LoadTxo(pFilename);
+		break;
 	// 対応していないファイル
 	default:
 		return false;
@@ -138,10 +142,11 @@ bool CGLTexture::Set(void)
 {
 	glBindTexture(GL_TEXTURE_2D,m_nTexture);
 
-	if(glIsTexture(m_nTexture))
+	if(!glIsTexture(m_nTexture))
 	{
-		int a = 0;
+		//DEBUG_ERROR_MESSAGE("ほんとにテクスチャ？");
 	}
+
 	return true;
 }
 
@@ -198,6 +203,57 @@ unsigned int CGLTexture::LoadTga(const char* pFilename)
 }
 
 //=============================================================================
+// TXOファイルのロード
+//=============================================================================
+unsigned int CGLTexture::LoadTxo(const char* pFilename)
+{
+	unsigned int nTexture = 0;		// テクスチャネーム
+	unsigned short nWidth;			// 画像の横幅
+	unsigned short nHeight;			// 画像の縦幅
+	unsigned char *pImage;			// イメージデータ
+	
+	// テクスチャデータ読み込み
+	// ファイルポインタ
+	FILE *file = nullptr;
+	// ファイルオープン
+	fopen_s(&file, pFilename, "rb");
+	if(!file)
+	{
+		return FALSE;
+	}
+
+	// 幅読み込み
+	fread(&nWidth, sizeof(unsigned short), 1, file);
+	fread(&nHeight, sizeof(unsigned short), 1, file);
+	// バッファ生成
+	unsigned bufferSize = nWidth * nHeight * 4;
+	pImage = new unsigned char[bufferSize];
+	fread(pImage, bufferSize, 1, file);
+
+	// ファイルクローズ
+	fclose(file);
+
+	// テクスチャ生成
+	glGenTextures(1,&nTexture);
+
+	// テクスチャの選択
+	glBindTexture(GL_TEXTURE_2D,nTexture);
+
+	// テクスチャのロード
+	glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,nWidth,nHeight,0,GL_RGBA,GL_UNSIGNED_BYTE,pImage);
+
+	// イメージの破棄
+	delete[] pImage;
+
+	if(glIsTexture(nTexture))
+	{
+		int a = 0;
+	}
+
+	return nTexture;
+}
+
+//=============================================================================
 // TGAファイル読み込み処理
 //=============================================================================
 unsigned int CGLTexture::LoadPng(const char* pFilename)
@@ -223,6 +279,10 @@ CGLTexture::EXTENSION CGLTexture::GetExtension(const char* pFilename)
 	else if(!strcmp(pExtension,"png"))
 	{
 		Ret = EXTENSION_PNG;
+	}
+	else if(!strcmp(pExtension,"txo"))
+	{
+		Ret = EXTENSION_TXO;
 	}
 
 	SAFE_DELETE_ARRAY(pExtension);

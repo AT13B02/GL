@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// XAudio処理 [xaudio2.h]
+// XAudioクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/09/11(Thu)
-// Version		: 1.00
-// Update Date	: 2014/09/11(Thu)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -20,8 +17,10 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
 #include <xaudio2.h>
+
+// basic
+#include "basic/basic.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -46,23 +45,23 @@ public:
 	void Uninit(void);
 
 	// チャンクのチェック
-	HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition);
+	HRESULT CheckChunk(HANDLE h_file, DWORD format, DWORD *chunk_size, DWORD *chunk_data_position);
 
 	// チャンクデータの読み込み
-	HRESULT ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset);
+	HRESULT ReadChunkData(HANDLE h_file, void* buffer, DWORD buffer_size, DWORD buffer_offset);
 
 	// XAudio2の取得
-	IXAudio2* GetXAudio2(void){return m_pXAudio2;}
+	IXAudio2* xaudio2(void){return xaudio2_;}
 
 	// XAudio2の取得
-	IXAudio2MasteringVoice* GetMasteringVoice(void){return m_pMasteringVoice;}
+	IXAudio2MasteringVoice* mastering_voice(void){return mastering_voice_;}
 
 protected:
 
 private:
-	IXAudio2* m_pXAudio2;							// XAudio2オブジェクトへのインターフェイス
+	IXAudio2* xaudio2_;							// XAudio2オブジェクトへのインターフェイス
 
-	IXAudio2MasteringVoice* m_pMasteringVoice;		// マスターボイス
+	IXAudio2MasteringVoice* mastering_voice_;		// マスターボイス
 };
 
 #endif // _XAUDIO_H_

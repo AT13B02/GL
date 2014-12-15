@@ -10,6 +10,7 @@
 // インクルード
 //*****************************************************************************
 #include "common/math/math.h"
+#include "common/math/quaternion/quaternion.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -26,7 +27,7 @@
 //=============================================================================
 // 単位ベクトル化
 //=============================================================================
-void VECTOR3::Normalize(void)
+const VECTOR3& VECTOR3::Normalize(void)
 {
 	float fMagnitude = Magnitude();
 
@@ -37,6 +38,8 @@ void VECTOR3::Normalize(void)
 		_y /= fMagnitude;
 		_z /= fMagnitude;
 	}
+
+	return *this;
 }
 
 //=============================================================================
@@ -70,9 +73,42 @@ VECTOR3 VECTOR3::CrossProduct(const VECTOR3& vector) const
 }
 
 //=============================================================================
+// ベクトルの任意軸回転
+//=============================================================================
+VECTOR3 VECTOR3::RotationAxis(const VECTOR3& axis, const float rotRad)
+{
+	QUATERNION src, rotQ, rotQconj, temp, dest;
+	VECTOR3 vector;
+
+	// 座標をクォータニオンに変換
+	src._x = _x;
+	src._y = _y;
+	src._z = _z;
+	src._w = 0.0f;
+
+	// 回転クォータニオン作成
+	rotQ.RotationAxis(axis, rotRad);
+	// 共役作成
+	rotQconj._x = -rotQ._x;
+	rotQconj._y = -rotQ._y;
+	rotQconj._z = -rotQ._z;
+	rotQconj._w =  rotQ._w;
+
+	// (q^-1)src
+	temp = rotQconj * src;
+	// (q^-1)src(q)
+	dest = temp * rotQ;
+
+	// destのxyz成分がそのまま座標になっている。便利
+	vector._x = dest._x; vector._y = dest._y; vector._z = dest._z;
+	
+	return vector;
+}
+
+//=============================================================================
 // スカラーとの足算
 //=============================================================================
-VECTOR3 VECTOR3::operator+(const float& fValue)
+VECTOR3 VECTOR3::operator+(const float& fValue) const
 {
 	return VECTOR3(_x + fValue,_y + fValue,_z + fValue);
 }
@@ -80,7 +116,7 @@ VECTOR3 VECTOR3::operator+(const float& fValue)
 //=============================================================================
 // スカラーとの引算
 //=============================================================================
-VECTOR3 VECTOR3::operator-(const float& fValue)
+VECTOR3 VECTOR3::operator-(const float& fValue) const
 {
 	return VECTOR3(_x - fValue,_y - fValue,_z - fValue);
 }
@@ -88,7 +124,7 @@ VECTOR3 VECTOR3::operator-(const float& fValue)
 //=============================================================================
 // スカラーとの掛算
 //=============================================================================
-VECTOR3 VECTOR3::operator*(const float& fValue)
+VECTOR3 VECTOR3::operator*(const float& fValue) const
 {
 	return VECTOR3(_x * fValue,_y * fValue,_z * fValue);
 }
@@ -96,7 +132,7 @@ VECTOR3 VECTOR3::operator*(const float& fValue)
 //=============================================================================
 // スカラーとの割算
 //=============================================================================
-VECTOR3 VECTOR3::operator/(const float& fValue)
+VECTOR3 VECTOR3::operator/(const float& fValue) const
 {
 	if(fValue != 0)
 	{

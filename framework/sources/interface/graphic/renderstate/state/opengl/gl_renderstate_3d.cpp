@@ -74,7 +74,7 @@ void CGLRenderstate3D::Set(void)
 	// テクスチャの使用
 	glEnable(GL_TEXTURE_2D);
 
-	// ライトを消す
+	// ライトを有効
 	glEnable(GL_LIGHTING);
 
 	// Zバッファを使用

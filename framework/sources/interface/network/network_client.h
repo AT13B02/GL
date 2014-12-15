@@ -20,7 +20,7 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
+#include "../../basic/basic.h"
 #include <winsock.h>
 #include "network_data.h"
 
@@ -63,12 +63,14 @@ public:
 
 	// ネットワークデータバッファ
 	CNetworkDataBuffer* GetNetworkDataBuffer(void){return m_pNetworkDataBuffer;}
+
+	CWindowsSockets* GetWinSock(void){return m_pWinsock;};
 protected:
 
 private:
-	CThread* m_pThread;
-	bool volatile m_bLoopFlag;
-	CWindowsSockets* m_pWinsock;
+	CThread*			m_pThread;
+	bool volatile		m_bLoopFlag;
+	CWindowsSockets*	m_pWinsock;
 	CNetworkDataBuffer* m_pNetworkDataBuffer;
 
 	// 受信スレッド処理

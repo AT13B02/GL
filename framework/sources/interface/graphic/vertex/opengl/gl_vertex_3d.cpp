@@ -50,8 +50,6 @@ void CGLVertex3D::Draw(const MATRIX4x4& matrix,const u32& offset,const u32 lengt
 {
 	u32 vertex_number = offset + length;
 
-	glEnable(GL_TEXTURE_2D);
-
 	// ビューの設定開始
 	glMatrixMode(GL_MODELVIEW);
 

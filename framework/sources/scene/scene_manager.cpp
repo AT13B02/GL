@@ -24,6 +24,9 @@
 // sound
 #include "interface/sound/sound_manager.h"
 
+//fade
+#include "scene/fade_2d.h"
+
 // common
 #include "common/thread/thread.h"
 #include "common/common.h"
@@ -64,6 +67,7 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 	next_scene_ = new CTitleFactory();
 
 	// フェード
+	fade_2d_ = new CFade2D(interface_manager_);
 }
 
 //=============================================================================
@@ -71,6 +75,7 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 //=============================================================================
 CSceneManager::~CSceneManager(void)
 {
+	
 }
 
 //=============================================================================
@@ -89,6 +94,9 @@ bool CSceneManager::Init(void)
 //=============================================================================
 void CSceneManager::Update(void)
 {
+	//フェード更新
+	fade_2d_->Update();
+
 	// ロードしていないことを確認
 	if(!load_flag_)
 	{
@@ -102,6 +110,9 @@ void CSceneManager::Update(void)
 
 				// 描画モードをメインに切り換える
 				interface_manager_->graphic_manager()->device_holder()->SetDrawMode(CGraphicDevice::DEVICE_MODE_MAIN);
+
+				// フェードイン
+				fade_2d_->FadeIn();
 			}
 		}
 
@@ -113,12 +124,20 @@ void CSceneManager::Update(void)
 			// 次のシーンが存在しない時
 			if(next_scene_ == NULL)
 			{
+				// 次のシーンへ
 				next_scene_ = scene_->next_scene();
+
+				// 次のシーンが設定されたら
+				if(next_scene_ != NULL)
+				{
+					// フェードアウト
+					fade_2d_->FadeOut();
+				}
 			}
 		}
 
 		// 次のシーンが存在するとき
-		if(next_scene_ != NULL)
+		if((next_scene_ != NULL) && (fade_2d_->IsFadeOutEnd()))
 		{
 			// ロードフラグをオン
 			load_flag_ = true;
@@ -160,12 +179,19 @@ void CSceneManager::Draw(void)
 			// 描画処理
 			scene_->Draw();
 		}
+		//フェード描画
+		fade_2d_->Draw();
 	}
 	else
 	{
 		if(load_ != NULL)
 		{
 			load_->Draw();
+		}
+		else
+		{
+			//フェード描画
+			fade_2d_->Draw();
 		}
 	}
 }
@@ -186,6 +212,9 @@ void CSceneManager::Uninit(void)
 
 	// 次のシーンの破棄
 	SAFE_DELETE(next_scene_);
+
+	// フェードの破棄
+	SAFE_RELEASE(fade_2d_);
 }
 
 //=============================================================================

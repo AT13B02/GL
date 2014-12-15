@@ -81,7 +81,10 @@ void CGLRenderstateAll::Set(void)
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 	// カリング使用
-	glEnable(GL_CULL_FACE_MODE);
+	glEnable(GL_CULL_FACE);
+
+	// 裏をカリング
+	glCullFace(GL_BACK);
 
 	//glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 }

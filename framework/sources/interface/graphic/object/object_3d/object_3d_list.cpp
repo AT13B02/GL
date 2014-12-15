@@ -76,6 +76,20 @@ u32 CObject3DList::AddList(CObject3D* object_3d)
 }
 
 //=============================================================================
+// 追加
+//=============================================================================
+bool CObject3DList::EraseList(u32 object_key)
+{
+	auto it = object_3d_list_.find(object_key);
+
+	SAFE_RELEASE(it->second);
+
+	object_3d_list_.erase(it);
+
+	return true;
+}
+
+//=============================================================================
 // オブジェクトの取得
 //=============================================================================
 CObject3D* CObject3DList::GetListData(const u32& object_key)

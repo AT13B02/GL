@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// 矩形2Dクラス [object_2d.h]
+// 矩形2Dクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/04/21(Mon)
-// Version		: 1.00
-// Update Date	: 2014/05/14(Wed)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -20,7 +17,7 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "object_2d.h"
+#include "../object_2d.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -39,6 +36,7 @@
 //*****************************************************************************
 class CTexture;
 class CGraphicsDevice;
+class CVertex3D;
 
 //*****************************************************************************
 // クラス定義
@@ -46,6 +44,12 @@ class CGraphicsDevice;
 class CRectangle2D : public CObject2D
 {
 public:
+	// コンストラクタ
+	CRectangle2D(CDeviceHolder* device_holder);
+
+	// デストラクタ
+	virtual ~CRectangle2D(void);
+
 	enum POINT
 	{
 		POINT_CENTER = 0,
@@ -60,54 +64,55 @@ public:
 		POINT_MAX,
 	};
 
-	// 作成処理
-	static CRectangle2D* Create(CGraphicsDevice* pGraphicsDevice);
+	// 初期化処理
+	bool Init(void);
+
+	// 描画処理
+	void Draw(CObject2DData* pObject2DData);
+
+	// 終了処理
+	void Uninit(void);
 
 	// 頂点情報の設定
-	virtual void Set(void);
+	void Set(void);
 
 	// サイズの設定
-	void SetSize(const VECTOR2& Size){m_Size = Size;}
+	void set_size(const VECTOR2& size){size_ = size;}
 
 	// テクスチャ座標の設定
-	void SetTexcoord(const float& fLeft,const float& fRight,const float& fTop,const float& fBottom){m_fLeft = fLeft;m_fRight = fRight;m_fTop = fTop;m_fBottom = fBottom;}
+	void set_texcoord(const f32& left,const f32& right,const f32& top,const f32& bottom){left_ = left;right_ = right;top_ = top;bottom_ = bottom;}
 
 	// カラーの設定
-	void SetColor(const COLOR4F& Color){for(int i = 0;i < VERTEX_MAX;i++){m_Color[i] = Color;}}
+	void set_color(const COLOR4F& color){for(int i = 0;i < VERTEX_MAX;i++){color_[i] = color;}}
 
 	// カラーの設定
-	void SetColor(const COLOR4F& LeftTop,const COLOR4F& RightTop,const COLOR4F& LeftBottom,const COLOR4F& RightBottom){m_Color[0] = LeftTop;m_Color[1] = LeftBottom;m_Color[2] = RightTop;m_Color[3] = RightBottom;}
+	void set_color(const COLOR4F& left_top,const COLOR4F& right_top,const COLOR4F& left_bottom,const COLOR4F& right_bottom){color_[0] = left_top;color_[1] = left_bottom;color_[2] = right_top;color_[3] = right_bottom;}
 
 	// 中心の設定
-	void SetPoint(POINT Point){m_Point = Point;}
-
+	void set_point(POINT point){point_ = point;}
 protected:
 	static const int VERTEX_MAX = (4);
 
-	// コンストラクタ
-	CRectangle2D(void);
-
-	// デストラクタ
-	virtual ~CRectangle2D(void);
-
 	// サイズ
-	VECTOR2 m_Size;
+	VECTOR2 size_;
 
 	// 色
-	COLOR4F m_Color[VERTEX_MAX];
+	COLOR4F color_[VERTEX_MAX];
 
 	// テクスチャ座標
-	float m_fLeft;
-	float m_fRight;
-	float m_fTop;
-	float m_fBottom;
+	f32 left_;
+	f32 right_;
+	f32 top_;
+	f32 bottom_;
 
 	// 中心点
-	POINT m_Point;
+	POINT point_;
 
 	// 頂点座標
-	VECTOR2 m_Position[VERTEX_MAX];
+	VECTOR2 position_[VERTEX_MAX];
 
+	// 頂点情報
+	CVertex2D* vertex_2d_;
 private:
 
 };

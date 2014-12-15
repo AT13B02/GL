@@ -14,10 +14,10 @@
 // インクルード
 //*****************************************************************************
 #include "windows_sockets.h"
-#include "network_data.h"
 #include <stdio.h>
+#include "network_data_buffer.h"
 
-#include "common.h"
+#include "../../common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -49,10 +49,10 @@ CWindowsSockets::CWindowsSockets(const char* pIpAddress)
 
 	nLen = strlen(pIpAddress);
 
-	m_pIpAddress = new char[nLen + 1];
-
 	// IPアドレスの設定
-	strcpy(m_pIpAddress,pIpAddress);
+	strcpy(m_pIpAddress,("255.255.255.255\0"));
+
+	m_DataBuffer = NULL;
 }
 
 //=============================================================================
@@ -68,48 +68,57 @@ CWindowsSockets::~CWindowsSockets(void)
 bool CWindowsSockets::Init(void)
 {
 	WSADATA WsaData;		// WindowsSocketsSocketAPIデータ
-	CDebugConsole* pDebugConsole = CDebug::GetDebugManager()->GetDebugConsole();
+	// IPアドレスの設定
+	strcpy(m_pIpAddress,("255.255.255.255\0"));
 	
 	// WinSockの使用開始
 	if(WSAStartup(MAKEWORD(2,2),&WsaData))
 	{
-		pDebugConsole->Print("WindowsSocketsのスタートアップ失敗\n");
+		DEBUG_TOOL.debug_console()->Print("WindowsSocketsのスタートアップ失敗\n");
 		return false;
 	}
 	
 	//ソケットの生成
-	m_Socket = socket(AF_INET,SOCK_DGRAM,IPPROTO_UDP);
+	m_Socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
 	// ソケットの生成の確認
 	if(m_Socket == INVALID_SOCKET)
 	{
-		pDebugConsole->Print("ソケットの生成失敗\n");
+		DEBUG_TOOL.debug_console()->Print("ソケットの生成失敗\n");
 		return false;
 	}
 
-	// マルチキャスト受信許可
-	int value = 1;
-	setsockopt( m_Socket, SOL_SOCKET, SO_REUSEADDR, (char*)&value, sizeof(value) );
+	char yes = '1';
+	// ブロードキャスト許可
+	setsockopt(m_Socket, SOL_SOCKET, SO_BROADCAST, &yes, sizeof(yes));
 
-	// ソケットアドレスの設定
-	m_Sendaddr.sin_port = htons(20000);
-	m_Sendaddr.sin_family= AF_INET;
+	// 送信アドレスの設定
+	memset(&m_Sendaddr, 0, sizeof(m_Sendaddr));
 	m_Sendaddr.sin_addr.s_addr = inet_addr(m_pIpAddress);
+	m_Sendaddr.sin_port = htons(20002);
+	m_Sendaddr.sin_family = AF_INET;
 
 	// 受信アドレス
-	m_Recieveaddr.sin_port = htons(20001);
-	m_Recieveaddr.sin_family= AF_INET;
+	memset(&m_Recieveaddr, 0, sizeof(m_Recieveaddr));
 	m_Recieveaddr.sin_addr.s_addr = INADDR_ANY;
+	m_Recieveaddr.sin_port = htons(20002);
+	m_Recieveaddr.sin_family= AF_INET;
+	int len = sizeof(m_Recieveaddr);
 
 	// バインド
-	bind(m_Socket,(sockaddr*)&m_Recieveaddr,sizeof(m_Recieveaddr));
+	if(bind(m_Socket,(struct sockaddr*)&m_Recieveaddr,len) < 0)
+	{
+		int i;
+		i = WSAGetLastError();
+		i = i;
+	}
 
-	// マルチキャストグループに参加
-	ip_mreq mreq;
-	memset( &mreq, 0, sizeof(mreq) );
-	mreq.imr_multiaddr.s_addr = inet_addr(m_pIpAddress);//マルチキャストアドレス
-	mreq.imr_interface.s_addr = INADDR_ANY;
-	setsockopt(m_Socket,IPPROTO_IP,IP_ADD_MEMBERSHIP,(char*)&mreq,sizeof(mreq));
+//	// マルチキャストグループに参加
+//	ip_mreq mreq;
+//	memset( &mreq, 0, sizeof(mreq) );
+//	mreq.imr_multiaddr.s_addr = inet_addr(m_pIpAddress);//マルチキャストアドレス
+//	mreq.imr_interface.s_addr = INADDR_ANY;
+//	setsockopt(m_Socket,IPPROTO_IP,IP_ADD_MEMBERSHIP,(char*)&mreq,sizeof(mreq));
 
 	return true;
 }
@@ -119,17 +128,125 @@ bool CWindowsSockets::Init(void)
 //=============================================================================
 void CWindowsSockets::Uninit(void)
 {
-	SAFE_DELETE_ARRAY(m_pIpAddress);
-
 	closesocket(m_Socket);
 }
 
 //=============================================================================
 // データの送信
 //=============================================================================
-void CWindowsSockets::SendData(char* pData,int nSize)
+void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id)
 {
-	sendto(m_Socket,(char*)pData,nSize,0,(struct sockaddr*)&m_Sendaddr,sizeof(sockaddr_in));
+	NETWORK_DATA Data = {0};
+	strcpy(Data.game_ID, kGameID);
+	Data.my_type = MY_TYPE_CHARCTER;
+	Data.my_ID = m_DataBuffer->GetID();
+	sockaddr_in Send;
+
+	Send.sin_port = m_Sendaddr.sin_port;
+	Send.sin_family= AF_INET;
+	Send.sin_addr = m_Sendaddr.sin_addr;
+
+	Data.data_type = NETWORK_DATA_TYPE_POSITION;
+	{
+		Data.position.x = position->_x;
+		Data.position.y = position->_y;
+		Data.position.z = position->_z;
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+
+	Data.data_type = NETWORK_DATA_TYPE_ROTATION;
+	{
+		Data.rotation.x = rotation->_x;
+		Data.rotation.y = rotation->_y;
+		Data.rotation.z = rotation->_z;
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+
+	Data.data_type = NETWORK_DATA_TYPE_ANIMATION_ID;
+	{
+		Data.animation_ID.animation_ID = animation_id;
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+
+	// 全て送った通知を出す
+	Data.data_type = NETWORK_DATA_TYPE_ALL_SEND;
+	{
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+}
+
+//=============================================================================
+// データの送信
+//=============================================================================
+void CWindowsSockets::SendDataBullet(VECTOR3* position, VECTOR3* front_vector, float speed)
+{
+	NETWORK_DATA Data = {0};
+	strcpy(Data.game_ID, kGameID);
+	Data.my_type = MY_TYPE_BULLET;
+	Data.my_ID = m_DataBuffer->GetID();
+	sockaddr_in Send;
+
+	Send.sin_port = m_Sendaddr.sin_port;
+	Send.sin_family= AF_INET;
+	Send.sin_addr.s_addr = m_Sendaddr.sin_addr.s_addr;
+
+	Data.data_type = NETWORK_DATA_TYPE_POSITION;
+	{
+		Data.position.x = position->_x;
+		Data.position.y = position->_y;
+		Data.position.z = position->_z;
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+
+	Data.data_type = NETWORK_DATA_TYPE_FRONT_VECTOR;
+	{
+		Data.front_vector.x = front_vector->_x;
+		Data.front_vector.y = front_vector->_y;
+		Data.front_vector.z = front_vector->_z;
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+
+	Data.data_type = NETWORK_DATA_TYPE_SPEED;
+	{
+		Data.speed.speed = speed;
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+
+	// 全て送った通知を出す
+	Data.data_type = NETWORK_DATA_TYPE_ALL_SEND;
+	{
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+}
+//=============================================================================
+// データの送信
+//=============================================================================
+void CWindowsSockets::RequestID(void)
+{
+	//TODO
+	m_Sendaddr.sin_port = htons(20001);
+
+	NETWORK_DATA Data = {0};
+	Data.my_ID = -1;
+	strcpy(Data.game_ID, kGameID);
+	Data.my_type = MY_TYPE_CHARCTER;
+	Data.data_type = NETWORK_DATA_TYPE_REQUEST_PLAYER_NUMBER;
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&m_Sendaddr, sizeof(m_Sendaddr));
+
+	//TODO
+	m_Sendaddr.sin_port = htons(20002);
+}
+//=============================================================================
+// リザルトに切り替え通知
+//=============================================================================
+void CWindowsSockets::SendDataGoToResultScene(void)
+{
+	NETWORK_DATA Data = {0};
+	Data.my_ID = -1;
+	strcpy(Data.game_ID, kGameID);
+	Data.my_type = MY_TYPE_CHARCTER;
+	Data.data_type = NETWORK_DATA_TYPE_GO_TO_RESULT;
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&m_Sendaddr, sizeof(m_Sendaddr));
 }
 
 //=============================================================================
@@ -147,14 +264,16 @@ void CWindowsSockets::SendDataMyself(char* pData,int nSize)
 }
 
 //=============================================================================
-// データの送信
+// データの受信
 //=============================================================================
-void CWindowsSockets::ReceiveData(char* pOutData)
+int CWindowsSockets::ReceiveData(NETWORK_DATA* pOutData, sockaddr_in* from_addres)
 {
-	int SockaddrInSize = sizeof(struct sockaddr_in);
-	sockaddr_in From;
+	struct sockaddr_in from_addr;
+	int SockaddrInSize = sizeof(from_addr);
 
-	recvfrom(m_Socket,(char*)pOutData,sizeof(NETWORK_DATA),0,(sockaddr*)&From,&SockaddrInSize);
+	int ilen = recvfrom(m_Socket,(char*)pOutData,sizeof(NETWORK_DATA),0,(struct sockaddr*)&from_addr,&SockaddrInSize);
+	
+	return ilen;
 }
 
 //---------------------------------- EOF --------------------------------------

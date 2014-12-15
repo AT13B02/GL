@@ -1,27 +1,22 @@
 //*****************************************************************************
 //
-// サウンドデバイスクラス [sound_device.cpp]
+// サウンドデバイスクラス
 //
-// Author		: 兜森 健史
-// Date			: 2014/09/11(Thu)
-// Version		: 1.00
-// Modified by	: 兜森 健史
-// Update date	: 2014/09/11(Thu)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "sound_device.h"
-
+// sound
+#include "interface/sound/device/sound_device.h"
 #ifdef _USING_XAUDIO2_
-#include "xaudio2.h"
+#include "interface/sound/device/xaudio2/xaudio2.h"
 #endif
 
-#include "common.h"
-
-#include <stdio.h>
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -46,7 +41,7 @@ CSoundDevice::CSoundDevice(void)
 {
 #ifdef _USING_XAUDIO2_
 	// XAudio2の作成
-	m_pDevice = new CXAudio2();
+	device_ = new CXAudio2();
 #endif
 }
 
@@ -62,7 +57,7 @@ CSoundDevice::~CSoundDevice(void)
 //=============================================================================
 bool CSoundDevice::Init(void)
 {
-	INIT(m_pDevice);
+	INIT(device_);
 
 	return true;
 }
@@ -73,7 +68,7 @@ bool CSoundDevice::Init(void)
 void CSoundDevice::Uninit(void)
 {
 	// デバイスの破棄
-	SAFE_RELEASE(m_pDevice);
+	SAFE_RELEASE(device_);
 }
 
 //---------------------------------- EOF --------------------------------------

@@ -1,30 +1,28 @@
 //*****************************************************************************
 //
-// ライトクラス [light.h]
+// ライトクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/09/19(Fri)
-// Version		: 1.00
-// Update Date	: 2014/09/19(Fri)
+// Author		: Kenji Kabutomori
+//				: Ryo Kobayashi
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "application.h"
+#include "basic/application.h"
 
+// graphic
 #ifdef _USING_OPENGL_
-//#include "gl_light.h"
+#include "interface/graphic/light/opengl/gl_light.h"
 #endif
-
 #ifdef _USING_DIRECTX_
 #include "dx_light.h"
 #endif
+#include "interface/graphic/light/light.h"
 
-#include "light.h"
-#include "common.h"
-#include "math.h"
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -41,13 +39,21 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CLight::CLight(CGraphicsDevice* pGraphicsDevice)
+CLight::CLight(CDeviceHolder* device_holder) :
+light_index_(-1),
+light_type_(TYPE_MAX),
+vector_(0.0f, 0.0f, 0.0f),
+diffuse_(1.0f, 1.0f, 1.0f, 1.0f),
+ambient_(0.0f, 0.0f, 0.0f, 0.0f),
+specular_(0.0f, 0.0f, 0.0f, 0.0f),
+emissive_(0.0f, 0.0f, 0.0f, 0.0f),
+spec_power_(0.0f),
+position_(0.0f, 0.0f, 0.0f, 1.0f),
+att_constant_(1.0f),
+att_linear_(0.0f),
+att_quadratic_(0.0f)
 {
-	m_pGraphicsDevice = pGraphicsDevice;
-
-	m_Vector = VECTOR3(0.0f,0.0f,0.0f);
-
-	m_Color = COLOR4F(1.0f,1.0f,1.0f,1.0f);
+	device_holder_ = device_holder;
 }
 
 //=============================================================================
@@ -60,19 +66,24 @@ CLight::~CLight(void)
 //=============================================================================
 // 作成処理
 //=============================================================================
-CLight* CLight::Create(CGraphicsDevice* pGraphicsDevice)
+CLight* CLight::Create(CDeviceHolder* device_holder)
 {
-	CLight* pLight = NULL;
+	CLight* light = NULL;
 
 #ifdef _USING_DIRECTX_
-	pLight = new CDXLight(pGraphicsDevice);
+	light = new CDXLight(pGraphicsDevice);
 #endif
 
 #ifdef _USING_OPENGL_
-	//pLight = new CGLLight(pGraphicsDevice);
+	light = new CGLLight(device_holder);
 #endif
 
-	return pLight;
+	if(!light->Init())
+	{
+		return NULL;
+	}
+
+	return light;
 }
 
 //=============================================================================
@@ -81,6 +92,13 @@ CLight* CLight::Create(CGraphicsDevice* pGraphicsDevice)
 bool CLight::Init(void)
 {
 	return true;
+}
+
+//=============================================================================
+// 開放処理
+//=============================================================================
+void CLight::Uninit(void)
+{
 }
 
 //---------------------------------- EOF --------------------------------------

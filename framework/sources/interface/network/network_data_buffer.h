@@ -20,8 +20,9 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
+#include "../../basic/basic.h"
 #include "network_data.h"
+#include "../../common/math/vector/vector3.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -30,21 +31,47 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
+static const int kMaxPlayer = 4;
 
 //*****************************************************************************
 // 構造体定義
 //*****************************************************************************
+typedef struct
+{
+	char from_addr[16];
+}FROM_ADDERS;
+
+typedef struct
+{
+	bool end_push_flag;
+	int player_id;
+	int animation_id;
+	VECTOR3 position;
+	VECTOR3 rotation;
+}CHARCTER_INFO;
+
+typedef struct
+{
+	bool end_push_flag;
+	int player_id;
+	float speed;
+	VECTOR3 position;
+	VECTOR3 front_vector;
+}BULLET_INFO;
+
+typedef struct
+{
+	bool recive_position;
+	bool recive_rotation;
+	bool recive_animation_ID;
+	bool recive_speed;
+	bool recive_frontvector;
+}RECIVE_STATE;
 
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-namespace std
-{
-	template < class T > class allocator;
-	template < class T, class Allocator > class list;
-}
 
-#define LIST_FWD(x_type)  std::list<x_type, std::allocator<x_type> >
 
 //*****************************************************************************
 // クラス定義
@@ -65,31 +92,39 @@ public:
 	void Uninit(void);
 
 	// データの追加
-	void Push(NETWORK_DATA pData);
+	void Push(NETWORK_DATA* pData);
 
-	// データの取り出し
-	NETWORK_DATA Pop(void);
+	// IDをセット**プレイヤーや弾は呼び出さない***
+	void SetID(NETWORK_DATA* pData);
 
-	// 空か確認
-	bool Empty(void);
+	// IDをゲット
+	int GetID(void){return m_MyID;};
 
-	// 変更
-	void Change(void);
+	// キャラクター情報バッファ取得
+	CHARCTER_INFO* GetCharcterInfoBuffer(void);
 
-	void RaiseChangeFlag(void){m_bChangeFlag = true;}
-	bool GetChangeFlag(void){return m_bChangeFlag;}
+	// 弾情報バッファ取得
+	BULLET_INFO* GetBulletInfoBuffer(void);
+
+	// ゲームシーン終了フラグをセット
+	void SetGameSceneEndFlag(bool flag){m_GameSceneEnd = flag;};
+	// ゲームシーン終了フラグをゲット
+	bool GetGameSceneEndFlag(void){return m_GameSceneEnd;};
+
 protected:
+	// キャラデータの追加
+	void PushCharcter(NETWORK_DATA* pData);
+
+	// 弾データの追加
+	void PushBullet(NETWORK_DATA* pData);
 
 private:
-	enum LIST_TYPE
-	{
-		LIST_TYPE_USE = 0,
-		LIST_TYPE_CONTAINER,
-		LIST_TYPE_MAX
-	};
-	LIST_FWD(NETWORK_DATA)* m_pList[LIST_TYPE_MAX];
-
-	bool m_bChangeFlag;
+	char m_InitAddres[16];
+	CHARCTER_INFO m_CharcterInfoBuffer[kMaxPlayer];
+	BULLET_INFO m_BulletInfoBuffer[kMaxPlayer];
+	int m_MyID;
+	RECIVE_STATE m_ReciveState[kMaxPlayer];
+	bool m_GameSceneEnd;
 };
 
 #endif	// _NETWORK_DATA_BUFFER_H_

@@ -1,34 +1,21 @@
 //*****************************************************************************
 //
-// ライトマネージャークラス [light_manager.h]
+// ライトマネージャークラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/09/22(Mon)
-// Version		: 1.00
-// Update Date	: 2014/09/22(Mon)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "application.h"
+// graphic
+#include "interface/graphic/light/light.h"
+#include "interface/graphic/light/light_manager.h"
 
-#ifdef _USING_OPENGL_
-//#include "gl_light.h"
-#endif
-
-#ifdef _USING_DIRECTX_
-#include "dx_light.h"
-#endif
-
-#include "light_manager.h"
-#include "math.h"
-
-#include "input_manager.h"
-#include "input_keyboard.h"
-
-#include "common.h"
+// common
+#include "common/math/math.h"
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -45,29 +32,11 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CLightManager::CLightManager(CGraphicsDevice* pGraphicsDevice)
+CLightManager::CLightManager(CDeviceHolder* device_holder) :
+number_light_(0)
 {
 	// グラフィックデバイスの設定
-	m_pGraphicsDevice = pGraphicsDevice;
-
-	// ライト配列の生成
-	m_pLight = new CLight*[LIGHT_MAX];
-
-	// ライト配列の初期化
-	for(int i = 0;i < LIGHT_MAX;i++)
-	{
-		m_pLight[i] = NULL;
-	}
-
-	// ライトの生成
-	//m_pLight[0] = CLight::Create(pGraphicsDevice);
-
-	// 向きの設定
-	//m_pLight[0]->SetVector(VECTOR3(0.0f,-1.0f,0.3f));
-
-	// 色の設定
-	//m_pLight[0]->SetColor(COLOR4F(1.0f,1.0f,1.0f,1.0f));
-
+	device_holder_ = device_holder;
 }
 
 //=============================================================================
@@ -97,15 +66,12 @@ void CLightManager::Update(void)
 //=============================================================================
 void CLightManager::Uninit(void)
 {
-	// 
-	for(int i = 0;i < LIGHT_MAX;i++)
+	for(auto it = light_list_.begin();it != light_list_.end();++it)
 	{
-		// 開放処理
-		//SAFE_RELEASE(m_pLight[i]);
+		SAFE_RELEASE((*it));
 	}
 
-	// ライト配列の開放
-	SAFE_DELETE_ARRAY(m_pLight);
+	light_list_.clear();
 }
 
 //=============================================================================
@@ -113,26 +79,40 @@ void CLightManager::Uninit(void)
 //=============================================================================
 void CLightManager::Set(void)
 {
-	for(int i = 0;i < LIGHT_MAX;i++)
+	// ライトの設定
+	int light_index = 0;
+	for(auto it = light_list_.begin();it != light_list_.end() && light_index < CLight::LIGHT_MAX;++it)
 	{
-		if(m_pLight[i] != NULL)
-		{
-			//m_pLight[i]->Set();
-		}
+		(*it)->SetLightIndex(light_index);
+		(*it)->Set();
+		light_index++;
 	}
 }
 
 //=============================================================================
-// 取得処理
+// 設定処理
 //=============================================================================
-CLight* CLightManager::Get(int nNumber)
+void CLightManager::Unset(void)
 {
-	if(nNumber >= 0 && nNumber < LIGHT_MAX)
+	// ライトの設定
+	for(auto it = light_list_.begin();it != light_list_.end();++it)
 	{
-		return m_pLight[nNumber];
+		(*it)->Unset();
 	}
+}
 
-	return NULL;
+//=============================================================================
+// 設定処理
+//=============================================================================
+void CLightManager::Add(CLight* light)
+{
+	if(number_light_ >= CLight::LIGHT_MAX)
+	{
+		return;
+	}
+	// ライトの追加
+	light_list_.push_back(light);
+	number_light_++;
 }
 
 //---------------------------------- EOF --------------------------------------

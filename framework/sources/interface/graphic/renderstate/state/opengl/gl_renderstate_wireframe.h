@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// XAudio2サウンド処理 [xaudio2_sound.h]
+// OpenGLレンダーステートワイヤーフレームクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/03/28(Fri)
-// Version		: 1.00
-// Update Date	: 2014/09/11(Thu)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -14,35 +11,46 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _XAUDIO2_SOUND_H_
-#define _XAUDIO2_SOUND_H_
+#ifndef _GL_RENDERSTATE_WIREFRAME_H_
+#define _GL_RENDERSTATE_WIREFRAME_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "sound.h"
-#include <xaudio2.h>
+// basic
+#include "basic/application.h"
+
+#ifdef _USING_OPENGL_
+// graphic
+#include "interface/graphic/renderstate/state/renderstate_wireframe.h"
+
+//*****************************************************************************
+// ライブラリのリンク
+//*****************************************************************************
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
 
 //*****************************************************************************
+// 構造体定義
+//*****************************************************************************
+
+//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CSoundDevice;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CXAudio2Sound : public CSound
+class CGLRenderstateWireframe : public CRenderstateWireframe
 {
 public:
 	// コンストラクタ
-	CXAudio2Sound(CSoundDevice* pSoundDevice);
+	CGLRenderstateWireframe(CDeviceHolder* device_holder);
 
 	// デストラクタ
-	virtual ~CXAudio2Sound(void);
+	virtual ~CGLRenderstateWireframe(void);
 
 	// 初期化
 	bool Init(void);
@@ -50,38 +58,16 @@ public:
 	// 終了
 	void Uninit(void);
 
-	// ロード
-	bool Load(const char* pFilename);
+	// 設定
+	void Set(void);
 
-	// 再生
-	void Play(bool bLoopFlag);
-
-	// 停止
-	void Stop(void);
-
-	// 一時停止
-	void Pause(void);
-
-	// 状態の取得
-	bool GetStatus(void){return m_bPlayFlag;}
-	// ボリュームの設定
-	//void SetVolume();
-
-protected:
-
+	// 解除
+	void Unset(void);
 private:
-	// サウンドデバイス
-	CSoundDevice* m_pSoundDevice;
-
-	// プレイフラグ
-	bool m_bPlayFlag;
-
-	int m_nSoundId;											// サウンドID
-	IXAudio2SourceVoice* m_pSourceVoice;					// ソースボイス
-	BYTE* m_pDataAudio;										// オーディオデータ
-	DWORD m_SizeAudio;										// オーディオデータサイズ
 };
 
-#endif // _XAUDIO2_SOUND_H_
+#endif // _USING_OPENGL_
+
+#endif // _GL_RENDERSTATE_WIREFRAME_H_
 
 //---------------------------------- EOF --------------------------------------
