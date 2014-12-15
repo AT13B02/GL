@@ -123,6 +123,7 @@ void CGLModel::Draw(const MATRIX4x4& matrix)
 	// デフォルトマテリアル取得
 	VECTOR4 diffuse;
 	glGetMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&diffuse);
+
 	for(u32 uAtt = 0; uAtt < m_uNumMaterial; uAtt++)
 	{
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*)&m_pMaterial->mat.Diffuse);
