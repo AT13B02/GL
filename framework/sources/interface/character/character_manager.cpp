@@ -28,6 +28,12 @@
 //=============================================================================
 CCharacterManager::CCharacterManager(void)
 {
+	//ネットプレイヤー初期化
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		network_player_[ i ] = NULL;
+	}
+
 	// プレイヤーマネージャーの生成
 	player_manager_ = new CPlayerManager();
 
@@ -76,12 +82,6 @@ bool CCharacterManager::Init(void)
 
 	// 衝突判定マネージャーの初期化
 	INIT(collision_manager_);
-
-	//ネットプレイヤー初期化
-	for( int i = 0; i < kMaxPlayer; i++ )
-	{
-		network_player_[ i ] = NULL;
-	}
 
 	return true;
 }

@@ -61,10 +61,10 @@ CPlayer::~CPlayer(void)
 bool CPlayer::Init(void)
 {
 	// オブジェクトモデルの生成
-	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+//	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
 
 	// オブジェクトリストに追加
-	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
+//	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
 
 	//値初期化
 	position_ = VECTOR3(0.0f,0.0f,0.0f);
@@ -76,6 +76,7 @@ bool CPlayer::Init(void)
 	VECTOR3 pos_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 	VECTOR3 rot_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 
+//	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	return true;
 }
 
@@ -155,12 +156,11 @@ void CPlayer::Update(void)
 	// 弾の発射
 	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE))
 	{
-		CBulletManager* bullet_manager = interface_manager_->character_manager()->bullet_manager();
-		CBullet* bullet = new CBullet(interface_manager_);
-
-		bullet->Init();
-		bullet->SetParameter(position_,front_vector.RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rotation_._y + 180.0f) * MTH_DEGREE),1.0f,0);
-		bullet_manager->Push(bullet);
+		VECTOR3 crate_position = position_;
+		crate_position._y += 20.f;
+		interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataBullet(&crate_position
+																								,&VECTOR3(0.0f,0.0f,1.0f).RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rotation_._y + 180.0f) * MTH_DEGREE)
+																								,1.0f);
 	}
 
 	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&position_,&rotation_,0);

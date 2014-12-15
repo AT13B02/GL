@@ -108,41 +108,49 @@ void CNetworkCommandAssistant::Update(void)
 	CCharacterManager *character_manager = interface_manager_->character_manager();
 	
 	//ネットのプレイヤーにアップデートしてー
-	for( int i = 0; i < kMaxPlayer; i++ )
+	for( int i = 0; i < kMaxPlayer; i++, net_chara_buf++)
 	{
+		if(net_chara_buf->player_id < 0)
+		{
+			continue;
+		}
 		if( net_chara_buf->end_push_flag == true )
 		{
-			if( character_manager->network_player( i ) == NULL )
+			if( character_manager->network_player( net_chara_buf->player_id ) == NULL )
 			{
-
 				//つくる
 				CNetWorkPlayer* player = new CNetWorkPlayer(interface_manager_);
 				player->Init();
 			
 				//ポインタ保存
-				character_manager->SetNetworkPlayer( player, i );
+				character_manager->SetNetworkPlayer( player, net_chara_buf->player_id );
 			}
 
 			//更新
-			character_manager->network_player( i )->set_position( net_chara_buf->position );
-			character_manager->network_player( i )->set_rotation( net_chara_buf->rotation );
-			character_manager->network_player( i )->Update();
+			character_manager->network_player( net_chara_buf->player_id )->set_position( net_chara_buf->position );
+			character_manager->network_player( net_chara_buf->player_id )->set_rotation( net_chara_buf->rotation );
+			character_manager->network_player( net_chara_buf->player_id )->Update();
+
+			net_chara_buf->end_push_flag = false;
 		}
-	
 	}
 
 	//弾バッファの取得
 	BULLET_INFO *net_bullet_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetBulletInfoBuffer();
 	
-	for(int i = 0; i < kMaxPlayer; i++)
+	for(int i = 0; i < kMaxPlayer; i++,net_bullet_buf++)
 	{
+		if(net_bullet_buf->player_id < 0)
+		{
+			continue;
+		}
 		if( net_bullet_buf->end_push_flag == true )
 		{
 			CBullet* bullet = new CBullet(interface_manager_);
 
 			bullet->Init();
 			bullet->SetParameter(net_bullet_buf->position,
-								net_bullet_buf->front_vector, 
+								net_bullet_buf->front_vector,
 								net_bullet_buf->speed,
 								net_bullet_buf->player_id);
 			
