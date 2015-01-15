@@ -72,6 +72,7 @@ private:
 	bool volatile		m_bLoopFlag;
 	CWindowsSockets*	m_pWinsock;
 	CNetworkDataBuffer* m_pNetworkDataBuffer;
+	static int			m_myID;
 
 	// 受信スレッド処理
 	static unsigned __stdcall ReceiveThread(CNetworkClient* pNetworkClient);
