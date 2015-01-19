@@ -90,6 +90,7 @@ void CNetworkClient::Uninit(void)
 	NETWORK_DATA SendData = {0};
 
 	SendData.data_type = NETWORK_DATA_TYPE_END;
+	SendData.my_ID = m_myID;
 	strcpy(SendData.game_ID, kGameID);
 
 	// 自分にデータを送信し、受信を終了させる
@@ -139,8 +140,10 @@ unsigned __stdcall CNetworkClient::ReceiveThread(CNetworkClient* pNetworkClient)
 		// ＩＤセット
 		if(Data.data_type == NETWORK_DATA_TYPE_SEND_PLAYER_NUMBER && m_myID < 0)
 		{
-			pNetworkClient->m_pNetworkDataBuffer->SetID(&Data);
+			pNetworkClient->m_pNetworkDataBuffer->SetID(Data.my_ID);
 			m_myID = Data.my_ID;
+//			CDebugManager &p = DEBUG_TOOL;
+//			p.debug_console()->Print("受信MY_ID = %d\n", m_myID);
 		}
 		// リザルトへ行くなら
 		else if(Data.data_type == NETWORK_DATA_TYPE_GO_TO_RESULT)
