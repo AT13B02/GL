@@ -84,10 +84,11 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
 		{
 			// “–‚½‚è”»’è
-			if(JudgeSphereCross((*player_it)->position(),10,(*bullet_it)->position(),10))
+			//if(JudgeSphereCross((*player_it)->position(),10,(*bullet_it)->position(),10))
+			if(JudgeSphereCross((*player_it)->position(),15,(*bullet_it)->position(),15))
 			{
 				//ƒŠƒUƒ‹ƒg‚ÖˆÚ“®
-
+  				int f=0;
 			}
 		}
 	}
