@@ -167,6 +167,9 @@
     <Filter Include="sources\interface\network">
       <UniqueIdentifier>{39602657-9715-4ad0-9226-a115601872f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\scene\match">
+      <UniqueIdentifier>{f0b80908-3c27-4a2b-bdc3-82f37f1daed7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -514,6 +517,9 @@
     <ClInclude Include="sources\interface\character\player\network_player.h">
       <Filter>sources\interface\character\player</Filter>
     </ClInclude>
+    <ClInclude Include="sources\scene\match\scene_match.h">
+      <Filter>sources\scene\match</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -848,6 +854,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\player\network_player.cpp">
       <Filter>sources\interface\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\match\scene_match.cpp">
+      <Filter>sources\scene\match</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

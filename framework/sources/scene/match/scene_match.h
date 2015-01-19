@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// シーンクラス
+// タイトルクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -11,13 +11,15 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_H_
-#define _SCENE_H_
+#ifndef _SCENE_MATCH_H_
+#define _SCENE_MATCH_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic/basic.h"
+#include "scene/scene.h"
+
+#include "common/math/vector/vector2.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -32,75 +34,73 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// クラスの前方参照
+// クラスの前方宣言
 //*****************************************************************************
-class CSceneFactory;
-class CTextureManager;
-class CInterfaceManager;
+class CSound;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CScene : public CBasic
+class CSceneMatch : public CScene
 {
 public:
-	enum TYPE
-	{
-		TYPE_TITLE = 0,		// タイトル
-		TYPE_MATCH,			// マッチング
-		TYPE_GAME,			// ゲーム
-		TYPE_LOAD,			// ロード
-		TYPE_MAX			// タイプの最大数
-	};
-
 	// コンストラクタ
-	CScene(CInterfaceManager* interface_manager,TYPE scene_type);
+	CSceneMatch(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CScene(void);
+	virtual ~CSceneMatch(void);
 
-	// 更新処理
-	virtual bool Init(void);
+	// 初期化
+	bool Init(void);
 
-	// 更新処理
-	virtual void Update(void) = 0;
+	// 更新
+	void Update(void);
 
-	// 描画処理
-	virtual void Draw(void) = 0;
+	// 描画
+	void Draw(void);
 
-	// 終了処理
-	virtual void Uninit(void) = 0;
+	// 終了
+	void Uninit(void);
 
-	// ロード処理
-	virtual void Load(void) = 0;
+	// ロード
+	void Load(void);
 
-	// 自身のファクトリの生成
-	virtual CSceneFactory* MakeFactory(void) = 0;
-
-	// 次のシーンの設定
-	bool set_next_scene(CSceneFactory* next_scene);
-
-	// 次のシーンの取得
-	CSceneFactory* next_scene(void){return next_scene_;}
-
-	// 現在のシーンを取得
-	int scene_type(void){return scene_type_;}
+	// 自分のファクトリーの作成
+	CSceneFactory* MakeFactory(void);
 
 protected:
-	// インターフェースマネージャー
-	CInterfaceManager* interface_manager_;
 
 private:
-	// 現在のシーン
-	TYPE scene_type_;
 
-	// 次のシーンファクトリー
-	CSceneFactory* next_scene_;
+	typedef enum TEXTURE_TYPE_
+	{
+		TEXTURE_TYPE_LOGO,
+		TEXTURE_TYPE_PLAYER1,
+		TEXTURE_TYPE_PLAYER2,
+		TEXTURE_TYPE_PLAYER3,
+		TEXTURE_TYPE_PLAYER4,
+		TEXTURE_TYPE_HOST_DECISION,
+		TEXTURE_TYPE_MAX,
+	}TEXTURE_TYPE;
 
-	// シーン切り替え中フラグ
-	bool changing_flag_;
+	static const char* p_texture_names[TEXTURE_TYPE_MAX];
+
+	static const int PLAYER_MAX = 4;
+	static const float PLAYER_DISP_OFFSET_X;
+	static const float PLAYER_DISP_OFFSET_Y;
+	static const float PLAYER_DISP_START_Y;
+	static const VECTOR2 HOST_DECITION_DEFAULT_POS;
+	static const VECTOR2 LOGO_DEFAULT_POS;
+	u32 test_object_key_;
+	u32 test_2d_key_;
+
+
+	u32 player_Disp_2d_key_[PLAYER_MAX]; //プレイヤーマッチング表示
+	u32 host_decision_key_;				 //ホストが決定を押すときに必要
+	u32 logo_key_;						 //ロゴ表示に必要
+
 };
 
-#endif	// _SCENE_H_
+#endif	// _SCENE_TITLE_H_
 
 //---------------------------------- EOF --------------------------------------
