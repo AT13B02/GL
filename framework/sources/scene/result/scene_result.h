@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// シーンクラス
+// タイトルクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -11,13 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_H_
-#define _SCENE_H_
+#ifndef _SCENE_RESULT_H_
+#define _SCENE_RESULT_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic/basic.h"
+#include "scene/scene.h"
+#include "common/math/vector/vector2.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -32,76 +33,48 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// クラスの前方参照
+// クラスの前方宣言
 //*****************************************************************************
-class CSceneFactory;
-class CTextureManager;
-class CInterfaceManager;
+class CSound;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CScene : public CBasic
+class CSceneResult : public CScene
 {
 public:
-	enum TYPE
-	{
-		TYPE_TITLE = 0,		// タイトル
-		TYPE_MATCH,			// マッチング
-		TYPE_GAME,			// ゲーム
-		TYPE_LOAD,			// ロード
-		TYPE_RESULT,		// リザルト
-		TYPE_MAX			// タイプの最大数
-	};
-
 	// コンストラクタ
-	CScene(CInterfaceManager* interface_manager,TYPE scene_type);
+	CSceneResult(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CScene(void);
+	virtual ~CSceneResult(void);
 
-	// 更新処理
-	virtual bool Init(void);
+	// 初期化
+	bool Init(void);
 
-	// 更新処理
-	virtual void Update(void) = 0;
+	// 更新
+	void Update(void);
 
-	// 描画処理
-	virtual void Draw(void) = 0;
+	// 描画
+	void Draw(void);
 
-	// 終了処理
-	virtual void Uninit(void) = 0;
+	// 終了
+	void Uninit(void);
 
-	// ロード処理
-	virtual void Load(void) = 0;
+	// ロード
+	void Load(void);
 
-	// 自身のファクトリの生成
-	virtual CSceneFactory* MakeFactory(void) = 0;
-
-	// 次のシーンの設定
-	bool set_next_scene(CSceneFactory* next_scene);
-
-	// 次のシーンの取得
-	CSceneFactory* next_scene(void){return next_scene_;}
-
-	// 現在のシーンを取得
-	int scene_type(void){return scene_type_;}
+	// 自分のファクトリーの作成
+	CSceneFactory* MakeFactory(void);
 
 protected:
-	// インターフェースマネージャー
-	CInterfaceManager* interface_manager_;
 
 private:
-	// 現在のシーン
-	TYPE scene_type_;
+	u32 test_object_key_;
 
-	// 次のシーンファクトリー
-	CSceneFactory* next_scene_;
-
-	// シーン切り替え中フラグ
-	bool changing_flag_;
+	u32 logo_key_;						 //ロゴ表示に必要
 };
 
-#endif	// _SCENE_H_
+#endif	// _SCENE_TITLE_H_
 
 //---------------------------------- EOF --------------------------------------

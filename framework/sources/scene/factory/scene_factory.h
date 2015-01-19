@@ -22,6 +22,7 @@
 #include "scene/match/scene_match.h"
 #include "scene/game/scene_game.h"
 #include "scene/load/scene_load.h"
+#include "scene/result/scene_result.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -122,6 +123,22 @@ public:
 
 	CScene* Make(CInterfaceManager* interface_manager){return new CSceneLoad(interface_manager);}
 
+protected:
+
+private:
+};
+
+class CResultFactory : public CSceneFactory
+{
+public:
+
+	// コンストラクタ
+	CResultFactory(void) : CSceneFactory(CScene::TYPE_RESULT){}
+
+	// デストラクタ
+	virtual ~CResultFactory(void){}
+
+	CScene* Make(CInterfaceManager* interface_manager){return new CSceneResult(interface_manager);}
 protected:
 
 private:

@@ -170,6 +170,9 @@
     <Filter Include="sources\scene\match">
       <UniqueIdentifier>{f0b80908-3c27-4a2b-bdc3-82f37f1daed7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\scene\result">
+      <UniqueIdentifier>{e7c78797-e8bd-4054-b3bf-931088fa5beb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -520,6 +523,9 @@
     <ClInclude Include="sources\scene\match\scene_match.h">
       <Filter>sources\scene\match</Filter>
     </ClInclude>
+    <ClInclude Include="sources\scene\result\scene_result.h">
+      <Filter>sources\scene\result</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -857,6 +863,9 @@
     </ClCompile>
     <ClCompile Include="sources\scene\match\scene_match.cpp">
       <Filter>sources\scene\match</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\result\scene_result.cpp">
+      <Filter>sources\scene\result</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
