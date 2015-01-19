@@ -50,6 +50,8 @@
     <ClInclude Include="sources\interface\character\player\network_player.h" />
     <ClInclude Include="sources\interface\character\player\player.h" />
     <ClInclude Include="sources\interface\character\player\player_manager.h" />
+    <ClInclude Include="sources\interface\character\user_number\user_number.h" />
+    <ClInclude Include="sources\interface\character\user_number\user_number_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\opengl\gl_camera.h" />
@@ -164,6 +166,8 @@
     <ClCompile Include="sources\interface\character\player\network_player.cpp" />
     <ClCompile Include="sources\interface\character\player\player.cpp" />
     <ClCompile Include="sources\interface\character\player\player_manager.cpp" />
+    <ClCompile Include="sources\interface\character\user_number\user_number.cpp" />
+    <ClCompile Include="sources\interface\character\user_number\user_number_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\opengl\gl_camera.cpp" />

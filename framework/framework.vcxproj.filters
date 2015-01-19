@@ -167,6 +167,9 @@
     <Filter Include="sources\interface\network">
       <UniqueIdentifier>{39602657-9715-4ad0-9226-a115601872f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\character\user_number">
+      <UniqueIdentifier>{f762e27b-e58b-4dd1-b941-ad628286613f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -514,6 +517,12 @@
     <ClInclude Include="sources\interface\character\player\network_player.h">
       <Filter>sources\interface\character\player</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\user_number\user_number_manager.h">
+      <Filter>sources\interface\character\user_number</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\user_number\user_number.h">
+      <Filter>sources\interface\character\user_number</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -848,6 +857,12 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\player\network_player.cpp">
       <Filter>sources\interface\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\user_number\user_number_manager.cpp">
+      <Filter>sources\interface\character\user_number</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\user_number\user_number.cpp">
+      <Filter>sources\interface\character\user_number</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
