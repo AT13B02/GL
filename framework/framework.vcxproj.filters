@@ -170,6 +170,9 @@
     <Filter Include="sources\interface\character\user_number">
       <UniqueIdentifier>{f762e27b-e58b-4dd1-b941-ad628286613f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\character\life">
+      <UniqueIdentifier>{996fc0bd-55ab-4cd6-afc1-41e11439e140}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -523,6 +526,12 @@
     <ClInclude Include="sources\interface\character\user_number\user_number.h">
       <Filter>sources\interface\character\user_number</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\life\life.h">
+      <Filter>sources\interface\character\life</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\life\life_manager.h">
+      <Filter>sources\interface\character\life</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -863,6 +872,12 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\user_number\user_number.cpp">
       <Filter>sources\interface\character\user_number</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\life\life.cpp">
+      <Filter>sources\interface\character\life</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\life\life_manager.cpp">
+      <Filter>sources\interface\character\life</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
