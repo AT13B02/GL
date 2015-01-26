@@ -70,6 +70,8 @@ COpengl::COpengl(WINDOW_DATA* window_data) : CGraphicDevice(window_data)
 		gl_context_[i]._hglrc = wglCreateContext(gl_context_[i]._hdc);
 	}
 
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
 	draw_mode_ = DEVICE_MODE_LOAD;
 }
 
