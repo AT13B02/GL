@@ -517,6 +517,9 @@
     <ClInclude Include="sources\scene\scene_data.h">
       <Filter>sources\scene</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshdome.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -854,6 +857,9 @@
     </ClCompile>
     <ClCompile Include="sources\scene\scene_data.cpp">
       <Filter>sources\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshdome.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
