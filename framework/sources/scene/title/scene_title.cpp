@@ -73,7 +73,7 @@ void CSceneTitle::Update(void)
 {
 	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
 	{
-		set_next_scene(new CMatchFactory());
+		set_next_scene(new CResultFactory());
 	}
 }
 
@@ -126,7 +126,7 @@ void CSceneTitle::Load(void)
 //=============================================================================
 CSceneFactory* CSceneTitle::MakeFactory(void)
 {
-	return new CTitleFactory();
+	return new CResultFactory();
 }
 
 //---------------------------------- EOF --------------------------------------

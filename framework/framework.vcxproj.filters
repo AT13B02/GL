@@ -526,6 +526,12 @@
     <ClInclude Include="sources\scene\result\scene_result.h">
       <Filter>sources\scene\result</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\title_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\result_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -866,6 +872,12 @@
     </ClCompile>
     <ClCompile Include="sources\scene\result\scene_result.cpp">
       <Filter>sources\scene\result</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\title_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\result_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

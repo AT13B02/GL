@@ -70,9 +70,23 @@ public:
 protected:
 
 private:
+
+	typedef enum TEXTURE_TYPE_
+	{
+		TEXTURE_TYPE_LOGO,
+		TEXTURE_TYPE_MAX,
+	}TEXTURE_TYPE;
+
+	static const char* p_texture_names[TEXTURE_TYPE_MAX];
+
+	static const VECTOR2 LOGO_DEFAULT_POS;
+	static const VECTOR2 PRESSKEY_DEFAULT_POS;
 	u32 test_object_key_;
 
 	u32 logo_key_;						 //ロゴ表示に必要
+	u32 press_key_;						 //画面下ボタン入力まち表示に必要
+
+	u32 model_key_;						//model表示に必要
 };
 
 #endif	// _SCENE_TITLE_H_
