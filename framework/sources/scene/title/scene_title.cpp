@@ -25,9 +25,24 @@
 #include "interface/graphic/object/object_3d/element/billboard.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/object/object_3d/element/rectangle_3d.h"
+#include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/graphic/object/object_2d/object_2d_manager.h"
 #include "interface/graphic/object/object_2d/element/rectangle_2d.h"
+#include "interface/graphic/light/light_manager.h"
+#include "interface/graphic/light/light.h"
+#include "interface/graphic/camera/camera.h"
+#include "interface/graphic/camera/camera_manager.h"
+#include "interface/graphic/model/model_manager.h"
 
+// character
+#include "interface/character/character_manager.h"
+#include "interface/character/field/field.h"
+#include "interface/character/field/field_manager.h"
+#include "interface/character/camera/title_camera.h"
+#include "interface/character/camera/character_camera_manager.h"
+
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -69,6 +84,7 @@ CSceneTitle::CSceneTitle(CInterfaceManager* interface_manager) : CScene(interfac
 
 	tikatika_=true;
 	tikatika_counter=0;
+	rot_=0;
 }
 
 //=============================================================================
@@ -107,6 +123,14 @@ void CSceneTitle::Update(void)
 		tikatika_counter=0;
 		tikatika_=!tikatika_;
 	}
+
+	//角度更新
+	rot_ += 2.0f;
+	//角度調整
+	if( rot_ > 180 )
+	{
+		rot_ = -180.0f;
+	}
 }
 
 //=============================================================================
@@ -120,6 +144,11 @@ void CSceneTitle::Draw(void)
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	// 描画
+	object_3d_manager->Draw(daruma_object_key_ ,VECTOR3(-30,40,60),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+	object_3d_manager->Draw(daruma_object2_key_,VECTOR3(-15,40,60),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+	object_3d_manager->Draw(daruma_object3_key_,VECTOR3(0,40,60),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+	object_3d_manager->Draw(daruma_object4_key_,VECTOR3(15,40,60),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+
 	object_2d_manager->Draw(logo_object_key_,VECTOR2(TITLE_LOGO_POS_X_INIT,TITLE_LOGO_POS_Y_INIT),0,VECTOR2(TITLE_LOGO_SCL_X_INIT,TITLE_LOGO_SCL_Y_INIT),MATRIX4x4(),TITLE_LOGO_TEX_NAME);
 	if(tikatika_)
 	{
@@ -131,6 +160,7 @@ void CSceneTitle::Draw(void)
 //=============================================================================
 void CSceneTitle::Uninit(void)
 {
+		CCharacterManager* character_manager = interface_manager_->character_manager();
 }
 
 //=============================================================================
@@ -144,10 +174,31 @@ void CSceneTitle::Load(void)
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
-
+	CCameraManager* camera_manager = object_manager->camera_manager();
+	CModelManager* model_manager = graphic_manager->model_manager();
+	CLightManager* light_manager = graphic_manager->light_manager();
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	CFieldManager* field_manager = character_manager->field_manager();
+	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 
 	// タイトルフォルダのロード
 	texture_manager->Load("resources/texture/title");
+	// タイトルのモデルのロード
+	model_manager->Load("resources/model/title");
+
+	// ライトの設定
+	CLight* light = CLight::Create(device_holder);
+	light->Init();
+	light->SetType(CLight::TYPE_DIRECTIONAL);
+	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
+	light_manager->Add(light);
+
+	// ライトの設定
+	light = CLight::Create(device_holder);
+	light->Init();
+	light->SetType(CLight::TYPE_DIRECTIONAL);
+	light->SetDirection(VECTOR3(0.0f,-1.0f,0.0f).Normalize());
+	light_manager->Add(light);
 
 	//ロゴポリゴン生成
 	CRectangle2D* Logo = new CRectangle2D(device_holder);
@@ -160,6 +211,29 @@ void CSceneTitle::Load(void)
 	Enter->set_size(VECTOR2(TITLE_ENTER_TEX_SIZE_X_INIT,TITLE_ENTER_TEX_SIZE_Y_INIT));
 	Enter->Set();
 	enter_object_key_ = object_2d_manager->AddList(Enter);
+
+	// 雪だるまモデルの生成
+	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+	daruma_object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
+	
+	CObjectModel* object_model2 = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+	daruma_object2_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model2);
+	
+	CObjectModel* object_model3 = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+	daruma_object3_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model3);
+	
+	CObjectModel* object_model4 = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+	daruma_object4_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model4);
+
+	// フィールドの生成
+	CField* field = new CField(interface_manager_);
+	field->Init();
+	field_manager->Push(field);
+
+	// カメラの生成
+	CTitleCamera* camera = new CTitleCamera(interface_manager_);
+	camera->Init();
+	character_camera_manager->Push(camera);
 }
 
 //=============================================================================

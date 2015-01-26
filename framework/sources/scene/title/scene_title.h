@@ -72,12 +72,16 @@ private:
 	u32  logo_object_key_;
 	u32  enter_object_key_;
 	u32  daruma_object_key_;
+	u32  daruma_object2_key_;
+	u32  daruma_object3_key_;
+	u32  daruma_object4_key_;
 	u32  field_object_key_;
 
 	//描画判定用フラグ
 	bool tikatika_;
 	//描画切り替えカウンター
 	s32  tikatika_counter;
+	f32 rot_;
 };
 
 #endif	// _SCENE_TITLE_H_

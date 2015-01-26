@@ -514,6 +514,9 @@
     <ClInclude Include="sources\interface\character\player\network_player.h">
       <Filter>sources\interface\character\player</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\title_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -848,6 +851,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\player\network_player.cpp">
       <Filter>sources\interface\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\title_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
