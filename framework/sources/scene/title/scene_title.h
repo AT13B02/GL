@@ -69,8 +69,15 @@ public:
 protected:
 
 private:
-	u32 test_object_key_;
-	char* m_pLogoFileName;
+	u32  logo_object_key_;
+	u32  enter_object_key_;
+	u32  daruma_object_key_;
+	u32  field_object_key_;
+
+	//描画判定用フラグ
+	bool tikatika_;
+	//描画切り替えカウンター
+	s32  tikatika_counter;
 };
 
 #endif	// _SCENE_TITLE_H_

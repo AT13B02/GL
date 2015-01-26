@@ -32,11 +32,23 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define TITLE_LOGO_POS_X_INIT      (500)
-#define TITLE_LOGO_POS_Y_INIT      (500)
-#define TITLE_LOGO_TEX_SIZE_X_INIT (670)
-#define TITLE_LOGO_TEX_SIZE_Y_INIT (100)
-#define TITLE_LOGO_TEX_NAME        ("title")
+#define TIKATIKA_CHANGE_POINT       (30)
+
+#define TITLE_LOGO_POS_X_INIT       (650)
+#define TITLE_LOGO_POS_Y_INIT       (100)
+#define TITLE_LOGO_TEX_SIZE_X_INIT  (670)
+#define TITLE_LOGO_TEX_SIZE_Y_INIT  (100)
+#define TITLE_LOGO_SCL_X_INIT       (1)
+#define TITLE_LOGO_SCL_Y_INIT       (1)
+#define TITLE_LOGO_TEX_NAME         ("title")
+
+#define TITLE_ENTER_POS_X_INIT      (650)
+#define TITLE_ENTER_POS_Y_INIT      (600)
+#define TITLE_ENTER_TEX_SIZE_X_INIT (609)
+#define TITLE_ENTER_TEX_SIZE_Y_INIT (62)
+#define TITLE_ENTER_SCL_X_INIT      (1)
+#define TITLE_ENTER_SCL_Y_INIT      (1)
+#define TITLE_ENTER_TEX_NAME        ("pleaseEnter")
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
@@ -50,7 +62,13 @@
 //=============================================================================
 CSceneTitle::CSceneTitle(CInterfaceManager* interface_manager) : CScene(interface_manager,TYPE_TITLE)
 {
-	test_object_key_ = -1;
+	logo_object_key_ = -1;
+	enter_object_key_ = -1;
+	daruma_object_key_ = -1;
+	field_object_key_ = -1;
+
+	tikatika_=true;
+	tikatika_counter=0;
 }
 
 //=============================================================================
@@ -82,6 +100,13 @@ void CSceneTitle::Update(void)
 	{
 		set_next_scene(new CGameFactory());
 	}
+
+	tikatika_counter++;
+	if(tikatika_counter>=TIKATIKA_CHANGE_POINT)
+	{
+		tikatika_counter=0;
+		tikatika_=!tikatika_;
+	}
 }
 
 //=============================================================================
@@ -95,9 +120,12 @@ void CSceneTitle::Draw(void)
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	// 描画
-	object_2d_manager->Draw(test_object_key_,VECTOR2(500,500),0,VECTOR2(1.0f,1.0f),MATRIX4x4(),"title");
+	object_2d_manager->Draw(logo_object_key_,VECTOR2(TITLE_LOGO_POS_X_INIT,TITLE_LOGO_POS_Y_INIT),0,VECTOR2(TITLE_LOGO_SCL_X_INIT,TITLE_LOGO_SCL_Y_INIT),MATRIX4x4(),TITLE_LOGO_TEX_NAME);
+	if(tikatika_)
+	{
+		object_2d_manager->Draw(logo_object_key_,VECTOR2(TITLE_ENTER_POS_X_INIT,TITLE_ENTER_POS_Y_INIT),0,VECTOR2(TITLE_ENTER_SCL_X_INIT,TITLE_ENTER_SCL_Y_INIT),MATRIX4x4(),TITLE_ENTER_TEX_NAME);
+	}
 }
-
 //=============================================================================
 // 終了
 //=============================================================================
@@ -117,17 +145,21 @@ void CSceneTitle::Load(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
-	CRectangle2D* Porigon = new CRectangle2D(device_holder);
-
-	Porigon->set_size(VECTOR2(670,100));
-
-	Porigon->Set();
 
 	// タイトルフォルダのロード
 	texture_manager->Load("resources/texture/title");
 
-	// オブジェクトの生成
-	test_object_key_ = object_2d_manager->AddList(Porigon);
+	//ロゴポリゴン生成
+	CRectangle2D* Logo = new CRectangle2D(device_holder);
+	Logo->set_size(VECTOR2(TITLE_LOGO_TEX_SIZE_X_INIT,TITLE_LOGO_TEX_SIZE_Y_INIT));
+	Logo->Set();
+	logo_object_key_ = object_2d_manager->AddList(Logo);
+
+	//プリーズエンターポリゴン生成
+	CRectangle2D* Enter = new CRectangle2D(device_holder);
+	Enter->set_size(VECTOR2(TITLE_ENTER_TEX_SIZE_X_INIT,TITLE_ENTER_TEX_SIZE_Y_INIT));
+	Enter->Set();
+	enter_object_key_ = object_2d_manager->AddList(Enter);
 }
 
 //=============================================================================
