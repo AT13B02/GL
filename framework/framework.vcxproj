@@ -124,6 +124,7 @@
     <ClInclude Include="sources\scene\game\scene_game.h" />
     <ClInclude Include="sources\scene\load\scene_load.h" />
     <ClInclude Include="sources\scene\scene.h" />
+    <ClInclude Include="sources\scene\scene_data.h" />
     <ClInclude Include="sources\scene\scene_manager.h" />
     <ClInclude Include="sources\scene\title\scene_title.h" />
   </ItemGroup>
@@ -237,6 +238,7 @@
     <ClCompile Include="sources\scene\game\scene_game.cpp" />
     <ClCompile Include="sources\scene\load\scene_load.cpp" />
     <ClCompile Include="sources\scene\scene.cpp" />
+    <ClCompile Include="sources\scene\scene_data.cpp" />
     <ClCompile Include="sources\scene\scene_manager.cpp" />
     <ClCompile Include="sources\scene\title\scene_title.cpp" />
   </ItemGroup>
