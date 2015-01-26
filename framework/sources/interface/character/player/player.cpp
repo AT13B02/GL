@@ -76,6 +76,9 @@ bool CPlayer::Init(void)
 	VECTOR3 pos_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 	VECTOR3 rot_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 
+	//XV‚µ‚È‚¢
+	update_ = false;
+
 //	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	return true;
 }
@@ -85,6 +88,7 @@ bool CPlayer::Init(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
+
 	VECTOR3 front_vector = front_vector_;
 	VECTOR3 right_vector = right_vector_;
 	VECTOR3 center_vector = front_vector + right_vector;

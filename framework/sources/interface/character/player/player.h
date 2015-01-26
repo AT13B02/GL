@@ -87,6 +87,10 @@ public:
 
 	// 角度の設定
 	void set_rotation(const VECTOR3& rotation){rotation_ = rotation;}
+
+	//更新フラグセット
+	void set_update( bool flag ){ update_ = flag; }
+
 protected:
 	// インターフェースマネージャーのポインタ
 	CInterfaceManager* interface_manager_;
@@ -106,6 +110,8 @@ private:
 
 	//移動目標値変数
 	VECTOR3 rotation_dest_;
+
+	bool update_;
 };
 
 //---------------------------------- EOF --------------------------------------
