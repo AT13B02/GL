@@ -138,6 +138,7 @@ void CSceneTitle::Update(void)
 //=============================================================================
 void CSceneTitle::Draw(void)
 {
+	//マネージャーを取得
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
@@ -168,6 +169,7 @@ void CSceneTitle::Uninit(void)
 //=============================================================================
 void CSceneTitle::Load(void)
 {
+	//マネージャーを取得
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CDeviceHolder* device_holder = graphic_manager->device_holder();
 	CTextureManager* texture_manager = graphic_manager->texture_manager();
