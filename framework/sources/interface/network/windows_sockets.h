@@ -72,6 +72,12 @@ public:
 	// バッファのポインタセット
 	void SetNetworkDataBufferPointer(CNetworkDataBuffer* buffer_pointer){m_DataBuffer = buffer_pointer;};
 
+	// 準備完了を他のプレイヤーに通知
+	void SendDataPrepare(int my_id);
+
+	// ゲーム開始通知を送る
+	void SendGameStart(void);
+
 	// リザルトに切り替え通知
 	void SendDataGoToResultScene(void);
 
