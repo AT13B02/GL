@@ -208,11 +208,6 @@ void CSceneGame::Load(void)
 	player_manager->set_player( player_ );
 	player_manager->Push(player_);
 
-/*
-	CPlayer* player2 = new CNetWorkPlayer(interface_manager_);
-	player2->Init();
-	player_manager->Push(player2);
-*/
 	// ƒJƒƒ‰‚Ì¶¬
 	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player_);
 	camera->Init();
