@@ -1,12 +1,8 @@
 //*****************************************************************************
 //
-// ネットワークマネージャークラス [network_manager.h]
+// タイトルクラス
 //
-// Author		: KENJI KABUTOMORI
-//				  NAOKI NOJIRI
-// Date			: 2014/09/17(Wed)
-// Version		: 1.01
-// Update Date	: 2014/12/01(Mon)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -15,13 +11,16 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _NETWORK_MANAGER_H_
-#define _NETWORK_MANAGER_H_
+#ifndef _SCENE_MATCH_H_
+#define _SCENE_MATCH_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "../../basic/basic.h"
+#include "scene/scene.h"
+
+#include "common/math/vector/vector2.h"
+#include "common/math/vector/vector3.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -36,39 +35,78 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// クラスの前方参照
+// クラスの前方宣言
 //*****************************************************************************
-class CNetworkClient;
+class CSound;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CNetworkManager : public CBasic
+class CSceneMatch : public CScene
 {
 public:
 	// コンストラクタ
-	CNetworkManager(void);
+	CSceneMatch(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CNetworkManager(void);
+	virtual ~CSceneMatch(void);
 
-	// 初期化処理
+	// 初期化
 	bool Init(void);
 
-	// 終了処理
+	// 更新
+	void Update(void);
+
+	// 描画
+	void Draw(void);
+
+	// 終了
 	void Uninit(void);
 
-	// ネットワーククライアントゲット
-	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
+	// ロード
+	void Load(void);
 
-	// 準備完了通知
-	void SendReady(int my_id);
+	// 自分のファクトリーの作成
+	CSceneFactory* MakeFactory(void);
+
 protected:
 
 private:
-	CNetworkClient* m_pNetworkClient;
+
+	typedef enum TEXTURE_TYPE_
+	{
+		TEXTURE_TYPE_LOGO,
+		TEXTURE_TYPE_PLAYER1,
+		TEXTURE_TYPE_PLAYER2,
+		TEXTURE_TYPE_PLAYER3,
+		TEXTURE_TYPE_PLAYER4,
+		TEXTURE_TYPE_HOST_DECISION,
+		TEXTURE_TYPE_MAX,
+	}TEXTURE_TYPE;
+
+	static const char* p_texture_names[TEXTURE_TYPE_MAX];
+
+	static const int PLAYER_MAX = 4;
+	static const float PLAYER_DISP_OFFSET_X;
+	static const float PLAYER_DISP_OFFSET_Y;
+	static const float PLAYER_DISP_START_Y;
+	static const VECTOR2 HOST_DECITION_DEFAULT_POS;
+	static const VECTOR2 LOGO_DEFAULT_POS;
+	u32 test_object_key_;
+	u32 test_2d_key_;
+
+
+	u32 player_Disp_2d_key_[PLAYER_MAX]; //プレイヤーマッチング表示
+	u32 host_decision_key_;				 //ホストが決定を押すときに必要
+	u32 logo_key_;						 //ロゴ表示に必要
+	
+	//TODO
+	static const u32 FLASH_ALL_TIME = 40;//点滅の全体時間
+	bool draw_flag_;
+	u32 flash_timer_;					 //点滅用タイマー
+	VECTOR3 player_Disp_2d_pos_;
 };
 
-#endif	// _NETWORK_MANAGER_H_
+#endif	// _SCENE_TITLE_H_
 
 //---------------------------------- EOF --------------------------------------

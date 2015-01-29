@@ -233,9 +233,9 @@ void CNetworkDataBuffer::PushBullet(NETWORK_DATA* pData)
 //=============================================================================
 // ID‚ðƒZƒbƒg
 //=============================================================================
-void CNetworkDataBuffer::SetID(NETWORK_DATA* pData)
+void CNetworkDataBuffer::SetID(int player_id)
 {
-	m_MyID = pData->my_ID;
+	m_MyID = player_id;
 }
 
 //=============================================================================
