@@ -65,6 +65,13 @@ public:
 	CNetworkDataBuffer* GetNetworkDataBuffer(void){return m_pNetworkDataBuffer;}
 
 	CWindowsSockets* GetWinSock(void){return m_pWinsock;};
+
+	// 全員準備完了してるかのフラグゲット
+	bool GetEndAllPlayerPrepareFlag(void){return m_bAllPlayerPrepare;};
+
+	// ゲームスタートのフラグゲット
+	bool GetStartGameFlag(void){return m_bStartGame;};
+
 protected:
 
 private:
@@ -72,6 +79,9 @@ private:
 	bool volatile		m_bLoopFlag;
 	CWindowsSockets*	m_pWinsock;
 	CNetworkDataBuffer* m_pNetworkDataBuffer;
+	static s8			m_myID;
+	bool				m_bAllPlayerPrepare;
+	bool				m_bStartGame;
 
 	// 受信スレッド処理
 	static unsigned __stdcall ReceiveThread(CNetworkClient* pNetworkClient);
