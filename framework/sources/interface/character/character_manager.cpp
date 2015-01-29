@@ -127,6 +127,30 @@ void CCharacterManager::Draw(void)
 }
 
 //=============================================================================
+// クリア
+//=============================================================================
+void CCharacterManager::Clear(void)
+{
+	// プレイヤーマネージャーの開放
+	player_manager_->Uninit();
+
+	// キャラクターカメラマネージャーの開放
+	character_camera_manager_->Uninit();
+
+	// バレットマネージャーの開放
+	bullet_manager_->Uninit();
+
+	// フィールドマネージャーの開放
+	field_manager_->Uninit();
+
+	// 姿勢制御マネージャーの開放
+	attitude_controller_manager_->Uninit();
+
+	// 衝突判定マネージャーの開放
+	collision_manager_->Uninit();
+}
+
+//=============================================================================
 // 終了
 //=============================================================================
 void CCharacterManager::Uninit(void)

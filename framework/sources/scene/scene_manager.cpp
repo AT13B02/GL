@@ -221,6 +221,9 @@ void CSceneManager::Uninit(void)
 
 	// フェードの破棄
 	SAFE_RELEASE(fade_2d_);
+
+	// シーンデータの破棄
+	SAFE_RELEASE(scene_data_);
 }
 
 //=============================================================================
