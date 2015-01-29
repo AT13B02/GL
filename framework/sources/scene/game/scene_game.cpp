@@ -40,7 +40,7 @@
 #include "interface/graphic/light/light_manager.h"
 #include "interface/graphic/light/light.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
-#include "interface/graphic/object/object_3d/element/meshfield.h"
+#include "interface/graphic/object/object_3d/element/meshdome.h"
 
 // character
 #include "interface/character/character_manager.h"
@@ -112,7 +112,12 @@ void CSceneGame::Update(void)
 //=============================================================================
 void CSceneGame::Draw(void)
 {
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
+
 	network_command_assistant_ -> Draw();
+	object_3d_manager->Draw(test_meshdome_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),"sky000");
 
 }
 
@@ -201,6 +206,12 @@ void CSceneGame::Load(void)
 	CField* field = new CField(interface_manager_);
 	field->Init();
 	field_manager->Push(field);
+
+	CMeshdome* meshdome = new CMeshdome(device_holder);
+	meshdome->set_radius(3000.0f);
+	meshdome->SetGridNumber(10,10);
+	meshdome->Set();
+	test_meshdome_key_ = object_3d_manager->AddList(meshdome);
 }
 
 //---------------------------------- EOF --------------------------------------

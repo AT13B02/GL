@@ -89,6 +89,7 @@ public:
 	//-----------------------------------------------------
 	// •`‰æƒŠƒXƒg‚É•Û‘¶
 
+	void Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,const std::string& texture_name);
 	void Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,const MATRIX4x4& matrix,const std::string& texture_name);
 
 	//--------------------------------------------------------

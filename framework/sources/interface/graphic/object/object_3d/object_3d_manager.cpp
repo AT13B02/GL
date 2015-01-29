@@ -148,6 +148,16 @@ void CObject3DManager::EraseList(const u32& object_key)
 //=============================================================================
 // 描画リストに保存
 //=============================================================================
+void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,const std::string& texture_name)
+{
+	MATRIX4x4 matrix;
+	matrix.SetIdentity();
+	Draw(object_key,position,rotation,scale,matrix,texture_name);
+}
+
+//=============================================================================
+// 描画リストに保存
+//=============================================================================
 void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,const MATRIX4x4& matrix,const std::string& texture_name)
 {
 	CObject3DData* object_3d_data = NULL;
