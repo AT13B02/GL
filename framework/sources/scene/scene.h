@@ -35,7 +35,6 @@
 // クラスの前方参照
 //*****************************************************************************
 class CSceneFactory;
-class CSceneData;
 class CTextureManager;
 class CInterfaceManager;
 
@@ -86,12 +85,9 @@ public:
 	// 現在のシーンを取得
 	int scene_type(void){return scene_type_;}
 
-	// シーンデータの設定
-	void set_scene_data(CSceneData* scene_data){scene_data_ = scene_data;}
 protected:
 	// インターフェースマネージャー
 	CInterfaceManager* interface_manager_;
-	CSceneData* scene_data_;
 
 private:
 	// 現在のシーン

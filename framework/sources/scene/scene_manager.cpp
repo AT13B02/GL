@@ -25,8 +25,7 @@
 #include "interface/sound/sound_manager.h"
 
 //fade
-#include "fade_2d.h"
-#include "scene_data.h"
+#include "scene/fade_2d.h"
 
 // common
 #include "common/thread/thread.h"
@@ -69,9 +68,6 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 
 	// フェード
 	fade_2d_ = new CFade2D(interface_manager_);
-
-	// シーン共通データ
-	scene_data_ = new CSceneData();
 }
 
 //=============================================================================
@@ -89,8 +85,6 @@ bool CSceneManager::Init(void)
 {
 	// ロード中のシーンのデータをロード
 	load_->Load();
-
-	scene_data_->Init();
 
 	return true;
 }
@@ -221,9 +215,6 @@ void CSceneManager::Uninit(void)
 
 	// フェードの破棄
 	SAFE_RELEASE(fade_2d_);
-
-	// シーンデータの破棄
-	SAFE_RELEASE(scene_data_);
 }
 
 //=============================================================================
@@ -240,9 +231,6 @@ void CSceneManager::Load(CSceneManager* scene_manager)
 			// シーンが同じとき
 			if(scene_manager->scene_->scene_type() == scene_manager->next_scene_->scene_type())
 			{
-				// シーンデータの設定
-				scene_manager->scene_->set_scene_data(scene_manager->scene_data_);
-
 				// 初期化
 				scene_manager->scene_->Init();
 
@@ -270,9 +258,6 @@ void CSceneManager::Load(CSceneManager* scene_manager)
 
 			// 読み込み処理
 			scene_manager->scene_->Load();
-
-			// シーンデータの設定
-			scene_manager->scene_->set_scene_data(scene_manager->scene_data_);
 
 			// 初期化処理
 			scene_manager->scene_->Init();

@@ -70,7 +70,6 @@ protected:
 
 private:
 	u32 test_object_key_;
-	char* m_pLogoFileName;
 };
 
 #endif	// _SCENE_TITLE_H_

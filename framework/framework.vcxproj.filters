@@ -529,11 +529,8 @@
     <ClInclude Include="sources\interface\character\player\network_player.h">
       <Filter>sources\interface\character\player</Filter>
     </ClInclude>
-    <ClInclude Include="sources\scene\scene_data.h">
-      <Filter>sources\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshdome.h">
-      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    <ClInclude Include="sources\scene\game\countdown.h">
+      <Filter>sources\scene\game</Filter>
     </ClInclude>
     <ClInclude Include="sources\interface\character\player_status\life_2d\life_2d_manager.h">
       <Filter>sources\interface\character\player_status\life_2d</Filter>
@@ -558,6 +555,9 @@
     </ClInclude>
     <ClInclude Include="sources\interface\character\life\life.h">
       <Filter>sources\interface\character\life</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshdome.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -894,11 +894,8 @@
     <ClCompile Include="sources\interface\character\player\network_player.cpp">
       <Filter>sources\interface\character\player</Filter>
     </ClCompile>
-    <ClCompile Include="sources\scene\scene_data.cpp">
-      <Filter>sources\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshdome.cpp">
-      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    <ClCompile Include="sources\scene\game\countdown.cpp">
+      <Filter>sources\scene\game</Filter>
     </ClCompile>
     <ClCompile Include="sources\interface\character\player_status\life_2d\life_2d.cpp">
       <Filter>sources\interface\character\player_status\life_2d</Filter>
@@ -923,6 +920,9 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\user_number\user_number.cpp">
       <Filter>sources\interface\character\user_number</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshdome.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

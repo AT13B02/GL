@@ -40,7 +40,6 @@ class CThread;
 class CInterfaceManager;
 class CTexture;
 class CFade2D;
-class CSceneData;
 
 //*****************************************************************************
 // クラス定義
@@ -95,9 +94,6 @@ private:
 
 	// Fade
 	CFade2D* fade_2d_;
-
-	// シーンデータ
-	CSceneData* scene_data_;
 
 	// ロード用関数
 	static void Load(CSceneManager* scene_manager);
