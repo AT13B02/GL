@@ -185,10 +185,10 @@ void CRectangle2D::Set(void)
 	pVertex2D->_position[3] = VECTOR2(position_[3]._x,position_[3]._y);
 
 	// テクスチャ座標の設定
-	pVertex2D->_texcoord[0] = VECTOR2(left_,top_);
-	pVertex2D->_texcoord[2] = VECTOR2(right_,top_);
-	pVertex2D->_texcoord[1] = VECTOR2(left_,bottom_);
-	pVertex2D->_texcoord[3] = VECTOR2(right_,bottom_);
+	pVertex2D->_texcoord[0] = VECTOR2(right_,top_);
+	pVertex2D->_texcoord[1] = VECTOR2(left_,top_);
+	pVertex2D->_texcoord[2] = VECTOR2(right_,bottom_);
+	pVertex2D->_texcoord[3] = VECTOR2(left_,bottom_);
 
 	// 色情報の設定
 	pVertex2D->_color[0] = color_[0];
