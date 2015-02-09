@@ -51,7 +51,7 @@ public:
 	~CUserNumber(void);
 
 	// 初期化
-	bool Init(void);
+	bool Init( void );
 
 	// 更新
 	void Update(void);
@@ -63,7 +63,7 @@ public:
 	void Uninit(void);
 
 	// パラメータの設定
-	void SetParameter(const VECTOR3& position , const s32& player_id );
+	void SetParameter(const VECTOR3& position , const s32& player_id , char* texture_name );
 
 	//位置取得
 	VECTOR3 position( void ){ return position_; }
@@ -77,6 +77,7 @@ public:
 	//消去
 	void Erase( void );
 private:
+	char* texture_name_;
 	u32 object_key_;
 	VECTOR3 position_;
 	s32 player_id_;

@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// ライフマネージャークラス [life_manager.h]
+// ライフマネージャークラス [life_2d_manager.h]
 //
 // Author		: ooigawa Kazuma
 //
@@ -11,14 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _LIFE_MANAGER_H_
-#define _LIFE_MANAGER_H_
+#ifndef _LIFE_2D_MANAGER_H_
+#define _LIFE_2D_MANAGER_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
 // character_manager
-#include "life.h"
+#include "life_2d.h"
 #include "interface/character/character_manager_interface.h"
 
 //*****************************************************************************
@@ -36,24 +36,24 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CLife;
+class CLife2D;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CLifeManager : public CCharacterManagerInterface<CLife*>
+class CLife2DManager : public CCharacterManagerInterface<CLife2D*>
 {
 public:
 	//コンストラクタ
-	CLifeManager();
+	CLife2DManager();
 
 	//デストラクタ
-	~CLifeManager();
+	~CLife2DManager();
 
 	// 初期化処理
 	bool Init(void);
 private:
 
 };
-#endif //_LIFE_MANAGER_H_
+#endif //_LIFE_2D_MANAGER_H_
 //---------------------------------- EOF --------------------------------------

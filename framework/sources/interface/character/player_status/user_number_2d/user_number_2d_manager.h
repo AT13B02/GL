@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// ライフマネージャークラス [life_manager.h]
+// ユーザーナンバーマネージャークラス [user_number_2d_manager.h]
 //
 // Author		: ooigawa Kazuma
 //
@@ -11,14 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _LIFE_MANAGER_H_
-#define _LIFE_MANAGER_H_
+#ifndef _USER_NUMBER_2D_MANAGER_H_
+#define _USER_NUMBER_2D_MANAGER_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
 // character_manager
-#include "life.h"
+#include "user_number_2d.h"
 #include "interface/character/character_manager_interface.h"
 
 //*****************************************************************************
@@ -36,24 +36,24 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CLife;
+class CUserNumber2D;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CLifeManager : public CCharacterManagerInterface<CLife*>
+class CUserNumber2DManager : public CCharacterManagerInterface<CUserNumber2D*>
 {
 public:
 	//コンストラクタ
-	CLifeManager();
+	CUserNumber2DManager();
 
 	//デストラクタ
-	~CLifeManager();
+	~CUserNumber2DManager();
 
 	// 初期化処理
 	bool Init(void);
 private:
 
 };
-#endif //_LIFE_MANAGER_H_
+#endif //_USER_NUMBER_2D_MANAGER_H_
 //---------------------------------- EOF --------------------------------------
