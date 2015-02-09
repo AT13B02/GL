@@ -77,9 +77,6 @@ public:
 	// 更新処理
 	void Update(void);
 
-	// クリア
-	void Clear(void);
-
 	// プレイヤーマネージャーの取得
 	CPlayerManager* player_manager(void){return player_manager_;}
 

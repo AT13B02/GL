@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// ネットワーククライアントクラス [network_client.h]
+// カウントダウンクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/09/17(Wed)
-// Version		: 1.00
-// Update Date	: 2014/09/17(Wed)
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
@@ -14,15 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _NETWORK_CLIENT_H_
-#define _NETWORK_CLIENT_H_
+#ifndef _COUNTDOWN_H_
+#define _COUNTDOWN_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "../../basic/basic.h"
-#include <winsock.h>
-#include "network_data.h"
+#include "basic/basic.h"
+
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -39,45 +35,65 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CThread;
-class CWindowsSockets;
-class CNetworkDataBuffer;
+class CInterfaceManager;
+class CRectangle2D;
+
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CNetworkClient : public CBasic
+class CCountDown : public CBasic
 {
 public:
 	// コンストラクタ
-	CNetworkClient(void);
+	CCountDown(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CNetworkClient(void);
+	virtual ~CCountDown(void);
 
-	// 初期化処理
+	// 初期化
 	bool Init(void);
 
-	// 終了処理
+	// 更新
+	void Update(void);
+
+	// 描画
+	void Draw(void);
+
+	// 終了
 	void Uninit(void);
 
-	// ネットワークデータバッファ
-	CNetworkDataBuffer* GetNetworkDataBuffer(void){return m_pNetworkDataBuffer;}
+	// ロード
+	void Load(void);
 
-	CWindowsSockets* GetWinSock(void){return m_pWinsock;};
+	bool countdown_comp( void ){ return countdown_comp_; }
+
+
+
 protected:
+	static const f32 ADD_TEXTURE_UV;
+	static const f32 ADD_SCALSE;
+	static const f32 WIDTH;
+	static const f32 HEIGHT;
+
 
 private:
-	CThread*			m_pThread;
-	bool volatile		m_bLoopFlag;
-	CWindowsSockets*	m_pWinsock;
-	CNetworkDataBuffer* m_pNetworkDataBuffer;
-	static int			m_myID;
+	CInterfaceManager *interface_manager_;
+	CRectangle2D *countdown_polygon;
+	u32 countdown_polygon_key_;
+	f32 alpha_;
+	f32 scl_;
+	f32 right_;
+	f32 left_;
+	f32 top_;
+	f32 bottom_;
 
-	// 受信スレッド処理
-	static unsigned __stdcall ReceiveThread(CNetworkClient* pNetworkClient);
+	bool countdown_comp_;
+
+
+
 };
 
-#endif	// _NETWORK_CLIENT_H_
+#endif	// _COUNTDOWN_H_
 
 //---------------------------------- EOF --------------------------------------

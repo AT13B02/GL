@@ -31,6 +31,10 @@
 // グローバル変数
 //*****************************************************************************
 
+//*****************************************************************************
+// スタティックメンバ変数
+//*****************************************************************************
+int CNetworkClient::m_myID = -1;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -40,6 +44,7 @@ CNetworkClient::CNetworkClient(void)
 	m_pThread = NULL;
 
 	m_bLoopFlag = true;
+	m_myID = -1;
 }
 
 //=============================================================================
@@ -111,6 +116,7 @@ unsigned __stdcall CNetworkClient::ReceiveThread(CNetworkClient* pNetworkClient)
 	{
 		NETWORK_DATA Data = {0};
 		Data.my_ID = -1;
+		
 		// データの受信
 		int ilen = pNetworkClient->m_pWinsock->ReceiveData(&Data, &from_adders);
 
@@ -126,14 +132,15 @@ unsigned __stdcall CNetworkClient::ReceiveThread(CNetworkClient* pNetworkClient)
 		}
 
 		// ネットワーク終了なら
-		if(Data.data_type == NETWORK_DATA_TYPE_END)
+		if(Data.data_type == NETWORK_DATA_TYPE_END && m_myID == Data.my_ID)
 		{
 			pNetworkClient->m_bLoopFlag = false;
 		}
 		// ＩＤセット
-		else if(Data.data_type == NETWORK_DATA_TYPE_SEND_PLAYER_NUMBER)
+		if(Data.data_type == NETWORK_DATA_TYPE_SEND_PLAYER_NUMBER && m_myID < 0)
 		{
 			pNetworkClient->m_pNetworkDataBuffer->SetID(&Data);
+			m_myID = Data.my_ID;
 		}
 		// リザルトへ行くなら
 		else if(Data.data_type == NETWORK_DATA_TYPE_GO_TO_RESULT)

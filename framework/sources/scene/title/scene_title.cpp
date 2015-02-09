@@ -22,21 +22,14 @@
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/texture/texture_manager.h"
 #include "interface/graphic/object/object_manager.h"
-#include "interface/graphic/object/object_3d/element/billboard.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
+#include "interface/graphic/object/object_3d/element/billboard.h"
 #include "interface/graphic/object/object_3d/element/rectangle_3d.h"
-#include "interface/graphic/object/object_2d/object_2d_manager.h"
-#include "interface/graphic/object/object_2d/element/rectangle_2d.h"
-
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define TITLE_LOGO_POS_X_INIT      (500)
-#define TITLE_LOGO_POS_Y_INIT      (500)
-#define TITLE_LOGO_TEX_SIZE_X_INIT (670)
-#define TITLE_LOGO_TEX_SIZE_Y_INIT (100)
-#define TITLE_LOGO_TEX_NAME        ("title")
+
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
@@ -92,10 +85,9 @@ void CSceneTitle::Draw(void)
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	// 描画
-	object_2d_manager->Draw(test_object_key_,VECTOR2(500,500),0,VECTOR2(1.0f,1.0f),MATRIX4x4(),"title");
+	object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 }
 
 //=============================================================================
@@ -115,19 +107,18 @@ void CSceneTitle::Load(void)
 	CTextureManager* texture_manager = graphic_manager->texture_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
-	CRectangle2D* Porigon = new CRectangle2D(device_holder);
+	CRectangle3D* billboard = new CRectangle3D(device_holder);
 
-	Porigon->set_size(VECTOR2(670,100));
+	billboard->set_size(VECTOR2(200,200));
 
-	Porigon->Set();
+	billboard->Set();
 
 	// タイトルフォルダのロード
 	texture_manager->Load("resources/texture/title");
 
 	// オブジェクトの生成
-	test_object_key_ = object_2d_manager->AddList(Porigon);
+	test_object_key_ = object_3d_manager->AddList(billboard);
 }
 
 //=============================================================================

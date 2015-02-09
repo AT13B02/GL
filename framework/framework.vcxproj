@@ -71,7 +71,6 @@
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_list.h" />
     <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_manager.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\billboard.h" />
-    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshdome.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshfield.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_3d.h" />
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\object_model.h" />
@@ -121,11 +120,11 @@
     <ClInclude Include="sources\main.h" />
     <ClInclude Include="sources\scene\factory\scene_factory.h" />
     <ClInclude Include="sources\scene\fade_2d.h" />
+    <ClInclude Include="sources\scene\game\countdown.h" />
     <ClInclude Include="sources\scene\game\network_command_assistant.h" />
     <ClInclude Include="sources\scene\game\scene_game.h" />
     <ClInclude Include="sources\scene\load\scene_load.h" />
     <ClInclude Include="sources\scene\scene.h" />
-    <ClInclude Include="sources\scene\scene_data.h" />
     <ClInclude Include="sources\scene\scene_manager.h" />
     <ClInclude Include="sources\scene\title\scene_title.h" />
   </ItemGroup>
@@ -187,7 +186,6 @@
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_list.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\billboard.cpp" />
-    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshdome.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshfield.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_3d.cpp" />
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\object_model.cpp" />
@@ -236,11 +234,11 @@
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\scene\factory\scene_factory.cpp" />
     <ClCompile Include="sources\scene\fade_2d.cpp" />
+    <ClCompile Include="sources\scene\game\countdown.cpp" />
     <ClCompile Include="sources\scene\game\network_command_assistant.cpp" />
     <ClCompile Include="sources\scene\game\scene_game.cpp" />
     <ClCompile Include="sources\scene\load\scene_load.cpp" />
     <ClCompile Include="sources\scene\scene.cpp" />
-    <ClCompile Include="sources\scene\scene_data.cpp" />
     <ClCompile Include="sources\scene\scene_manager.cpp" />
     <ClCompile Include="sources\scene\title\scene_title.cpp" />
   </ItemGroup>

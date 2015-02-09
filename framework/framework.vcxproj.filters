@@ -514,11 +514,8 @@
     <ClInclude Include="sources\interface\character\player\network_player.h">
       <Filter>sources\interface\character\player</Filter>
     </ClInclude>
-    <ClInclude Include="sources\scene\scene_data.h">
-      <Filter>sources\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshdome.h">
-      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    <ClInclude Include="sources\scene\game\countdown.h">
+      <Filter>sources\scene\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -855,11 +852,8 @@
     <ClCompile Include="sources\interface\character\player\network_player.cpp">
       <Filter>sources\interface\character\player</Filter>
     </ClCompile>
-    <ClCompile Include="sources\scene\scene_data.cpp">
-      <Filter>sources\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshdome.cpp">
-      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    <ClCompile Include="sources\scene\game\countdown.cpp">
+      <Filter>sources\scene\game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

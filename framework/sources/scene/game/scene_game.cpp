@@ -53,6 +53,7 @@
 #include "interface/character/camera/character_camera_manager.h"
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
+#include "scene/game/countdown.h"
 
 //network
 #include "interface/interface_manager.h"
@@ -104,6 +105,18 @@ bool CSceneGame::Init(void)
 //=============================================================================
 void CSceneGame::Update(void)
 {
+	//カウントダウンが終わっていたら
+	if( countdown_->countdown_comp() )
+	{
+		//プレイヤーが更新フラグ立っていなかったら更新
+		player_->set_update(true);
+	}
+	//終わってなかったらカウントダウン更新
+	else
+	{
+		countdown_ -> Update();
+	}
+	
 	network_command_assistant_ -> Update();
 }
 
@@ -112,6 +125,11 @@ void CSceneGame::Update(void)
 //=============================================================================
 void CSceneGame::Draw(void)
 {
+	if( !( countdown_->countdown_comp()) )
+	{
+		countdown_ -> Draw();
+	}
+
 	network_command_assistant_ -> Draw();
 
 }
@@ -122,6 +140,7 @@ void CSceneGame::Draw(void)
 void CSceneGame::Uninit(void)
 {
 	SAFE_RELEASE( network_command_assistant_ );
+	SAFE_RELEASE( countdown_ );
 }
 
 //=============================================================================
@@ -177,23 +196,32 @@ void CSceneGame::Load(void)
 	network_command_assistant_ = new CNetworkCommandAssistant( interface_manager_ );
 	network_command_assistant_ -> Init();
 
-	// プレイヤーの生成
-	CPlayer* player = new CPlayer(interface_manager_);
-	//CPlayer* player = new CNetWorkPlayer(interface_manager_);
-	player->Init();
-	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
-	player_manager->set_player( player );
-	player_manager->Push(player);
+	//カウントダウンの作成
+	countdown_ = new CCountDown( interface_manager_ );
+	countdown_ -> Init();
 
+	// プレイヤーの生成
+	player_ = new CPlayer(interface_manager_);
+	//CPlayer* player = new CNetWorkPlayer(interface_manager_);
+	player_->Init();
+	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
+	player_manager->set_player( player_ );
+	player_manager->Push(player_);
+
+/*
+	CPlayer* player2 = new CNetWorkPlayer(interface_manager_);
+	player2->Init();
+	player_manager->Push(player2);
+*/
 	// カメラの生成
-	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
+	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player_);
 	camera->Init();
 	character_camera_manager->Push(camera);
 
 	// 姿勢制御の生成
 	CAttitudeController* attitude_controller = new CAttitudeController(interface_manager_);
 	attitude_controller->set_axis(VECTOR3(0.0f,1.0f,0.0f));
-	attitude_controller->Push(player);
+	attitude_controller->Push(player_);
 	attitude_controller->Push(camera);
 	attitude_controller_manager->Push(attitude_controller);
 
@@ -201,6 +229,8 @@ void CSceneGame::Load(void)
 	CField* field = new CField(interface_manager_);
 	field->Init();
 	field_manager->Push(field);
+
+
 }
 
 //---------------------------------- EOF --------------------------------------
