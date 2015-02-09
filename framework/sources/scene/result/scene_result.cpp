@@ -131,6 +131,24 @@ void CSceneResult::Draw(void)
 void CSceneResult::Uninit(void)
 {
 	CCharacterManager* character_manager = interface_manager_->character_manager();
+	character_manager->Clear();
+
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
+	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
+	
+	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
+	character_camera_manager->Uninit();
+
+	//CFieldManager* field_manager = character_manager->field_manager();
+	//field_manager->Release();
+	//SAFE_RELEASE(field_manager);
+
+	//character_camera_manager->
+	//object_2d_manager->Uninit();
+	//object_3d_manager->Uninit();
+
 	//SAFE_RELEASE(character_manager);
 	//character_manager->Uninit();
 	//CFieldManager* field_manager = character_manager->field_manager();
@@ -149,9 +167,9 @@ void CSceneResult::Load(void)
 	CObject3DManager* object_3d_manager	= object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 	CCharacterManager* character_manager= interface_manager_->character_manager();
-	CFieldManager* field_manager = character_manager->field_manager();
-	CLightManager* light_manager = graphic_manager->light_manager();
-	CModelManager* model_manager = graphic_manager->model_manager();
+	CFieldManager* field_manager		= character_manager->field_manager();
+	CLightManager* light_manager		= graphic_manager->light_manager();
+	CModelManager* model_manager		= graphic_manager->model_manager();
 	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 
 	CRectangle3D* billboard = new CRectangle3D(device_holder);
@@ -196,9 +214,9 @@ void CSceneResult::Load(void)
 	camera->Init();
 	character_camera_manager->Push(camera);
 
-	CField* field = new CField(interface_manager_);
-	field->Init();
-	field_manager->Push(field);
+	//CField* field = new CField(interface_manager_);
+	//field->Init();
+	//field_manager->Push(field);
 
 	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
 	model_key_ = object_3d_manager->AddList(object_model);

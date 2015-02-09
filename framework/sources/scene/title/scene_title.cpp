@@ -12,6 +12,7 @@
 // scene
 #include "scene/title/scene_title.h"
 #include "scene/factory/scene_factory.h"
+#include "interface/character/character_manager.h"
 
 // input
 #include "interface/interface_manager.h"
@@ -103,6 +104,8 @@ void CSceneTitle::Draw(void)
 //=============================================================================
 void CSceneTitle::Uninit(void)
 {
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	character_manager->Clear();
 }
 
 //=============================================================================

@@ -12,6 +12,7 @@
 // scene
 #include "scene/match/scene_match.h"
 #include "scene/factory/scene_factory.h"
+#include "interface/character/character_manager.h"
 
 // input
 #include "interface/interface_manager.h"
@@ -132,6 +133,8 @@ void CSceneMatch::Draw(void)
 //=============================================================================
 void CSceneMatch::Uninit(void)
 {
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	character_manager->Clear();
 }
 
 //=============================================================================
