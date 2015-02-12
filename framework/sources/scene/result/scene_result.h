@@ -66,6 +66,8 @@ public:
 
 	// 自分のファクトリーの作成
 	CSceneFactory* MakeFactory(void);
+	
+	static void SetResultFlag(bool fResult);
 
 protected:
 
@@ -85,8 +87,9 @@ private:
 
 	u32 logo_key_;						 //ロゴ表示に必要
 	u32 press_key_;						 //画面下ボタン入力まち表示に必要
+	u32 model_key_;						 //model表示に必要
 
-	u32 model_key_;						//model表示に必要
+	static bool m_bResult;
 };
 
 #endif	// _SCENE_TITLE_H_

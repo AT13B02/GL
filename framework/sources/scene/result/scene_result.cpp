@@ -53,6 +53,8 @@
 
 const VECTOR2 CSceneResult::LOGO_DEFAULT_POS(600.0f,60.0f);
 const VECTOR2 CSceneResult::PRESSKEY_DEFAULT_POS(600.0f,600.0f);
+
+static bool CSceneResult::m_bResult = true;
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -119,9 +121,11 @@ void CSceneResult::Draw(void)
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	
-	object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
+	//object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
+	object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"WinLogo02");
 	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
-	object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
+	//object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
+	object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"pleaseEnter2");
 	object_3d_manager->Draw(model_key_,VECTOR3(0,40,60),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 }
 
@@ -178,7 +182,8 @@ void CSceneResult::Load(void)
 
 	model_manager->Load("resources/model/result");
 	// タイトルフォルダのロード
-	texture_manager->Load("resources/texture/game");
+	//texture_manager->Load("resources/texture/game");
+	texture_manager->Load("resources/texture/result");
 
 	// オブジェクトの生成
 	test_object_key_ = object_3d_manager->AddList(billboard);
@@ -220,7 +225,6 @@ void CSceneResult::Load(void)
 
 	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
 	model_key_ = object_3d_manager->AddList(object_model);
-
 }
 
 //=============================================================================
@@ -229,6 +233,11 @@ void CSceneResult::Load(void)
 CSceneFactory* CSceneResult::MakeFactory(void)
 {
 	return new CResultFactory();
+}
+
+void CSceneResult::SetResultFlag(bool fResult)
+{
+	m_bResult = false;
 }
 
 //---------------------------------- EOF --------------------------------------
