@@ -78,8 +78,9 @@ const char* CSceneResult::p_texture_names[TEXTURE_TYPE_MAX] =
 //=============================================================================
 CSceneResult::CSceneResult(CInterfaceManager* interface_manager) : CScene(interface_manager,TYPE_TITLE)
 {
-	test_object_key_ = -1;
-	model_key_ = -1;
+	test_object_key_	= -1;
+	model_key_			= -1;
+	m_bNonstaticResult	= true;
 }
 
 //=============================================================================
@@ -125,7 +126,8 @@ void CSceneResult::Draw(void)
 	
 	//object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
 
-	if(m_bResult)
+	//if(m_bResult)//static 
+	if(m_bNonstaticResult)//NOstatic 
 	{
 		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_WIN]);
 	}
@@ -247,7 +249,12 @@ CSceneFactory* CSceneResult::MakeFactory(void)
 
 void CSceneResult::SetResultFlag(bool fResult)
 {
-	m_bResult = false;
+	m_bResult = fResult;
+}
+
+void CSceneResult::SetNonstaicResultFlag(bool fResult)
+{
+	m_bNonstaticResult = fResult;
 }
 
 //---------------------------------- EOF --------------------------------------

@@ -69,6 +69,8 @@ public:
 	
 	static void SetResultFlag(bool fResult);
 
+	void SetNonstaicResultFlag(bool fResult);
+
 protected:
 
 private:
@@ -92,6 +94,8 @@ private:
 	u32 model_key_;						 //model•\Ž¦‚É•K—v
 
 	static bool m_bResult;
+
+	bool m_bNonstaticResult;
 };
 
 #endif	// _SCENE_TITLE_H_
