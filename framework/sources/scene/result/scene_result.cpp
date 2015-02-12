@@ -54,7 +54,7 @@
 const VECTOR2 CSceneResult::LOGO_DEFAULT_POS(600.0f,60.0f);
 const VECTOR2 CSceneResult::PRESSKEY_DEFAULT_POS(600.0f,600.0f);
 
-static bool CSceneResult::m_bResult = true;
+bool CSceneResult::m_bResult = true;
 //*****************************************************************************
 // ƒ}ƒNƒ’è‹`
 //*****************************************************************************
@@ -68,7 +68,9 @@ static bool CSceneResult::m_bResult = true;
 //*****************************************************************************
 const char* CSceneResult::p_texture_names[TEXTURE_TYPE_MAX] = 
 {
-	"field001",//logo
+	"WinLogo02",	//Win
+	"LoseLogo2",	//Lose
+	"pleaseEnter2",	//PressEnter
 };
 
 //=============================================================================
@@ -115,17 +117,25 @@ void CSceneResult::Update(void)
 //=============================================================================
 void CSceneResult::Draw(void)
 {
-	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
-	CObjectManager* object_manager = graphic_manager->object_manager();
+	CGraphicManager* graphic_manager	= interface_manager_->graphic_manager();
+	CObjectManager* object_manager		= graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	
 	//object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
-	object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"WinLogo02");
+
+	if(m_bResult)
+	{
+		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_WIN]);
+	}
+	else
+	{	
+		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
+	}
 	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 	//object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
-	object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"pleaseEnter2");
+	object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
 	object_3d_manager->Draw(model_key_,VECTOR3(0,40,60),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 }
 
@@ -219,9 +229,9 @@ void CSceneResult::Load(void)
 	camera->Init();
 	character_camera_manager->Push(camera);
 
-	//CField* field = new CField(interface_manager_);
-	//field->Init();
-	//field_manager->Push(field);
+	CField* field = new CField(interface_manager_);
+	field->Init();
+	field_manager->Push(field);
 
 	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
 	model_key_ = object_3d_manager->AddList(object_model);
