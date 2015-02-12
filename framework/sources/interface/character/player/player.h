@@ -107,6 +107,7 @@ private:
 	static const f32 SPEED;
 	static const f32 SPEED_DEST;
 	static const f32 ROTATION_DEST;
+	static const f32 BULLET_LAUNCH_HEIGHT_OFFSET;
 
 	//ˆÚ“®–Ú•W’l•Ï”
 	VECTOR3 rotation_dest_;
