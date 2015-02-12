@@ -135,7 +135,7 @@ void CSceneResult::Draw(void)
 	}
 	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 	//object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
-	object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
+	object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_PRESSENTER]);
 	object_3d_manager->Draw(model_key_,VECTOR3(0,40,60),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 }
 
