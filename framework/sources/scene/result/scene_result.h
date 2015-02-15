@@ -11,13 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_TITLE_H_
-#define _SCENE_TITLE_H_
+#ifndef _SCENE_RESULT_H_
+#define _SCENE_RESULT_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
 #include "scene/scene.h"
+#include "common/math/vector/vector2.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -39,14 +40,14 @@ class CSound;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneTitle : public CScene
+class CSceneResult : public CScene
 {
 public:
 	// コンストラクタ
-	CSceneTitle(CInterfaceManager* interface_manager);
+	CSceneResult(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CSceneTitle(void);
+	virtual ~CSceneResult(void);
 
 	// 初期化
 	bool Init(void);
@@ -65,12 +66,32 @@ public:
 
 	// 自分のファクトリーの作成
 	CSceneFactory* MakeFactory(void);
+	
+	static void SetResultFlag(bool fResult);
 
 protected:
 
 private:
+
+	typedef enum TEXTURE_TYPE_
+	{
+		TEXTURE_TYPE_WIN,
+		TEXTURE_TYPE_LOSE,
+		TEXTURE_TYPE_PRESSENTER,
+		TEXTURE_TYPE_MAX,
+	}TEXTURE_TYPE;
+
+	static const char* p_texture_names[TEXTURE_TYPE_MAX];
+
+	static const VECTOR2 LOGO_DEFAULT_POS;
+	static const VECTOR2 PRESSKEY_DEFAULT_POS;
 	u32 test_object_key_;
-	char* m_pLogoFileName;
+
+	u32 logo_key_;						 //ロゴ表示に必要
+	u32 press_key_;						 //画面下ボタン入力まち表示に必要
+	u32 model_key_;						 //model表示に必要
+
+	static bool m_bResult;
 };
 
 #endif	// _SCENE_TITLE_H_

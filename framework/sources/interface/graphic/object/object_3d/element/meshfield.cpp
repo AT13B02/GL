@@ -57,7 +57,7 @@ CMeshfield::CMeshfield(CDeviceHolder* device_holder)
 		position_(0.0f, 0.0f),
 		number_index_(4),
 		p_vertex_3d_(nullptr),
-		m_fMaxHeight(200.0f)
+		m_fMaxHeight(500.0f)
 {
 }
 

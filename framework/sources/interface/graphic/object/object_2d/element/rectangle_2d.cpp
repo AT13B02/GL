@@ -102,74 +102,74 @@ void CRectangle2D::Set(void)
 	{
 		case POINT_CENTER:
 		{
-			position_[0] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
+			position_[0] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
 			position_[1] = VECTOR2(-size_._x * 0.5f,-size_._y * 0.5f);
 			position_[2] = VECTOR2( size_._x * 0.5f, size_._y * 0.5f);
-			position_[3] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
+			position_[3] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
 			break;
 		}
 		case POINT_LEFT_UP:
 		{
-			position_[0] = VECTOR2(size_._x,    0.0f);
+			position_[0] = VECTOR2(    0.0f,size_._y);
 			position_[1] = VECTOR2(    0.0f,    0.0f);
 			position_[2] = VECTOR2(size_._x,size_._y);
-			position_[3] = VECTOR2(    0.0f,size_._y);
+			position_[3] = VECTOR2(size_._x,    0.0f);
 			break;
 		}
 		case POINT_LEFT_MIDDLE:
 		{
-			position_[0] = VECTOR2(size_._x, size_._y * 0.5f);
-			position_[1] = VECTOR2(    0.0f, size_._y * 0.5f);
-			position_[2] = VECTOR2(size_._x,-size_._y * 0.5f);
-			position_[3] = VECTOR2(    0.0f,-size_._y * 0.5f);
+			position_[0] = VECTOR2(    0.0f, size_._y * 0.5f);
+			position_[1] = VECTOR2(    0.0f,-size_._y * 0.5f);
+			position_[2] = VECTOR2(size_._x, size_._y * 0.5f);
+			position_[3] = VECTOR2(size_._x,-size_._y * 0.5f);
 			break;
 		}
 		case POINT_LEFT_DOWN:
 		{
 			position_[0] = VECTOR2(    0.0f,     0.0f);
 			position_[1] = VECTOR2(    0.0f,-size_._y);
-			position_[2] = VECTOR2(size_._x,-size_._y);
-			position_[3] = VECTOR2(size_._x,     0.0f);
+			position_[2] = VECTOR2(size_._x,     0.0f);
+			position_[3] = VECTOR2(size_._x,-size_._y);
 			break;
 		}
 		case POINT_RIGHT_UP:
 		{
-			position_[0] = VECTOR2(     0.0f,size_._y);
-			position_[1] = VECTOR2(-size_._x,size_._y);
-			position_[2] = VECTOR2(     0.0f,    0.0f);
-			position_[3] = VECTOR2(-size_._x,    0.0f);
+			position_[0] = VECTOR2(-size_._x,size_._y);
+			position_[1] = VECTOR2(-size_._x,    0.0f);
+			position_[2] = VECTOR2(     0.0f,size_._y);
+			position_[3] = VECTOR2(     0.0f,    0.0f);
 			break;
 		}
 		case POINT_RIGHT_MIDDLE:
 		{
-			position_[0] = VECTOR2(     0.0f, size_._y * 0.5f);
-			position_[1] = VECTOR2(-size_._x, size_._y * 0.5f);
-			position_[2] = VECTOR2(     0.0f,-size_._y * 0.5f);
-			position_[3] = VECTOR2(-size_._x,-size_._y * 0.5f);
+			position_[0] = VECTOR2(-size_._x, size_._y * 0.5f);
+			position_[1] = VECTOR2(-size_._x,-size_._y * 0.5f);
+			position_[2] = VECTOR2(     0.0f, size_._y * 0.5f);
+			position_[3] = VECTOR2(     0.0f,-size_._y * 0.5f);
 			break;
 		}
 		case POINT_RIGHT_DOWN:
 		{
-			position_[0] = VECTOR2(     0.0f,     0.0f);
-			position_[1] = VECTOR2(-size_._x,     0.0f);
-			position_[2] = VECTOR2(     0.0f,-size_._y);
-			position_[3] = VECTOR2(-size_._x,-size_._y);
+			position_[0] = VECTOR2(-size_._x,     0.0f);
+			position_[1] = VECTOR2(-size_._x,-size_._y);
+			position_[2] = VECTOR2(     0.0f,     0.0f);
+			position_[3] = VECTOR2(     0.0f,-size_._y);
 			break;
 		}
 		case POINT_MIDDLE_UP:
 		{
-			position_[0] = VECTOR2( size_._x * 0.5f,size_._y);
-			position_[1] = VECTOR2(-size_._x * 0.5f,size_._y);
-			position_[2] = VECTOR2( size_._x * 0.5f,    0.0f);
-			position_[3] = VECTOR2(-size_._x * 0.5f,    0.0f);
+			position_[0] = VECTOR2(-size_._x * 0.5f,size_._y);
+			position_[1] = VECTOR2(-size_._x * 0.5f,    0.0f);
+			position_[2] = VECTOR2( size_._x * 0.5f,size_._y);
+			position_[3] = VECTOR2( size_._x * 0.5f,    0.0f);
 			break;
 		}
 		case POINT_MIDDLE_DOWN:
 		{
-			position_[0] = VECTOR2( size_._x * 0.5f,     0.0f);
-			position_[1] = VECTOR2(-size_._x * 0.5f,     0.0f);
-			position_[2] = VECTOR2( size_._x * 0.5f,-size_._y);
-			position_[3] = VECTOR2(-size_._x * 0.5f,-size_._y);
+			position_[0] = VECTOR2(-size_._x * 0.5f,     0.0f);
+			position_[1] = VECTOR2(-size_._x * 0.5f,-size_._y);
+			position_[2] = VECTOR2( size_._x * 0.5f,     0.0f);
+			position_[3] = VECTOR2( size_._x * 0.5f,-size_._y);
 			break;
 		}
 	}
@@ -180,21 +180,21 @@ void CRectangle2D::Set(void)
 
 	// 頂点座標の設定
 	pVertex2D->_position[0] = VECTOR2(position_[0]._x,position_[0]._y);
-	pVertex2D->_position[1] = VECTOR2(position_[1]._x,position_[1]._y);
-	pVertex2D->_position[2] = VECTOR2(position_[2]._x,position_[2]._y);
+	pVertex2D->_position[1] = VECTOR2(position_[2]._x,position_[2]._y);
+	pVertex2D->_position[2] = VECTOR2(position_[1]._x,position_[1]._y);
 	pVertex2D->_position[3] = VECTOR2(position_[3]._x,position_[3]._y);
 
 	// テクスチャ座標の設定
-	pVertex2D->_texcoord[0] = VECTOR2(right_,top_);
-	pVertex2D->_texcoord[1] = VECTOR2(left_,top_);
-	pVertex2D->_texcoord[2] = VECTOR2(right_,bottom_);
-	pVertex2D->_texcoord[3] = VECTOR2(left_,bottom_);
+	pVertex2D->_texcoord[0] = VECTOR2(left_,top_);
+	pVertex2D->_texcoord[1] = VECTOR2(right_,top_);
+	pVertex2D->_texcoord[2] = VECTOR2(left_,bottom_);
+	pVertex2D->_texcoord[3] = VECTOR2(right_,bottom_);
 
 	// 色情報の設定
 	pVertex2D->_color[0] = color_[0];
-	pVertex2D->_color[1] = color_[1];
-	pVertex2D->_color[2] = color_[2];
-	pVertex2D->_color[3] = color_[3];
+	pVertex2D->_color[1] = color_[2];
+	pVertex2D->_color[2] = color_[3];
+	pVertex2D->_color[3] = color_[1];
 
 	// 頂点情報をアンロックする
 	vertex_2d_->Unlock();

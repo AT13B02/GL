@@ -77,8 +77,8 @@ void CGLRenderstate2D::Set(void)
 	// ライトを消す
 	glDisable(GL_LIGHTING);
 
-	// Zバッファを使用
-	glEnable(GL_DEPTH_TEST);
+	// Zバッファを使用しない
+	glDisable(GL_DEPTH_TEST);
 
 	// プロジェクションの設定開始
 	glMatrixMode(GL_PROJECTION);

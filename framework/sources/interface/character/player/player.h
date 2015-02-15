@@ -88,8 +88,12 @@ public:
 	// 角度の設定
 	void set_rotation(const VECTOR3& rotation){rotation_ = rotation;}
 
-	//更新フラグセット
-	void set_update( bool flag ){ update_ = flag; }
+	// idの取得
+	int player_id(void);
+	
+	// 死亡フラグアクセサ
+	bool death_flag(void){return death_flag_;};
+	void SetDeathFlag(bool flag){death_flag_ = flag;};
 
 protected:
 	// インターフェースマネージャーのポインタ
@@ -107,12 +111,11 @@ private:
 	static const f32 SPEED;
 	static const f32 SPEED_DEST;
 	static const f32 ROTATION_DEST;
-	static const f32 BULLET_LAUNCH_HEIGHT_OFFSET;
 
 	//移動目標値変数
 	VECTOR3 rotation_dest_;
 
-	bool update_;
+	bool death_flag_;
 };
 
 //---------------------------------- EOF --------------------------------------

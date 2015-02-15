@@ -62,6 +62,9 @@ public:
 	// I—¹
 	void Uninit(void);
 
+	// ƒfƒX
+	void Death(int id);
+
 protected:
 
 private:
