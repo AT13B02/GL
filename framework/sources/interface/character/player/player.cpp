@@ -37,6 +37,7 @@
 const f32 CPlayer::SPEED = 0.5f;
 const f32 CPlayer::SPEED_DEST = 0.3f;
 const f32 CPlayer::ROTATION_DEST = 0.3f;
+const f32 CPlayer::BULLET_LAUNCH_HEIGHT_OFFSET = 20.0f;
 
 //=============================================================================
 // コンストラクタ
@@ -153,7 +154,7 @@ void CPlayer::Update(void)
 	f32 def = rotation_dest_._y - rotation_._y;
 
 	def = GetRotationNormalize(def);
-	rotation_._y += def * 0.1f;
+	rotation_._y += def * 0.1f;	// 減衰率
 
 	rotation_._y = GetRotationNormalize(rotation_._y);
 
@@ -161,7 +162,7 @@ void CPlayer::Update(void)
 	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE))
 	{
 		VECTOR3 crate_position = position_;
-		crate_position._y += 20.f;
+		crate_position._y += BULLET_LAUNCH_HEIGHT_OFFSET;
 		interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataBullet(&crate_position
 																								,&VECTOR3(0.0f,0.0f,1.0f).RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rotation_._y + 180.0f) * MTH_DEGREE)
 																								,1.0f);
@@ -175,16 +176,12 @@ void CPlayer::Update(void)
 //=============================================================================
 void CPlayer::Draw(void)
 {
-	/*
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// 描画
-	object_3d_manager->Draw(object_key_,position_,rotation_,scale_,MATRIX4x4(),"");
-	object_3d_manager->Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(),"");
-
-	*/
+	object_3d_manager->Draw(object_key_,position_,rotation_,scale_,MATRIX4x4(),"yukidaruma");
 }
 
 //=============================================================================
