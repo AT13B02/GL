@@ -208,7 +208,6 @@ void CSceneGame::Load(void)
 	player_ = new CPlayer(interface_manager_);
 	//CPlayer* player = new CNetWorkPlayer(interface_manager_);
 	player_->Init();
-	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	player_manager->set_player( player_ );
 	player_manager->Push(player_);
 
