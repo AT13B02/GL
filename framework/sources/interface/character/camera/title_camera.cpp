@@ -72,7 +72,7 @@ bool CTitleCamera::Init(void)
 	}
 
 	// 初期座標の設定
-	camera->SetPosition(VECTOR3(0.0f,90.0f,130.0f),VECTOR3(0.0f,0.0f,0.0f));
+	camera->SetPosition(VECTOR3(0.0f,100.0f,120.0f),VECTOR3(0.0f,0.0f,0.0f));
 
 	// パースペクティブの設定
 	camera->SetPerspective(60.0f,((f32)(window_data->_width) / window_data->_height),1.0f,10000.0f);
@@ -97,6 +97,7 @@ void CTitleCamera::Update(void)
 //=============================================================================
 void CTitleCamera::Uninit(void)
 {
+
 }
 
 //---------------------------------- EOF --------------------------------------

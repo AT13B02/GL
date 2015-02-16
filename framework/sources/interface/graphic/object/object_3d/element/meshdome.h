@@ -1,23 +1,19 @@
 //*****************************************************************************
 //
-// シーンマネージャークラス
+// メッシュドームクラス
 //
 // Author		: Kenji Kabutomori
 //
 //*****************************************************************************
-
-//*****************************************************************************
-// 多重定義防止
-//*****************************************************************************
 #pragma once
-
-#ifndef _SCENE_MANAGER_H_
-#define _SCENE_MANAGER_H_
+#ifndef _MESHDOME_H_
+#define _MESHDOME_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic/basic.h"
+// graphic
+#include "interface/graphic/object/object_3d/element/object_3d.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -34,75 +30,46 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CScene;
-class CSceneFactory;
-class CThread;
-class CInterfaceManager;
-class CTexture;
-class CFade2D;
-class CSceneData;
+class CVertex3D;
+struct COLOR4F;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneManager : public CBasic
+class CMeshdome : public CObject3D
 {
 public:
 	// コンストラクタ
-	CSceneManager(CInterfaceManager* interface_manager);
+	CMeshdome(CDeviceHolder* device_holder);
 
 	// デストラクタ
-	virtual ~CSceneManager(void);
+	virtual ~CMeshdome(void);
 
-	// 初期化
+	// 初期化処理
 	bool Init(void);
 
-	// 更新
-	void Update(void);
+	// 描画処理
+	void Draw(CObject3DData* object_3d_data);
 
-	// 描画
-	void Draw(void);
-
-	// 終了
+	// 終了処理
 	void Uninit(void);
 
-	// 次のシーンを設定
-	void set_next_scene(CSceneFactory* scene_factory){next_scene_ = scene_factory;}
+	// 頂点情報の設定
+	void Set(void);
 
-	// ロードフラグの取得
-	bool load_flag(void){return load_flag_;}
+	// グリッド数の設定
+	void SetGridNumber(const u32& grid_x_number,const u32& grid_z_number){grid_x_number_ = grid_x_number;grid_z_number_ = grid_z_number;}
 
-protected:
+	// 半径の設定
+	void set_radius(const f32& radius){radius_ = radius;}
 
 private:
-	// 現在のシーン
-	CScene* scene_;
-
-	// ロード中のシーン
-	CScene* load_;
-
-	// 次のシーンのファクトリ
-	CSceneFactory* next_scene_;
-
-	// 入力デバイス
-	CInterfaceManager* interface_manager_;
-
-	// ロード中に使用するスレッド
-	CThread* thread_;
-
-	// ロードフラグ
-	volatile bool load_flag_;
-
-	// Fade
-	CFade2D* fade_2d_;
-
-	// シーンデータ
-	CSceneData* scene_data_;
-
-	// ロード用関数
-	static void Load(CSceneManager* scene_manager);
+	f32 radius_;
+	u32 grid_x_number_;
+	u32 grid_z_number_;
+	CVertex3D* vertex_;
 };
 
-#endif	// _SCENE_MANAGER_H_
+#endif	// _MESHDOME_H_
 
 //---------------------------------- EOF --------------------------------------

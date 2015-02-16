@@ -58,12 +58,17 @@
 #define TITLE_LOGO_TEX_NAME         ("title")
 
 #define TITLE_ENTER_POS_X_INIT      (650)
-#define TITLE_ENTER_POS_Y_INIT      (600)
+#define TITLE_ENTER_POS_Y_INIT      (620)
 #define TITLE_ENTER_TEX_SIZE_X_INIT (609)
 #define TITLE_ENTER_TEX_SIZE_Y_INIT (62)
 #define TITLE_ENTER_SCL_X_INIT      (1)
 #define TITLE_ENTER_SCL_Y_INIT      (1)
 #define TITLE_ENTER_TEX_NAME        ("pleaseEnter")
+
+#define TITLE_CHARA_POS_X_INIT      (0)
+#define TITLE_CHARA_POS_Y_INIT      (40)
+#define TITLE_CHARA_POS_Z_INIT      (60)
+#define TITLE_CHARA_DISTANCE_X_INIT     (15)
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
@@ -83,7 +88,10 @@ CSceneTitle::CSceneTitle(CInterfaceManager* interface_manager) : CScene(interfac
 	field_object_key_ = -1;
 
 	tikatika_=true;
+	center_daruma_height=TITLE_CHARA_POS_Y_INIT;
+	is_daruma_up=true;
 	tikatika_counter=0;
+	jump_cnt=0;
 	rot_=0;
 }
 
@@ -112,11 +120,13 @@ bool CSceneTitle::Init(void)
 //=============================================================================
 void CSceneTitle::Update(void)
 {
+	//エンターキーが押されたらシーン切り替え
 	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
 	{
 		set_next_scene(new CGameFactory());
 	}
 
+	//PUSHENTERの点滅処理
 	tikatika_counter++;
 	if(tikatika_counter>=TIKATIKA_CHANGE_POINT)
 	{
@@ -130,6 +140,29 @@ void CSceneTitle::Update(void)
 	if( rot_ > 180 )
 	{
 		rot_ = -180.0f;
+	}
+
+	//真ん中のだるまのジャンプ処理
+	if(is_daruma_up)
+	{
+		jump_cnt++;
+		center_daruma_height+=0.4f;
+		if(jump_cnt>=12)
+		{
+			jump_cnt=0;
+			is_daruma_up=!is_daruma_up;
+		}
+	}
+
+	else
+	{
+		jump_cnt++;
+		center_daruma_height-=0.4f;
+		if(jump_cnt>=12)
+		{
+			jump_cnt=0;
+			is_daruma_up=!is_daruma_up;
+		}
 	}
 }
 
@@ -145,10 +178,11 @@ void CSceneTitle::Draw(void)
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	// 描画
-	object_3d_manager->Draw(daruma_object_key_ ,VECTOR3(-30,40,60),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
-	object_3d_manager->Draw(daruma_object2_key_,VECTOR3(-15,40,60),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
-	object_3d_manager->Draw(daruma_object3_key_,VECTOR3(0,40,60),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
-	object_3d_manager->Draw(daruma_object4_key_,VECTOR3(15,40,60),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+	object_3d_manager->Draw(daruma_object_key_ ,VECTOR3((TITLE_CHARA_POS_X_INIT+TITLE_CHARA_DISTANCE_X_INIT*-2),TITLE_CHARA_POS_Y_INIT,TITLE_CHARA_POS_Z_INIT),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+	object_3d_manager->Draw(daruma_object2_key_,VECTOR3((TITLE_CHARA_POS_X_INIT+TITLE_CHARA_DISTANCE_X_INIT*-1),TITLE_CHARA_POS_Y_INIT,TITLE_CHARA_POS_Z_INIT),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+	object_3d_manager->Draw(daruma_object3_key_,VECTOR3((TITLE_CHARA_POS_X_INIT+TITLE_CHARA_DISTANCE_X_INIT* 0),center_daruma_height,TITLE_CHARA_POS_Z_INIT),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+	object_3d_manager->Draw(daruma_object4_key_,VECTOR3((TITLE_CHARA_POS_X_INIT+TITLE_CHARA_DISTANCE_X_INIT* 1),TITLE_CHARA_POS_Y_INIT,TITLE_CHARA_POS_Z_INIT),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
+	object_3d_manager->Draw(daruma_object5_key_,VECTOR3((TITLE_CHARA_POS_X_INIT+TITLE_CHARA_DISTANCE_X_INIT* 2),TITLE_CHARA_POS_Y_INIT,TITLE_CHARA_POS_Z_INIT),VECTOR3(0,rot_,0),VECTOR3(1,1,1),MATRIX4x4(),"");
 
 	object_2d_manager->Draw(logo_object_key_,VECTOR2(TITLE_LOGO_POS_X_INIT,TITLE_LOGO_POS_Y_INIT),0,VECTOR2(TITLE_LOGO_SCL_X_INIT,TITLE_LOGO_SCL_Y_INIT),MATRIX4x4(),TITLE_LOGO_TEX_NAME);
 	if(tikatika_)
@@ -161,7 +195,12 @@ void CSceneTitle::Draw(void)
 //=============================================================================
 void CSceneTitle::Uninit(void)
 {
-		CCharacterManager* character_manager = interface_manager_->character_manager();
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	character_manager->Clear();
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
+	character_camera_manager->Uninit();
 }
 
 //=============================================================================
@@ -226,6 +265,9 @@ void CSceneTitle::Load(void)
 	
 	CObjectModel* object_model4 = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
 	daruma_object4_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model4);
+
+	CObjectModel* object_model5 = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+	daruma_object5_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model5);
 
 	// フィールドの生成
 	CField* field = new CField(interface_manager_);

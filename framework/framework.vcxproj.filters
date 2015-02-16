@@ -514,8 +514,16 @@
     <ClInclude Include="sources\interface\character\player\network_player.h">
       <Filter>sources\interface\character\player</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="sources\interface\character\camera\title_camera.h">
       <Filter>sources\interface\character\camera</Filter>
+=======
+    <ClInclude Include="sources\scene\scene_data.h">
+      <Filter>sources\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshdome.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+>>>>>>> 1703f95b07b5910f9b96a42eb51c5f4a544ae10a
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -852,8 +860,16 @@
     <ClCompile Include="sources\interface\character\player\network_player.cpp">
       <Filter>sources\interface\character\player</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="sources\interface\character\camera\title_camera.cpp">
       <Filter>sources\interface\character\camera</Filter>
+=======
+    <ClCompile Include="sources\scene\scene_data.cpp">
+      <Filter>sources\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshdome.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+>>>>>>> 1703f95b07b5910f9b96a42eb51c5f4a544ae10a
     </ClCompile>
   </ItemGroup>
 </Project>

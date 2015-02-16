@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// シーンマネージャークラス
+// シーンデータクラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -11,8 +11,8 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_MANAGER_H_
-#define _SCENE_MANAGER_H_
+#ifndef _SCENE_DATA_H_
+#define _SCENE_DATA_H_
 
 //*****************************************************************************
 // インクルード
@@ -34,75 +34,33 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CScene;
-class CSceneFactory;
-class CThread;
-class CInterfaceManager;
-class CTexture;
-class CFade2D;
-class CSceneData;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneManager : public CBasic
+class CSceneData : public CBasic
 {
 public:
 	// コンストラクタ
-	CSceneManager(CInterfaceManager* interface_manager);
+	CSceneData(void);
 
 	// デストラクタ
-	virtual ~CSceneManager(void);
+	virtual ~CSceneData(void);
 
-	// 初期化
-	bool Init(void);
+	// 初期化処理
+	bool Init(void){return true;}
 
-	// 更新
-	void Update(void);
+	// 終了処理
+	void Uninit(void){}
 
-	// 描画
-	void Draw(void);
-
-	// 終了
-	void Uninit(void);
-
-	// 次のシーンを設定
-	void set_next_scene(CSceneFactory* scene_factory){next_scene_ = scene_factory;}
-
-	// ロードフラグの取得
-	bool load_flag(void){return load_flag_;}
-
+	const u32& id(void)const{return id_;}
+	void set_id(u32 id){id_ = id;}
 protected:
 
 private:
-	// 現在のシーン
-	CScene* scene_;
-
-	// ロード中のシーン
-	CScene* load_;
-
-	// 次のシーンのファクトリ
-	CSceneFactory* next_scene_;
-
-	// 入力デバイス
-	CInterfaceManager* interface_manager_;
-
-	// ロード中に使用するスレッド
-	CThread* thread_;
-
-	// ロードフラグ
-	volatile bool load_flag_;
-
-	// Fade
-	CFade2D* fade_2d_;
-
-	// シーンデータ
-	CSceneData* scene_data_;
-
-	// ロード用関数
-	static void Load(CSceneManager* scene_manager);
+	u32 id_;
 };
 
-#endif	// _SCENE_MANAGER_H_
+#endif	// _SCENE_H_
 
 //---------------------------------- EOF --------------------------------------
