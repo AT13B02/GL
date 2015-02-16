@@ -85,7 +85,7 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 		{
 			if((*player_it)->player_id() == (*bullet_it)->player_id())
 			{
-			//	continue;
+				continue;
 			}
 
 			// “–‚½‚è”»’è
