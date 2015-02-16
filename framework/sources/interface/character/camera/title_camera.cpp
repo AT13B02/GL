@@ -97,7 +97,11 @@ void CTitleCamera::Update(void)
 //=============================================================================
 void CTitleCamera::Uninit(void)
 {
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	WINDOW_DATA* window_data = interface_manager_->window_data();
+	CCameraManager* camera_manager = graphic_manager->camera_manager();
 
+	camera_manager->EraseCamera(camera_key_);
 }
 
 //---------------------------------- EOF --------------------------------------

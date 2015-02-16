@@ -197,10 +197,6 @@ void CSceneTitle::Uninit(void)
 {
 	CCharacterManager* character_manager = interface_manager_->character_manager();
 	character_manager->Clear();
-	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
-	CObjectManager* object_manager = graphic_manager->object_manager();
-	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
-	character_camera_manager->Uninit();
 }
 
 //=============================================================================
