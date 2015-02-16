@@ -12,7 +12,6 @@
 // scene
 #include "scene/match/scene_match.h"
 #include "scene/factory/scene_factory.h"
-#include "interface/character/character_manager.h"
 
 // input
 #include "interface/interface_manager.h"
@@ -31,6 +30,12 @@
 #include "interface/graphic/object/object_3d/element/billboard.h"
 #include "interface/graphic/object/object_3d/element/rectangle_3d.h"
 
+//network
+#include "interface/interface_manager.h"
+#include "interface/network/network_manager.h"
+#include "interface/network/network_client.h"
+#include "interface/network/network_data_buffer.h"
+#include "interface/network/windows_sockets.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -68,7 +73,8 @@ CSceneMatch::CSceneMatch(CInterfaceManager* interface_manager) : CScene(interfac
 	test_2d_key_ = -1;
 
 	host_decision_key_ = -1;
-
+	flash_timer_ = 0;
+	draw_flag_ = false;
 	for(int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++)
 	{ 
 		player_Disp_2d_key_[nPlayer] = -1;
@@ -91,6 +97,7 @@ bool CSceneMatch::Init(void)
 	{
 		return false;
 	}
+	player_Disp_2d_pos_ = VECTOR3(0,0,0);
 
 	return true;
 }
@@ -100,10 +107,56 @@ bool CSceneMatch::Init(void)
 //=============================================================================
 void CSceneMatch::Update(void)
 {
-	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+	int my_id = 99;
+	my_id = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetID();
+	
+	// 全員準備完了してたら
+	if(interface_manager_->network_manager()->GetNetworkClient()->GetEndAllPlayerPrepareFlag())
+	{
+		//if(my_id == 0)	// IDNo0のみ可能な処理
+		{
+			if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+			{
+				// ゲーム開始通知を送る
+				interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendGameStart();
+			}
+		}
+	}
+
+	else
+	{
+		// 準備完了通知
+		if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+		{
+			interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataPrepare(my_id);
+			player_Disp_2d_pos_._x += 50.f;
+		}
+	}
+
+	// ゲーム開始なら
+	if(interface_manager_->network_manager()->GetNetworkClient()->GetStartGameFlag())
 	{
 		set_next_scene(new CGameFactory());
 	}
+	
+	//TODO
+	flash_timer_++;
+	if(flash_timer_ > FLASH_ALL_TIME)
+	{
+		flash_timer_ = 0;
+	}
+
+	if(flash_timer_ < FLASH_ALL_TIME * 0.5)
+	{
+		draw_flag_ = true;
+	}
+	else
+	{
+		draw_flag_ = false;
+	}
+
+	// 準備完了確認
+	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->CheckAllPlayerPrepare(my_id);
 }
 
 //=============================================================================
@@ -111,21 +164,34 @@ void CSceneMatch::Update(void)
 //=============================================================================
 void CSceneMatch::Draw(void)
 {
-  CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
-  CObjectManager* object_manager = graphic_manager->object_manager();
-  CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-  CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
-  
-  // 描画
-  //object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(90,0,0),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
-  //object_2d_manager->Draw(test_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"");
-  object_2d_manager->Draw(host_decision_key_,HOST_DECITION_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_HOST_DECISION]);
-  object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
-  
-  for(int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++)
-  {
-  	object_2d_manager->Draw(player_Disp_2d_key_[nPlayer],VECTOR2(PLAYER_DISP_OFFSET_X,nPlayer * PLAYER_DISP_OFFSET_Y +CSceneMatch::PLAYER_DISP_START_Y),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[1+nPlayer]);
-  }
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
+	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
+
+	// 描画
+	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(90,0,0),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
+	//object_2d_manager->Draw(test_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"");
+	object_2d_manager->Draw(host_decision_key_,HOST_DECITION_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_HOST_DECISION]);
+	object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
+
+	int my_id = 0;
+	my_id = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetID();
+
+	for(int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++)
+	{
+		if(my_id == nPlayer)
+		{
+			if(draw_flag_)
+			{
+				object_2d_manager->Draw(player_Disp_2d_key_[nPlayer],VECTOR2(PLAYER_DISP_OFFSET_X + player_Disp_2d_pos_._x,nPlayer * PLAYER_DISP_OFFSET_Y +CSceneMatch::PLAYER_DISP_START_Y),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[1+nPlayer]);
+			}
+		}
+		else
+		{
+			object_2d_manager->Draw(player_Disp_2d_key_[nPlayer],VECTOR2(PLAYER_DISP_OFFSET_X,nPlayer * PLAYER_DISP_OFFSET_Y +CSceneMatch::PLAYER_DISP_START_Y),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[1+nPlayer]);
+		}
+	}
 }
 
 //=============================================================================
@@ -133,8 +199,8 @@ void CSceneMatch::Draw(void)
 //=============================================================================
 void CSceneMatch::Uninit(void)
 {
-	CCharacterManager* character_manager = interface_manager_->character_manager();
-	character_manager->Clear();
+	interface_manager_->network_manager()->GetNetworkClient()->SetEndAllPlayerPrepareFlag(false);
+	interface_manager_->network_manager()->GetNetworkClient()->SetStartGameFlag(false);
 }
 
 //=============================================================================
@@ -164,6 +230,8 @@ void CSceneMatch::Load(void)
 	// オブジェクトの生成
 	test_object_key_ = object_3d_manager->AddList(billboard);
 
+	// リクエストID
+	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 
 	CRectangle2D* p_rect2D = new CRectangle2D(device_holder);
 	p_rect2D->set_size(VECTOR2(200,200));
@@ -189,7 +257,6 @@ void CSceneMatch::Load(void)
 	p_rect2D->set_size(VECTOR2(512,128));
 	p_rect2D->Set();
 	logo_key_ = object_2d_manager->AddList(p_rect2D);
-	
 }
 
 //=============================================================================

@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// ネットゲームアシスタントクラス
+// カウントダウンクラス
 //
 // Author		: Chiharu Kamiyama
 //
@@ -9,8 +9,9 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
+#include "countdown.h"
+
 // scene
-#include "scene/game/network_command_assistant.h"
 #include "scene/game/scene_game.h"
 #include "scene/factory/scene_factory.h"
 
@@ -63,6 +64,10 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
+const f32 CCountDown::ADD_SCALSE = 1/60.0f;
+const f32 CCountDown::ADD_TEXTURE_UV = 1/4.0f;
+const f32 CCountDown::WIDTH = 200.0f;
+const f32 CCountDown::HEIGHT = 300.0f;
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -75,23 +80,48 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CNetworkCommandAssistant::CNetworkCommandAssistant(CInterfaceManager* interface_manager)
+CCountDown::CCountDown(CInterfaceManager* interface_manager)
 {
+	//インターフェースポインタ保存
 	interface_manager_ = interface_manager;
+
+	//各値初期化
+	countdown_polygon = NULL;
+	scl_ = 0.0f;
+	alpha_ = 1.0f;
+	right_ = ADD_TEXTURE_UV;
+	left_ = 0.0f;
+	top_ = 0.0f;
+	bottom_ = 1.0f;
+
+	countdown_comp_ = false;
+
+	//カウントダウン用のポリゴン作成
+	countdown_polygon = new CRectangle2D(interface_manager->graphic_manager()->device_holder());
+	countdown_polygon->set_size(VECTOR2((f32)WIDTH,(f32)HEIGHT));
+	countdown_polygon->set_point(CRectangle2D::POINT_CENTER);
+	countdown_polygon->set_texcoord( left_, right_, top_, bottom_ );
+	countdown_polygon->Set();
+
+	interface_manager_ = interface_manager;
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
+	countdown_polygon_key_ = object_2d_manager->AddList(countdown_polygon);
 
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CNetworkCommandAssistant::~CNetworkCommandAssistant(void)
+CCountDown::~CCountDown(void)
 {
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CNetworkCommandAssistant::Init(void)
+bool CCountDown::Init(void)
 {
 
 	return true;
@@ -100,96 +130,54 @@ bool CNetworkCommandAssistant::Init(void)
 //=============================================================================
 // 更新
 //=============================================================================
-void CNetworkCommandAssistant::Update(void)
+void CCountDown::Update(void)
 {
-	//ネットワークバッファの取得
-	CHARCTER_INFO *net_chara_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharcterInfoBuffer();
-	
-	CCharacterManager *character_manager = interface_manager_->character_manager();
-	
-	//ネットのプレイヤーにアップデートしてー
-	for( int i = 0; i < kMaxPlayer; i++, net_chara_buf++)
+	//スケール値更新
+	scl_ += ADD_SCALSE;
+
+	//１になったら次へ
+	if( scl_ > 1.0f )
 	{
-		if(net_chara_buf->player_id < 0)
+		//Ｕ値更新
+		left_ = right_;
+		right_ += ADD_TEXTURE_UV;
+
+		//Ｕ値が1.0以上になったらカウント終了
+		if( right_ > 1.0f )
 		{
-			continue;
+			countdown_comp_ = true;
 		}
-		if( net_chara_buf->end_push_flag == true )
-		{
-			if( character_manager->network_player( net_chara_buf->player_id ) == NULL )
-			{
-				//つくる
-				CNetWorkPlayer* player = new CNetWorkPlayer(interface_manager_);
-				player->Init();
-			
-				//ポインタ保存
-				character_manager->SetNetworkPlayer( player, net_chara_buf->player_id );
-			}
 
-			//更新
-			character_manager->network_player( net_chara_buf->player_id )->set_position( net_chara_buf->position );
-			character_manager->network_player( net_chara_buf->player_id )->set_rotation( net_chara_buf->rotation );
-			character_manager->network_player( net_chara_buf->player_id )->Update();
+		//テクスチャセット
+		countdown_polygon->set_texcoord( left_, right_, top_, bottom_ );
+		countdown_polygon->Set();
 
-			net_chara_buf->end_push_flag = false;
-		}
-	}
 
-	//弾バッファの取得
-	BULLET_INFO *net_bullet_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetBulletInfoBuffer();
-	
-	for(int i = 0; i < kMaxPlayer; i++,net_bullet_buf++)
-	{
-		if(net_bullet_buf->player_id < 0)
-		{
-			continue;
-		}
-		if( net_bullet_buf->end_push_flag == true )
-		{
-			CBullet* bullet = new CBullet(interface_manager_);
+		scl_ = 0.0f;
 
-			bullet->Init();
-			bullet->SetParameter(net_bullet_buf->position,
-								net_bullet_buf->front_vector,
-								net_bullet_buf->speed,
-								net_bullet_buf->player_id);
-			
-			interface_manager_->character_manager()->bullet_manager()->Push(bullet);
-
-			net_bullet_buf->end_push_flag = false;
-		}
 	}
 }
 
 //=============================================================================
 // 描画
 //=============================================================================
-void CNetworkCommandAssistant::Draw(void)
+void CCountDown::Draw(void)
 {
-	CCharacterManager *character_manager = interface_manager_->character_manager();
-	
-	for( int i = 0; i < kMaxPlayer; i++ )
-	{
-		if( character_manager->network_player( i ) != NULL )
-		{
-			character_manager->network_player( i ) ->Draw();
-		}
-	}
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
+	object_2d_manager->Draw(countdown_polygon_key_,VECTOR2(DEFAULT_SCREEN_WIDTH / 2,DEFAULT_SCREEN_HEIGHT / 2),0.0f,VECTOR2(scl_,scl_),
+								MATRIX4x4(),"countdown");
 }
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CNetworkCommandAssistant::Uninit(void)
+void CCountDown::Uninit(void)
 {
 
 }
 
-// デス
-void CNetworkCommandAssistant::Death(int id)
-{
-	CCharacterManager *character_manager = interface_manager_->character_manager();
-	character_manager->network_player( id )->Uninit();
-}
+
 
 //---------------------------------- EOF --------------------------------------

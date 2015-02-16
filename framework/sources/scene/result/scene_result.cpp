@@ -78,9 +78,8 @@ const char* CSceneResult::p_texture_names[TEXTURE_TYPE_MAX] =
 //=============================================================================
 CSceneResult::CSceneResult(CInterfaceManager* interface_manager) : CScene(interface_manager,TYPE_TITLE)
 {
-	test_object_key_	= -1;
-	model_key_			= -1;
-	m_bNonstaticResult	= true;
+	test_object_key_ = -1;
+	model_key_ = -1;
 }
 
 //=============================================================================
@@ -122,22 +121,23 @@ void CSceneResult::Draw(void)
 	CObjectManager* object_manager		= graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
-
+	
 	
 	//object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
-
-	//if(m_bResult)//static 
-	if(m_bNonstaticResult)//NOstatic 
+	
+	if(m_bResult)
 	{
 		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_WIN]);
+		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_WIN]);
 	}
 	else
 	{	
 		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
+		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
 	}
 	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 	//object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
-	object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_PRESSENTER]);
+	//object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
 	object_3d_manager->Draw(model_key_,VECTOR3(0,40,60),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 }
 
@@ -148,14 +148,14 @@ void CSceneResult::Uninit(void)
 {
 	CCharacterManager* character_manager = interface_manager_->character_manager();
 	character_manager->Clear();
-
+	
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 	
-	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
-	character_camera_manager->Uninit();
+	//CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
+	//character_camera_manager->Uninit();
 
 	//CFieldManager* field_manager = character_manager->field_manager();
 	//field_manager->Release();
@@ -187,54 +187,54 @@ void CSceneResult::Load(void)
 	CLightManager* light_manager		= graphic_manager->light_manager();
 	CModelManager* model_manager		= graphic_manager->model_manager();
 	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
-
+	
 	CRectangle3D* billboard = new CRectangle3D(device_holder);
 	billboard->set_size(VECTOR2(200,200));
 	billboard->Set();
-
+	
 	model_manager->Load("resources/model/result");
 	// タイトルフォルダのロード
 	//texture_manager->Load("resources/texture/game");
 	texture_manager->Load("resources/texture/result");
-
+	
 	// オブジェクトの生成
 	test_object_key_ = object_3d_manager->AddList(billboard);
-
+	
 	//2d
 	CRectangle2D* p_rect2D = new CRectangle2D(device_holder);
 	p_rect2D->set_size(VECTOR2(200,200));
 	p_rect2D->Set();
 	logo_key_ = object_2d_manager->AddList(p_rect2D);
-
+	
 	//画面下
 	p_rect2D = new CRectangle2D(device_holder);
 	p_rect2D->set_size(VECTOR2(400,200));
 	p_rect2D->Set();
 	press_key_= object_2d_manager->AddList(p_rect2D);;
-
+	
 	// ライトの設定
 	CLight* light = CLight::Create(device_holder);
 	light->Init();
 	light->SetType(CLight::TYPE_DIRECTIONAL);
 	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
 	light_manager->Add(light);
-
+	
 	// ライトの設定
 	light = CLight::Create(device_holder);
 	light->Init();
 	light->SetType(CLight::TYPE_DIRECTIONAL);
 	light->SetDirection(VECTOR3(0.0f,-1.0f,0.0f).Normalize());
 	light_manager->Add(light);
-
+	
 	// カメラの生成
 	CResultCamera* camera = new CResultCamera(interface_manager_);
 	camera->Init();
 	character_camera_manager->Push(camera);
-
+	
 	CField* field = new CField(interface_manager_);
 	field->Init();
 	field_manager->Push(field);
-
+	
 	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
 	model_key_ = object_3d_manager->AddList(object_model);
 }
@@ -250,11 +250,6 @@ CSceneFactory* CSceneResult::MakeFactory(void)
 void CSceneResult::SetResultFlag(bool fResult)
 {
 	m_bResult = fResult;
-}
-
-void CSceneResult::SetNonstaicResultFlag(bool fResult)
-{
-	m_bNonstaticResult = fResult;
 }
 
 //---------------------------------- EOF --------------------------------------

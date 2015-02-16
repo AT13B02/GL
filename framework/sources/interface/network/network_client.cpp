@@ -34,7 +34,7 @@
 //*****************************************************************************
 // スタティックメンバ変数
 //*****************************************************************************
-int CNetworkClient::m_myID = -1;
+s8 CNetworkClient::m_myID = -1;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -45,6 +45,8 @@ CNetworkClient::CNetworkClient(void)
 
 	m_bLoopFlag = true;
 	m_myID = -1;
+	m_bAllPlayerPrepare = false;
+	m_bStartGame = false;
 }
 
 //=============================================================================
@@ -79,6 +81,13 @@ bool CNetworkClient::Init(void)
 
 	// バッファポインタセット
 	m_pWinsock->SetNetworkDataBufferPointer(m_pNetworkDataBuffer);
+
+	// 準備完了フラグ初期化
+	m_bAllPlayerPrepare = false;
+
+	// ゲームスタートフラグ初期化
+	m_bStartGame = false;
+
 	return true;
 }
 
@@ -90,6 +99,7 @@ void CNetworkClient::Uninit(void)
 	NETWORK_DATA SendData = {0};
 
 	SendData.data_type = NETWORK_DATA_TYPE_END;
+	SendData.my_ID = m_myID;
 	strcpy(SendData.game_ID, kGameID);
 
 	// 自分にデータを送信し、受信を終了させる
@@ -136,17 +146,39 @@ unsigned __stdcall CNetworkClient::ReceiveThread(CNetworkClient* pNetworkClient)
 		{
 			pNetworkClient->m_bLoopFlag = false;
 		}
+
 		// ＩＤセット
 		if(Data.data_type == NETWORK_DATA_TYPE_SEND_PLAYER_NUMBER && m_myID < 0)
 		{
-			pNetworkClient->m_pNetworkDataBuffer->SetID(&Data);
+			pNetworkClient->m_pNetworkDataBuffer->SetID(Data.my_ID);
 			m_myID = Data.my_ID;
 		}
+		
 		// リザルトへ行くなら
 		else if(Data.data_type == NETWORK_DATA_TYPE_GO_TO_RESULT)
 		{
 			pNetworkClient->m_pNetworkDataBuffer->SetGameSceneEndFlag(true);
 		}
+
+		// 全員準備完了してたら
+		else if(Data.data_type == NETWORK_DATA_TYPE_END_PREPARE)
+		{
+			pNetworkClient->m_bAllPlayerPrepare = true;
+		}
+
+		// まだ全員準備完了してないなら
+		else if(Data.data_type == NETWORK_DATA_TYPE_NOT_END_PREPARE)
+		{
+			pNetworkClient->m_bAllPlayerPrepare = false;
+		}
+
+		// ゲーム開始
+		else if(Data.data_type == NETWORK_DATA_TYPE_GO_TO_GAME)
+		{
+			pNetworkClient->m_bStartGame = true;
+		}
+
+		// オブジェクトのデータなら
 		else
 		{
 			// データを格納

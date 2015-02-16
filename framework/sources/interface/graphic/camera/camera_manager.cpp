@@ -154,6 +154,8 @@ bool CCameraManager::EraseCamera(const u32& key)
 		// ƒŠƒXƒg‚©‚çíœ
 		camera_.erase(key);
 
+		number_count_--;
+
 		return true;
 	}
 

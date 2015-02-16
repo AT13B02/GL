@@ -95,7 +95,7 @@ public:
 	void Push(NETWORK_DATA* pData);
 
 	// IDをセット**プレイヤーや弾は呼び出さない***
-	void SetID(NETWORK_DATA* pData);
+	void SetID(int player_id);
 
 	// IDをゲット
 	int GetID(void){return m_MyID;};

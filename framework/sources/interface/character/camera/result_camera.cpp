@@ -107,6 +107,12 @@ void CResultCamera::Update(void)
 //=============================================================================
 void CResultCamera::Uninit(void)
 {
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	WINDOW_DATA* window_data = interface_manager_->window_data();
+	CCameraManager* camera_manager = graphic_manager->camera_manager();
+	CCamera* camera = camera_manager->GetCamera(camera_key_);
+
+	camera_manager->EraseCamera(camera_key_);
 }
 
 //---------------------------------- EOF --------------------------------------

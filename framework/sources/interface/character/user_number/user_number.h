@@ -1,12 +1,8 @@
 //*****************************************************************************
 //
-// ネットワークマネージャークラス [network_manager.h]
+// ユーザーナンバークラス(プレイヤーの上に出るアレ)
 //
-// Author		: KENJI KABUTOMORI
-//				  NAOKI NOJIRI
-// Date			: 2014/09/17(Wed)
-// Version		: 1.01
-// Update Date	: 2014/12/01(Mon)
+// Author		: Kazuma Ooigawa
 //
 //*****************************************************************************
 
@@ -15,13 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _NETWORK_MANAGER_H_
-#define _NETWORK_MANAGER_H_
+#ifndef _USER_NUMBER_H_
+#define _USER_NUMBER_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "../../basic/basic.h"
+#include "common/math/math.h"
+#include "../character_interface.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,37 +35,53 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CNetworkClient;
+class CInterfaceManager;
+class CBillboard;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CNetworkManager : public CBasic
+class CUserNumber : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CNetworkManager(void);
+	CUserNumber(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CNetworkManager(void);
+	~CUserNumber(void);
 
-	// 初期化処理
-	bool Init(void);
+	// 初期化
+	bool Init( void );
 
-	// 終了処理
+	// 更新
+	void Update(void);
+
+	// 描画
+	void Draw(void);
+
+	// 終了
 	void Uninit(void);
 
-	// ネットワーククライアントゲット
-	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
+	// パラメータの設定
+	void SetParameter(const VECTOR3& position , const s32& player_id , char* texture_name );
 
-	// 準備完了通知
-	void SendReady(int my_id);
-protected:
+	//位置取得
+	VECTOR3 position( void ){ return position_; }
 
+	//プレイヤーID取得
+	s32 player_id( void ){ return player_id_;}
+
+	//位置セット
+	void set_position( const VECTOR3& pos ){ position_ = pos ;}
+
+	//消去
+	void Erase( void );
 private:
-	CNetworkClient* m_pNetworkClient;
+	char* texture_name_;
+	u32 object_key_;
+	VECTOR3 position_;
+	s32 player_id_;
+	CInterfaceManager* interface_manager_;
 };
-
-#endif	// _NETWORK_MANAGER_H_
-
+#endif //_USER_NUMBER_H_
 //---------------------------------- EOF --------------------------------------

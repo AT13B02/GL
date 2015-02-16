@@ -1,12 +1,8 @@
 //*****************************************************************************
 //
-// ネットワークマネージャークラス [network_manager.h]
+// カウントダウンクラス
 //
-// Author		: KENJI KABUTOMORI
-//				  NAOKI NOJIRI
-// Date			: 2014/09/17(Wed)
-// Version		: 1.01
-// Update Date	: 2014/12/01(Mon)
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
@@ -15,13 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _NETWORK_MANAGER_H_
-#define _NETWORK_MANAGER_H_
+#ifndef _COUNTDOWN_H_
+#define _COUNTDOWN_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "../../basic/basic.h"
+#include "basic/basic.h"
+
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,37 +35,65 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CNetworkClient;
+class CInterfaceManager;
+class CRectangle2D;
+
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CNetworkManager : public CBasic
+class CCountDown : public CBasic
 {
 public:
 	// コンストラクタ
-	CNetworkManager(void);
+	CCountDown(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CNetworkManager(void);
+	virtual ~CCountDown(void);
 
-	// 初期化処理
+	// 初期化
 	bool Init(void);
 
-	// 終了処理
+	// 更新
+	void Update(void);
+
+	// 描画
+	void Draw(void);
+
+	// 終了
 	void Uninit(void);
 
-	// ネットワーククライアントゲット
-	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
+	// ロード
+	void Load(void);
 
-	// 準備完了通知
-	void SendReady(int my_id);
+	bool countdown_comp( void ){ return countdown_comp_; }
+
+
+
 protected:
+	static const f32 ADD_TEXTURE_UV;
+	static const f32 ADD_SCALSE;
+	static const f32 WIDTH;
+	static const f32 HEIGHT;
+
 
 private:
-	CNetworkClient* m_pNetworkClient;
+	CInterfaceManager *interface_manager_;
+	CRectangle2D *countdown_polygon;
+	u32 countdown_polygon_key_;
+	f32 alpha_;
+	f32 scl_;
+	f32 right_;
+	f32 left_;
+	f32 top_;
+	f32 bottom_;
+
+	bool countdown_comp_;
+
+
+
 };
 
-#endif	// _NETWORK_MANAGER_H_
+#endif	// _COUNTDOWN_H_
 
 //---------------------------------- EOF --------------------------------------

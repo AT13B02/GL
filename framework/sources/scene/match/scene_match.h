@@ -20,6 +20,7 @@
 #include "scene/scene.h"
 
 #include "common/math/vector/vector2.h"
+#include "common/math/vector/vector3.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -98,7 +99,12 @@ private:
 	u32 player_Disp_2d_key_[PLAYER_MAX]; //プレイヤーマッチング表示
 	u32 host_decision_key_;				 //ホストが決定を押すときに必要
 	u32 logo_key_;						 //ロゴ表示に必要
-
+	
+	//TODO
+	static const u32 FLASH_ALL_TIME = 40;//点滅の全体時間
+	bool draw_flag_;
+	u32 flash_timer_;					 //点滅用タイマー
+	VECTOR3 player_Disp_2d_pos_;
 };
 
 #endif	// _SCENE_TITLE_H_

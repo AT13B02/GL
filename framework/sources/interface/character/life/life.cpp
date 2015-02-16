@@ -1,133 +1,113 @@
 //*****************************************************************************
 //
-// フィールドクラス
+// ライフクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Kazuma Ooigawa
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "field.h"
-#include "interface/graphic/object/object_3d/element/meshfield.h"
+#include "life.h"
+//billboard
+#include "interface/graphic/object/object_3d/element/billboard.h"
 #include "interface/interface_manager.h"
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
+#include "interface/graphic/object/object_3d/object_3d_data.h"
 
-#include "../character_manager.h"
-#include "../bullet/bullet_manager.h"
-#include "../bullet/bullet.h"
-
-#include "common/common.h"
+//*****************************************************************************
+// 定数定義
+//*****************************************************************************
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CField::CField(CInterfaceManager* interface_manager)
+CLife::CLife(CInterfaceManager* interface_manager , s32 max_life , s32 max_length )
 {
-	// インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
+	max_life_ = max_life;
+	life_ = max_life;
+	max_length_ = max_length;
+	length_ = max_length;
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CField::~CField(void)
+CLife::~CLife(void)
 {
 }
 
 //=============================================================================
-// 初期化
+// 生成処理
 //=============================================================================
-bool CField::Init(void)
+void CLife::SetParameter(const VECTOR3& position , const s32& player_id )
 {
-	// オブジェクトモデルの生成
-	meshfield_ = new CMeshfield(interface_manager_->graphic_manager()->device_holder());
-	meshfield_->Init();
-	meshfield_->set_length_grid(50.0f,50.0f);
-	meshfield_->set_number_grid(10,10);
-	meshfield_->set_height_seed(0);
-	meshfield_->Set();
+	position_ = position;
+	player_id_ = player_id;
+}
+
+//=============================================================================
+// 初期化処理
+//=============================================================================
+bool CLife::Init(void)
+{
+	// オブジェクトビルボードの生成
+	object_bill_ = new CBillboard(interface_manager_->graphic_manager()->device_holder());
+	object_bill_->set_size(VECTOR2((f32)max_length_,10.0f));
+	object_bill_->set_color( COLOR4F( 0.0f , 1.0f , 0.0f , 1.0f ) );
+	object_bill_->Set();
 
 	// オブジェクトリストに追加
-	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(meshfield_);
-
+	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_bill_);
 	return true;
 }
 
 //=============================================================================
-// 更新
+// 更新処理
 //=============================================================================
-void CField::Update(void)
+void CLife::Update(void)
 {
+	length_ = life_ / max_life_ * max_length_;
+	object_bill_->set_size( VECTOR2((f32)length_ , 10.0f ));
+	object_bill_->set_color( COLOR4F( 1.0f - life_ / max_life_ , life_ / max_life_ , 0.0f , 1.0f ) );
+	object_bill_->Set();
 }
 
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CField::Draw(void)
+void CLife::Draw(void)
 {
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// 描画
-	object_3d_manager->Draw(object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"field000");
+	object_3d_manager->Draw(object_key_,position_,VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"snowball001");
 }
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CField::Uninit(void)
+void CLife::Uninit( void )
 {
-	// ここで呼ぶと落ちる！！！！！！
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-	
-	//object_3d_manager->EraseList(object_key_);
-}
 
+	object_3d_manager->EraseList( object_key_ );
+
+}
 //=============================================================================
-// 高さ取得
+// 消去処理
 //=============================================================================
-f32 CField::GetHeight(const VECTOR3& in_position, VECTOR3* p_out_normal) const
+void CLife::Erase( void )
 {
-	return meshfield_->GetHeight(in_position,p_out_normal);
+	is_death_ = true;
 }
-
-//=============================================================================
-// フィールドX座標最大値
-//=============================================================================
-f32 CField::get_max_x(void) const
-{
-	return meshfield_->max_x();
-}
-
-//=============================================================================
-// フィールドX座標最小値
-//=============================================================================
-f32 CField::get_min_x(void) const
-{
-	return meshfield_->min_x();
-}
-
-//=============================================================================
-// フィールドZ座標最大値
-//=============================================================================
-f32 CField::get_max_z(void) const
-{
-	return meshfield_->max_z();
-}
-
-//=============================================================================
-// フィールドZ座標最小値
-//=============================================================================
-f32 CField::get_min_z(void) const
-{
-	return meshfield_->min_z();
-}
-
 //---------------------------------- EOF --------------------------------------

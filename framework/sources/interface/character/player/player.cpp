@@ -46,6 +46,8 @@ CPlayer::CPlayer(CInterfaceManager* interface_manager)
 	
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
+
+	death_flag_ = false;
 }
 
 //=============================================================================
@@ -188,6 +190,16 @@ void CPlayer::Draw(void)
 //=============================================================================
 void CPlayer::Uninit(void)
 {
+
 }
 
+//=============================================================================
+// idの取得
+//=============================================================================
+int CPlayer::player_id(void)
+{
+	//ネットワークバッファの取得
+	CHARCTER_INFO *net_chara_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharcterInfoBuffer();
+	return net_chara_buf->player_id;
+}
 //---------------------------------- EOF --------------------------------------

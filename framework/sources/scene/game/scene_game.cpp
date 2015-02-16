@@ -11,6 +11,7 @@
 //*****************************************************************************
 // scene
 #include "scene/game/scene_game.h"
+#include "scene/result/scene_result.h"
 #include "scene/factory/scene_factory.h"
 
 // interface
@@ -104,7 +105,40 @@ bool CSceneGame::Init(void)
 //=============================================================================
 void CSceneGame::Update(void)
 {
+	//TODO
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	CPlayerManager* player_manager = character_manager->player_manager();
+	std::list<CPlayer*> player_list = player_manager->character_list();
+
 	network_command_assistant_ -> Update();
+
+	// ƒQ[ƒ€I—¹‚È‚ç
+	if(interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetGameSceneEndFlag())
+	{
+		for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
+		{
+			if((*player_it)->death_flag())
+			{
+				CSceneResult::SetResultFlag(false);
+			}
+			else
+			{
+				CSceneResult::SetResultFlag(true);
+			}
+		}
+		set_next_scene(new CResultFactory());
+		interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->SetGameSceneEndFlag(false);
+	}
+	
+	for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
+	{
+		if((*player_it)->death_flag()
+			|| interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN)
+			)
+		{
+			interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataGoToResultScene();
+		}
+	}
 }
 
 //=============================================================================
@@ -121,7 +155,18 @@ void CSceneGame::Draw(void)
 //=============================================================================
 void CSceneGame::Uninit(void)
 {
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	character_manager->Clear();
 	SAFE_RELEASE( network_command_assistant_ );
+
+	CPlayerManager* player_manager = character_manager->player_manager();
+	std::list<CPlayer*> player_list = player_manager->character_list();
+	for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
+	{
+		(*player_it)->SetDeathFlag(false);
+	}
+
+	interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->SetGameSceneEndFlag(false);
 }
 
 //=============================================================================
@@ -181,10 +226,14 @@ void CSceneGame::Load(void)
 	CPlayer* player = new CPlayer(interface_manager_);
 	//CPlayer* player = new CNetWorkPlayer(interface_manager_);
 	player->Init();
-	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	player_manager->set_player( player );
 	player_manager->Push(player);
 
+/*
+	CPlayer* player2 = new CNetWorkPlayer(interface_manager_);
+	player2->Init();
+	player_manager->Push(player2);
+*/
 	// ƒJƒƒ‰‚Ì¶¬
 	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
 	camera->Init();

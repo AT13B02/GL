@@ -167,6 +167,9 @@
     <Filter Include="sources\interface\network">
       <UniqueIdentifier>{39602657-9715-4ad0-9226-a115601872f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\scene\match">
+      <UniqueIdentifier>{43b35054-e8c5-4b30-91ca-d1b9723b8641}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -520,6 +523,18 @@
     <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshdome.h">
       <Filter>sources\interface\graphic\object\object_3d\element</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\title_camera.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\result\scene_result.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\match\scene_match.h">
+      <Filter>sources\scene\match</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\result_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -860,6 +875,14 @@
     </ClCompile>
     <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshdome.cpp">
       <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\title_camera.cpp" />
+    <ClCompile Include="sources\scene\result\scene_result.cpp" />
+    <ClCompile Include="sources\scene\match\scene_match.cpp">
+      <Filter>sources\scene\match</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\result_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

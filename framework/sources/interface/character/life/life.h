@@ -1,12 +1,8 @@
 //*****************************************************************************
 //
-// ネットワークマネージャークラス [network_manager.h]
+// ライフクラス
 //
-// Author		: KENJI KABUTOMORI
-//				  NAOKI NOJIRI
-// Date			: 2014/09/17(Wed)
-// Version		: 1.01
-// Update Date	: 2014/12/01(Mon)
+// Author		: Kazuma Ooigawa
 //
 //*****************************************************************************
 
@@ -15,13 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _NETWORK_MANAGER_H_
-#define _NETWORK_MANAGER_H_
+#ifndef _LIFE_H_
+#define _LIFE_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "../../basic/basic.h"
+#include "common/math/math.h"
+#include "../character_interface.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,37 +35,63 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CNetworkClient;
+class CInterfaceManager;
+class CBillboard;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CNetworkManager : public CBasic
+class CLife : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CNetworkManager(void);
+	CLife(CInterfaceManager* interface_manager , s32 max_life , s32 max_length );
 
 	// デストラクタ
-	virtual ~CNetworkManager(void);
+	~CLife(void);
 
-	// 初期化処理
+	// 初期化
 	bool Init(void);
 
-	// 終了処理
+	// 更新
+	void Update(void);
+
+	// 描画
+	void Draw(void);
+
+	// 終了
 	void Uninit(void);
 
-	// ネットワーククライアントゲット
-	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
+	// パラメータの設定
+	void SetParameter(const VECTOR3& position , const s32& player_id );
 
-	// 準備完了通知
-	void SendReady(int my_id);
-protected:
+	//位置取得
+	VECTOR3 position( void ){ return position_; }
 
+	//プレイヤーID取得
+	s32 player_id( void ){ return player_id_;}
+
+	//ライフ取得
+	s32 life( void ){ return life_;}
+
+	//位置セット
+	void set_position( const VECTOR3& pos ){ position_ = pos ;}
+
+	//ライフセット
+	void set_life( const s32 life ){ life_ = life;}
+
+	//消去
+	void Erase( void );
 private:
-	CNetworkClient* m_pNetworkClient;
+	u32 object_key_;
+	VECTOR3 position_;
+	u32 max_life_;
+	s32 life_;
+	u32 max_length_;
+	s32 length_;
+	s32 player_id_;
+	CBillboard* object_bill_;
+	CInterfaceManager* interface_manager_;
 };
-
-#endif	// _NETWORK_MANAGER_H_
-
+#endif //_LIFE_H_
 //---------------------------------- EOF --------------------------------------
