@@ -117,6 +117,11 @@ void CSceneGame::Update(void)
 		countdown_ -> Update();
 	}
 	
+	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+	{
+		set_next_scene(new CTitleFactory());
+	}
+
 	network_command_assistant_ -> Update();
 }
 
@@ -145,6 +150,8 @@ void CSceneGame::Uninit(void)
 {
 	SAFE_RELEASE( network_command_assistant_ );
 	SAFE_RELEASE( countdown_ );
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	character_manager->Clear();
 }
 
 //=============================================================================
