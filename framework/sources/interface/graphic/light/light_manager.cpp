@@ -108,6 +108,7 @@ void CLightManager::Add(CLight* light)
 {
 	if(number_light_ >= CLight::LIGHT_MAX)
 	{
+		SAFE_RELEASE(light);
 		return;
 	}
 	// ƒ‰ƒCƒg‚Ì’Ç‰Á

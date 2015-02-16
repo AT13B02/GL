@@ -35,6 +35,7 @@
 // クラスの前方参照
 //*****************************************************************************
 class CSceneFactory;
+class CSceneData;
 class CTextureManager;
 class CInterfaceManager;
 
@@ -47,8 +48,10 @@ public:
 	enum TYPE
 	{
 		TYPE_TITLE = 0,		// タイトル
+		TYPE_MATCH,			// マッチング
 		TYPE_GAME,			// ゲーム
 		TYPE_LOAD,			// ロード
+		TYPE_RESULT,		// リザルト
 		TYPE_MAX			// タイプの最大数
 	};
 
@@ -85,9 +88,12 @@ public:
 	// 現在のシーンを取得
 	int scene_type(void){return scene_type_;}
 
+	// シーンデータの設定
+	void set_scene_data(CSceneData* scene_data){scene_data_ = scene_data;}
 protected:
 	// インターフェースマネージャー
 	CInterfaceManager* interface_manager_;
+	CSceneData* scene_data_;
 
 private:
 	// 現在のシーン

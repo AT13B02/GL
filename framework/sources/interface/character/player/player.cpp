@@ -37,7 +37,6 @@
 const f32 CPlayer::SPEED = 0.5f;
 const f32 CPlayer::SPEED_DEST = 0.3f;
 const f32 CPlayer::ROTATION_DEST = 0.3f;
-const f32 CPlayer::BULLET_LAUNCH_HEIGHT_OFFSET = 20.0f;
 
 //=============================================================================
 // コンストラクタ
@@ -47,6 +46,8 @@ CPlayer::CPlayer(CInterfaceManager* interface_manager)
 	
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
+
+	death_flag_ = false;
 }
 
 //=============================================================================
@@ -77,9 +78,6 @@ bool CPlayer::Init(void)
 	VECTOR3 pos_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 	VECTOR3 rot_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 
-	//更新しない
-	update_ = false;
-
 //	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	return true;
 }
@@ -89,7 +87,6 @@ bool CPlayer::Init(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
-
 	VECTOR3 front_vector = front_vector_;
 	VECTOR3 right_vector = right_vector_;
 	VECTOR3 center_vector = front_vector + right_vector;
@@ -154,7 +151,7 @@ void CPlayer::Update(void)
 	f32 def = rotation_dest_._y - rotation_._y;
 
 	def = GetRotationNormalize(def);
-	rotation_._y += def * 0.1f;	// 減衰率
+	rotation_._y += def * 0.1f;
 
 	rotation_._y = GetRotationNormalize(rotation_._y);
 
@@ -162,7 +159,7 @@ void CPlayer::Update(void)
 	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE))
 	{
 		VECTOR3 crate_position = position_;
-		crate_position._y += BULLET_LAUNCH_HEIGHT_OFFSET;
+		crate_position._y += 20.f;
 		interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataBullet(&crate_position
 																								,&VECTOR3(0.0f,0.0f,1.0f).RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rotation_._y + 180.0f) * MTH_DEGREE)
 																								,1.0f);
@@ -176,12 +173,16 @@ void CPlayer::Update(void)
 //=============================================================================
 void CPlayer::Draw(void)
 {
+	/*
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// 描画
-	object_3d_manager->Draw(object_key_,position_,rotation_,scale_,MATRIX4x4(),"yukidaruma");
+	object_3d_manager->Draw(object_key_,position_,rotation_,scale_,MATRIX4x4(),"");
+	object_3d_manager->Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(),"");
+
+	*/
 }
 
 //=============================================================================
@@ -189,6 +190,16 @@ void CPlayer::Draw(void)
 //=============================================================================
 void CPlayer::Uninit(void)
 {
+
 }
 
+//=============================================================================
+// idの取得
+//=============================================================================
+int CPlayer::player_id(void)
+{
+	//ネットワークバッファの取得
+	CHARCTER_INFO *net_chara_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharcterInfoBuffer();
+	return net_chara_buf->player_id;
+}
 //---------------------------------- EOF --------------------------------------

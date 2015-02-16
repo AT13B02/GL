@@ -63,7 +63,7 @@ public:
 	CCharacterManager(void);
 
 	// デストラクタ
-	virtual ~CCharacterManager(void);
+	~CCharacterManager(void);
 
 	// 初期化処理
 	bool Init(void);
@@ -77,6 +77,7 @@ public:
 	// 更新処理
 	void Update(void);
 
+	// クリア
 	void Clear(void);
 
 	// プレイヤーマネージャーの取得

@@ -58,7 +58,11 @@ public:
 	// 終了処理
 	void Uninit(void);
 
+	// ネットワーククライアントゲット
 	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
+
+	// 準備完了通知
+	void SendReady(int my_id);
 protected:
 
 private:

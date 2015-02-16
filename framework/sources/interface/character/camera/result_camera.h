@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// タイトルクラス
+// タイトルカメラクラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
@@ -11,13 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_TITLE_H_
-#define _SCENE_TITLE_H_
+#ifndef _RESULT_CAMERA_H_
+#define _RESULT_CAMERA_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "scene/scene.h"
+// character
+#include "character_camera.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -32,21 +33,22 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// クラスの前方宣言
+// クラスの前方参照
 //*****************************************************************************
-class CSound;
+class CInterfaceManager;
+
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneTitle : public CScene
+class CResultCamera : public CCharacterCamera
 {
 public:
 	// コンストラクタ
-	CSceneTitle(CInterfaceManager* interface_manager);
+	CResultCamera(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CSceneTitle(void);
+	virtual ~CResultCamera(void);
 
 	// 初期化
 	bool Init(void);
@@ -55,24 +57,19 @@ public:
 	void Update(void);
 
 	// 描画
-	void Draw(void);
+	void Draw(void){}
 
 	// 終了
 	void Uninit(void);
-
-	// ロード
-	void Load(void);
-
-	// 自分のファクトリーの作成
-	CSceneFactory* MakeFactory(void);
-
 protected:
 
 private:
-	u32 test_object_key_;
-	char* m_pLogoFileName;
+	u32 camera_key_;
+	f32 move_speed_;
+	f32 length_;
+	f32 rot_;
 };
 
-#endif	// _SCENE_TITLE_H_
+#endif	// _TITLE_CAMERA_H_
 
 //---------------------------------- EOF --------------------------------------

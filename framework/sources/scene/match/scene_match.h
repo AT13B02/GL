@@ -11,13 +11,16 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_TITLE_H_
-#define _SCENE_TITLE_H_
+#ifndef _SCENE_MATCH_H_
+#define _SCENE_MATCH_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
 #include "scene/scene.h"
+
+#include "common/math/vector/vector2.h"
+#include "common/math/vector/vector3.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -39,14 +42,14 @@ class CSound;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneTitle : public CScene
+class CSceneMatch : public CScene
 {
 public:
 	// コンストラクタ
-	CSceneTitle(CInterfaceManager* interface_manager);
+	CSceneMatch(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CSceneTitle(void);
+	virtual ~CSceneMatch(void);
 
 	// 初期化
 	bool Init(void);
@@ -69,8 +72,39 @@ public:
 protected:
 
 private:
+
+	typedef enum TEXTURE_TYPE_
+	{
+		TEXTURE_TYPE_LOGO,
+		TEXTURE_TYPE_PLAYER1,
+		TEXTURE_TYPE_PLAYER2,
+		TEXTURE_TYPE_PLAYER3,
+		TEXTURE_TYPE_PLAYER4,
+		TEXTURE_TYPE_HOST_DECISION,
+		TEXTURE_TYPE_MAX,
+	}TEXTURE_TYPE;
+
+	static const char* p_texture_names[TEXTURE_TYPE_MAX];
+
+	static const int PLAYER_MAX = 4;
+	static const float PLAYER_DISP_OFFSET_X;
+	static const float PLAYER_DISP_OFFSET_Y;
+	static const float PLAYER_DISP_START_Y;
+	static const VECTOR2 HOST_DECITION_DEFAULT_POS;
+	static const VECTOR2 LOGO_DEFAULT_POS;
 	u32 test_object_key_;
-	char* m_pLogoFileName;
+	u32 test_2d_key_;
+
+
+	u32 player_Disp_2d_key_[PLAYER_MAX]; //プレイヤーマッチング表示
+	u32 host_decision_key_;				 //ホストが決定を押すときに必要
+	u32 logo_key_;						 //ロゴ表示に必要
+	
+	//TODO
+	static const u32 FLASH_ALL_TIME = 40;//点滅の全体時間
+	bool draw_flag_;
+	u32 flash_timer_;					 //点滅用タイマー
+	VECTOR3 player_Disp_2d_pos_;
 };
 
 #endif	// _SCENE_TITLE_H_
