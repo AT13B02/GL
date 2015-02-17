@@ -46,6 +46,8 @@ CNetworkDataBuffer::CNetworkDataBuffer(void)
 		m_ReciveStateBullet[i].recive_position = false;
 		m_ReciveStateBullet[i].recive_rotation = false;
 		m_ReciveStateBullet[i].recive_speed = false;
+		
+		m_DeathFlag[i] = false;
 	}
 	m_GameSceneEnd = false;
 }
@@ -75,6 +77,8 @@ bool CNetworkDataBuffer::Init(void)
 		m_BulletInfoBuffer[i].player_id = -1;
 		m_BulletInfoBuffer[i].speed = 0.f;
 		m_BulletInfoBuffer[i].end_push_flag = false;
+
+		m_DeathFlag[i] = false;
 	}
 	ZeroMemory(&m_InitAddres, sizeof(m_InitAddres));
 	m_MyID = -1;
@@ -86,6 +90,24 @@ bool CNetworkDataBuffer::Init(void)
 //=============================================================================
 void CNetworkDataBuffer::Uninit(void)
 {
+	for(int i = 0; i < kMaxPlayer; ++i)
+	{
+		m_CharcterInfoBuffer[i].animation_id = 0;
+		m_CharcterInfoBuffer[i].player_id = -1;
+		m_CharcterInfoBuffer[i].position = VECTOR3(0.f, 0.f, 0.f);
+		m_CharcterInfoBuffer[i].rotation = VECTOR3(0.f, 0.f, 0.f);
+		m_CharcterInfoBuffer[i].end_push_flag = false;
+
+		m_BulletInfoBuffer[i].position = VECTOR3(0.f, 0.f, 0.f);
+		m_BulletInfoBuffer[i].front_vector = VECTOR3(0.f, 0.f, 0.f);
+		m_BulletInfoBuffer[i].player_id = -1;
+		m_BulletInfoBuffer[i].speed = 0.f;
+		m_BulletInfoBuffer[i].end_push_flag = false;
+
+		m_DeathFlag[i] = false;
+	}
+	ZeroMemory(&m_InitAddres, sizeof(m_InitAddres));
+	m_MyID = -1;
 }
 
 //=============================================================================
