@@ -20,6 +20,7 @@
 // graphic
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/device/device_holder.h"
+#include "interface/character/character_manager.h"
 
 // sound
 #include "interface/sound/sound_manager.h"
@@ -185,6 +186,9 @@ void CSceneManager::Draw(void)
 			// •`‰æˆ—
 			scene_->Draw();
 		}
+
+		interface_manager_->character_manager()->Draw();
+
 		//ƒtƒF[ƒh•`‰æ
 		fade_2d_->Draw();
 	}

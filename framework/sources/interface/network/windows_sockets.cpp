@@ -353,4 +353,22 @@ int CWindowsSockets::ReceiveData(NETWORK_DATA* pOutData, sockaddr_in* from_addre
 	return ilen;
 }
 
+//=============================================================================
+// éÄñSÉtÉâÉOëóêM
+//=============================================================================
+void CWindowsSockets::SendDeathFlag(int my_id)
+{
+	//TODO
+	m_Sendaddr.sin_port = htons(20001);
+
+	NETWORK_DATA Data = {0};
+	Data.my_ID = my_id;
+	strcpy(Data.game_ID, kGameID);
+	Data.my_type = MY_TYPE_CHARCTER;
+	Data.data_type = NETWORK_DATA_TYPE_DEATH;
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&m_Sendaddr, sizeof(m_Sendaddr));
+
+	//TODO
+	m_Sendaddr.sin_port = htons(20002);
+}
 //---------------------------------- EOF --------------------------------------

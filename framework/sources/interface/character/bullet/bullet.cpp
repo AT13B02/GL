@@ -97,7 +97,7 @@ void CBullet::Uninit( void )
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
-	object_3d_manager->EraseList( object_key_ );
+	//object_3d_manager->EraseList( object_key_ );
 
 }
 //=============================================================================

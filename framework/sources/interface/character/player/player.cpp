@@ -37,6 +37,7 @@
 const f32 CPlayer::SPEED = 0.5f;
 const f32 CPlayer::SPEED_DEST = 0.3f;
 const f32 CPlayer::ROTATION_DEST = 0.3f;
+const f32 CPlayer::BULLET_LAUNCH_HEIGHT_OFFSET = 20.0f;
 
 //=============================================================================
 // コンストラクタ
@@ -62,11 +63,11 @@ CPlayer::~CPlayer(void)
 //=============================================================================
 bool CPlayer::Init(void)
 {
-	// オブジェクトモデルの生成
-//	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
-
-	// オブジェクトリストに追加
-//	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
+	//// オブジェクトモデルの生成
+	//CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+	//
+	//// オブジェクトリストに追加
+	//object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
 
 	//値初期化
 	position_ = VECTOR3(0.0f,0.0f,0.0f);
@@ -79,6 +80,10 @@ bool CPlayer::Init(void)
 	VECTOR3 rot_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 
 //	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
+	//更新しない
+	update_ = false;
+
+	//interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	return true;
 }
 
@@ -159,10 +164,19 @@ void CPlayer::Update(void)
 	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE))
 	{
 		VECTOR3 crate_position = position_;
-		crate_position._y += 20.f;
-		interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataBullet(&crate_position
-																								,&VECTOR3(0.0f,0.0f,1.0f).RotationAxis(VECTOR3(0.0f,1.0f,0.0f),-(rotation_._y + 180.0f) * MTH_DEGREE)
-																								,1.0f);
+		crate_position._y += BULLET_LAUNCH_HEIGHT_OFFSET;
+		VECTOR3 launch_vector(front_vector_);
+		const f32 LAUNCH_OFFSET_Y = 0.34f;
+		launch_vector._y += LAUNCH_OFFSET_Y;
+		launch_vector = launch_vector.RotationAxis(VECTOR3(0.0f, 1.0f, 0.0f), -(rotation_._y + 180.0f) * MTH_DEGREE);
+		launch_vector.Normalize();
+		interface_manager_
+			->network_manager()
+			->GetNetworkClient()
+			->GetWinSock()
+			->SendDataBullet(&crate_position
+							,&launch_vector
+							,1.0f);
 	}
 
 	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&position_,&rotation_,0);

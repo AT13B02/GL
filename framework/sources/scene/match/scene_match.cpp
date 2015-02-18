@@ -113,7 +113,7 @@ void CSceneMatch::Update(void)
 	// ‘Sˆõ€”õŠ®—¹‚µ‚Ä‚½‚ç
 	if(interface_manager_->network_manager()->GetNetworkClient()->GetEndAllPlayerPrepareFlag())
 	{
-		//if(my_id == 0)	// IDNo0‚Ì‚Ý‰Â”\‚Èˆ—
+		if(my_id == 0)	// IDNo0‚Ì‚Ý‰Â”\‚Èˆ—
 		{
 			if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
 			{
@@ -129,7 +129,7 @@ void CSceneMatch::Update(void)
 		if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
 		{
 			interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataPrepare(my_id);
-			player_Disp_2d_pos_._x += 50.f;
+			player_Disp_2d_pos_._x = 250.f;
 		}
 	}
 

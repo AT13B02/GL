@@ -170,6 +170,12 @@ void CNetworkCommandAssistant::Draw(void)
 	
 	for( int i = 0; i < kMaxPlayer; i++ )
 	{
+		// Ž€–Sƒtƒ‰ƒO—§‚Á‚Ä‚½‚ç•`‰æ‚µ‚È‚¢
+		if(interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharDeathFlag(i))
+		{
+			continue;
+		}
+
 		if( character_manager->network_player( i ) != NULL )
 		{
 			character_manager->network_player( i ) ->Draw();

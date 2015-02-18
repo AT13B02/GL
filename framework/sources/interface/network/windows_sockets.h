@@ -91,7 +91,11 @@ public:
 	int ReceiveData(NETWORK_DATA* pOutData, sockaddr_in* from_addres);
 
 	// 準備完了確認
-	void CWindowsSockets::CheckAllPlayerPrepare(int my_id);
+	void CheckAllPlayerPrepare(int my_id);
+
+	// 死亡フラグ送信
+	void SendDeathFlag(int my_id);
+
 protected:
 
 private:

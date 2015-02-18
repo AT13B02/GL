@@ -115,7 +115,7 @@ void CSceneGame::Update(void)
 	// ƒQ[ƒ€I—¹‚È‚ç
 	if(interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetGameSceneEndFlag())
 	{
-		for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
+		for(auto player_it = player_list.begin(); player_it != player_list.end(); ++player_it)
 		{
 			if((*player_it)->death_flag())
 			{
@@ -128,16 +128,6 @@ void CSceneGame::Update(void)
 		}
 		set_next_scene(new CResultFactory());
 		interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->SetGameSceneEndFlag(false);
-	}
-	
-	for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
-	{
-		if((*player_it)->death_flag()
-			|| interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN)
-			)
-		{
-			interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataGoToResultScene();
-		}
 	}
 }
 

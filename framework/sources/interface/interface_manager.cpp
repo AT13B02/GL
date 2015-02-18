@@ -98,7 +98,7 @@ void CInterfaceManager::Update(void)
 void CInterfaceManager::Draw(void)
 {
 	// キャラクターの描画
-	character_manager_->Draw();
+	//character_manager_->Draw();
 
 	// グラフィックマネージャーの描画
 	graphic_manager_->Draw();

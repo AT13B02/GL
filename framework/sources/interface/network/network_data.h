@@ -83,7 +83,10 @@ typedef enum NETWORK_DATA_TYPE
 	NETWORK_DATA_TYPE_END_PREPARE			= 12,	// 全員準備完了
 	NETWORK_DATA_TYPE_NOT_END_PREPARE		= 13,	// まだ準備完了してない
 	NETWORK_DATA_TYPE_GO_TO_GAME			= 14,	// ゲーム開始
-	NETWORK_DATA_TYPE_END					= 15,
+	NETWORK_DATA_TYPE_DEATH					= 15,	// やられた
+	NETWORK_DATA_TYPE_END_GAME				= 16,	// ゲーム終了通知
+	NETWORK_DATA_TYPE_RECIVE_DEATH			= 17,	// デスフラグ受信
+	NETWORK_DATA_TYPE_END					= 18,
 };
 
 // 自身は何か
@@ -97,7 +100,7 @@ typedef enum NETWORK_MY_TYPE
 
 typedef struct
 {
-	char				game_ID[16];	// 班識別ID
+	char				game_ID[16];// 班識別ID
 	NETWORK_MY_TYPE		my_type;	// 自分のタイプ（何かをあらわす）
 	int					my_ID;		// プレイヤーID
 	NETWORK_DATA_TYPE	data_type;	// 何の情報か
