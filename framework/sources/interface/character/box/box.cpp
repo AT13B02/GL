@@ -53,6 +53,10 @@ bool CBox::Init(void)
 	rotation_ = VECTOR3(0.0f,0.0f,0.0f);
 	scale_    = VECTOR3(1.0f,1.0f,1.0f);
 
+	// “–‚½‚è”»’è‰Šú‰»
+	collision_.add(-25.0f,  0.0f, -25.0f);
+	collision_.add( 25.0f, 50.0f,  25.0f);
+
 	return S_OK;
 }
 
