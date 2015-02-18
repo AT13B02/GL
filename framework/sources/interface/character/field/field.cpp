@@ -82,6 +82,12 @@ void CField::Draw(void)
 //=============================================================================
 void CField::Uninit(void)
 {
+	// ここで呼ぶと落ちる！！！！！！
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
+	
+	//object_3d_manager->EraseList(object_key_);
 }
 
 //=============================================================================

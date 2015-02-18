@@ -185,6 +185,11 @@ void CNetworkCommandAssistant::Uninit(void)
 
 }
 
-
+// ƒfƒX
+void CNetworkCommandAssistant::Death(int id)
+{
+	CCharacterManager *character_manager = interface_manager_->character_manager();
+	character_manager->network_player( id )->Uninit();
+}
 
 //---------------------------------- EOF --------------------------------------

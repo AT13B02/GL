@@ -42,4 +42,5 @@ void  CPlayerManager::Uninit(void)
 {
 	CCharacterManagerInterface::Uninit();
 }
+
 //---------------------------------- EOF --------------------------------------

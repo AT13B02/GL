@@ -69,7 +69,23 @@ public:
 protected:
 
 private:
-	u32 test_object_key_;
+	u32  logo_object_key_;
+	u32  enter_object_key_;
+	u32  daruma_object_key_;
+	u32  daruma_object2_key_;
+	u32  daruma_object3_key_;
+	u32  daruma_object4_key_;
+	u32  daruma_object5_key_;
+	u32  field_object_key_;
+
+	//描画判定用フラグ
+	bool tikatika_;
+	//描画切り替えカウンター
+	s32  tikatika_counter;
+	f32 rot_;
+	f32 center_daruma_height;
+	bool is_daruma_up;
+	s32 jump_cnt;
 };
 
 #endif	// _SCENE_TITLE_H_

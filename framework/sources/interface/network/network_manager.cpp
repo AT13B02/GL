@@ -15,6 +15,7 @@
 //*****************************************************************************
 #include "network_manager.h"
 #include "network_client.h"
+#include "windows_sockets.h"
 
 #include "../../common/common.h"
 
@@ -62,6 +63,14 @@ void CNetworkManager::Uninit(void)
 {
 	// ネットワーククライアントの開放
 	SAFE_RELEASE(m_pNetworkClient);
+}
+
+//=============================================================================
+// 準備完了通知
+//=============================================================================
+void CNetworkManager::SendReady(int my_id)
+{
+	m_pNetworkClient->GetWinSock()->SendDataPrepare(my_id);
 }
 
 //---------------------------------- EOF --------------------------------------

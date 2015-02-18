@@ -67,7 +67,6 @@ private:
 	u32 camera_key_;
 	f32 move_speed_;
 	f32 length_;
-	f32 rot_;
 };
 
 #endif	// _TITLE_CAMERA_H_
