@@ -53,6 +53,8 @@
 #include "interface/character/camera/character_camera_manager.h"
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
+#include "interface/character/box/box.h"
+#include "interface/character/box/box_manager.h"
 #include "scene/game/countdown.h"
 
 //network
@@ -182,6 +184,7 @@ void CSceneGame::Load(void)
 	CFieldManager* field_manager = character_manager->field_manager();
 	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 	CAttitudeControllerManager* attitude_controller_manager = character_manager->attitude_controller_manager();
+	CBoxManager* box_manager = character_manager->box_manager();
 
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
@@ -245,6 +248,15 @@ void CSceneGame::Load(void)
 	meshdome->SetGridNumber(10,10);
 	meshdome->Set();
 	test_meshdome_key_ = object_3d_manager->AddList(meshdome);
+
+	// ボックス生成
+	VECTOR3 box_position(0.0f, 0.0f, 0.0f);
+	CBox* box = new CBox(interface_manager_);
+	box->Init();
+	box_position._x = 0.0f;
+	box_position._z = 0.0f;
+	box->position(0.0f, field->GetHeight(box_position, nullptr), 0.0f);
+	box_manager->Push(box);
 }
 
 //---------------------------------- EOF --------------------------------------
