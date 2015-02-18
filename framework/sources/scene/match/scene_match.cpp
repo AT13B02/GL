@@ -56,12 +56,12 @@ const VECTOR2 CSceneMatch::LOGO_DEFAULT_POS(600.0f,60.0f);
 
 const char* CSceneMatch::p_texture_names[TEXTURE_TYPE_MAX] = 
 {
-	"field001",//logo
+	"matching_title",//logo
+	"matching_player_tex",//player
 	"field001",//player
 	"field001",//player
 	"field001",//player
-	"field001",//player
-	"field001",//host
+	"matching_ready",//host
 };
 
 //=============================================================================
@@ -216,7 +216,7 @@ void CSceneMatch::Load(void)
 
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
-	texture_manager->Load("resources/texture/game");
+	texture_manager->Load("resources/texture/match");
 
 	CRectangle3D* billboard = new CRectangle3D(device_holder);
 
