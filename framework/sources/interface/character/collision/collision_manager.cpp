@@ -81,22 +81,17 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 	CBulletManager* bullet_manager = character_manager_->bullet_manager();
 	std::list<CPlayer*> player_list = player_manager->character_list();
 	std::list<CBullet*> bullet_list = bullet_manager->character_list();
-	
+
 	// プレイヤーと弾の当たり判定
 	for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
 	{
 		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
 		{
-			if((*player_it)->player_id() == (*bullet_it)->player_id())
-			{
-				continue;
-			}
-
 			// 当たり判定
 			if(JudgeSphereCross((*player_it)->position(),10,(*bullet_it)->position(),10))
 			{
-				// 死亡
-				(*player_it)->SetDeathFlag(true);
+				//リザルトへ移動
+
 			}
 		}
 	}
@@ -254,8 +249,11 @@ void CCollisionManager::JudgePlayerAndBox()
 			if(bHit)
 			{
 				// プレイヤー位置を戻す
+				// プレイヤーの移動ベクトル取得
+				VECTOR3 player_vector = (*player_it)->get_move_vector();
+				// プレイヤー座標に移動量を足し、プレイヤーの座標更新
 				pos_player = (*player_it)->position();
-				pos_player._y = 100.0f;
+				pos_player -= player_vector * (*player_it)->get_move_speed();
 				(*player_it)->set_position(pos_player);
 			}
 		}

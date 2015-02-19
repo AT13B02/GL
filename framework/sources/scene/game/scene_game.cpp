@@ -257,9 +257,10 @@ void CSceneGame::Load(void)
 	VECTOR3 box_position(0.0f, 0.0f, 0.0f);
 	CBox* box = new CBox(interface_manager_);
 	box->Init();
-	box_position._x = 0.0f;
-	box_position._z = 0.0f;
-	box->position(0.0f, field->GetHeight(box_position, nullptr), 0.0f);
+	box_position._x = 100.0f;
+	box_position._z = 100.0f;
+	box_position._y = field->GetHeight(box_position, nullptr);
+	box->position(box_position);
 	box_manager->Push(box);
 
 }

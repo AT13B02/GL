@@ -88,6 +88,14 @@ public:
 	// 角度の設定
 	void set_rotation(const VECTOR3& rotation){rotation_ = rotation;}
 
+	//更新フラグセット
+	void set_update( bool flag ){ update_ = flag; }
+
+	// プレイヤー移動方向取得
+	const VECTOR3& get_move_vector();
+	// プレイヤー移動スピード取得
+	const f32 get_move_speed();
+	
 	// idの取得
 	int player_id(void);
 	
@@ -106,6 +114,7 @@ protected:
 	VECTOR3 position_;
 	VECTOR3 rotation_;
 	VECTOR3 scale_;
+	VECTOR3 move_vector_;
 private:
 	// スピード
 	static const f32 SPEED;
