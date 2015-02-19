@@ -1,8 +1,8 @@
 //*****************************************************************************
 //
-// 衝突判定クラス
+// 軸平行バウンディングボックスクラス
 //
-// Author		: Yuki Sakamoto
+// Author		: Ryo Kobayashi
 //
 //*****************************************************************************
 
@@ -11,8 +11,8 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _COLLISION_MANAGER_H_
-#define _COLLISION_MANAGER_H_
+#ifndef _AXIS_ALIGNED_BOUNDING_BOX_H_
+#define _AXIS_ALIGNED_BOUNDING_BOX_H_
 
 //*****************************************************************************
 // warning消し
@@ -21,12 +21,8 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// basic
-#include "basic/basic.h"
 #include "common/math/vector/vector3.h"
-
-// general
-#include "general/aabb/axis_aligned_bounding_box.h"
+#include <float.h>
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -47,50 +43,58 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CCharacterManager;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CCollisionManager : public CBasic
+class AABB
 {
 public:
-	// コンストラクタ
-	CCollisionManager(CCharacterManager* charater_manager);
 
-	// デストラクタ
-	~CCollisionManager(void);
+	AABB() : Min(FLT_MAX, FLT_MAX, FLT_MAX), Max(FLT_MIN, FLT_MIN, FLT_MIN){}
 
-	// 初期化処理
-	bool Init(void);
+	AABB(const f32 minX, const f32 minY, const f32 minZ, const f32 maxX, f32 const maxY, const f32 maxZ) :
+	Min(minX, minY, minZ), Max(maxX, maxY, maxZ){}
 
-	// 終了処理
-	void Uninit(void);
+	AABB(const VECTOR3& min, const VECTOR3& max) : Min(min), Max(max){}
 
-	// 更新
-	void Update(void);
+	~AABB(){}
 
-	// プレイヤと弾の当たり判定
-	void JudgePlayerAndBullet(void);
-	// 球体と球体の当たり判定処理
-	bool JudgeSphereCross(VECTOR3 p1,f32 r1,VECTOR3 p2,f32 r2);
-	// フィールド内にいるかどうか判定
-	void JudgeFieldIn(void);
-	// 地面の上に居るかどうか判定
-	void JudgeFieldOn(void);
-	// プレイヤーと障害物の当たり判定
-	void JudgePlayerAndBox();
-	// 弾と障害物の当たり判定
-	void JudgeBulletAndBox();
-	// AABB同士の当たり判定
-	bool JudgeAABBCross(
-		const VECTOR3& p1, const AABB& b1,
-		const VECTOR3& p2, const AABB& b2);
+	// ボックスの中心点を返す
+	VECTOR3 center(void) const;
 
-private:
-	CCharacterManager* character_manager_;
+	// ボックスの各辺の長さを返す
+	VECTOR3 size(void) const;
+	// X軸方向の長さを返す
+	f32 width(void) const;
+	// Y軸方向の長さを返す
+	f32 height(void) const;
+	// Z軸方向の長さを返す
+	f32 depth(void) const;
+
+	// 指定したインデックス(0 ~ 7)からAABBの頂点を取得
+	// 左手系と考え
+	// Z軸を負から正の方向へ見た場合
+	// (5)1----2(6)
+	//    |    |
+	//    |    |
+	// (4)0----3(7)
+	// という番号付けにする(即席で平面を作りたいとき以外あまり気にする必要はないかも)
+	VECTOR3 corner(s32 nIndex) const;
+	
+	// 頂点を追加(必要な分だけ拡張する)
+	void add(const f32 x, const f32 y, const f32 z);
+	// 頂点を追加(必要な分だけ拡張する)
+	void add(const VECTOR3& pos);
+	// AABBを追加(必要な分だけ拡張する)
+	void add(const AABB& aabb);
+
+	// ボックス最小値
+	VECTOR3 Min;
+	// ボックス最大値
+	VECTOR3 Max;
 };
 
-#endif // 
+#endif	// _AXIS_ALIGNED_BOUNDING_BOX_H_
 
-//---------------------------------- EOF --------------------------------------
+// EOF

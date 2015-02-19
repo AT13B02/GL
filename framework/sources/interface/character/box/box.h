@@ -1,23 +1,37 @@
 //*****************************************************************************
 //
-// ゲームクラス
+// 箱クラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Ryo Kobayashi
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 // 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _SCENE_GAME_H_
-#define _SCENE_GAME_H_
+#ifndef _BOX_H_
+#define _BOX_H_
+
+//*****************************************************************************
+// warning消し
+//*****************************************************************************
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "scene/scene.h"
+// basic
+#include "basic/basic.h"
+#include "common/math/vector/vector3.h"
+
+// character
+#include "box_manager.h"
+#include "interface/character/character_interface.h"
+
+// general
+#include "general/aabb/axis_aligned_bounding_box.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -32,54 +46,63 @@
 //*****************************************************************************
 
 //*****************************************************************************
-// クラスの前方参照
+// プロトタイプ宣言
 //*****************************************************************************
-// TODO テスト用
-class CCharacterCamera;
-// ネットワークコマンダー
-class CNetworkCommandAssistant;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CSceneGame : public CScene
+class CBox : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CSceneGame(CInterfaceManager* interface_manager);
+	CBox(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CSceneGame(void);
+	~CBox(void);
 
-	// 初期化
+	// 初期化処理
 	bool Init(void);
 
-	// 更新
+	// 更新処理
 	void Update(void);
 
-	// 描画
-	void Draw(void);
-
-	// 終了
+	// 終了処理
 	void Uninit(void);
 
-	// ロード
-	void Load(void);
+	//描画
+	void Draw(void);
 
-	// ファクトリの生成
-	CSceneFactory* MakeFactory(void);
+	// 座標設定
+	void position(const VECTOR3& position);
+	void position(const f32 x, const f32 y, const f32 z);
+	// 座標取得
+	const VECTOR3& position();
+
+	// 当たり判定取得
+	const AABB& collision();
 
 protected:
+	
 
 private:
+	//インターフェースマネージャー
+	CInterfaceManager* interface_manager_;
 
+	//オブジェクトキー
+	u32 object_key_;
 
-	// TODO テスト用メンバー変数
-	u32 test_meshfield_key_;
-	u32 test_meshdome_key_;
-	CNetworkCommandAssistant *network_command_assistant_;
+	// 当たり判定
+	AABB collision_;
+
+	// 座標
+	VECTOR3 position_;
+	// 回転量
+	VECTOR3 rotation_;
+	// 拡縮量
+	VECTOR3 scale_;
 };
 
-#endif	// _SCENE_GAME_H_
-
 //---------------------------------- EOF --------------------------------------
+
+#endif // _BOX_H_
