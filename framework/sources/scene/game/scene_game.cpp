@@ -38,7 +38,6 @@
 #include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/graphic/object/object_3d/element/rectangle_3d.h"
 #include "interface/graphic/object/object_2d/element/rectangle_2d.h"
-#include "interface/graphic/object/object_3d/element/meshdome.h"
 #include "interface/graphic/light/light_manager.h"
 #include "interface/graphic/light/light.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
@@ -55,10 +54,6 @@
 #include "interface/character/camera/character_camera_manager.h"
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
-
-#include "interface/character/box/box.h"
-#include "interface/character/box/box_manager.h"
-#include "scene/game/countdown.h"
 
 //network
 #include "interface/interface_manager.h"
@@ -102,6 +97,7 @@ CSceneGame::~CSceneGame(void)
 //=============================================================================
 bool CSceneGame::Init(void)
 {
+	interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->InitFlag();
 	return true;
 }
 
@@ -192,7 +188,6 @@ void CSceneGame::Load(void)
 	CFieldManager* field_manager = character_manager->field_manager();
 	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 	CAttitudeControllerManager* attitude_controller_manager = character_manager->attitude_controller_manager();
-	CBoxManager* box_manager = character_manager->box_manager();
 
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
@@ -246,22 +241,6 @@ void CSceneGame::Load(void)
 	CField* field = new CField(interface_manager_);
 	field->Init();
 	field_manager->Push(field);
-
-	CMeshdome* meshdome = new CMeshdome(device_holder);
-	meshdome->set_radius(3000.0f);
-	meshdome->SetGridNumber(10,10);
-	meshdome->Set();
-	test_meshdome_key_ = object_3d_manager->AddList(meshdome);
-
-	// ボックス生成
-	VECTOR3 box_position(0.0f, 0.0f, 0.0f);
-	CBox* box = new CBox(interface_manager_);
-	box->Init();
-	box_position._x = 0.0f;
-	box_position._z = 0.0f;
-	box->position(0.0f, field->GetHeight(box_position, nullptr), 0.0f);
-	box_manager->Push(box);
-
 }
 
 //---------------------------------- EOF --------------------------------------

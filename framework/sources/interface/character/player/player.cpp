@@ -92,6 +92,8 @@ bool CPlayer::Init(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
+	death_flag_ = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharDeathFlag(player_id());
+
 	VECTOR3 front_vector = front_vector_;
 	VECTOR3 right_vector = right_vector_;
 	VECTOR3 center_vector = front_vector + right_vector;
@@ -161,7 +163,8 @@ void CPlayer::Update(void)
 	rotation_._y = GetRotationNormalize(rotation_._y);
 
 	// 弾の発射
-	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE))
+	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE)
+		&& death_flag_ == false)
 	{
 		VECTOR3 crate_position = position_;
 		crate_position._y += BULLET_LAUNCH_HEIGHT_OFFSET;
@@ -213,7 +216,16 @@ void CPlayer::Uninit(void)
 int CPlayer::player_id(void)
 {
 	//ネットワークバッファの取得
-	CHARCTER_INFO *net_chara_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharcterInfoBuffer();
-	return net_chara_buf->player_id;
+	int id = (int)interface_manager_->network_manager()->GetNetworkClient()->GetMyID();
+	return id;
+}
+
+//=============================================================================
+// デスフラグセット
+//=============================================================================
+void CPlayer::SetDeathFlag(bool flag)
+{
+	death_flag_ = flag;
+	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDeathFlag(player_id());
 }
 //---------------------------------- EOF --------------------------------------

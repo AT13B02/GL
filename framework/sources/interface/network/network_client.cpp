@@ -187,7 +187,7 @@ unsigned __stdcall CNetworkClient::ReceiveThread(CNetworkClient* pNetworkClient)
 		// 死亡フラグ受信
 		else if(Data.data_type == NETWORK_DATA_TYPE_RECIVE_DEATH)
 		{
-			pNetworkClient->GetNetworkDataBuffer()->ChangeDeath(Data.my_ID);
+ 			pNetworkClient->GetNetworkDataBuffer()->ChangeDeath(Data.my_ID);
 		}
 
 		// オブジェクトのデータなら

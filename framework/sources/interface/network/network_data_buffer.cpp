@@ -276,4 +276,15 @@ BULLET_INFO* CNetworkDataBuffer::GetBulletInfoBuffer(void)
 	return &m_BulletInfoBuffer[0];
 };
 
+//=============================================================================
+// ÉtÉâÉOèâä˙âª
+//=============================================================================
+void CNetworkDataBuffer::InitFlag(void)
+{
+	for(int i = 0; i < kMaxPlayer; ++i)
+	{
+		m_DeathFlag[i] = false;
+	}
+	m_GameSceneEnd = false;
+}
 //---------------------------------- EOF --------------------------------------

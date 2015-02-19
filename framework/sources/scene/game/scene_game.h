@@ -76,7 +76,6 @@ private:
 
 	// TODO テスト用メンバー変数
 	u32 test_meshfield_key_;
-	u32 test_meshdome_key_;
 	CNetworkCommandAssistant *network_command_assistant_;
 };
 

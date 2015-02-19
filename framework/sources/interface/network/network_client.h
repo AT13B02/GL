@@ -74,6 +74,9 @@ public:
 	bool GetStartGameFlag(void){return m_bStartGame;};
 	void SetStartGameFlag(bool flag){m_bStartGame = flag;};
 
+	// idƒQƒbƒg
+	s8 GetMyID(void){return m_myID;};
+
 protected:
 
 private:

@@ -116,6 +116,10 @@ public:
 
 	// 死亡フラグゲット
 	bool GetCharDeathFlag(int player_id){return m_DeathFlag[player_id];};
+
+	// フラグ初期化
+	void InitFlag(void);
+
 protected:
 	// キャラデータの追加
 	void PushCharcter(NETWORK_DATA* pData);
