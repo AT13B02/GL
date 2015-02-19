@@ -69,6 +69,7 @@ void CCollisionManager::Update(void)
 	JudgeFieldIn();
 	JudgeFieldOn();
 	JudgePlayerAndBox();
+	JudgeBulletAndBox();
 }
 
 //=============================================================================
@@ -247,9 +248,9 @@ void CCollisionManager::JudgePlayerAndBox()
 				(*box_it)->position(), (*box_it)->collision());
 			if(bHit)
 			{
+				// プレイヤー位置を戻す
 				pos_player = (*player_it)->position();
 				pos_player._y = 100.0f;
-				// プレイヤー位置を戻す
 				(*player_it)->set_position(pos_player);
 			}
 		}
@@ -261,6 +262,37 @@ void CCollisionManager::JudgePlayerAndBox()
 //=============================================================================
 void CCollisionManager::JudgeBulletAndBox()
 {
+	CBulletManager* bullet_manager = character_manager_->bullet_manager();
+	CBoxManager* box_manager = character_manager_->box_manager();
+	
+	std::list<CBullet*> bullet_list = bullet_manager->character_list();
+	std::list<CBox*> box_list = box_manager->character_list();
+	
+	VECTOR3 pos_player;
+	f32 bullet_half_radius = 0.0f;
+
+	// 弾と障害物の当たり判定
+	for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
+	{
+		AABB bullet_collision;
+		bullet_half_radius = (*bullet_it)->radius() * 0.5f;
+		// 当たり判定作成
+		bullet_collision.add(-bullet_half_radius, -bullet_half_radius, -bullet_half_radius);
+		bullet_collision.add( bullet_half_radius,  bullet_half_radius,  bullet_half_radius);
+		for(auto box_it = box_list.begin();box_it != box_list.end();++box_it)
+		{
+			// 当たり判定
+			bool bHit = JudgeAABBCross(
+				(*bullet_it)->position(), bullet_collision,
+				(*box_it)->position(), (*box_it)->collision());
+			if(bHit)
+			{
+				// 弾は消滅する
+ 				(*bullet_it)->Erase();
+				break;
+			}
+		}
+	}
 }
 
 //=============================================================================
