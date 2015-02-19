@@ -131,24 +131,13 @@ void CMeshdome::Set(void)
 		{
 			vertex_3d_index->_position[index_count + 0] = (i + 1) * (grid_x_number_ + 1) + j;
 			vertex_3d_index->_position[index_count + 1] = (i + 0) * (grid_x_number_ + 1) + j;
-			vertex_3d_index->_color[index_count + 0] = (i + 1) * (grid_x_number_ + 1) + j;
-			vertex_3d_index->_color[index_count + 1] = (i + 0) * (grid_x_number_ + 1) + j;
-			vertex_3d_index->_normal[index_count + 0] = (i + 1) * (grid_x_number_ + 1) + j;
-			vertex_3d_index->_normal[index_count + 1] = (i + 0) * (grid_x_number_ + 1) + j;
-			vertex_3d_index->_texcoord[index_count + 0] = (i + 1) * (grid_x_number_ + 1) + j;
-			vertex_3d_index->_texcoord[index_count + 1] = (i + 0) * (grid_x_number_ + 1) + j;
+
 			index_count += 2;
 
 			if((j == grid_x_number_) && i != (grid_z_number_ - 2))
 			{
 				vertex_3d_index->_position[index_count + 0] = (i + 0) * (grid_x_number_ + 1) + j;
 				vertex_3d_index->_position[index_count + 1] = (i + 2) * (grid_x_number_ + 1) + j;
-				vertex_3d_index->_color[index_count + 0] = (i + 0) * (grid_x_number_ + 1) + j;
-				vertex_3d_index->_color[index_count + 1] = (i + 2) * (grid_x_number_ + 1) + j;
-				vertex_3d_index->_normal[index_count + 0] = (i + 0) * (grid_x_number_ + 1) + j;
-				vertex_3d_index->_normal[index_count + 1] = (i + 2) * (grid_x_number_ + 1) + j;
-				vertex_3d_index->_texcoord[index_count + 0] = (i + 0) * (grid_x_number_ + 1) + j;
-				vertex_3d_index->_texcoord[index_count + 1] = (i + 2) * (grid_x_number_ + 1) + j;
 
 				index_count += 2;
 			}

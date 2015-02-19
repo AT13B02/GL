@@ -95,7 +95,7 @@ public:
 	void Push(NETWORK_DATA* pData);
 
 	// IDをセット**プレイヤーや弾は呼び出さない***
-	void SetID(NETWORK_DATA* pData);
+	void SetID(int player_id);
 
 	// IDをゲット
 	int GetID(void){return m_MyID;};
@@ -111,6 +111,11 @@ public:
 	// ゲームシーン終了フラグをゲット
 	bool GetGameSceneEndFlag(void){return m_GameSceneEnd;};
 
+	// 死亡判定に変更
+	void ChangeDeath(int player_id){m_DeathFlag[player_id] = true;};
+
+	// 死亡フラグゲット
+	bool GetCharDeathFlag(int player_id){return m_DeathFlag[player_id];};
 protected:
 	// キャラデータの追加
 	void PushCharcter(NETWORK_DATA* pData);
@@ -126,6 +131,7 @@ private:
 	RECIVE_STATE m_ReciveState[kMaxPlayer];
 	RECIVE_STATE m_ReciveStateBullet[kMaxPlayer];
 	bool m_GameSceneEnd;
+	bool m_DeathFlag[kMaxPlayer];
 };
 
 #endif	// _NETWORK_DATA_BUFFER_H_

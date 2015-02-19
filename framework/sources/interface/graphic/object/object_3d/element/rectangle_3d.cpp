@@ -107,10 +107,10 @@ void CRectangle3D::Set(void)
 	{
 		case POINT_CENTER:
 		{
-			position_[0] = VECTOR2(-size_._x * 0.5f,-size_._y * 0.5f);
-			position_[1] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
-			position_[2] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
-			position_[3] = VECTOR2( size_._x * 0.5f, size_._y * 0.5f);
+			position_[0] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
+			position_[1] = VECTOR2(-size_._x * 0.5f,-size_._y * 0.5f);
+			position_[2] = VECTOR2( size_._x * 0.5f, size_._y * 0.5f);
+			position_[3] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
 			break;
 		}
 		case POINT_LEFT_UP:
@@ -196,10 +196,10 @@ void CRectangle3D::Set(void)
 	pVertex3D->_normal[3] = VECTOR3(0.0f,0.0f,-1.0f);
 
 	// テクスチャ座標の設定
-	pVertex3D->_texcoord[0] = VECTOR2(left_,top_);
-	pVertex3D->_texcoord[1] = VECTOR2(right_,top_);
-	pVertex3D->_texcoord[2] = VECTOR2(left_,bottom_);
-	pVertex3D->_texcoord[3] = VECTOR2(right_,bottom_);
+	pVertex3D->_texcoord[0] = VECTOR2(right_,top_);
+	pVertex3D->_texcoord[1] = VECTOR2(left_,top_);
+	pVertex3D->_texcoord[2] = VECTOR2(right_,bottom_);
+	pVertex3D->_texcoord[3] = VECTOR2(left_,bottom_);
 
 	// 色情報の設定
 	pVertex3D->_color[0] = color_[0];

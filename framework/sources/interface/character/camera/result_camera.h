@@ -1,12 +1,8 @@
 //*****************************************************************************
 //
-// ネットワークマネージャークラス [network_manager.h]
+// タイトルカメラクラス
 //
-// Author		: KENJI KABUTOMORI
-//				  NAOKI NOJIRI
-// Date			: 2014/09/17(Wed)
-// Version		: 1.01
-// Update Date	: 2014/12/01(Mon)
+// Author		: Chiharu Kamiyama
 //
 //*****************************************************************************
 
@@ -15,13 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _NETWORK_MANAGER_H_
-#define _NETWORK_MANAGER_H_
+#ifndef _RESULT_CAMERA_H_
+#define _RESULT_CAMERA_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "../../basic/basic.h"
+// character
+#include "character_camera.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,37 +35,41 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CNetworkClient;
+class CInterfaceManager;
+
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CNetworkManager : public CBasic
+class CResultCamera : public CCharacterCamera
 {
 public:
 	// コンストラクタ
-	CNetworkManager(void);
+	CResultCamera(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CNetworkManager(void);
+	virtual ~CResultCamera(void);
 
-	// 初期化処理
+	// 初期化
 	bool Init(void);
 
-	// 終了処理
+	// 更新
+	void Update(void);
+
+	// 描画
+	void Draw(void){}
+
+	// 終了
 	void Uninit(void);
-
-	// ネットワーククライアントゲット
-	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
-
-	// 準備完了通知
-	void SendReady(int my_id);
 protected:
 
 private:
-	CNetworkClient* m_pNetworkClient;
+	u32 camera_key_;
+	f32 move_speed_;
+	f32 length_;
+	f32 rot_;
 };
 
-#endif	// _NETWORK_MANAGER_H_
+#endif	// _TITLE_CAMERA_H_
 
 //---------------------------------- EOF --------------------------------------

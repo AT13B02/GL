@@ -47,6 +47,8 @@ CPlayer::CPlayer(CInterfaceManager* interface_manager)
 	
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
+
+	death_flag_ = false;
 }
 
 //=============================================================================
@@ -61,11 +63,11 @@ CPlayer::~CPlayer(void)
 //=============================================================================
 bool CPlayer::Init(void)
 {
-	// オブジェクトモデルの生成
-	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
-
-	// オブジェクトリストに追加
-	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
+	//// オブジェクトモデルの生成
+	//CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+	//
+	//// オブジェクトリストに追加
+	//object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
 
 	//値初期化
 	position_ = VECTOR3(0.0f,0.0f,0.0f);
@@ -77,10 +79,11 @@ bool CPlayer::Init(void)
 	VECTOR3 pos_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 	VECTOR3 rot_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 
+//	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	//更新しない
 	update_ = false;
 
-	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
+	//interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	return true;
 }
 
@@ -89,7 +92,6 @@ bool CPlayer::Init(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
-
 	VECTOR3 front_vector = front_vector_;
 	VECTOR3 right_vector = right_vector_;
 	VECTOR3 center_vector = front_vector + right_vector;
@@ -154,7 +156,7 @@ void CPlayer::Update(void)
 	f32 def = rotation_dest_._y - rotation_._y;
 
 	def = GetRotationNormalize(def);
-	rotation_._y += def * 0.1f;	// 減衰率
+	rotation_._y += def * 0.1f;
 
 	rotation_._y = GetRotationNormalize(rotation_._y);
 
@@ -185,12 +187,16 @@ void CPlayer::Update(void)
 //=============================================================================
 void CPlayer::Draw(void)
 {
+	/*
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// 描画
-	object_3d_manager->Draw(object_key_,position_,rotation_,scale_,MATRIX4x4(),"yukidaruma");
+	object_3d_manager->Draw(object_key_,position_,rotation_,scale_,MATRIX4x4(),"");
+	object_3d_manager->Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(),"");
+
+	*/
 }
 
 //=============================================================================
@@ -198,6 +204,16 @@ void CPlayer::Draw(void)
 //=============================================================================
 void CPlayer::Uninit(void)
 {
+
 }
 
+//=============================================================================
+// idの取得
+//=============================================================================
+int CPlayer::player_id(void)
+{
+	//ネットワークバッファの取得
+	CHARCTER_INFO *net_chara_buf = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetCharcterInfoBuffer();
+	return net_chara_buf->player_id;
+}
 //---------------------------------- EOF --------------------------------------

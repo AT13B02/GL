@@ -11,6 +11,7 @@
 //*****************************************************************************
 // scene
 #include "scene/game/scene_game.h"
+#include "scene/result/scene_result.h"
 #include "scene/factory/scene_factory.h"
 
 // interface
@@ -37,10 +38,11 @@
 #include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/graphic/object/object_3d/element/rectangle_3d.h"
 #include "interface/graphic/object/object_2d/element/rectangle_2d.h"
+#include "interface/graphic/object/object_3d/element/meshdome.h"
 #include "interface/graphic/light/light_manager.h"
 #include "interface/graphic/light/light.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
-#include "interface/graphic/object/object_3d/element/meshdome.h"
+#include "interface/graphic/object/object_3d/element/meshfield.h"
 
 // character
 #include "interface/character/character_manager.h"
@@ -53,6 +55,7 @@
 #include "interface/character/camera/character_camera_manager.h"
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
+
 #include "interface/character/box/box.h"
 #include "interface/character/box/box_manager.h"
 #include "scene/game/countdown.h"
@@ -107,24 +110,30 @@ bool CSceneGame::Init(void)
 //=============================================================================
 void CSceneGame::Update(void)
 {
-	//カウントダウンが終わっていたら
-	if( countdown_->countdown_comp() )
-	{
-		//プレイヤーが更新フラグ立っていなかったら更新
-		player_->set_update(true);
-	}
-	//終わってなかったらカウントダウン更新
-	else
-	{
-		countdown_ -> Update();
-	}
-	
-	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
-	{
-		set_next_scene(new CTitleFactory());
-	}
+	//TODO
+	CCharacterManager* character_manager = interface_manager_->character_manager();
+	CPlayerManager* player_manager = character_manager->player_manager();
+	std::list<CPlayer*> player_list = player_manager->character_list();
 
 	network_command_assistant_ -> Update();
+
+	// ゲーム終了なら
+	if(interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetGameSceneEndFlag())
+	{
+		for(auto player_it = player_list.begin(); player_it != player_list.end(); ++player_it)
+		{
+			if((*player_it)->death_flag())
+			{
+				CSceneResult::SetResultFlag(false);
+			}
+			else
+			{
+				CSceneResult::SetResultFlag(true);
+			}
+		}
+		set_next_scene(new CResultFactory());
+		interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->SetGameSceneEndFlag(false);
+	}
 }
 
 //=============================================================================
@@ -132,16 +141,7 @@ void CSceneGame::Update(void)
 //=============================================================================
 void CSceneGame::Draw(void)
 {
-	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
-	CObjectManager* object_manager = graphic_manager->object_manager();
-	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
-	if( !( countdown_->countdown_comp()) )
-	{
-		countdown_ -> Draw();
-	}
-
 	network_command_assistant_ -> Draw();
-	object_3d_manager->Draw(test_meshdome_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),"sky000");
 
 }
 
@@ -150,10 +150,18 @@ void CSceneGame::Draw(void)
 //=============================================================================
 void CSceneGame::Uninit(void)
 {
-	SAFE_RELEASE( network_command_assistant_ );
-	SAFE_RELEASE( countdown_ );
 	CCharacterManager* character_manager = interface_manager_->character_manager();
 	character_manager->Clear();
+	SAFE_RELEASE( network_command_assistant_ );
+
+	CPlayerManager* player_manager = character_manager->player_manager();
+	std::list<CPlayer*> player_list = player_manager->character_list();
+	for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
+	{
+		(*player_it)->SetDeathFlag(false);
+	}
+
+	interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->SetGameSceneEndFlag(false);
 }
 
 //=============================================================================
@@ -210,16 +218,12 @@ void CSceneGame::Load(void)
 	network_command_assistant_ = new CNetworkCommandAssistant( interface_manager_ );
 	network_command_assistant_ -> Init();
 
-	//カウントダウンの作成
-	countdown_ = new CCountDown( interface_manager_ );
-	countdown_ -> Init();
-
 	// プレイヤーの生成
-	player_ = new CPlayer(interface_manager_);
+	CPlayer* player = new CPlayer(interface_manager_);
 	//CPlayer* player = new CNetWorkPlayer(interface_manager_);
-	player_->Init();
-	player_manager->set_player( player_ );
-	player_manager->Push(player_);
+	player->Init();
+	player_manager->set_player( player );
+	player_manager->Push(player);
 
 /*
 	CPlayer* player2 = new CNetWorkPlayer(interface_manager_);
@@ -227,14 +231,14 @@ void CSceneGame::Load(void)
 	player_manager->Push(player2);
 */
 	// カメラの生成
-	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player_);
+	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
 	camera->Init();
 	character_camera_manager->Push(camera);
 
 	// 姿勢制御の生成
 	CAttitudeController* attitude_controller = new CAttitudeController(interface_manager_);
 	attitude_controller->set_axis(VECTOR3(0.0f,1.0f,0.0f));
-	attitude_controller->Push(player_);
+	attitude_controller->Push(player);
 	attitude_controller->Push(camera);
 	attitude_controller_manager->Push(attitude_controller);
 
@@ -257,6 +261,7 @@ void CSceneGame::Load(void)
 	box_position._z = 0.0f;
 	box->position(0.0f, field->GetHeight(box_position, nullptr), 0.0f);
 	box_manager->Push(box);
+
 }
 
 //---------------------------------- EOF --------------------------------------
