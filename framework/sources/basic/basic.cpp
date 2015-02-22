@@ -43,7 +43,6 @@ CBasic::~CBasic(void)
 void CBasic::Release(void)
 {
 	Uninit();
-
 	delete this;
 }
 
