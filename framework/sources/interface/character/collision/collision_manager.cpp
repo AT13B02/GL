@@ -68,6 +68,8 @@ void CCollisionManager::Update(void)
 	JudgePlayerAndBullet();
 	JudgeFieldIn();
 	JudgeFieldOn();
+	JudgePlayerAndBox();
+	JudgeBulletAndBox();
 
 }
 

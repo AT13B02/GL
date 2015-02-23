@@ -249,7 +249,8 @@ void CSceneGame::Load(void)
 	CBox* box = new CBox(interface_manager_);
 	box->Init();
 	// TODO : フィールドから高さを取得する
-	box->position(100.0f, 0.0f, 100.0f);
+	VECTOR3 boxPos(100.0f, 0.0f, 100.0f);
+	box->position(boxPos._x, field->GetHeight(boxPos, nullptr), boxPos._z);
 	box_manager->Push(box);
 }
 

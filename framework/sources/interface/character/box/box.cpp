@@ -43,7 +43,7 @@ CBox::~CBox(void)
 bool CBox::Init(void)
 {
 	// オブジェクトモデルの生成
-	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
+	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"box");
 
 	// オブジェクトリストに追加
 	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
@@ -54,8 +54,8 @@ bool CBox::Init(void)
 	scale_    = VECTOR3(1.0f,1.0f,1.0f);
 
 	// 当たり判定初期化
-	collision_.add(-25.0f,  0.0f, -25.0f);
-	collision_.add( 25.0f, 50.0f,  25.0f);
+	collision_.add(-10.0f,  0.0f, -10.0f);
+	collision_.add( 10.0f, 20.0f,  10.0f);
 
 	return S_OK;
 }
