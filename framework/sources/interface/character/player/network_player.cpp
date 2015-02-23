@@ -25,7 +25,8 @@
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 
 CNetWorkPlayer::CNetWorkPlayer(CInterfaceManager* interface_manager)
-	:CPlayer(interface_manager)
+:CPlayer(interface_manager)
+,hp_(MAX_HP)
 {
 	// オブジェクトモデルの生成
 	CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");

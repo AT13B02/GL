@@ -48,20 +48,28 @@
 //*****************************************************************************
 // グローバル変数
 //*****************************************************************************
-const float CSceneMatch::PLAYER_DISP_OFFSET_X = 600.0f;
+const float CSceneMatch::PLAYER_DISP_OFFSET_X = 500.0f;
 const float CSceneMatch::PLAYER_DISP_OFFSET_Y = 70.0f;
-const float CSceneMatch::PLAYER_DISP_START_Y =180.0f;
+const float CSceneMatch::PLAYER_DISP_START_Y  = 180.0f;
+const float CSceneMatch::PLAYER_DISP_READY_OFFSET_X = 1000.0f;
+const float CSceneMatch::PLAYER_DISP_READY_OFFSET_Y = 70.0f;
+const float CSceneMatch::PLAYER_DISP_READY_START_Y  = 180.0f;
+
 const VECTOR2 CSceneMatch::HOST_DECITION_DEFAULT_POS(600.0f,600.0f);
 const VECTOR2 CSceneMatch::LOGO_DEFAULT_POS(600.0f,60.0f);
 
 const char* CSceneMatch::p_texture_names[TEXTURE_TYPE_MAX] = 
 {
-	"field001",//logo
-	"field001",//player
-	"field001",//player
-	"field001",//player
-	"field001",//player
-	"field001",//host
+	"matching_title_R",//logo
+	"matching_player_tex_R",//player
+	"matching_player_tex_R",//player
+	"matching_player_tex_R",//player
+	"matching_player_tex_R",//player
+	"matching_start_R",//host
+	"matching_ready_R",//1
+	"matching_ready_R",//2
+	"matching_ready_R",//3
+	"matching_ready_R",//4
 };
 
 //=============================================================================
@@ -182,14 +190,19 @@ void CSceneMatch::Draw(void)
 	{
 		if(my_id == nPlayer)
 		{
+			//自身が選択された場合の点滅処理をする
 			if(draw_flag_)
 			{
+				//p_rectRedy[nPlayer]->set_texcoord(0.5f,1.0f,0.0f,1.0f);
+				//p_rectRedy[nPlayer]->Set();
 				object_2d_manager->Draw(player_Disp_2d_key_[nPlayer],VECTOR2(PLAYER_DISP_OFFSET_X + player_Disp_2d_pos_._x,nPlayer * PLAYER_DISP_OFFSET_Y +CSceneMatch::PLAYER_DISP_START_Y),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[1+nPlayer]);
+				object_2d_manager->Draw(player_ready_disp_2d_key_[nPlayer],VECTOR2(PLAYER_DISP_READY_OFFSET_X + player_Disp_2d_pos_._x,nPlayer * PLAYER_DISP_READY_OFFSET_Y +CSceneMatch::PLAYER_DISP_READY_START_Y),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[6+nPlayer]);
 			}
 		}
 		else
 		{
 			object_2d_manager->Draw(player_Disp_2d_key_[nPlayer],VECTOR2(PLAYER_DISP_OFFSET_X,nPlayer * PLAYER_DISP_OFFSET_Y +CSceneMatch::PLAYER_DISP_START_Y),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[1+nPlayer]);
+			object_2d_manager->Draw(player_ready_disp_2d_key_[nPlayer],VECTOR2(PLAYER_DISP_READY_OFFSET_X + player_Disp_2d_pos_._x,nPlayer * PLAYER_DISP_READY_OFFSET_Y +CSceneMatch::PLAYER_DISP_READY_START_Y),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[6+nPlayer]);
 		}
 	}
 }
@@ -216,7 +229,7 @@ void CSceneMatch::Load(void)
 
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
-	texture_manager->Load("resources/texture/game");
+	texture_manager->Load("resources/texture/match");
 
 	CRectangle3D* billboard = new CRectangle3D(device_holder);
 
@@ -236,19 +249,33 @@ void CSceneMatch::Load(void)
 	CRectangle2D* p_rect2D = new CRectangle2D(device_holder);
 	p_rect2D->set_size(VECTOR2(200,200));
 	p_rect2D->Set();
+
 	test_2d_key_ = object_2d_manager->AddList(p_rect2D);
 
 	for(int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++)
 	{
 		CRectangle2D* p_rect2D = new CRectangle2D(device_holder);
 		p_rect2D->set_size(VECTOR2(512,64));
+		p_rect2D->set_texcoord(0.00f,1.0f,0.75f - nPlayer*0.25f,0.750f -  nPlayer*0.25f + 0.25f);
 		p_rect2D->Set();
 		player_Disp_2d_key_[nPlayer] = object_2d_manager->AddList(p_rect2D);
 	}
 
+	//Player ready
+	for(int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++)
+	{
+		p_rectRedy[nPlayer] = new CRectangle2D(device_holder);
+		p_rect2D->set_size(VECTOR2(512,64));
+		//p_rect2D->set_texcoord(0.00f,1.0f,0.75f - nPlayer*0.25f,0.750f -  nPlayer*0.25f + 0.25f);
+		p_rect2D->set_texcoord(0.0f,0.5f,0.0f,1.0f);
+		p_rect2D->Set();
+		player_ready_disp_2d_key_[nPlayer] = object_2d_manager->AddList(p_rect2D);
+	}
+
 	//host board loading
 	p_rect2D = new CRectangle2D(device_holder);
-	p_rect2D->set_size(VECTOR2(128,128));
+	p_rect2D->set_size(VECTOR2(512,128));
+	p_rect2D->set_texcoord(0.0f,1.0f,0.5f,1.0f);
 	p_rect2D->Set();
 	host_decision_key_ = object_2d_manager->AddList(p_rect2D);
 

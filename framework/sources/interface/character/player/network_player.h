@@ -30,6 +30,9 @@
 class CNetWorkPlayer : public CPlayer
 {
 public:
+
+	static const int MAX_HP = 1;
+
 	// コンストラクタ
 	CNetWorkPlayer(CInterfaceManager* interface_manager);
 
@@ -44,9 +47,15 @@ public:
 
 	//描画
 	virtual void Draw(void);
+
+	void SetHP(int nHP){hp_ = nHP;} 
+
+	int GetHP(void){return  hp_;}
+
 protected:
 
 private:
+	int hp_;
 };
 
 //---------------------------------- EOF --------------------------------------
