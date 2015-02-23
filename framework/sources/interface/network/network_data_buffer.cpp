@@ -49,6 +49,7 @@ CNetworkDataBuffer::CNetworkDataBuffer(void)
 		m_ReciveStateBullet[i].recive_speed = false;
 		
 		m_DeathFlag[i] = false;
+		m_ReadyFlag[i] = false;
 	}
 	m_GameSceneEnd = false;
 }
@@ -344,6 +345,7 @@ void CNetworkDataBuffer::InitFlag(void)
 		m_ReciveStateBullet[i].recive_speed = false;
 
 		m_DeathFlag[i] = false;
+		m_ReadyFlag[i] = false;
 	}
 }
 //---------------------------------- EOF --------------------------------------

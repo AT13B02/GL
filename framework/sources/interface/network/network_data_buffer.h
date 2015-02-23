@@ -123,6 +123,10 @@ public:
 	// フラグ初期化
 	void InitFlag(void);
 
+	// 準備完了フラグアクセサ
+	bool GetReadyFlag(int id){return m_ReadyFlag[id];};
+	void SetReadyFlag(int id, bool flag){m_ReadyFlag[id] = flag;};
+
 protected:
 	// キャラデータの追加
 	void PushCharcter(NETWORK_DATA* pData);
@@ -139,6 +143,7 @@ private:
 	RECIVE_STATE m_ReciveStateBullet[kMaxPlayer];
 	bool m_GameSceneEnd;
 	bool m_DeathFlag[kMaxPlayer];
+	bool m_ReadyFlag[kMaxPlayer];
 };
 
 #endif	// _NETWORK_DATA_BUFFER_H_

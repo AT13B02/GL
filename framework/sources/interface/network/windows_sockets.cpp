@@ -290,6 +290,18 @@ void CWindowsSockets::SendDataPrepare(int my_id)
 
 	//TODO
 	m_Sendaddr.sin_port = htons(20002);
+
+	// 他のプレイヤーに通知
+	Data.my_ID = my_id;
+	sockaddr_in Send;
+
+	Send.sin_port = m_Sendaddr.sin_port;
+	Send.sin_family= AF_INET;
+	Send.sin_addr.s_addr = m_Sendaddr.sin_addr.s_addr;
+
+	Data.data_type = NETWORK_DATA_TYPE_SEND_READY;
+
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
 }
 
 //=============================================================================
