@@ -132,8 +132,11 @@ private:
 	//移動目標値変数
 	VECTOR3 rotation_dest_;
 	bool update_;
-
 	bool death_flag_;
+	//射撃中どうかのフラグ
+	bool is_fire;
+	//射撃間隔のカウント用
+	s16 cooldown_cnt;
 };
 
 //---------------------------------- EOF --------------------------------------

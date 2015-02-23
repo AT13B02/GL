@@ -38,6 +38,8 @@ const f32 CPlayer::SPEED = 0.5f;
 const f32 CPlayer::SPEED_DEST = 0.3f;
 const f32 CPlayer::ROTATION_DEST = 0.3f;
 const f32 CPlayer::BULLET_LAUNCH_HEIGHT_OFFSET = 20.0f;
+const f32 BULLET_MOVE_SPD=4.0f;
+const s16 COOLDOWN_TIME = 30;
 static const s16 MAX_HP = 100;
 
 //=============================================================================
@@ -87,6 +89,8 @@ bool CPlayer::Init(void)
 	//interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 
 	hp_ = MAX_HP;
+	cooldown_cnt=0;
+	is_fire=false;
 	return true;
 }
 
@@ -111,50 +115,52 @@ void CPlayer::Update(void)
 	if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
 		position_ += (front_vector - right_vector).Normalize() * 1.0f;
-		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 45.0f;
+		//rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 45.0f;
 	}
 	// 右上移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
 		position_ += (front_vector + right_vector).Normalize() * 1.0f;
-		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 135.0f;
+		//rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 135.0f;
 	}
 	// 左下移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
 		position_ -= (front_vector + right_vector).Normalize() * 1.0f;
-		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 45.0f;
+		//rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 45.0f;
 	}
 	// 右下移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
 		position_ -= (front_vector - right_vector).Normalize() * 1.0f;
-		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 135.0f;
+		//rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 135.0f;
 	}
 	// 右移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
 		position_ += right_vector * 1.0f;
-		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 180.0f;
+		//rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 180.0f;
 	}
 	// 左移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
 		position_ -= right_vector * 1.0f;
-		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN;
+		//rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN;
 	}
 	// 奥移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W))
 	{
 		position_ += front_vector * 1.0f;
-		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 90.0f;
+		//rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 90.0f;
 	}
 	// 手前移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S))
 	{
 		position_ -= front_vector * 1.0f;
-		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 90.0f;
+		//rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 90.0f;
 	}
+	//キャラクターは常にカメラに背を向ける
+	rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 90.0f;
 
 	rotation_dest_._y = GetRotationNormalize(rotation_dest_._y);
 
@@ -163,26 +169,41 @@ void CPlayer::Update(void)
 	def = GetRotationNormalize(def);
 	rotation_._y += def * 0.1f;
 
+	//キー操作により射撃状態を切り替える
+	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE))
+	{
+		is_fire=!is_fire;
+	}
+
 	rotation_._y = GetRotationNormalize(rotation_._y);
 
-	// 弾の発射
-	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_SPACE)
-		&& death_flag_ == false)
+	//発射可能状態の時
+	if(cooldown_cnt>=COOLDOWN_TIME)
 	{
-		VECTOR3 crate_position = position_;
-		crate_position._y += BULLET_LAUNCH_HEIGHT_OFFSET;
-		VECTOR3 launch_vector(front_vector_);
-		const f32 LAUNCH_OFFSET_Y = 0.34f;
-		launch_vector._y += LAUNCH_OFFSET_Y;
-		launch_vector = launch_vector.RotationAxis(VECTOR3(0.0f, 1.0f, 0.0f), -(rotation_._y + 180.0f) * MTH_DEGREE);
-		launch_vector.Normalize();
-		interface_manager_
-			->network_manager()
-			->GetNetworkClient()
-			->GetWinSock()
-			->SendDataBullet(&crate_position
-							,&launch_vector
-							,1.0f);
+		// 弾の発射
+		if(is_fire&&death_flag_ == false)
+		{
+			cooldown_cnt=0;
+			VECTOR3 crate_position = position_;
+			crate_position._y += BULLET_LAUNCH_HEIGHT_OFFSET;
+			VECTOR3 launch_vector(front_vector_);
+			const f32 LAUNCH_OFFSET_Y = 0.34f;
+			launch_vector._y += LAUNCH_OFFSET_Y;
+			//launch_vector = launch_vector.RotationAxis(VECTOR3(0.0f, 1.0f, 0.0f), -(rotation_._y + 180.0f) * MTH_DEGREE);
+			launch_vector.Normalize();
+			interface_manager_
+				->network_manager()
+				->GetNetworkClient()
+				->GetWinSock()
+				->SendDataBullet(&crate_position
+								,&launch_vector
+								,BULLET_MOVE_SPD);
+		}
+	}
+	//カウントダウンを進める
+	else
+	{
+		cooldown_cnt++;
 	}
 
 	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&position_,&rotation_,0,hp_);
