@@ -39,6 +39,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
+static const int kDefaultDamage = 10;
 
 //*****************************************************************************
 // 構造体定義
@@ -95,6 +96,13 @@ public:
 	bool death_flag(void){return death_flag_;};
 	void SetDeathFlag(bool flag);
 
+	// HPアクセサ
+	void set_hp(s16 hp){hp_ = hp;};
+	s16 hp(void){return hp_;};
+
+	// ダメージ関数
+	void Damage(int damage);
+
 protected:
 	// インターフェースマネージャーのポインタ
 	CInterfaceManager* interface_manager_;
@@ -106,6 +114,7 @@ protected:
 	VECTOR3 position_;
 	VECTOR3 rotation_;
 	VECTOR3 scale_;
+	s16		hp_;
 private:
 	// スピード
 	static const f32 SPEED;
