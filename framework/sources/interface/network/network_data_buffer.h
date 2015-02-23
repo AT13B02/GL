@@ -32,6 +32,7 @@
 // マクロ定義
 //*****************************************************************************
 static const int kMaxPlayer = 4;
+static const int kMaxHP = 100;
 
 //*****************************************************************************
 // 構造体定義
@@ -48,6 +49,7 @@ typedef struct
 	int animation_id;
 	VECTOR3 position;
 	VECTOR3 rotation;
+	int hp;
 }CHARCTER_INFO;
 
 typedef struct
@@ -66,6 +68,7 @@ typedef struct
 	bool recive_animation_ID;
 	bool recive_speed;
 	bool recive_frontvector;
+	bool recive_hp;
 }RECIVE_STATE;
 
 //*****************************************************************************

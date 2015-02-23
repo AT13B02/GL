@@ -35,6 +35,7 @@ static struct sockaddr_in sockAddrIn;
 static struct sockaddr_in from_addr;
 static bool prepare_start[MAX_PLAYER_NUM];	// プレイヤー準備完了フラグ
 static bool death_flag[MAX_PLAYER_NUM];		// プレイヤー死亡フラグ管理
+static bool can_add_player = true;
 //====================================================================
 // メイン処理
 //====================================================================
@@ -129,6 +130,11 @@ void ReciveData(NETWORK_DATA* pData, sockaddr_in* pSendAdr)
 	{
 		case NETWORK_DATA_TYPE_REQUEST_PLAYER_NUMBER:
 		{
+			if(!can_add_player)
+			{
+				break;
+			}
+
 			NETWORK_DATA data;
 			memcpy(&data, pData, sizeof(data));
 			data.data_type = NETWORK_DATA_TYPE_SEND_PLAYER_NUMBER;
@@ -209,6 +215,12 @@ void ReciveData(NETWORK_DATA* pData, sockaddr_in* pSendAdr)
 			break;
 		}
 
+		case NETWORK_DATA_TYPE_GO_TO_GAME:
+		{
+			can_add_player = false;
+			break;
+		}
+
 		// リザルトへ
 		case NETWORK_DATA_TYPE_GO_TO_RESULT:
 		{
@@ -220,6 +232,8 @@ void ReciveData(NETWORK_DATA* pData, sockaddr_in* pSendAdr)
 
 				// 死亡フラグ初期化
 				death_flag[index] = false;
+
+				can_add_player = true;
 			}
 			break;
 		}

@@ -65,6 +65,11 @@ typedef struct
 	int animation_ID;
 }NETWORK_DATA_ANIMATION_ID;
 
+typedef struct
+{
+	int hp;
+}NETWORK_DATA_HP;
+
 // 送信するもの
 typedef enum NETWORK_DATA_TYPE
 {
@@ -86,7 +91,8 @@ typedef enum NETWORK_DATA_TYPE
 	NETWORK_DATA_TYPE_DEATH					= 15,	// やられた
 	NETWORK_DATA_TYPE_END_GAME				= 16,	// ゲーム終了通知
 	NETWORK_DATA_TYPE_RECIVE_DEATH			= 17,	// デスフラグ受信
-	NETWORK_DATA_TYPE_END					= 18,
+	NETWORK_DATA_TYPE_HP					= 18,	// HPです
+	NETWORK_DATA_TYPE_END					= 19,
 };
 
 // 自身は何か
@@ -113,6 +119,7 @@ typedef struct
 		NETWORK_DATA_SPEED			speed;
 		NETWORK_DATA_FRONT_VECTOR	front_vector;
 		NETWORK_DATA_ANIMATION_ID	animation_ID;
+		NETWORK_DATA_HP				HP;
 	};
 }NETWORK_DATA;
 

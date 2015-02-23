@@ -82,7 +82,7 @@ public:
 	void SendDataGoToResultScene(void);
 
 	// データの送信
-	void SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id);	// プレイヤー
+	void SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id, int hp);	// プレイヤー
 	void SendDataBullet(VECTOR3* position, VECTOR3* front_vector, float speed);		// 弾
 
 	void SendDataMyself(char* pData,int nSize);

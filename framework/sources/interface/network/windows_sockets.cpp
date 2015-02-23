@@ -134,7 +134,7 @@ void CWindowsSockets::Uninit(void)
 //=============================================================================
 // データの送信
 //=============================================================================
-void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id)
+void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id, int hp)
 {
 	NETWORK_DATA Data = {0};
 	strcpy(Data.game_ID, kGameID);
@@ -165,6 +165,12 @@ void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int
 	Data.data_type = NETWORK_DATA_TYPE_ANIMATION_ID;
 	{
 		Data.animation_ID.animation_ID = animation_id;
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+
+	Data.data_type = NETWORK_DATA_TYPE_HP;
+	{
+		Data.HP.hp = hp;
 		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
 	}
 

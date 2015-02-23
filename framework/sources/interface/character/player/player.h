@@ -39,6 +39,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
+static const int kDefaultDamage = 10;
 
 //*****************************************************************************
 // 構造体定義
@@ -88,20 +89,19 @@ public:
 	// 角度の設定
 	void set_rotation(const VECTOR3& rotation){rotation_ = rotation;}
 
-	//更新フラグセット
-	void set_update( bool flag ){ update_ = flag; }
-
-	// プレイヤー移動方向取得
-	const VECTOR3& get_move_vector();
-	// プレイヤー移動スピード取得
-	const f32 get_move_speed();
-	
 	// idの取得
 	int player_id(void);
 	
 	// 死亡フラグアクセサ
 	bool death_flag(void){return death_flag_;};
 	void SetDeathFlag(bool flag);
+
+	// HPアクセサ
+	void set_hp(s16 hp){hp_ = hp;};
+	s16 hp(void){return hp_;};
+
+	// ダメージ関数
+	void Damage(int damage);
 
 protected:
 	// インターフェースマネージャーのポインタ
@@ -114,7 +114,7 @@ protected:
 	VECTOR3 position_;
 	VECTOR3 rotation_;
 	VECTOR3 scale_;
-	VECTOR3 move_vector_;
+	s16		hp_;
 private:
 	// スピード
 	static const f32 SPEED;
