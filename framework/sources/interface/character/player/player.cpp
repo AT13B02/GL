@@ -193,16 +193,12 @@ void CPlayer::Update(void)
 //=============================================================================
 void CPlayer::Draw(void)
 {
-	/*
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
 	// •`‰æ
 	object_3d_manager->Draw(object_key_,position_,rotation_,scale_,MATRIX4x4(),"");
-	object_3d_manager->Draw(object_key_,pos_,rot_,scale_,MATRIX4x4(),"");
-
-	*/
 }
 
 //=============================================================================
