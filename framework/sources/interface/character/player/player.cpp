@@ -50,7 +50,6 @@ CPlayer::CPlayer(CInterfaceManager* interface_manager)
 	
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
-
 	death_flag_ = false;
 }
 

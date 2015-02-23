@@ -22,6 +22,12 @@
 
 #include "common/common.h"
 
+//*****************************************************************************
+// マクロ定義
+//*****************************************************************************
+const s16 FIELD_LENGS_X=70;
+const s16 FIELD_LENGS_Z=70;
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -46,7 +52,7 @@ bool CField::Init(void)
 	// オブジェクトモデルの生成
 	meshfield_ = new CMeshfield(interface_manager_->graphic_manager()->device_holder());
 	meshfield_->Init();
-	meshfield_->set_length_grid(50.0f,50.0f);
+	meshfield_->set_length_grid(FIELD_LENGS_X,FIELD_LENGS_Z);
 	meshfield_->set_number_grid(10,10);
 	meshfield_->set_height_seed(0);
 	meshfield_->Set();

@@ -240,16 +240,10 @@ void CSceneGame::Load(void)
 
 	// プレイヤーの生成
 	CPlayer* player = new CPlayer(interface_manager_);
-	//CPlayer* player = new CNetWorkPlayer(interface_manager_);
 	player->Init();
 	player_manager->set_player( player );
 	player_manager->Push(player);
 
-/*
-	CPlayer* player2 = new CNetWorkPlayer(interface_manager_);
-	player2->Init();
-	player_manager->Push(player2);
-*/
 	// カメラの生成
 	CPlayerCamera* camera = new CPlayerCamera(interface_manager_,player);
 	camera->Init();
@@ -266,7 +260,7 @@ void CSceneGame::Load(void)
 	CMeshdome* pMeshdome = new CMeshdome(device_holder);
 	pMeshdome->Init();
 	pMeshdome->SetGridNumber(10, 10);
-	pMeshdome->set_radius(1000);
+	pMeshdome->set_radius(400);
 	pMeshdome->Set();
 	meshsky_key_ = object_3d_manager->AddList(pMeshdome);
 
