@@ -38,6 +38,7 @@
 // クラスの前方宣言
 //*****************************************************************************
 class CSound;
+class CRectangle2D;
 
 //*****************************************************************************
 // クラス定義
@@ -81,6 +82,10 @@ private:
 		TEXTURE_TYPE_PLAYER3,
 		TEXTURE_TYPE_PLAYER4,
 		TEXTURE_TYPE_HOST_DECISION,
+		TEXTURE_TYPE_PLAYER1_READY,
+		TEXTURE_TYPE_PLAYER2_READY,
+		TEXTURE_TYPE_PLAYER3_READY,
+		TEXTURE_TYPE_PLAYER4_READY,
 		TEXTURE_TYPE_MAX,
 	}TEXTURE_TYPE;
 
@@ -90,6 +95,11 @@ private:
 	static const float PLAYER_DISP_OFFSET_X;
 	static const float PLAYER_DISP_OFFSET_Y;
 	static const float PLAYER_DISP_START_Y;
+
+	static const float PLAYER_DISP_READY_OFFSET_X;
+	static const float PLAYER_DISP_READY_OFFSET_Y;
+	static const float PLAYER_DISP_READY_START_Y;
+
 	static const VECTOR2 HOST_DECITION_DEFAULT_POS;
 	static const VECTOR2 LOGO_DEFAULT_POS;
 	u32 test_object_key_;
@@ -97,8 +107,11 @@ private:
 
 
 	u32 player_Disp_2d_key_[PLAYER_MAX]; //プレイヤーマッチング表示
+	u32 player_ready_disp_2d_key_[PLAYER_MAX]; //プレイヤーマッチング準備表示
 	u32 host_decision_key_;				 //ホストが決定を押すときに必要
 	u32 logo_key_;						 //ロゴ表示に必要
+
+	CRectangle2D* p_rectRedy[PLAYER_MAX];
 	
 	//TODO
 	static const u32 FLASH_ALL_TIME = 40;//点滅の全体時間
