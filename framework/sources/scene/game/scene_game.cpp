@@ -248,6 +248,7 @@ void CSceneGame::Load(void)
 	// フィールドに障害物追加
 	CBox* box = new CBox(interface_manager_);
 	box->Init();
+	// TODO : フィールドから高さを取得する
 	box->position(100.0f, 0.0f, 100.0f);
 	box_manager->Push(box);
 }

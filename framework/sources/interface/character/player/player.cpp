@@ -107,54 +107,61 @@ void CPlayer::Update(void)
 	right_vector._y = 0.0f;
 	right_vector.Normalize();
 
+	move_vector_._x = 0.0f;
+	move_vector_._y = 0.0f;
+	move_vector_._z = 0.0f;
+
 	// 左上移動
 	if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
-		position_ += (front_vector - right_vector).Normalize() * 1.0f;
+		move_vector_ = (front_vector - right_vector).Normalize();
 		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 45.0f;
 	}
 	// 右上移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
-		position_ += (front_vector + right_vector).Normalize() * 1.0f;
+		move_vector_ = (front_vector + right_vector).Normalize();
 		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 135.0f;
 	}
 	// 左下移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
-		position_ -= (front_vector + right_vector).Normalize() * 1.0f;
+		move_vector_ -= (front_vector + right_vector).Normalize();
 		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 45.0f;
 	}
 	// 右下移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S) && interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
-		position_ -= (front_vector - right_vector).Normalize() * 1.0f;
+		move_vector_ -= (front_vector - right_vector).Normalize();
 		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 135.0f;
 	}
 	// 右移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_D))
 	{
-		position_ += right_vector * 1.0f;
+		move_vector_ = right_vector;
 		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 180.0f;
 	}
 	// 左移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_A))
 	{
-		position_ -= right_vector * 1.0f;
+		move_vector_ = -right_vector;
 		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN;
 	}
 	// 奥移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_W))
 	{
-		position_ += front_vector * 1.0f;
+		move_vector_ = front_vector;
 		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN - 90.0f;
 	}
 	// 手前移動
 	else if(interface_manager_->input_manager()->CheckPress(INPUT_EVENT_S))
 	{
-		position_ -= front_vector * 1.0f;
+		move_vector_ = -front_vector;
 		rotation_dest_._y = -atan2f(front_vector_._z,front_vector_._x) * MTH_RADIAN + 90.0f;
 	}
+
+	// 移動量加算
+	position_ += move_vector_ * CPlayer::SPEED;
 
 	rotation_dest_._y = GetRotationNormalize(rotation_dest_._y);
 
