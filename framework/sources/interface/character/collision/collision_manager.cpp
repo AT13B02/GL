@@ -24,6 +24,9 @@
 #include "../field/field.h"
 #include "../field/field_manager.h"
 
+#include "../box/box.h"
+#include "../box/box_manager.h"
+
 #include "common/common.h"
 
 //=============================================================================
@@ -225,6 +228,104 @@ bool CCollisionManager::JudgeSphereCross(VECTOR3 p1,float r1,VECTOR3 p2,float r2
 	}
 
 	return false;
+}
+
+//=============================================================================
+// ƒvƒŒƒCƒ„[‚ÆáŠQ•¨‚Ì“–‚½‚è”»’è
+//=============================================================================
+void CCollisionManager::JudgePlayerAndBox()
+{
+	CPlayerManager* player_manager = character_manager_->player_manager();
+	CBoxManager* box_manager = character_manager_->box_manager();
+
+	std::list<CPlayer*> player_list = player_manager->character_list();
+	std::list<CBox*> box_list = box_manager->character_list();
+	
+	VECTOR3 pos_player;
+
+	// ƒvƒŒƒCƒ„[‚Æ’e‚Ì“–‚½‚è”»’è
+	for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
+	{
+		for(auto box_it = box_list.begin();box_it != box_list.end();++box_it)
+		{
+			// “–‚½‚è”»’è
+			bool bHit = JudgeAABBCross(
+				(*player_it)->position(), AABB(-5, 0, -5, 5, 10, 5),
+				(*box_it)->position(), (*box_it)->collision());
+			if(bHit)
+			{
+				// ƒvƒŒƒCƒ„[ˆÊ’u‚ð–ß‚·
+				pos_player = (*player_it)->position();
+				pos_player -= ((*player_it)->get_move_vector() * (*player_it)->get_move_speed());
+				(*player_it)->set_position(pos_player);
+			}
+		}
+	}
+}
+
+//=============================================================================
+// ’e‚ÆáŠQ•¨‚Ì“–‚½‚è”»’è
+//=============================================================================
+void CCollisionManager::JudgeBulletAndBox()
+{
+	CBulletManager* bullet_manager = character_manager_->bullet_manager();
+	CBoxManager* box_manager = character_manager_->box_manager();
+
+	std::list<CBullet*> bullet_list = bullet_manager->character_list();
+	std::list<CBox*> box_list = box_manager->character_list();
+	
+	VECTOR3 pos_player;
+
+	// ’e‚Æ•Ç‚Ì“–‚½‚è”»’è
+	for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
+	{
+		for(auto box_it = box_list.begin();box_it != box_list.end();++box_it)
+		{
+			// “–‚½‚è”»’è
+			bool bHit = JudgeAABBCross(
+				(*bullet_it)->position(), AABB(-5, -5, -5, 5, 5, 5),
+				(*box_it)->position(), (*box_it)->collision());
+			if(bHit)
+			{
+				// •Ç‚Æ“–‚Á‚½‚çÁ‚¦‚é
+				(*bullet_it)->Erase();
+			}
+		}
+	}
+}
+
+//=============================================================================
+// AABB“¯Žm‚Ì“–‚½‚è”»’è
+//=============================================================================
+bool CCollisionManager::JudgeAABBCross(
+	const VECTOR3& p1, const AABB& b1,
+	const VECTOR3& p2, const AABB& b2)
+{
+	VECTOR3 min_pos1;
+	VECTOR3 min_pos2;
+	min_pos1._x = p1._x + b1.Min._x;
+	min_pos1._y = p1._y + b1.Min._y;
+	min_pos1._z = p1._z + b1.Min._z;
+	min_pos2._x = p2._x + b2.Min._x;
+	min_pos2._y = p2._y + b2.Min._y;
+	min_pos2._z = p2._z + b2.Min._z;
+
+	bool bHitX = 
+		min_pos1._x <= min_pos2._x + b2.width() &&
+		min_pos1._x >= min_pos2._x - b1.width();
+	bool bHitY =
+		min_pos1._y <= min_pos2._y + b2.height() &&
+		min_pos1._y >= min_pos2._y - b1.height();
+	bool bHitZ =
+		min_pos1._z <= min_pos2._z + b2.depth() &&
+		min_pos1._z >= min_pos2._z - b1.depth();
+
+	if(!bHitX || !bHitY || !bHitZ)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 //---------------------------------- EOF --------------------------------------

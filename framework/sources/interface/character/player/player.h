@@ -102,6 +102,12 @@ public:
 
 	// ダメージ関数
 	void Damage(int damage);
+	
+	// プレイヤー移動方向取得
+	const VECTOR3& get_move_vector();
+
+	// プレイヤー移動スピード取得
+	const f32 get_move_speed();
 
 protected:
 	// インターフェースマネージャーのポインタ

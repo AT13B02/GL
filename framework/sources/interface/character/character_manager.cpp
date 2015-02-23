@@ -201,7 +201,7 @@ void CCharacterManager::Uninit(void)
 	// 衝突判定マネージャーの開放
 	SAFE_RELEASE(collision_manager_);
 	
-	// ボックスマネージャーの描画
+	// ボックスマネージャーの開放
 	SAFE_RELEASE(box_manager_);
 }
 
