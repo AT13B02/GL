@@ -129,7 +129,12 @@ void CNetworkCommandAssistant::Update(void)
 			//XV
 			character_manager->network_player( net_chara_buf->player_id )->set_position( net_chara_buf->position );
 			character_manager->network_player( net_chara_buf->player_id )->set_rotation( net_chara_buf->rotation );
+			character_manager->network_player( net_chara_buf->player_id )->set_hp( net_chara_buf->hp );
 			character_manager->network_player( net_chara_buf->player_id )->Update();
+
+			// ‚±‚±‚ç•Ó‚ÅHP•\¦•Ï‚¦‚½‚¢
+			//
+			//
 
 			net_chara_buf->end_push_flag = false;
 		}

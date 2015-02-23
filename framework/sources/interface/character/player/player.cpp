@@ -38,6 +38,7 @@ const f32 CPlayer::SPEED = 1.0f;
 const f32 CPlayer::SPEED_DEST = 0.3f;
 const f32 CPlayer::ROTATION_DEST = 0.3f;
 const f32 CPlayer::BULLET_LAUNCH_HEIGHT_OFFSET = 20.0f;
+static const s16 MAX_HP = 100;
 
 //=============================================================================
 // コンストラクタ
@@ -84,6 +85,8 @@ bool CPlayer::Init(void)
 	update_ = false;
 
 	//interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
+
+	hp_ = MAX_HP;
 	return true;
 }
 
@@ -182,7 +185,7 @@ void CPlayer::Update(void)
 							,1.0f);
 	}
 
-	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&position_,&rotation_,0);
+	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&position_,&rotation_,0,hp_);
 }
 
 //=============================================================================
@@ -243,6 +246,18 @@ const VECTOR3& CPlayer::get_move_vector()
 const f32 CPlayer::get_move_speed()
 {
 	return CPlayer::SPEED;
+}
+
+// ダメージ関数
+//=============================================================================
+void CPlayer::Damage(int damage)
+{
+	hp_ -= damage;
+	if(hp_ <= 0)
+	{
+		hp_ = 0;
+		SetDeathFlag(true);
+	}
 }
 
 //---------------------------------- EOF --------------------------------------

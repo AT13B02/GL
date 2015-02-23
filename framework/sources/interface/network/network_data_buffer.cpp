@@ -40,6 +40,7 @@ CNetworkDataBuffer::CNetworkDataBuffer(void)
 		m_ReciveState[i].recive_position = false;
 		m_ReciveState[i].recive_rotation = false;
 		m_ReciveState[i].recive_speed = false;
+		m_ReciveState[i].recive_hp = false;
 
 		m_ReciveStateBullet[i].recive_animation_ID = false;
 		m_ReciveStateBullet[i].recive_frontvector = false;
@@ -71,6 +72,7 @@ bool CNetworkDataBuffer::Init(void)
 		m_CharcterInfoBuffer[i].position = VECTOR3(0.f, 0.f, 0.f);
 		m_CharcterInfoBuffer[i].rotation = VECTOR3(0.f, 0.f, 0.f);
 		m_CharcterInfoBuffer[i].end_push_flag = false;
+		m_CharcterInfoBuffer[i].hp = kMaxHP;
 
 		m_BulletInfoBuffer[i].position = VECTOR3(0.f, 0.f, 0.f);
 		m_BulletInfoBuffer[i].front_vector = VECTOR3(0.f, 0.f, 0.f);
@@ -108,6 +110,24 @@ void CNetworkDataBuffer::Uninit(void)
 	}
 	ZeroMemory(&m_InitAddres, sizeof(m_InitAddres));
 	m_MyID = -1;
+
+	for(int i = 0; i < kMaxPlayer; ++i)
+	{
+		m_ReciveState[i].recive_animation_ID = false;
+		m_ReciveState[i].recive_frontvector = false;
+		m_ReciveState[i].recive_position = false;
+		m_ReciveState[i].recive_rotation = false;
+		m_ReciveState[i].recive_speed = false;
+		m_ReciveState[i].recive_hp = false;
+
+		m_ReciveStateBullet[i].recive_animation_ID = false;
+		m_ReciveStateBullet[i].recive_frontvector = false;
+		m_ReciveStateBullet[i].recive_position = false;
+		m_ReciveStateBullet[i].recive_rotation = false;
+		m_ReciveStateBullet[i].recive_speed = false;
+		
+		m_DeathFlag[i] = false;
+	}
 }
 
 //=============================================================================
@@ -164,6 +184,14 @@ void CNetworkDataBuffer::PushCharcter(NETWORK_DATA* pData)
 			m_CharcterInfoBuffer[pData->my_ID].animation_id = pData->animation_ID.animation_ID;
 
 			m_ReciveState[pData->my_ID].recive_animation_ID = true;
+		break;
+
+		case NETWORK_DATA_TYPE_HP:
+			//m_CharcterInfoBuffer[pData->my_ID].end_push_flag = false;
+			m_CharcterInfoBuffer[pData->my_ID].player_id = pData->my_ID;
+			m_CharcterInfoBuffer[pData->my_ID].hp = pData->HP.hp;
+
+			m_ReciveState[pData->my_ID].recive_hp = true;
 		break;
 
 		case NETWORK_DATA_TYPE_ALL_SEND:
@@ -286,5 +314,36 @@ void CNetworkDataBuffer::InitFlag(void)
 		m_DeathFlag[i] = false;
 	}
 	m_GameSceneEnd = false;
+
+	for(int i = 0; i < kMaxPlayer; ++i)
+	{
+		m_CharcterInfoBuffer[i].animation_id = 0;
+		m_CharcterInfoBuffer[i].player_id = -1;
+		m_CharcterInfoBuffer[i].position = VECTOR3(0.f, 0.f, 0.f);
+		m_CharcterInfoBuffer[i].rotation = VECTOR3(0.f, 0.f, 0.f);
+		m_CharcterInfoBuffer[i].end_push_flag = false;
+		m_CharcterInfoBuffer[i].hp = kMaxHP;
+
+		m_BulletInfoBuffer[i].position = VECTOR3(0.f, 0.f, 0.f);
+		m_BulletInfoBuffer[i].front_vector = VECTOR3(0.f, 0.f, 0.f);
+		m_BulletInfoBuffer[i].player_id = -1;
+		m_BulletInfoBuffer[i].speed = 0.f;
+		m_BulletInfoBuffer[i].end_push_flag = false;
+
+		m_ReciveState[i].recive_animation_ID = false;
+		m_ReciveState[i].recive_frontvector = false;
+		m_ReciveState[i].recive_position = false;
+		m_ReciveState[i].recive_rotation = false;
+		m_ReciveState[i].recive_speed = false;
+		m_ReciveState[i].recive_hp = false;
+
+		m_ReciveStateBullet[i].recive_animation_ID = false;
+		m_ReciveStateBullet[i].recive_frontvector = false;
+		m_ReciveStateBullet[i].recive_position = false;
+		m_ReciveStateBullet[i].recive_rotation = false;
+		m_ReciveStateBullet[i].recive_speed = false;
+
+		m_DeathFlag[i] = false;
+	}
 }
 //---------------------------------- EOF --------------------------------------

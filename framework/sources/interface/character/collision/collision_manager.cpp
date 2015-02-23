@@ -90,8 +90,8 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 			// 当たり判定
 			if(JudgeSphereCross((*player_it)->position(),10,(*bullet_it)->position(),10))
 			{
-				//リザルトへ移動
-
+				// ダメージ
+				(*player_it)->Damage(kDefaultDamage);
 			}
 		}
 	}
