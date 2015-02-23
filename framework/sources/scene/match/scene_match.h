@@ -112,6 +112,8 @@ private:
 	u32 logo_key_;						 //ロゴ表示に必要
 
 	CRectangle2D* p_rectRedy[PLAYER_MAX];
+	CRectangle2D* p_rect_all_ready_logo;
+
 	
 	//TODO
 	static const u32 FLASH_ALL_TIME = 40;//点滅の全体時間

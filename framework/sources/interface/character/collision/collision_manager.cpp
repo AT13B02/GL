@@ -93,6 +93,8 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 			{
 				// ƒ_ƒ[ƒW
 				(*player_it)->Damage(kDefaultDamage);
+				// ’eÁ‚·
+				(*bullet_it)->Erase();
 			}
 		}
 	}

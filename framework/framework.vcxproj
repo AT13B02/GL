@@ -33,9 +33,12 @@
     <ClInclude Include="sources\debug_tool\debug.h" />
     <ClInclude Include="sources\debug_tool\debug_console.h" />
     <ClInclude Include="sources\debug_tool\debug_manager.h" />
+    <ClInclude Include="sources\general\aabb\axis_aligned_bounding_box.h" />
     <ClInclude Include="sources\general\procedural\perlin_noise.h" />
     <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller.h" />
     <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller_manager.h" />
+    <ClInclude Include="sources\interface\character\box\box.h" />
+    <ClInclude Include="sources\interface\character\box\box_manager.h" />
     <ClInclude Include="sources\interface\character\bullet\bullet.h" />
     <ClInclude Include="sources\interface\character\bullet\bullet_manager.h" />
     <ClInclude Include="sources\interface\character\camera\character_camera.h" />
@@ -153,9 +156,12 @@
     <ClCompile Include="sources\debug_tool\debug.cpp" />
     <ClCompile Include="sources\debug_tool\debug_console.cpp" />
     <ClCompile Include="sources\debug_tool\debug_manager.cpp" />
+    <ClCompile Include="sources\general\aabb\axis_aligned_bounding_box.cpp" />
     <ClCompile Include="sources\general\procedural\perlin_noise.cpp" />
     <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller.cpp" />
     <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller_manager.cpp" />
+    <ClCompile Include="sources\interface\character\box\box.cpp" />
+    <ClCompile Include="sources\interface\character\box\box_manager.cpp" />
     <ClCompile Include="sources\interface\character\bullet\bullet.cpp" />
     <ClCompile Include="sources\interface\character\bullet\bullet_manager.cpp" />
     <ClCompile Include="sources\interface\character\camera\character_camera.cpp" />

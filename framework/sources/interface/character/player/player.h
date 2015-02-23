@@ -114,7 +114,9 @@ protected:
 	VECTOR3 position_;
 	VECTOR3 rotation_;
 	VECTOR3 scale_;
+	VECTOR3 move_vector_;
 	s16		hp_;
+
 private:
 	// スピード
 	static const f32 SPEED;

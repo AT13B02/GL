@@ -172,6 +172,12 @@ unsigned __stdcall CNetworkClient::ReceiveThread(CNetworkClient* pNetworkClient)
 			pNetworkClient->m_bAllPlayerPrepare = false;
 		}
 
+		// ほかのプレイヤーの準備完了フラグ受信
+		else if(Data.data_type == NETWORK_DATA_TYPE_SEND_READY)
+		{
+			pNetworkClient->GetNetworkDataBuffer()->SetReadyFlag(Data.my_ID, true);
+		}
+
 		// ゲーム開始
 		else if(Data.data_type == NETWORK_DATA_TYPE_GO_TO_GAME)
 		{
