@@ -54,6 +54,8 @@
 #include "interface/character/camera/character_camera_manager.h"
 #include "interface/character/attitude_controller/attitude_controller.h"
 #include "interface/character/attitude_controller/attitude_controller_manager.h"
+#include "interface/character/box/box.h"
+#include "interface/character/box/box_manager.h"
 
 //network
 #include "interface/interface_manager.h"
@@ -188,6 +190,7 @@ void CSceneGame::Load(void)
 	CFieldManager* field_manager = character_manager->field_manager();
 	CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 	CAttitudeControllerManager* attitude_controller_manager = character_manager->attitude_controller_manager();
+	CBoxManager* box_manager = character_manager->box_manager();
 
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
@@ -241,6 +244,12 @@ void CSceneGame::Load(void)
 	CField* field = new CField(interface_manager_);
 	field->Init();
 	field_manager->Push(field);
+
+	// フィールドに障害物追加
+	CBox* box = new CBox(interface_manager_);
+	box->Init();
+	box->position(100.0f, 0.0f, 100.0f);
+	box_manager->Push(box);
 }
 
 //---------------------------------- EOF --------------------------------------

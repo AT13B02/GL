@@ -19,6 +19,7 @@
 #include "collision/collision_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
 #include "interface/character/player/network_player.h"
+#include "interface/character/box/box_manager.h"
 
 // common
 #include "common/common.h"
@@ -51,6 +52,9 @@ CCharacterManager::CCharacterManager(void)
 
 	// 衝突判定マネージャーの生成
 	collision_manager_ = new CCollisionManager(this);
+
+	// ボックスマネージャの生成
+	box_manager_ = new CBoxManager();
 }
 
 //=============================================================================
@@ -82,6 +86,9 @@ bool CCharacterManager::Init(void)
 
 	// 衝突判定マネージャーの初期化
 	INIT(collision_manager_);
+	
+	// ボックスマネージャーの初期化
+	INIT(box_manager_);
 
 	return true;
 }
@@ -108,6 +115,9 @@ void CCharacterManager::Update(void)
 
 	// 衝突判定マネージャーの更新
 	collision_manager_->Update();
+	
+	// ボックスマネージャーの更新
+	box_manager_->Update();
 }
 
 //=============================================================================
@@ -123,7 +133,9 @@ void CCharacterManager::Draw(void)
 
 	// バレットマネージャーの描画
 	bullet_manager_->Draw();
-
+	
+	// ボックスマネージャーの描画
+	box_manager_->Draw();
 }
 
 //=============================================================================
@@ -148,6 +160,9 @@ void CCharacterManager::Clear(void)
 
 	// 衝突判定マネージャーの開放
 	collision_manager_->Uninit();
+
+	// ボックスマネージャーの開放
+	box_manager_->Uninit();
 }
 
 //=============================================================================
@@ -185,7 +200,9 @@ void CCharacterManager::Uninit(void)
 
 	// 衝突判定マネージャーの開放
 	SAFE_RELEASE(collision_manager_);
-
+	
+	// ボックスマネージャーの描画
+	SAFE_RELEASE(box_manager_);
 }
 
 //---------------------------------- EOF --------------------------------------
