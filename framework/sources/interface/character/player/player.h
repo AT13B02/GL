@@ -101,7 +101,7 @@ public:
 	
 	// 死亡フラグアクセサ
 	bool death_flag(void){return death_flag_;};
-	void SetDeathFlag(bool flag){death_flag_ = flag;};
+	void SetDeathFlag(bool flag);
 
 protected:
 	// インターフェースマネージャーのポインタ

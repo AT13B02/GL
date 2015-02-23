@@ -25,9 +25,6 @@
 #include "basic/basic.h"
 #include "common/math/vector/vector3.h"
 
-// general
-#include "general/aabb/axis_aligned_bounding_box.h"
-
 //*****************************************************************************
 // ライブラリのリンク
 //*****************************************************************************
@@ -78,14 +75,6 @@ public:
 	void JudgeFieldIn(void);
 	// 地面の上に居るかどうか判定
 	void JudgeFieldOn(void);
-	// プレイヤーと障害物の当たり判定
-	void JudgePlayerAndBox();
-	// 弾と障害物の当たり判定
-	void JudgeBulletAndBox();
-	// AABB同士の当たり判定
-	bool JudgeAABBCross(
-		const VECTOR3& p1, const AABB& b1,
-		const VECTOR3& p2, const AABB& b2);
 
 private:
 	CCharacterManager* character_manager_;

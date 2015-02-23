@@ -19,7 +19,6 @@
 #include "collision/collision_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
 #include "interface/character/player/network_player.h"
-#include "box/box_manager.h"
 
 // common
 #include "common/common.h"
@@ -52,9 +51,6 @@ CCharacterManager::CCharacterManager(void)
 
 	// 衝突判定マネージャーの生成
 	collision_manager_ = new CCollisionManager(this);
-
-	// ボックスマネージャーの生成
-	box_manager_ = new CBoxManager();
 }
 
 //=============================================================================
@@ -86,9 +82,6 @@ bool CCharacterManager::Init(void)
 
 	// 衝突判定マネージャーの初期化
 	INIT(collision_manager_);
-
-	// ボックスマネージャーの初期化
-	INIT(box_manager_);
 
 	return true;
 }
@@ -128,12 +121,33 @@ void CCharacterManager::Draw(void)
 	// プレイヤーマネージャーの描画
 	player_manager_->Draw();
 
-	// ボックスマネージャーの描画
-	box_manager_->Draw();
-
 	// バレットマネージャーの描画
 	bullet_manager_->Draw();
 
+}
+
+//=============================================================================
+// クリア
+//=============================================================================
+void CCharacterManager::Clear(void)
+{
+	// プレイヤーマネージャーの開放
+	player_manager_->Uninit();
+
+	// キャラクターカメラマネージャーの開放
+	character_camera_manager_->Uninit();
+
+	// バレットマネージャーの開放
+	bullet_manager_->Uninit();
+
+	// フィールドマネージャーの開放
+	field_manager_->Uninit();
+
+	// 姿勢制御マネージャーの開放
+	attitude_controller_manager_->Uninit();
+
+	// 衝突判定マネージャーの開放
+	collision_manager_->Uninit();
 }
 
 //=============================================================================
@@ -171,37 +185,7 @@ void CCharacterManager::Uninit(void)
 
 	// 衝突判定マネージャーの開放
 	SAFE_RELEASE(collision_manager_);
-	
-	// ボックスマネージャーの開放
-	SAFE_RELEASE(box_manager_);
 
-}
-
-//=============================================================================
-// クリア
-//=============================================================================
-void CCharacterManager::Clear(void)
-{
-	// プレイヤーマネージャーの開放
-	player_manager_->Uninit();
-
-	// キャラクターカメラマネージャーの開放
-	character_camera_manager_->Uninit();
-
-	// バレットマネージャーの開放
-	bullet_manager_->Uninit();
-
-	// フィールドマネージャーの開放
-	field_manager_->Uninit();
-
-	// 姿勢制御マネージャーの開放
-	attitude_controller_manager_->Uninit();
-
-	// 衝突判定マネージャーの開放
-	collision_manager_->Uninit();
-
-	// ボックスマネージャーの開放
-	box_manager_->Uninit();
 }
 
 //---------------------------------- EOF --------------------------------------

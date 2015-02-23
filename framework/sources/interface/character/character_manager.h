@@ -52,7 +52,6 @@ class CFieldManager;
 class CAttitudeControllerManager;
 class CCollisionManager;
 class CNetWorkPlayer;
-class CBoxManager;
 
 //*****************************************************************************
 // クラス定義
@@ -102,9 +101,6 @@ public:
 	// 姿勢制御マネージャーの取得
 	CAttitudeControllerManager* attitude_controller_manager(void){return attitude_controller_manager_;}
 
-	// ボックスマネージャ取得
-	CBoxManager* box_manager(void){ return box_manager_; }
-
 private:
 	CPlayerManager* player_manager_;
 	CCharacterCameraManager* character_camera_manager_;
@@ -113,7 +109,6 @@ private:
 	CAttitudeControllerManager* attitude_controller_manager_;
 	CCollisionManager* collision_manager_;
 	CNetWorkPlayer* network_player_[ kMaxPlayer ];
-	CBoxManager* box_manager_;
 };
 
 #endif // _CHARACTER_MANAGER_H_
