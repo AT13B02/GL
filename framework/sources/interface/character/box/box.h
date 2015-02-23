@@ -1,9 +1,8 @@
 //*****************************************************************************
 //
-// プレイヤークラス
+// 箱クラス
 //
-// Author		: Chiharu Kamiyama
-//				: Kenji Kabutomori
+// Author		: Ryo Kobayashi
 //
 //*****************************************************************************
 
@@ -13,8 +12,8 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _BOX_H_
+#define _BOX_H_
 
 //*****************************************************************************
 // warning消し
@@ -27,10 +26,12 @@
 #include "basic/basic.h"
 #include "common/math/vector/vector3.h"
 
-//character
-#include "player_manager.h"
+// character
+#include "box_manager.h"
 #include "interface/character/character_interface.h"
 
+// general
+#include "general/aabb/axis_aligned_bounding_box.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -39,7 +40,6 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-static const int kDefaultDamage = 10;
 
 //*****************************************************************************
 // 構造体定義
@@ -50,20 +50,16 @@ static const int kDefaultDamage = 10;
 //*****************************************************************************
 
 //*****************************************************************************
-// クラスの前方参照
-//*****************************************************************************
-
-//*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CPlayer : public CCharacterInterface
+class CBox : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CPlayer(CInterfaceManager* interface_manager);
+	CBox(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	~CPlayer(void);
+	~CBox(void);
 
 	// 初期化処理
 	bool Init(void);
@@ -74,60 +70,39 @@ public:
 	// 終了処理
 	void Uninit(void);
 
-	// 描画処理
+	//描画
 	void Draw(void);
 
-	// ポジションの取得
-	const VECTOR3& position(void) const {return position_;}
+	// 座標設定
+	void position(const VECTOR3& position);
+	void position(const f32 x, const f32 y, const f32 z);
+	// 座標取得
+	const VECTOR3& position();
 
-	// ポジションの設定
-	void set_position(const VECTOR3& position){position_ = position;}
-
-	// 角度の取得
-	const VECTOR3& rotation(void) const {return rotation_;}
-
-	// 角度の設定
-	void set_rotation(const VECTOR3& rotation){rotation_ = rotation;}
-
-	// idの取得
-	int player_id(void);
-	
-	// 死亡フラグアクセサ
-	bool death_flag(void){return death_flag_;};
-	void SetDeathFlag(bool flag);
-
-	// HPアクセサ
-	void set_hp(s16 hp){hp_ = hp;};
-	s16 hp(void){return hp_;};
-
-	// ダメージ関数
-	void Damage(int damage);
+	// 当たり判定取得
+	const AABB& collision();
 
 protected:
-	// インターフェースマネージャーのポインタ
+	
+
+private:
+	//インターフェースマネージャー
 	CInterfaceManager* interface_manager_;
 
-	// オブジェクトキー
+	//オブジェクトキー
 	u32 object_key_;
 
-	// 各種値
-	VECTOR3 position_;
-	VECTOR3 rotation_;
-	VECTOR3 scale_;
-	s16		hp_;
-private:
-	// スピード
-	static const f32 SPEED;
-	static const f32 SPEED_DEST;
-	static const f32 ROTATION_DEST;
-	static const f32 BULLET_LAUNCH_HEIGHT_OFFSET;
-	//移動目標値変数
-	VECTOR3 rotation_dest_;
-	bool update_;
+	// 当たり判定
+	AABB collision_;
 
-	bool death_flag_;
+	// 座標
+	VECTOR3 position_;
+	// 回転量
+	VECTOR3 rotation_;
+	// 拡縮量
+	VECTOR3 scale_;
 };
 
 //---------------------------------- EOF --------------------------------------
 
-#endif // _PLAYER_H_
+#endif // _BOX_H_

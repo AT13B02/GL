@@ -1,20 +1,18 @@
 //*****************************************************************************
 //
-// プレイヤークラス
+// 軸平行バウンディングボックスクラス
 //
-// Author		: Chiharu Kamiyama
-//				: Kenji Kabutomori
+// Author		: Ryo Kobayashi
 //
 //*****************************************************************************
-
 
 //*****************************************************************************
 // 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _AXIS_ALIGNED_BOUNDING_BOX_H_
+#define _AXIS_ALIGNED_BOUNDING_BOX_H_
 
 //*****************************************************************************
 // warning消し
@@ -23,14 +21,8 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// basic
-#include "basic/basic.h"
 #include "common/math/vector/vector3.h"
-
-//character
-#include "player_manager.h"
-#include "interface/character/character_interface.h"
-
+#include <float.h>
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -39,7 +31,6 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-static const int kDefaultDamage = 10;
 
 //*****************************************************************************
 // 構造体定義
@@ -56,78 +47,54 @@ static const int kDefaultDamage = 10;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CPlayer : public CCharacterInterface
+class AABB
 {
 public:
-	// コンストラクタ
-	CPlayer(CInterfaceManager* interface_manager);
 
-	// デストラクタ
-	~CPlayer(void);
+	AABB() : Min(FLT_MAX, FLT_MAX, FLT_MAX), Max(FLT_MIN, FLT_MIN, FLT_MIN){}
 
-	// 初期化処理
-	bool Init(void);
+	AABB(const f32 minX, const f32 minY, const f32 minZ, const f32 maxX, f32 const maxY, const f32 maxZ) :
+	Min(minX, minY, minZ), Max(maxX, maxY, maxZ){}
 
-	// 更新処理
-	void Update(void);
+	AABB(const VECTOR3& min, const VECTOR3& max) : Min(min), Max(max){}
 
-	// 終了処理
-	void Uninit(void);
+	~AABB(){}
 
-	// 描画処理
-	void Draw(void);
+	// ボックスの中心点を返す
+	VECTOR3 center(void) const;
 
-	// ポジションの取得
-	const VECTOR3& position(void) const {return position_;}
+	// ボックスの各辺の長さを返す
+	VECTOR3 size(void) const;
+	// X軸方向の長さを返す
+	f32 width(void) const;
+	// Y軸方向の長さを返す
+	f32 height(void) const;
+	// Z軸方向の長さを返す
+	f32 depth(void) const;
 
-	// ポジションの設定
-	void set_position(const VECTOR3& position){position_ = position;}
-
-	// 角度の取得
-	const VECTOR3& rotation(void) const {return rotation_;}
-
-	// 角度の設定
-	void set_rotation(const VECTOR3& rotation){rotation_ = rotation;}
-
-	// idの取得
-	int player_id(void);
+	// 指定したインデックス(0 ~ 7)からAABBの頂点を取得
+	// 左手系と考え
+	// Z軸を負から正の方向へ見た場合
+	// (5)1----2(6)
+	//    |    |
+	//    |    |
+	// (4)0----3(7)
+	// という番号付けにする(即席で平面を作りたいとき以外あまり気にする必要はないかも)
+	VECTOR3 corner(s32 nIndex) const;
 	
-	// 死亡フラグアクセサ
-	bool death_flag(void){return death_flag_;};
-	void SetDeathFlag(bool flag);
+	// 頂点を追加(必要な分だけ拡張する)
+	void add(const f32 x, const f32 y, const f32 z);
+	// 頂点を追加(必要な分だけ拡張する)
+	void add(const VECTOR3& pos);
+	// AABBを追加(必要な分だけ拡張する)
+	void add(const AABB& aabb);
 
-	// HPアクセサ
-	void set_hp(s16 hp){hp_ = hp;};
-	s16 hp(void){return hp_;};
-
-	// ダメージ関数
-	void Damage(int damage);
-
-protected:
-	// インターフェースマネージャーのポインタ
-	CInterfaceManager* interface_manager_;
-
-	// オブジェクトキー
-	u32 object_key_;
-
-	// 各種値
-	VECTOR3 position_;
-	VECTOR3 rotation_;
-	VECTOR3 scale_;
-	s16		hp_;
-private:
-	// スピード
-	static const f32 SPEED;
-	static const f32 SPEED_DEST;
-	static const f32 ROTATION_DEST;
-	static const f32 BULLET_LAUNCH_HEIGHT_OFFSET;
-	//移動目標値変数
-	VECTOR3 rotation_dest_;
-	bool update_;
-
-	bool death_flag_;
+	// ボックス最小値
+	VECTOR3 Min;
+	// ボックス最大値
+	VECTOR3 Max;
 };
 
-//---------------------------------- EOF --------------------------------------
+#endif	// _AXIS_ALIGNED_BOUNDING_BOX_H_
 
-#endif // _PLAYER_H_
+// EOF

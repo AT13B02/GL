@@ -134,7 +134,7 @@ void CWindowsSockets::Uninit(void)
 //=============================================================================
 // データの送信
 //=============================================================================
-void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id)
+void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id, int hp)
 {
 	NETWORK_DATA Data = {0};
 	strcpy(Data.game_ID, kGameID);
@@ -165,6 +165,12 @@ void CWindowsSockets::SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int
 	Data.data_type = NETWORK_DATA_TYPE_ANIMATION_ID;
 	{
 		Data.animation_ID.animation_ID = animation_id;
+		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+	}
+
+	Data.data_type = NETWORK_DATA_TYPE_HP;
+	{
+		Data.HP.hp = hp;
 		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
 	}
 
@@ -284,6 +290,18 @@ void CWindowsSockets::SendDataPrepare(int my_id)
 
 	//TODO
 	m_Sendaddr.sin_port = htons(20002);
+
+	// 他のプレイヤーに通知
+	Data.my_ID = my_id;
+	sockaddr_in Send;
+
+	Send.sin_port = m_Sendaddr.sin_port;
+	Send.sin_family= AF_INET;
+	Send.sin_addr.s_addr = m_Sendaddr.sin_addr.s_addr;
+
+	Data.data_type = NETWORK_DATA_TYPE_SEND_READY;
+
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
 }
 
 //=============================================================================
@@ -324,6 +342,15 @@ void CWindowsSockets::SendGameStart(void)
 	Data.data_type = NETWORK_DATA_TYPE_GO_TO_GAME;
 
 	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
+
+	//TODO
+	m_Sendaddr.sin_port = htons(20001);
+
+	Data.data_type = NETWORK_DATA_TYPE_GO_TO_GAME;
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&m_Sendaddr, sizeof(m_Sendaddr));
+
+	//TODO
+	m_Sendaddr.sin_port = htons(20002);
 }
 
 //=============================================================================
@@ -370,5 +397,19 @@ void CWindowsSockets::SendDeathFlag(int my_id)
 
 	//TODO
 	m_Sendaddr.sin_port = htons(20002);
+
+	// 全プレイヤーに通知
+	strcpy(Data.game_ID, kGameID);
+	Data.my_type = MY_TYPE_BULLET;
+	Data.my_ID = m_DataBuffer->GetID();
+	sockaddr_in Send;
+
+	Send.sin_port = m_Sendaddr.sin_port;
+	Send.sin_family= AF_INET;
+	Send.sin_addr.s_addr = m_Sendaddr.sin_addr.s_addr;
+
+	Data.data_type = NETWORK_DATA_TYPE_RECIVE_DEATH;
+
+	sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
 }
 //---------------------------------- EOF --------------------------------------

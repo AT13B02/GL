@@ -97,6 +97,7 @@ CSceneGame::~CSceneGame(void)
 //=============================================================================
 bool CSceneGame::Init(void)
 {
+	interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->InitFlag();
 	return true;
 }
 

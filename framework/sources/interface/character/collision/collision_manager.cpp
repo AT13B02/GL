@@ -91,8 +91,11 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 			// “–‚½‚è”»’è
 			if(JudgeSphereCross((*player_it)->position(),10,(*bullet_it)->position(),10))
 			{
-				// €–S
-				(*player_it)->SetDeathFlag(true);
+				// ƒ_ƒ[ƒW
+				(*player_it)->Damage(kDefaultDamage);
+
+				// ’eÁ‚·
+				(*bullet_it)->Erase();
 			}
 		}
 	}

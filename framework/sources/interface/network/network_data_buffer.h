@@ -32,6 +32,7 @@
 // マクロ定義
 //*****************************************************************************
 static const int kMaxPlayer = 4;
+static const int kMaxHP = 100;
 
 //*****************************************************************************
 // 構造体定義
@@ -48,6 +49,7 @@ typedef struct
 	int animation_id;
 	VECTOR3 position;
 	VECTOR3 rotation;
+	int hp;
 }CHARCTER_INFO;
 
 typedef struct
@@ -66,6 +68,7 @@ typedef struct
 	bool recive_animation_ID;
 	bool recive_speed;
 	bool recive_frontvector;
+	bool recive_hp;
 }RECIVE_STATE;
 
 //*****************************************************************************
@@ -116,6 +119,14 @@ public:
 
 	// 死亡フラグゲット
 	bool GetCharDeathFlag(int player_id){return m_DeathFlag[player_id];};
+
+	// フラグ初期化
+	void InitFlag(void);
+
+	// 準備完了フラグアクセサ
+	bool GetReadyFlag(int id){return m_ReadyFlag[id];};
+	void SetReadyFlag(int id, bool flag){m_ReadyFlag[id] = flag;};
+
 protected:
 	// キャラデータの追加
 	void PushCharcter(NETWORK_DATA* pData);
@@ -132,6 +143,7 @@ private:
 	RECIVE_STATE m_ReciveStateBullet[kMaxPlayer];
 	bool m_GameSceneEnd;
 	bool m_DeathFlag[kMaxPlayer];
+	bool m_ReadyFlag[kMaxPlayer];
 };
 
 #endif	// _NETWORK_DATA_BUFFER_H_
