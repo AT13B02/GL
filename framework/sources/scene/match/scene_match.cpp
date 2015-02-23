@@ -136,17 +136,25 @@ void CSceneMatch::Update(void)
 			}
 		}
 	}
-
 	else
 	{
 		// 準備完了通知
 		if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
 		{
-			p_rectRedy[my_id]->set_texcoord(0.5f,1.0f,0.0f,1.0f);
-			p_rectRedy[my_id]->Set();
 			interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataPrepare(my_id);
 		}
 	}
+
+	//準備完了している人を見る
+	for( int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++ )
+	{
+		if( interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetReadyFlag( nPlayer ) )
+		{
+			p_rectRedy[nPlayer]->set_texcoord(0.5f,1.0f,0.0f,1.0f);
+			p_rectRedy[nPlayer]->Set();
+		}
+	}
+
 
 	// ゲーム開始なら
 	if(interface_manager_->network_manager()->GetNetworkClient()->GetStartGameFlag())

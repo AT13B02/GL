@@ -44,9 +44,6 @@ void CBasic::Release(void)
 {
 	Uninit();
 
-
-
-
 	delete this;
 }
 

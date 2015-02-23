@@ -83,7 +83,7 @@ public:
 	void set_size(const VECTOR2& size){size_ = size;}
 
 	// テクスチャ座標の設定
-	void set_texcoord(const f32 left,const f32 right,const f32 top,const f32 bottom){left_ = left;right_ = right;top_ = top;bottom_ = bottom;}
+	void set_texcoord(const f32& left,const f32& right,const f32& top,const f32& bottom){left_ = left;right_ = right;top_ = top;bottom_ = bottom;}
 
 	// カラーの設定
 	void set_color(const COLOR4F& color){for(int i = 0;i < VERTEX_MAX;i++){color_[i] = color;}}
