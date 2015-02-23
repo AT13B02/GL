@@ -173,6 +173,12 @@
     <Filter Include="sources\scene\result">
       <UniqueIdentifier>{03f6f7ac-e9aa-471d-ae8f-7f5a1e9d533f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\character\box">
+      <UniqueIdentifier>{b9cf4b4a-1f06-41ad-b3d4-82db9590d011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\general\aabb">
+      <UniqueIdentifier>{ca993009-940d-4ab1-b65a-5a8c99062cb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -538,6 +544,15 @@
     <ClInclude Include="sources\interface\character\camera\title_camera.h">
       <Filter>sources\interface\character\camera</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\box\box.h">
+      <Filter>sources\interface\character\box</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\box\box_manager.h">
+      <Filter>sources\interface\character\box</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\general\aabb\axis_aligned_bounding_box.h">
+      <Filter>sources\general\aabb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -890,6 +905,15 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\camera\title_camera.cpp">
       <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\box\box_manager.cpp">
+      <Filter>sources\interface\character\box</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\box\box.cpp">
+      <Filter>sources\interface\character\box</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\general\aabb\axis_aligned_bounding_box.cpp">
+      <Filter>sources\general\aabb</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
