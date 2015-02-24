@@ -86,6 +86,7 @@ private:
 		TEXTURE_TYPE_PLAYER2_READY,
 		TEXTURE_TYPE_PLAYER3_READY,
 		TEXTURE_TYPE_PLAYER4_READY,
+		TEXTURE_TYPE_BACKGROUND,
 		TEXTURE_TYPE_MAX,
 	}TEXTURE_TYPE;
 
@@ -102,6 +103,7 @@ private:
 
 	static const VECTOR2 HOST_DECITION_DEFAULT_POS;
 	static const VECTOR2 LOGO_DEFAULT_POS;
+	static const VECTOR2 BACKGROUND_POS;
 	u32 test_object_key_;
 	u32 test_2d_key_;
 
@@ -110,6 +112,7 @@ private:
 	u32 player_ready_disp_2d_key_[PLAYER_MAX]; //プレイヤーマッチング準備表示
 	u32 host_decision_key_;				 //ホストが決定を押すときに必要
 	u32 logo_key_;						 //ロゴ表示に必要
+	u32 background_key_;				// 背景表示
 
 	CRectangle2D* p_rectRedy[PLAYER_MAX];
 	CRectangle2D* p_rect_all_ready_logo;
