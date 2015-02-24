@@ -44,6 +44,7 @@
 #include "interface/graphic/object/object_3d/element/meshfield.h"
 #include "interface/graphic/object/object_3d/element/meshdome.h"
 
+
 // character
 #include "interface/character/character_manager.h"
 #include "interface/character/player/player_manager.h"
@@ -149,7 +150,8 @@ void CSceneGame::Draw(void)
 	object_3d_manager->Draw(
 		meshsky_key_,
 		VECTOR3(0,0,0), VECTOR3(0,0,0), VECTOR3(1,1,1),
-		MATRIX4x4(), "sky000");
+		MATRIX4x4(), "sky003");
+
 }
 
 //=============================================================================
