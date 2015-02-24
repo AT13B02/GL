@@ -577,12 +577,6 @@
     <ClInclude Include="sources\interface\character\player_status\life_2d\life_2d_manager.h">
       <Filter>sources\interface\character\player_status\life_2d</Filter>
     </ClInclude>
-    <ClInclude Include="sources\interface\character\player_status\user_number_2d\user_number_2d.h">
-      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\interface\character\player_status\user_number_2d\user_number_2d_manager.h">
-      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
-    </ClInclude>
     <ClInclude Include="sources\interface\character\player_status\user_number_2d\icon_2d.h">
       <Filter>sources\interface\character\player_status\user_number_2d</Filter>
     </ClInclude>
@@ -963,16 +957,10 @@
     <ClCompile Include="sources\interface\character\player_status\life_2d\life_2d.cpp">
       <Filter>sources\interface\character\player_status\life_2d</Filter>
     </ClCompile>
-    <ClCompile Include="sources\interface\character\player_status\user_number_2d\user_number_2d_manager.cpp">
-      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
-    </ClCompile>
     <ClCompile Include="sources\interface\character\player_status\user_number_2d\icon_2d.cpp">
       <Filter>sources\interface\character\player_status\user_number_2d</Filter>
     </ClCompile>
     <ClCompile Include="sources\interface\character\player_status\user_number_2d\icon_2d_manager.cpp">
-      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\interface\character\player_status\user_number_2d\user_number_2d.cpp">
       <Filter>sources\interface\character\player_status\user_number_2d</Filter>
     </ClCompile>
   </ItemGroup>
