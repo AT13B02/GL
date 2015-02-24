@@ -1,8 +1,9 @@
 //*****************************************************************************
 //
-// ビルボードクラス
+// 爆発クラス
 //
-// Author		: Kenji Kabutomori
+// Author		: Kazuma Ooigawa
+//				: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -11,17 +12,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _BILLBOARD_H_
-#define _BILLBOARD_H_
+#ifndef _EXPLOSION_H_
+#define _EXPLOSION_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-// graphic
-#include "interface/graphic/object/object_3d/element/object_3d.h"
-
-// common
-#include "common/image/color/color4f.h"
+#include "common/math/math.h"
+#include "../character_interface.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -38,70 +36,68 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CVertex3D;
+class CInterfaceManager;
+class CBillboard;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CBillboard : public CObject3D
+class CExplosion : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CBillboard(CDeviceHolder* device_holder);
+	CExplosion(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CBillboard(void);
+	~CExplosion(void);
 
-	// 初期化処理
+	// 初期化
 	bool Init(void);
 
-	// 描画処理
-	void Draw(CObject3DData* object_3d_data);
+	// 更新
+	void Update(void);
 
-	// 終了処理
+	// 描画
+	void Draw(void);
+
+	// 終了
 	void Uninit(void);
 
-	// 頂点情報の設定
-	void Set(void);
+	// パラメータの設定
+	void SetParameter(const VECTOR3& position, const s16 u_division_num, const s16 v_division_num, const s16 animation_change_count  );
 
-	// サイズの設定
-	void set_size(const VECTOR2& size){size_ = size;}
+	//位置取得
+	VECTOR3 position( void ){ return position_; }
 
-	// テクスチャ座標の設定
-	void set_texcoord(const f32& left,const f32& right,const f32& top,const f32& bottom){left_ = left;right_ = right;top_ = top;bottom_ = bottom;}
+	//位置セット
+	void set_position( const VECTOR3& pos ){ position_ = pos ;}
 
-	// カラーの設定
-	void set_color(const COLOR4F& Color){for(int i = 0;i < VERTEX_MAX;i++){color_[i] = Color;}}
-
-	// カラーの設定
-	void set_color(const COLOR4F& LeftTop,const COLOR4F& RightTop,const COLOR4F& LeftBottom,const COLOR4F& RightBottom){color_[0] = LeftTop;color_[1] = LeftBottom;color_[2] = RightTop;color_[3] = RightBottom;}
-
-protected:
-
-
+	//弾消去
+	void Erase( void );
 
 private:
-	static const int VERTEX_MAX = (4);
+	static const f32 DEFAULT_RADIUS;
+	u32 object_key_;
+	VECTOR3 position_;
+	f32 radius_;
 
-	// サイズ
-	VECTOR2 size_;
+	CBillboard *billboard_;					//ビルボード
+	s16 u_division_num_;						//分割数
+	s16 v_division_num_;						//分割数
 
-	// 色
-	COLOR4F color_[VERTEX_MAX];
+	s16 u_division_count;						//分割
+	s16 v_division_count;						//分割
 
-	// テクスチャ座標
-	f32 left_;
+	s16 animation_change_count_;			//アニメーション変更カウント
+	s16 animation_count_;					//カウンタ
+
+	//テクスチャ
+	f32 left_; 
 	f32 right_;
 	f32 top_;
 	f32 bottom_;
 
-	// 頂点座標
-	VECTOR2 position_[VERTEX_MAX];
-
-	// 頂点情報
-	CVertex3D* vertex_3d_;
+	CInterfaceManager* interface_manager_;
 };
-
-#endif	// _OBJECT_3D_H_
-
+#endif //_BULLET_H_
 //---------------------------------- EOF --------------------------------------

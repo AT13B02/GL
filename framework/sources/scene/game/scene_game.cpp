@@ -140,7 +140,6 @@ void CSceneGame::Update(void)
 void CSceneGame::Draw(void)
 {
 	network_command_assistant_ -> Draw();
-
 }
 
 //=============================================================================
