@@ -9,6 +9,9 @@
 //*****************************************************************************
 // ƒCƒ“ƒNƒ‹[ƒh
 //*****************************************************************************
+// common
+#include "common/common.h"
+
 // scene
 #include "scene/match/scene_match.h"
 #include "scene/factory/scene_factory.h"
@@ -57,6 +60,7 @@ const float CSceneMatch::PLAYER_DISP_READY_START_Y  = 180.0f;
 
 const VECTOR2 CSceneMatch::HOST_DECITION_DEFAULT_POS(600.0f,600.0f);
 const VECTOR2 CSceneMatch::LOGO_DEFAULT_POS(600.0f,60.0f);
+const VECTOR2 CSceneMatch::BACKGROUND_POS(DEFAULT_SCREEN_WIDTH / 2,DEFAULT_SCREEN_HEIGHT / 2);
 
 const char* CSceneMatch::p_texture_names[TEXTURE_TYPE_MAX] = 
 {
@@ -70,6 +74,7 @@ const char* CSceneMatch::p_texture_names[TEXTURE_TYPE_MAX] =
 	"matching_ready_R",//2
 	"matching_ready_R",//3
 	"matching_ready_R",//4
+	"matching_back",
 };
 
 //=============================================================================
@@ -195,6 +200,7 @@ void CSceneMatch::Draw(void)
 	// •`‰æ
 	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(90,0,0),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 	//object_2d_manager->Draw(test_2d_key_,VECTOR2(),0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"");
+	object_2d_manager->Draw(background_key_, BACKGROUND_POS, 0.0f, VECTOR2(1.0f, 1.0f), MATRIX4x4(), p_texture_names[TEXTURE_TYPE_BACKGROUND]);
 	object_2d_manager->Draw(host_decision_key_,HOST_DECITION_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_HOST_DECISION]);
 	object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
 
@@ -297,6 +303,12 @@ void CSceneMatch::Load(void)
 	p_rect2D->set_size(VECTOR2(512,128));
 	p_rect2D->Set();
 	logo_key_ = object_2d_manager->AddList(p_rect2D);
+
+	// ”wŒiÝ’è
+	CRectangle2D* p_background = new CRectangle2D(device_holder);
+	p_background->set_size(VECTOR2((f32)DEFAULT_SCREEN_WIDTH, (f32)DEFAULT_SCREEN_HEIGHT));
+	p_background->Set();
+	background_key_ = object_2d_manager->AddList(p_background);
 }
 
 //=============================================================================

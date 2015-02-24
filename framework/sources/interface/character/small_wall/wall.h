@@ -1,69 +1,96 @@
 //*****************************************************************************
 //
-// ライフマネージャークラス [life_2d_manager.h]
-//
-// Author		: ooigawa Kazuma
+// 壁クラス
+// Author		: ooigawa kazuma
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 二重定義防止
+// 多重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _LIFE_2D_MANAGER_H_
-#define _LIFE_2D_MANAGER_H_
+#ifndef _WALL_H_
+#define _WALL_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
-#include <string>
-#include <map>
+//character
+#include "wall_manager.h"
+#include "interface/character/character_interface.h"
 
-// basic
-#include "basic/basic.h"
-
-
-// character_manager
-#include "life_2d.h"
-#include "interface/character/character_manager_interface.h"
+//*****************************************************************************
+// ライブラリのリンク
+//*****************************************************************************
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
 
 //*****************************************************************************
-// 定数定義
-//*****************************************************************************
-
-//*****************************************************************************
 // 構造体定義
+//*****************************************************************************
+typedef enum
+{
+	WALL_KIND_SMALL = 0,
+	WALL_KIND_BIG
+}WALL_KIND;
+//*****************************************************************************
+// プロトタイプ宣言
 //*****************************************************************************
 
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CLife2D;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CLife2DManager : public CCharacterManagerInterface<CLife2D*>
+class CWall : public CCharacterInterface
 {
 public:
-	//コンストラクタ
-	CLife2DManager();
+	CWall( CInterfaceManager* interface_manager , WALL_KIND wall_kind);
+	~CWall(void);
 
-	//デストラクタ
-	~CLife2DManager();
+	//初期化
+	bool Init( void );
 
-	// 初期化処理
-	bool Init(void);
+	//更新
+	void Update( void );
 
-	static CLife2D* Create( CInterfaceManager* interface_manager , s32 max_life , s32 max_length , int player_id );
+	//描画
+	void Draw( void );
 
+	// ポジション取得
+	const VECTOR3& position( void ) const { return position_; }
+
+	// ポジション設定
+	void set_postion( const VECTOR3& position ){ position_ = position; }
+
+	// ローテーション取得
+	const VECTOR3& rotation( void ) const { return rotation_; }
+
+	// ローテーション設定
+	void set_rotation( const VECTOR3& rotation ){ rotation_ = rotation; }
+
+	//壁のサイズ(当たり判定用)指定
+	void set_size( const VECTOR3& size ){size_ = size;}
 private:
+protected:
+	// インターフェースマネージャーのポインタ
+	CInterfaceManager* interface_manager_;
+
+	// オブジェクトキー
+	u32 object_key_;
+
+	// 各種値
+	VECTOR3 position_;
+	VECTOR3 rotation_;
+	VECTOR3 scale_;
+	VECTOR3 size_;//当たり判定用の大きさ
+	WALL_KIND wall_kind_;
 };
-#endif //_LIFE_2D_MANAGER_H_
 //---------------------------------- EOF --------------------------------------
+
+#endif // _WALL_H_

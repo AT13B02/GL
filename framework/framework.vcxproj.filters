@@ -182,6 +182,15 @@
     <Filter Include="sources\interface\character\explosion">
       <UniqueIdentifier>{c88fb900-4b45-4d53-8ed4-ce1948916bdb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\character\player_status">
+      <UniqueIdentifier>{8db53df7-0114-4124-abdb-553ba2beeca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\player_status\life_2d">
+      <UniqueIdentifier>{733eb1cd-ae94-4610-a371-5a4f45010ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\player_status\user_number_2d">
+      <UniqueIdentifier>{0c89c8cb-8224-410a-87ec-ea2631be9884}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -562,6 +571,18 @@
     <ClInclude Include="sources\interface\character\explosion\explosion.h">
       <Filter>sources\interface\character\explosion</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\player_status\life_2d\life_2d.h">
+      <Filter>sources\interface\character\player_status\life_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player_status\life_2d\life_2d_manager.h">
+      <Filter>sources\interface\character\player_status\life_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player_status\user_number_2d\icon_2d.h">
+      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player_status\user_number_2d\icon_2d_manager.h">
+      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -929,6 +950,18 @@
     </ClCompile>
     <ClCompile Include="sources\interface\character\explosion\explosion.cpp">
       <Filter>sources\interface\character\explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player_status\life_2d\life_2d_manager.cpp">
+      <Filter>sources\interface\character\player_status\life_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player_status\life_2d\life_2d.cpp">
+      <Filter>sources\interface\character\player_status\life_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player_status\user_number_2d\icon_2d.cpp">
+      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player_status\user_number_2d\icon_2d_manager.cpp">
+      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

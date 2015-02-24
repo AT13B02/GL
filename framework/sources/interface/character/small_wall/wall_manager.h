@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// ライフマネージャークラス [life_2d_manager.h]
+// 壁マネージャークラス [wall_manager.h]
 //
 // Author		: ooigawa Kazuma
 //
@@ -11,22 +11,14 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _LIFE_2D_MANAGER_H_
-#define _LIFE_2D_MANAGER_H_
+#ifndef _WALL_MANAGER_H_
+#define _WALL_MANAGER_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
-#include <string>
-#include <map>
-
-// basic
-#include "basic/basic.h"
-
-
 // character_manager
-#include "life_2d.h"
+#include "wall.h"
 #include "interface/character/character_manager_interface.h"
 
 //*****************************************************************************
@@ -44,26 +36,24 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CLife2D;
+class CWall;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CLife2DManager : public CCharacterManagerInterface<CLife2D*>
+class CWallManager : public CCharacterManagerInterface<CWall*>
 {
 public:
 	//コンストラクタ
-	CLife2DManager();
+	CWallManager();
 
 	//デストラクタ
-	~CLife2DManager();
+	~CWallManager();
 
 	// 初期化処理
 	bool Init(void);
-
-	static CLife2D* Create( CInterfaceManager* interface_manager , s32 max_life , s32 max_length , int player_id );
-
 private:
+
 };
-#endif //_LIFE_2D_MANAGER_H_
+#endif //_WALL_MANAGER_H_
 //---------------------------------- EOF --------------------------------------

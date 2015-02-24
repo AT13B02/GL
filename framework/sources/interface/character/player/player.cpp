@@ -22,7 +22,9 @@
 #include "../character_manager.h"
 #include "../bullet/bullet_manager.h"
 #include "../bullet/bullet.h"
-
+#include "../player_status/user_number_2d/icon_2d_manager.h"
+#include "../player_status/life_2d/life_2d_manager.h"
+#include "../player_status/life_2d/life_2d.h"
 //network
 #include "../../network/network_manager.h"
 #include "../../network/network_client.h"
@@ -90,6 +92,15 @@ bool CPlayer::Init(void)
 	hp_ = MAX_HP;
 	cooldown_cnt=0;
 	is_fire=false;
+	int id = player_id();
+	//アイコン生成
+	interface_manager_->character_manager()->icon_2d_manager()->Push( 
+		interface_manager_->character_manager()->icon_2d_manager()->Create( interface_manager_ , id , 5.0f ) );
+
+	//ライフ生成
+	life_2d = interface_manager_->character_manager()->life_2d_manager()->Create( interface_manager_ , MAX_HP , 100 , id );
+	interface_manager_->character_manager()->life_2d_manager()->Push( life_2d );
+
 	return true;
 }
 
@@ -212,7 +223,7 @@ void CPlayer::Update(void)
 	{
 		cooldown_cnt++;
 	}
-
+	life_2d->set_life( hp_ );
 	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&position_,&rotation_,0,hp_);
 }
 

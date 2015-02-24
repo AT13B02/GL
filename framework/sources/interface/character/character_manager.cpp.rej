@@ -1,0 +1,9 @@
+diff a/framework/sources/interface/character/character_manager.cpp b/framework/sources/interface/character/character_manager.cpp	(rejected hunks)
+@@ -45,7 +45,6 @@
+ 	// バレットマネージャーの生成
+ 	bullet_manager_ = new CBulletManager();
+ 
+-	explosion_manager_ = new CExplosionManager();
+ 	// フィールドマネージャーの生成
+ 	field_manager_ = new CFieldManager();
+ 
