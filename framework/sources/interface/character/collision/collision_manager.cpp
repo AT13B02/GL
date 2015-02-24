@@ -24,6 +24,8 @@
 #include "../field/field.h"
 #include "../field/field_manager.h"
 
+#include "../player/network_player.h"
+
 #include "common/common.h"
 
 //=============================================================================
@@ -96,6 +98,31 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 
 				// 弾消す
 				(*bullet_it)->Erase();
+			}
+		}
+	}
+
+	// ネットワークプレイヤーと弾の当たり判定
+	for(int i = 0 ; i < kMaxPlayer; i++)
+	{
+		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
+		{
+			CNetWorkPlayer* networkplayers = character_manager_->network_player(i);
+
+			if(networkplayers)
+			{
+
+				if(networkplayers->player_id() == (*bullet_it)->player_id())
+				{
+					continue;
+				}
+				// 当たり判定
+				if(JudgeSphereCross(networkplayers->position(),10,(*bullet_it)->position(),10))
+				{
+					// 弾消す
+					(*bullet_it)->Erase();
+
+				}
 			}
 		}
 	}
