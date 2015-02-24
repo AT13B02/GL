@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// ライフ(2D)クラス
+// アイコン(2D)クラス
 //
 // Author		: Kazuma Ooigawa
 //
@@ -11,8 +11,8 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _LIFE_2D_H_
-#define _LIFE_2D_H_
+#ifndef _ICON_2D_H_
+#define _ICON_2D_H_
 
 //*****************************************************************************
 // インクルード
@@ -31,7 +31,13 @@
 //*****************************************************************************
 // 構造体定義
 //*****************************************************************************
-
+typedef enum
+{
+	PLAYER_ID_1P = 0,
+	PLAYER_ID_2P,
+	PLAYER_ID_3P,
+	PLAYER_ID_4P
+}PLAYER_ID;
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
@@ -41,14 +47,14 @@ class CRectangle2D;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CLife2D : public CCharacterInterface
+class CIcon2D : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CLife2D(CInterfaceManager* interface_manager , s32 max_life , s32 max_length );
+	CIcon2D(CInterfaceManager* interface_manager , s32 player_id , f32 scale );
 
 	// デストラクタ
-	~CLife2D(void);
+	~CIcon2D(void);
 
 	// 初期化
 	bool Init(void);
@@ -62,34 +68,22 @@ public:
 	// 終了
 	void Uninit(void);
 
-	// パラメータの設定
-	void SetParameter(const VECTOR2& position );
-
 	//位置取得
 	VECTOR2 position( void ){ return position_; }
-
-	//ライフ取得
-	s32 life( void ){ return life_;}
 
 	//位置セット
 	void set_position( const VECTOR2& pos ){ position_ = pos ;}
 
-	//ライフセット
-	void set_life( const s32 life ){ life_ = life;}
-
-	//ライフ増減
-	void add_life( const s32 vol ){ life_ += vol ; }
 	//消去
 	void Erase( void );
 private:
+	static const f32 POLYGON_SIZE;
+	f32 scale_;
 	u32 object_key_;
+	s32 player_id_;
 	VECTOR2 position_;
-	u32 max_life_;
-	s32 life_;
-	u32 max_length_;
-	s32 length_;
 	CRectangle2D* rectangle_2d_;
 	CInterfaceManager* interface_manager_;
 };
-#endif //_LIFE_2D_H_
+#endif //_ICON_2D_H_
 //---------------------------------- EOF --------------------------------------

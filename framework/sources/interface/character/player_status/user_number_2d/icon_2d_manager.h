@@ -1,31 +1,40 @@
 //*****************************************************************************
 //
-// ライフ(2D)クラス
+// アイコンマネージャークラス [life_2d_manager.h]
 //
-// Author		: Kazuma Ooigawa
+// Author		: ooigawa Kazuma
 //
 //*****************************************************************************
 
 //*****************************************************************************
-// 多重定義防止
+// 二重定義防止
 //*****************************************************************************
 #pragma once
 
-#ifndef _LIFE_2D_H_
-#define _LIFE_2D_H_
+#ifndef _ICON_2D_MANAGER_H_
+#define _ICON_2D_MANAGER_H_
 
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "common/math/math.h"
-#include "../../character_interface.h"
+#include <windows.h>
+#include <string>
+#include <map>
 
-//*****************************************************************************
-// ライブラリのリンク
-//*****************************************************************************
+// basic
+#include "basic/basic.h"
+
+
+// character_manager
+#include "icon_2d.h"
+#include "interface/character/character_manager_interface.h"
 
 //*****************************************************************************
 // マクロ定義
+//*****************************************************************************
+
+//*****************************************************************************
+// 定数定義
 //*****************************************************************************
 
 //*****************************************************************************
@@ -35,61 +44,26 @@
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CInterfaceManager;
-class CRectangle2D;
+class CIcon2D;
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CLife2D : public CCharacterInterface
+class CIcon2DManager : public CCharacterManagerInterface<CIcon2D*>
 {
 public:
-	// コンストラクタ
-	CLife2D(CInterfaceManager* interface_manager , s32 max_life , s32 max_length );
+	//コンストラクタ
+	CIcon2DManager();
 
-	// デストラクタ
-	~CLife2D(void);
+	//デストラクタ
+	~CIcon2DManager();
 
-	// 初期化
+	// 初期化処理
 	bool Init(void);
 
-	// 更新
-	void Update(void);
+	static CIcon2D* Create( CInterfaceManager* interface_manager , VECTOR2 position , s32 player_id , f32 scale );
 
-	// 描画
-	void Draw(void);
-
-	// 終了
-	void Uninit(void);
-
-	// パラメータの設定
-	void SetParameter(const VECTOR2& position );
-
-	//位置取得
-	VECTOR2 position( void ){ return position_; }
-
-	//ライフ取得
-	s32 life( void ){ return life_;}
-
-	//位置セット
-	void set_position( const VECTOR2& pos ){ position_ = pos ;}
-
-	//ライフセット
-	void set_life( const s32 life ){ life_ = life;}
-
-	//ライフ増減
-	void add_life( const s32 vol ){ life_ += vol ; }
-	//消去
-	void Erase( void );
 private:
-	u32 object_key_;
-	VECTOR2 position_;
-	u32 max_life_;
-	s32 life_;
-	u32 max_length_;
-	s32 length_;
-	CRectangle2D* rectangle_2d_;
-	CInterfaceManager* interface_manager_;
 };
-#endif //_LIFE_2D_H_
+#endif //_ICON_2D_MANAGER_H_
 //---------------------------------- EOF --------------------------------------

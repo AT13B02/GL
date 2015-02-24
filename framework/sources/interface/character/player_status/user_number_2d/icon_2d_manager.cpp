@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// ライフ(2D)マネージャー
+// アイコン(2D)マネージャー
 //
 // Author		: Kazuma Ooigawa
 //
@@ -10,34 +10,33 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "life_2d_manager.h"
-#include "life_2d.h"
+#include "icon_2d_manager.h"
+#include "icon_2d.h"
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CLife2DManager::CLife2DManager( void )
+CIcon2DManager::CIcon2DManager( void )
 {
 }
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CLife2DManager::~CLife2DManager( void )
+CIcon2DManager::~CIcon2DManager( void )
 {
 }
 //=============================================================================
 // 初期化
 //=============================================================================
-bool CLife2DManager::Init( void )
+bool CIcon2DManager::Init( void )
 {
 	return true;
 }
 //=============================================================================
 // 生成
 //=============================================================================
-CLife2D* CLife2DManager::Create( CInterfaceManager* interface_manager , VECTOR2 position , s32 max_life , s32 max_length )
+CIcon2D* CIcon2DManager::Create( CInterfaceManager* interface_manager , VECTOR2 position , s32 player_id , f32 scale )
 {
-	CLife2D* p = new CLife2D( interface_manager , max_life , max_length );
-	p->SetParameter( position );
+	CIcon2D* p = new CIcon2D( interface_manager , player_id , scale );
 	p->Init();
 	return p;
 }

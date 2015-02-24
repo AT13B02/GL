@@ -48,13 +48,13 @@
 class CPlayerManager;
 class CCharacterCameraManager;
 class CBulletManager;
-class CExplosionManager;
 class CFieldManager;
 class CAttitudeControllerManager;
 class CCollisionManager;
 class CNetWorkPlayer;
 class CBoxManager;
-
+class CLife2DManager;
+class CIcon2DManager;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
@@ -91,9 +91,6 @@ public:
 	// バレットマネージャー取得
 	CBulletManager* bullet_manager(void){return bullet_manager_;}
 
-	// 爆発マネージャー取得
-	CExplosionManager* explosion_manager(void){return explosion_manager_;}
-
 	// フィールドマネージャーの取得
 	CFieldManager* field_manager(void){return field_manager_;}
 
@@ -109,6 +106,11 @@ public:
 	// ボックスマネージャの取得
 	CBoxManager* box_manager(){return box_manager_;}
 
+	// ライフマネージャーの取得
+	CLife2DManager* life_2d_manager( void ){ return life_2d_manager_ ; }
+
+	// アイコンマネージャーの取得
+	CIcon2DManager* icon_2d_manager( void ){ return icon_2d_manager_ ; }
 private:
 	CPlayerManager* player_manager_;
 	CCharacterCameraManager* character_camera_manager_;
@@ -118,7 +120,8 @@ private:
 	CCollisionManager* collision_manager_;
 	CNetWorkPlayer* network_player_[ kMaxPlayer ];
 	CBoxManager* box_manager_;
-	CExplosionManager *explosion_manager_;
+	CLife2DManager* life_2d_manager_;
+	CIcon2DManager* icon_2d_manager_;
 };
 
 #endif // _CHARACTER_MANAGER_H_
