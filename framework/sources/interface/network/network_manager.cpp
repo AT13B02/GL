@@ -3,9 +3,10 @@
 // ネットワークマネージャークラス [network_manager.cpp]
 //
 // Author		: KENJI KABUTOMORI
+//				  NAOKI NOJIRI
 // Date			: 2014/09/17(Wed)
-// Version		: 1.00
-// Update Date	: 2014/09/17(Wed)
+// Version		: 1.01
+// Update Date	: 2014/12/01(Mon)
 //
 //*****************************************************************************
 
@@ -14,8 +15,9 @@
 //*****************************************************************************
 #include "network_manager.h"
 #include "network_client.h"
+#include "windows_sockets.h"
 
-#include "common.h"
+#include "../../common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -34,7 +36,6 @@
 //=============================================================================
 CNetworkManager::CNetworkManager(void)
 {
-	m_pNetworkClient = NULL;//new CNetworkClient();
 }
 
 //=============================================================================
@@ -49,6 +50,7 @@ CNetworkManager::~CNetworkManager(void)
 //=============================================================================
 bool CNetworkManager::Init(void)
 {
+	m_pNetworkClient = new CNetworkClient();
 	INIT(m_pNetworkClient);
 
 	return true;
@@ -61,6 +63,14 @@ void CNetworkManager::Uninit(void)
 {
 	// ネットワーククライアントの開放
 	SAFE_RELEASE(m_pNetworkClient);
+}
+
+//=============================================================================
+// 準備完了通知
+//=============================================================================
+void CNetworkManager::SendReady(int my_id)
+{
+	m_pNetworkClient->GetWinSock()->SendDataPrepare(my_id);
 }
 
 //---------------------------------- EOF --------------------------------------

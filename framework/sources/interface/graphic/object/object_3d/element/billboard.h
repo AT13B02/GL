@@ -46,20 +46,6 @@ class CVertex3D;
 class CBillboard : public CObject3D
 {
 public:
-	enum POINT
-	{
-		POINT_CENTER = 0,
-		POINT_LEFT_UP,
-		POINT_LEFT_MIDDLE,
-		POINT_LEFT_DOWN,
-		POINT_RIGHT_UP,
-		POINT_RIGHT_MIDDLE,
-		POINT_RIGHT_DOWN,
-		POINT_MIDDLE_UP,
-		POINT_MIDDLE_DOWN,
-		POINT_MAX,
-	};
-
 	// コンストラクタ
 	CBillboard(CDeviceHolder* device_holder);
 
@@ -90,10 +76,9 @@ public:
 	// カラーの設定
 	void set_color(const COLOR4F& LeftTop,const COLOR4F& RightTop,const COLOR4F& LeftBottom,const COLOR4F& RightBottom){color_[0] = LeftTop;color_[1] = LeftBottom;color_[2] = RightTop;color_[3] = RightBottom;}
 
-	// 中心の設定
-	void set_point(POINT Point){point_ = Point;}
-
 protected:
+
+
 
 private:
 	static const int VERTEX_MAX = (4);
@@ -109,9 +94,6 @@ private:
 	f32 right_;
 	f32 top_;
 	f32 bottom_;
-
-	// 中心点
-	POINT point_;
 
 	// 頂点座標
 	VECTOR2 position_[VERTEX_MAX];

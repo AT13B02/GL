@@ -74,7 +74,7 @@ void CSoundManager::Uninit(void)
 //=============================================================================
 // ì¬ˆ—
 //=============================================================================
-CSound* CSoundManager::Create(const s8* filename)
+CSound* CSoundManager::Create(std::string filename)
 {
 	CSound* pSound = NULL;
 
@@ -88,7 +88,7 @@ CSound* CSoundManager::Create(const s8* filename)
 		pSound->Init();
 
 		// ƒ[ƒh
-		pSound->Load(filename);
+		pSound->Load(filename.c_str());
 
 	}
 

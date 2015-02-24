@@ -85,7 +85,7 @@ public:
 	* @param  void
 	* @return void
 	*/
-	void Normalize(void);
+	const VECTOR2& Normalize(void);
 
 	/**
 	* ƒxƒNƒgƒ‹‚Ì‘å‚«‚³‚ÌŽæ“¾

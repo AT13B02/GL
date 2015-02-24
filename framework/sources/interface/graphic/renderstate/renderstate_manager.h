@@ -11,8 +11,8 @@
 //*****************************************************************************
 #pragma once
 
-#ifndef _INTERFACE_MANAGER_H_
-#define _INTERFACE_MANAGER_H_
+#ifndef _RENDERSTATE_MANAGER_H_
+#define _RENDERSTATE_MANAGER_H_
 
 //*****************************************************************************
 // インクルード
@@ -51,6 +51,8 @@ public:
 		TYPE_ALL = 0,		// 全体に掛ける
 		TYPE_2D,			// 2D全体に掛ける
 		TYPE_3D,			// 3D全体に掛ける
+		TYPE_LIGHT_OFF,		// ライトのオフ
+		TYPE_WIREFRAME,		// ワイヤーフレーム
 		TYPE_MAX			// タイプの最大数
 	};
 

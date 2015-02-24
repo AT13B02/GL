@@ -18,6 +18,7 @@
 #include "interface/graphic/vertex/vertex_3d.h"
 #include "interface/graphic/texture/texture_manager.h"
 #include "interface/graphic/camera/camera.h"
+#include "interface/graphic/renderstate/renderstate_manager.h"
 
 // common
 #include "common/common.h"
@@ -48,10 +49,7 @@ CBillboard::CBillboard(CDeviceHolder* device_holder) : CObject3D(device_holder,O
 	top_    = 0.0f;
 	bottom_ = 1.0f;
 
-	point_ = POINT_CENTER;
-
 	size_ = VECTOR2(0.0f,0.0f);
-
 
 	for(int i = 0;i < VERTEX_MAX;i++)
 	{
@@ -91,7 +89,7 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 {
 	MATRIX4x4 matrix;
 	CTexture* texture = object_3d_data->texture_manager()->Get(object_3d_data->texture_name().c_str());
-	CRenderstate* renderstate = object_3d_data->renderstate();
+	CRenderstate* renderstate = NULL;//object_3d_data->renderstate();
 	MATRIX4x4 view_matrix = object_3d_data->camera()->view_matrix();
 
 	// ‰ñ“]s—ñ‚Ì‹ts—ñ‚ð”²‚«o‚·
@@ -111,9 +109,11 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 
 	matrix = GetWorldMatrix(object_3d_data);
 
-	matrix *= view_matrix;
+	matrix = view_matrix * matrix;
 
-	CObject3D::Draw(matrix,vertex_3d_,texture,renderstate);
+	object_3d_data->renderstate_list().push_back(CRenderstateManager::TYPE_LIGHT_OFF);
+
+	CObject3D::Draw(matrix,vertex_3d_,texture,object_3d_data->renderstate_manager(),object_3d_data->renderstate_list());
 }
 
 //=============================================================================
@@ -121,81 +121,10 @@ void CBillboard::Draw(CObject3DData* object_3d_data)
 //=============================================================================
 void CBillboard::Set(void)
 {
-	switch(point_)
-	{
-		case POINT_CENTER:
-		{
-			position_[0] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
-			position_[1] = VECTOR2(-size_._x * 0.5f,-size_._y * 0.5f);
-			position_[2] = VECTOR2( size_._x * 0.5f, size_._y * 0.5f);
-			position_[3] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
-			break;
-		}
-		case POINT_LEFT_UP:
-		{
-			position_[0] = VECTOR2(    0.0f,     0.0f);
-			position_[1] = VECTOR2(    0.0f,-size_._y);
-			position_[2] = VECTOR2(size_._x,     0.0f);
-			position_[3] = VECTOR2(size_._x,-size_._y);
-			break;
-		}
-		case POINT_LEFT_MIDDLE:
-		{
-			position_[0] = VECTOR2(    0.0f, size_._y * 0.5f);
-			position_[1] = VECTOR2(    0.0f,-size_._y * 0.5f);
-			position_[2] = VECTOR2(size_._x, size_._y * 0.5f);
-			position_[3] = VECTOR2(size_._x,-size_._y * 0.5f);
-			break;
-		}
-		case POINT_LEFT_DOWN:
-		{
-			position_[0] = VECTOR2(    0.0f,size_._y);
-			position_[1] = VECTOR2(    0.0f,    0.0f);
-			position_[2] = VECTOR2(size_._x,size_._y);
-			position_[3] = VECTOR2(size_._x,    0.0f);
-			break;
-		}
-		case POINT_RIGHT_UP:
-		{
-			position_[0] = VECTOR2(-size_._x,     0.0f);
-			position_[1] = VECTOR2(-size_._x,-size_._y);
-			position_[2] = VECTOR2(     0.0f,     0.0f);
-			position_[3] = VECTOR2(     0.0f,-size_._y);
-			break;
-		}
-		case POINT_RIGHT_MIDDLE:
-		{
-			position_[0] = VECTOR2(-size_._x, size_._y * 0.5f);
-			position_[1] = VECTOR2(-size_._x,-size_._y * 0.5f);
-			position_[2] = VECTOR2(     0.0f, size_._y * 0.5f);
-			position_[3] = VECTOR2(     0.0f,-size_._y * 0.5f);
-			break;
-		}
-		case POINT_RIGHT_DOWN:
-		{
-			position_[0] = VECTOR2(-size_._x,size_._y);
-			position_[1] = VECTOR2(-size_._x,    0.0f);
-			position_[2] = VECTOR2(     0.0f,size_._y);
-			position_[3] = VECTOR2(     0.0f,    0.0f);
-			break;
-		}
-		case POINT_MIDDLE_UP:
-		{
-			position_[0] = VECTOR2(-size_._x * 0.5f,     0.0f);
-			position_[1] = VECTOR2(-size_._x * 0.5f,-size_._y);
-			position_[2] = VECTOR2( size_._x * 0.5f,     0.0f);
-			position_[3] = VECTOR2( size_._x * 0.5f,-size_._y);
-			break;
-		}
-		case POINT_MIDDLE_DOWN:
-		{
-			position_[0] = VECTOR2(-size_._x * 0.5f,size_._y);
-			position_[1] = VECTOR2(-size_._x * 0.5f,    0.0f);
-			position_[2] = VECTOR2( size_._x * 0.5f,size_._y);
-			position_[3] = VECTOR2( size_._x * 0.5f,    0.0f);
-			break;
-		}
-	}
+	position_[0] = VECTOR2(-size_._x * 0.5f,-size_._y * 0.5f);
+	position_[1] = VECTOR2(-size_._x * 0.5f, size_._y * 0.5f);
+	position_[2] = VECTOR2( size_._x * 0.5f,-size_._y * 0.5f);
+	position_[3] = VECTOR2( size_._x * 0.5f, size_._y * 0.5f);
 
 	CVertex3D::VERTEX_3D* pVertex3D = NULL;
 

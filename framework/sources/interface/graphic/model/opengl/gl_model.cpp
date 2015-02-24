@@ -12,6 +12,9 @@
 #include "gl_model.h"
 #include <stdio.h>
 
+// opengl
+#include "interface/graphic/device/opengl/opengl.h"
+
 // common
 #include "common/common.h"
 
@@ -83,7 +86,7 @@ bool CGLModel::Load(const s8* filename)
 	// 頂点カラー
 	for(int i = 0; i < dh.uVtx; i++)
 	{
-		pVtx->_color[i]._red = 1.0f;
+		pVtx->_color[i]._red =	1.0f;
 		pVtx->_color[i]._green = 1.0f;
 		pVtx->_color[i]._blue = 1.0f;
 		pVtx->_color[i]._alpha = 1.0f;
@@ -117,10 +120,30 @@ bool CGLModel::Load(const s8* filename)
 //=============================================================================
 void CGLModel::Draw(const MATRIX4x4& matrix)
 {
+	// デフォルトマテリアル取得
+	Material DefMat;
+	glGetMaterialfv(GL_FRONT, GL_DIFFUSE,   (f32*)&DefMat.Diffuse);
+	glGetMaterialfv(GL_FRONT, GL_AMBIENT,   (f32*)&DefMat.Ambient);
+	glGetMaterialfv(GL_FRONT, GL_SPECULAR,  (f32*)&DefMat.Specular);
+	glGetMaterialfv(GL_FRONT, GL_EMISSION,  (f32*)&DefMat.Emissive);
+	glGetMaterialfv(GL_FRONT, GL_SHININESS, (f32*)&DefMat.SpecPower);
+
 	for(u32 uAtt = 0; uAtt < m_uNumMaterial; uAtt++)
 	{
+		glMaterialfv(GL_FRONT, GL_DIFFUSE,  (f32*)&m_pMaterial[uAtt].mat.Diffuse);
+		glMaterialfv(GL_FRONT, GL_AMBIENT,  (f32*)&m_pMaterial[uAtt].mat.Ambient);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, (f32*)&m_pMaterial[uAtt].mat.Specular);
+		glMaterialfv(GL_FRONT, GL_EMISSION, (f32*)&m_pMaterial[uAtt].mat.Emissive);
+		glMaterialf(GL_FRONT, GL_SHININESS, m_pMaterial[uAtt].mat.SpecPower);
 		m_pVtxBuffer->Draw(matrix, m_pMeshAttribute[uAtt].idxStart, m_pMeshAttribute[uAtt].idxNum);
 	}
+
+	// デフォルトマテリアル設定
+	glMaterialfv(GL_FRONT, GL_DIFFUSE,  (f32*)&DefMat.Diffuse);
+	glMaterialfv(GL_FRONT, GL_AMBIENT,  (f32*)&DefMat.Ambient);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, (f32*)&DefMat.Specular);
+	glMaterialfv(GL_FRONT, GL_EMISSION, (f32*)&DefMat.Emissive);
+	glMaterialf(GL_FRONT, GL_SHININESS, DefMat.SpecPower);
 }
 
 // EOF

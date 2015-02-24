@@ -68,6 +68,7 @@ public:
 	// ƒJƒƒ‰‚Ìíœ
 	bool EraseCamera(const u32& key);
 
+	// ƒJƒƒ‰‚ÌŒÂ”‚ğæ“¾
 	u32 number_count(void){return number_count_;}
 protected:
 

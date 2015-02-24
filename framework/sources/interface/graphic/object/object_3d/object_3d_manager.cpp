@@ -92,26 +92,29 @@ void CObject3DManager::Draw(void)
 {
 	CCamera* camera = NULL;
 
-	// ライトの設定
-	//light_manager_->Set();
-
 	// レンダーステートの設定
-	//renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Set();
+	renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Set();
 
 	for(int i = 0;i < camera_manager_->number_count();i++)
 	{
 		// カメラの設定と設定したカメラの取得
 		camera = camera_manager_->SetCamera(i);
 
+		// ライトの設定
+		light_manager_->Set();
+
 		// バッファの描画処理
-		object_3d_buffer_->Draw(camera,texture_manager_,model_manager_);
+		object_3d_buffer_->Draw(camera,texture_manager_,model_manager_,renderstate_manager_);
 	}
+
+	// ライトの解除
+	light_manager_->Unset();
 
 	// TODO バッファの破棄 スレッドを分けたらなくなる
 	object_3d_buffer_->Refresh();
 
 	// レンダーステートの解除
-	//renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Unset();
+	renderstate_manager_->renderstate(CRenderstateManager::TYPE_3D)->Unset();
 }
 
 //=============================================================================
@@ -135,9 +138,17 @@ u32 CObject3DManager::AddList(CObject3D* object_3d)
 }
 
 //=============================================================================
+// オブジェクト削除処理
+//=============================================================================
+void CObject3DManager::EraseList(const u32& object_key)
+{
+	object_3d_list_->EraseList(object_key);
+}
+
+//=============================================================================
 // 描画リストに保存
 //=============================================================================
-void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,MATRIX4x4 matrix,const std::string& texture_name,CRenderstate* renderstate)
+void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const VECTOR3& rotation,const VECTOR3& scale,const MATRIX4x4& matrix,const std::string& texture_name)
 {
 	CObject3DData* object_3d_data = NULL;
 	CObject3D* object_3d = object_3d_list_->GetListData(object_key);
@@ -170,10 +181,13 @@ void CObject3DManager::Draw(const u32& object_key,const VECTOR3& position,const 
 	object_3d_data->set_texture_name(texture_name);
 
 	// レンダーステートの設定
-	object_3d_data->set_renderstate(renderstate);
+	object_3d_data->set_renderstate(renderstate_list_);
 
 	// バッファリストに追加
 	object_3d_buffer_->AddList(object_3d_data);
+
+	// クリア
+	renderstate_list_.clear();
 }
 
 //---------------------------------- EOF --------------------------------------

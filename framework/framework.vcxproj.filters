@@ -128,6 +128,69 @@
     <Filter Include="sources\interface\sound\device\xaudio2">
       <UniqueIdentifier>{367f2dd6-dbb9-4134-bfe4-580f7be4b2d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\sound\xaudio2">
+      <UniqueIdentifier>{5de93494-27e6-4ba6-b94c-1b1e482eec60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\camera">
+      <UniqueIdentifier>{b139c2a4-34c9-4b8f-83a7-e6425a1b81d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\object\object_2d">
+      <UniqueIdentifier>{79bd83c8-1996-411a-b382-6a59e9a63015}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\graphic\object\object_2d\element">
+      <UniqueIdentifier>{eb8d28fb-0050-493a-b4e7-af669125317d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\player">
+      <UniqueIdentifier>{5d2b6333-2369-4d7f-826f-2931d3f16f61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common\math\quaternion">
+      <UniqueIdentifier>{dba51e8a-1719-4da3-835a-4cee04b2b936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\attitude_controller">
+      <UniqueIdentifier>{566bbd0d-dac5-4914-8560-3b16ef38ef8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\collision">
+      <UniqueIdentifier>{e39f9c32-3515-4dcb-b361-78ab015464cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\bullet">
+      <UniqueIdentifier>{0d9b14b9-375c-4a6e-9f08-8e6d3f29185b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\field">
+      <UniqueIdentifier>{3ccf576b-36ae-4c38-b77c-3158adae5846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\general">
+      <UniqueIdentifier>{6f65da65-4245-45d1-8bb4-807b528047dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\general\procedural">
+      <UniqueIdentifier>{a37d9216-d4df-4e28-b1d1-ce746188bc4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\network">
+      <UniqueIdentifier>{39602657-9715-4ad0-9226-a115601872f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\scene\match">
+      <UniqueIdentifier>{43b35054-e8c5-4b30-91ca-d1b9723b8641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\scene\result">
+      <UniqueIdentifier>{03f6f7ac-e9aa-471d-ae8f-7f5a1e9d533f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\box">
+      <UniqueIdentifier>{b9cf4b4a-1f06-41ad-b3d4-82db9590d011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\general\aabb">
+      <UniqueIdentifier>{ca993009-940d-4ab1-b65a-5a8c99062cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\explosion">
+      <UniqueIdentifier>{c88fb900-4b45-4d53-8ed4-ce1948916bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\player_status">
+      <UniqueIdentifier>{8db53df7-0114-4124-abdb-553ba2beeca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\player_status\life_2d">
+      <UniqueIdentifier>{733eb1cd-ae94-4610-a371-5a4f45010ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\interface\character\player_status\user_number_2d">
+      <UniqueIdentifier>{0c89c8cb-8224-410a-87ec-ea2631be9884}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -358,6 +421,168 @@
     <ClInclude Include="sources\interface\sound\sound.h">
       <Filter>sources\interface\sound</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\sound\xaudio2\xaudio2_sound.h">
+      <Filter>sources\interface\sound\xaudio2</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\character_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\vertex\opengl\gl_vertex_2d.h">
+      <Filter>sources\interface\graphic\vertex\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\vertex\vertex_2d.h">
+      <Filter>sources\interface\graphic\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_buffer.h">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_data.h">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_list.h">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d_manager.h">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.h">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_2d\object_2d.h">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_manager_interface.h">
+      <Filter>sources\interface\graphic\object</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_light_off.h">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_light_off.h">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\renderstate_wireframe.h">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_wireframe.h">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player\player.h">
+      <Filter>sources\interface\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player\player_manager.h">
+      <Filter>sources\interface\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\character_manager.h">
+      <Filter>sources\interface\character</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\character_camera_manager.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshfield.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\common\math\quaternion\quaternion.h">
+      <Filter>sources\common\math\quaternion</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\character_interface.h">
+      <Filter>sources\interface\character</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller.h">
+      <Filter>sources\interface\character\attitude_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\attitude_controller\attitude_controller_manager.h">
+      <Filter>sources\interface\character\attitude_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\player_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\fade_2d.h">
+      <Filter>sources\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\collision\collision_manager.h">
+      <Filter>sources\interface\character\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\bullet\bullet.h">
+      <Filter>sources\interface\character\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\bullet\bullet_manager.h">
+      <Filter>sources\interface\character\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\field\field.h">
+      <Filter>sources\interface\character\field</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\field\field_manager.h">
+      <Filter>sources\interface\character\field</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\general\procedural\perlin_noise.h">
+      <Filter>sources\general\procedural</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\network_client.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\network_data.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\network_data_buffer.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\network_manager.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\network\windows_sockets.h">
+      <Filter>sources\interface\network</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\game\network_command_assistant.h">
+      <Filter>sources\scene\game</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player\network_player.h">
+      <Filter>sources\interface\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\scene_data.h">
+      <Filter>sources\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\graphic\object\object_3d\element\meshdome.h">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\match\scene_match.h">
+      <Filter>sources\scene\match</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\result_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene\result\scene_result.h">
+      <Filter>sources\scene\result</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\camera\title_camera.h">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\box\box.h">
+      <Filter>sources\interface\character\box</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\box\box_manager.h">
+      <Filter>sources\interface\character\box</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\general\aabb\axis_aligned_bounding_box.h">
+      <Filter>sources\general\aabb</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\explosion\explosion_manager.h">
+      <Filter>sources\interface\character\explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\explosion\explosion.h">
+      <Filter>sources\interface\character\explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player_status\life_2d\life_2d.h">
+      <Filter>sources\interface\character\player_status\life_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player_status\life_2d\life_2d_manager.h">
+      <Filter>sources\interface\character\player_status\life_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player_status\user_number_2d\icon_2d.h">
+      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\player_status\user_number_2d\icon_2d_manager.h">
+      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -575,6 +800,168 @@
     </ClCompile>
     <ClCompile Include="sources\interface\sound\sound.cpp">
       <Filter>sources\interface\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\sound\xaudio2\xaudio2_sound.cpp">
+      <Filter>sources\interface\sound\xaudio2</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\character_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\vertex\opengl\gl_vertex_2d.cpp">
+      <Filter>sources\interface\graphic\vertex\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\vertex\vertex_2d.cpp">
+      <Filter>sources\interface\graphic\vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_buffer.cpp">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_data.cpp">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_list.cpp">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d_manager.cpp">
+      <Filter>sources\interface\graphic\object\object_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\element\rectangle_2d.cpp">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_2d\object_2d.cpp">
+      <Filter>sources\interface\graphic\object\object_2d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_manager_interface.cpp">
+      <Filter>sources\interface\graphic\object</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_light_off.cpp">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_light_off.cpp">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\renderstate_wireframe.cpp">
+      <Filter>sources\interface\graphic\renderstate\state</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\renderstate\state\opengl\gl_renderstate_wireframe.cpp">
+      <Filter>sources\interface\graphic\renderstate\state\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player\player.cpp">
+      <Filter>sources\interface\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player\player_manager.cpp">
+      <Filter>sources\interface\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\character_manager.cpp">
+      <Filter>sources\interface\character</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\character_camera_manager.cpp">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshfield.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\common\math\quaternion\quaternion.cpp">
+      <Filter>sources\common\math\quaternion</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\character_interface.cpp">
+      <Filter>sources\interface\character</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller.cpp">
+      <Filter>sources\interface\character\attitude_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\attitude_controller\attitude_controller_manager.cpp">
+      <Filter>sources\interface\character\attitude_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\player_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\fade_2d.cpp">
+      <Filter>sources\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\collision\collision_manager.cpp">
+      <Filter>sources\interface\character\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\bullet\bullet_manager.cpp">
+      <Filter>sources\interface\character\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\bullet\bullet.cpp">
+      <Filter>sources\interface\character\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\field\field.cpp">
+      <Filter>sources\interface\character\field</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\field\field_manager.cpp">
+      <Filter>sources\interface\character\field</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\general\procedural\perlin_noise.cpp">
+      <Filter>sources\general\procedural</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\network_client.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\network_data.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\network_data_buffer.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\network_manager.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\network\windows_sockets.cpp">
+      <Filter>sources\interface\network</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\game\network_command_assistant.cpp">
+      <Filter>sources\scene\game</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player\network_player.cpp">
+      <Filter>sources\interface\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\scene_data.cpp">
+      <Filter>sources\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\graphic\object\object_3d\element\meshdome.cpp">
+      <Filter>sources\interface\graphic\object\object_3d\element</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\match\scene_match.cpp">
+      <Filter>sources\scene\match</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\result_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene\result\scene_result.cpp">
+      <Filter>sources\scene\result</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\camera\title_camera.cpp">
+      <Filter>sources\interface\character\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\box\box_manager.cpp">
+      <Filter>sources\interface\character\box</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\box\box.cpp">
+      <Filter>sources\interface\character\box</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\general\aabb\axis_aligned_bounding_box.cpp">
+      <Filter>sources\general\aabb</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\explosion\explosion_manager.cpp">
+      <Filter>sources\interface\character\explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\explosion\explosion.cpp">
+      <Filter>sources\interface\character\explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player_status\life_2d\life_2d_manager.cpp">
+      <Filter>sources\interface\character\player_status\life_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player_status\life_2d\life_2d.cpp">
+      <Filter>sources\interface\character\player_status\life_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player_status\user_number_2d\icon_2d.cpp">
+      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\player_status\user_number_2d\icon_2d_manager.cpp">
+      <Filter>sources\interface\character\player_status\user_number_2d</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -70,6 +70,9 @@ COpengl::COpengl(WINDOW_DATA* window_data) : CGraphicDevice(window_data)
 		gl_context_[i]._hglrc = wglCreateContext(gl_context_[i]._hdc);
 	}
 
+	// srcとdestのαブレンドの仕方の設定
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
 	draw_mode_ = DEVICE_MODE_LOAD;
 }
 
@@ -116,9 +119,9 @@ void COpengl::BeginDraw(void)
 	{
 		int a = 0;
 	}
-
+	
 	// バッファのクリアする色を設定
-	glClearColor(0.8f,0.8f,1.0f,0.8f);
+	glClearColor(0.9f,1.0f,1.0f,0.8f);
 
 	// クリアするものを選択
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -176,6 +179,7 @@ void COpengl::SetDrawMode(const DEVICE_MODE& device_mode)
 	{
 		//MessageBox(NULL,"ロード失敗するかもに","エラー",MB_OK);
 	}
+
 }
 
 //=============================================================================

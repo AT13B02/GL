@@ -140,6 +140,29 @@ u32 CCameraManager::CreateCamera(void)
 }
 
 //=============================================================================
+// 削除処理
+//=============================================================================
+bool CCameraManager::EraseCamera(const u32& key)
+{
+	auto it = camera_.find(key);
+
+	if(it != camera_.end())
+	{
+		number_count_--;
+
+		// カメラの削除
+		SAFE_RELEASE((*it).second);
+
+		// リストから削除
+		camera_.erase(key);
+
+		return true;
+	}
+
+	return false;
+}
+
+//=============================================================================
 // キー作成処理
 //=============================================================================
 u32 CCameraManager::CreateKey(void)

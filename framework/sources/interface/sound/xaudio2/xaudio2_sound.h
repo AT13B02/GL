@@ -2,10 +2,7 @@
 //
 // XAudio2サウンド処理 [xaudio2_sound.h]
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/03/28(Fri)
-// Version		: 1.00
-// Update Date	: 2014/09/11(Thu)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -20,8 +17,10 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "sound.h"
 #include <xaudio2.h>
+
+// sound
+#include "interface/sound/sound.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -39,7 +38,7 @@ class CXAudio2Sound : public CSound
 {
 public:
 	// コンストラクタ
-	CXAudio2Sound(CSoundDevice* pSoundDevice);
+	CXAudio2Sound(CSoundDevice* sound_device);
 
 	// デストラクタ
 	virtual ~CXAudio2Sound(void);
@@ -51,10 +50,10 @@ public:
 	void Uninit(void);
 
 	// ロード
-	bool Load(const char* pFilename);
+	bool Load(const s8* filename);
 
 	// 再生
-	void Play(bool bLoopFlag);
+	void Play(bool is_loop);
 
 	// 停止
 	void Stop(void);
@@ -63,7 +62,8 @@ public:
 	void Pause(void);
 
 	// 状態の取得
-	bool GetStatus(void){return m_bPlayFlag;}
+	bool GetStatus(void){return is_play_;}
+
 	// ボリュームの設定
 	//void SetVolume();
 
@@ -71,15 +71,15 @@ protected:
 
 private:
 	// サウンドデバイス
-	CSoundDevice* m_pSoundDevice;
+	//CSoundDevice* sound_device_;
 
 	// プレイフラグ
-	bool m_bPlayFlag;
+	bool is_play_;
 
-	int m_nSoundId;											// サウンドID
-	IXAudio2SourceVoice* m_pSourceVoice;					// ソースボイス
-	BYTE* m_pDataAudio;										// オーディオデータ
-	DWORD m_SizeAudio;										// オーディオデータサイズ
+	u32 sound_id_;											// サウンドID
+	IXAudio2SourceVoice* source_voice_;						// ソースボイス
+	BYTE* data_audio_;										// オーディオデータ
+	DWORD size_audio_;										// オーディオデータサイズ
 };
 
 #endif // _XAUDIO2_SOUND_H_

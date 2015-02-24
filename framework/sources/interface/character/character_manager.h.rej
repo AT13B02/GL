@@ -1,0 +1,11 @@
+diff a/framework/sources/interface/character/character_manager.h b/framework/sources/interface/character/character_manager.h	(rejected hunks)
+@@ -91,9 +91,6 @@
+ 	// バレットマネージャー取得
+ 	CBulletManager* bullet_manager(void){return bullet_manager_;}
+ 
+-	// 爆発マネージャー取得
+-	CExplosionManager* explosion_manager(void){return explosion_manager_;}
+-
+ 	// フィールドマネージャーの取得
+ 	CFieldManager* field_manager(void){return field_manager_;}
+ 

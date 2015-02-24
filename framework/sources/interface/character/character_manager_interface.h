@@ -21,9 +21,8 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include <windows.h>
-#include <string>
-#include <map>
+#include <list>
+#include <algorithm>
 
 // basic
 #include "basic/basic.h"
@@ -66,6 +65,9 @@ public:
 
 	// 更新処理
 	virtual void Update(void);
+	
+	// 描画処理
+	virtual void Draw(void);
 
 	// 終了処理
 	virtual void Uninit(void);
@@ -74,7 +76,7 @@ public:
 	void Push(T character);
 
 	// キャラクターリストの取得
-	const std::list<T>& character_list(void){return character_list_;}
+	const std::list<T>& character_list(void) const {return character_list_;}
 
 protected:
 	std::list<T> character_list_;
@@ -86,14 +88,14 @@ private:
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-template <class T> CCharacterManagerInterface::CCharacterManagerInterface(void)
+template <class T> CCharacterManagerInterface<T>::CCharacterManagerInterface(void)
 {
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-template <class T> CCharacterManagerInterface::~CCharacterManagerInterface(void)
+template <class T> CCharacterManagerInterface<T>::~CCharacterManagerInterface(void)
 {
 }
 
@@ -106,6 +108,29 @@ template <class T> void CCharacterManagerInterface<T>::Update(void)
 	{
 		(*it)->Update();
 	}
+
+	auto predfunc = [](const T character)->bool
+	{
+		if(character->is_death())
+		{
+			character->Uninit();
+			delete character;
+			return true;
+		}
+		return false;
+	};
+	character_list_.erase(remove_if(character_list_.begin(),character_list_.end(),predfunc),character_list_.end());
+}
+
+//=============================================================================
+// 描画処理
+//=============================================================================
+template <class T> void CCharacterManagerInterface<T>::Draw(void)
+{
+	for(auto it = character_list_.begin();it != character_list_.end();++it)
+	{
+		(*it)->Draw();
+	}
 }
 
 //=============================================================================
@@ -115,7 +140,7 @@ template <class T> void CCharacterManagerInterface<T>::Uninit(void)
 {
 	for(auto it = character_list_.begin();it != character_list_.end();++it)
 	{
-		(*it)->Uninit();
+		(*it)->Release();
 	}
 
 	character_list_.clear();

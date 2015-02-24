@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// 基礎クラス
+// 規定クラス
 //
 // Author		: Kenji Kabutomori
 //
@@ -43,7 +43,6 @@ CBasic::~CBasic(void)
 void CBasic::Release(void)
 {
 	Uninit();
-
 	delete this;
 }
 

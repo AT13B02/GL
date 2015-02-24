@@ -21,9 +21,10 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
+#include "../../basic/basic.h"
 #include <winsock.h>
-
+#include "../../common/math/vector/vector3.h"
+#include "network_data.h"
 //*****************************************************************************
 // ライブラリのリンク
 //*****************************************************************************
@@ -45,6 +46,7 @@
 // クラスの前方参照
 //*****************************************************************************
 class CNetworkData;
+class CNetworkDataBuffer;
 
 //*****************************************************************************
 // クラス定義
@@ -64,21 +66,44 @@ public:
 	// 終了処理
 	void Uninit(void);
 
+	// プレイヤーIDリクエスト
+	void RequestID(void);
+
+	// バッファのポインタセット
+	void SetNetworkDataBufferPointer(CNetworkDataBuffer* buffer_pointer){m_DataBuffer = buffer_pointer;};
+
+	// 準備完了を他のプレイヤーに通知
+	void SendDataPrepare(int my_id);
+
+	// ゲーム開始通知を送る
+	void SendGameStart(void);
+
+	// リザルトに切り替え通知
+	void SendDataGoToResultScene(void);
+
 	// データの送信
-	void SendData(char* pData,int nSize);
+	void SendDataCharcter(VECTOR3* position, VECTOR3* rotation, int animation_id, int hp);	// プレイヤー
+	void SendDataBullet(VECTOR3* position, VECTOR3* front_vector, float speed);		// 弾
 
 	void SendDataMyself(char* pData,int nSize);
 
 	// データの受信
-	void ReceiveData(char* pOutData);
+	int ReceiveData(NETWORK_DATA* pOutData, sockaddr_in* from_addres);
+
+	// 準備完了確認
+	void CheckAllPlayerPrepare(int my_id);
+
+	// 死亡フラグ送信
+	void SendDeathFlag(int my_id);
 
 protected:
 
 private:
 	SOCKET m_Socket;
-	char* m_pIpAddress;
-	sockaddr_in m_Sendaddr;
-	sockaddr_in m_Recieveaddr;
+	char m_pIpAddress[256];
+	struct sockaddr_in m_Sendaddr;
+	struct sockaddr_in m_Recieveaddr;
+	CNetworkDataBuffer* m_DataBuffer;
 
 	// マルチキャストアドレス
 

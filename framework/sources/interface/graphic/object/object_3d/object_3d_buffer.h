@@ -42,6 +42,7 @@ class CObject3DData;
 class CCamera;
 class CModelManager;
 class CTextureManager;
+class CRenderstateManager;
 
 //*****************************************************************************
 // クラス定義
@@ -59,7 +60,7 @@ public:
 	bool Init(void);
 
 	// 描画
-	void Draw(CCamera* camera,CTextureManager* texture_manager,CModelManager* model_manager);
+	void Draw(CCamera* camera,CTextureManager* texture_manager,CModelManager* model_manager,CRenderstateManager* renderstate_manager);
 
 	// 終了
 	void Uninit(void);

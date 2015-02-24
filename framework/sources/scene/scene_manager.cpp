@@ -20,9 +20,14 @@
 // graphic
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/device/device_holder.h"
+#include "interface/character/character_manager.h"
 
 // sound
 #include "interface/sound/sound_manager.h"
+
+//fade
+#include "fade_2d.h"
+#include "scene_data.h"
 
 // common
 #include "common/thread/thread.h"
@@ -64,6 +69,10 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 	next_scene_ = new CTitleFactory();
 
 	// フェード
+	fade_2d_ = new CFade2D(interface_manager_);
+
+	// シーン共通データ
+	scene_data_ = new CSceneData();
 }
 
 //=============================================================================
@@ -71,6 +80,7 @@ CSceneManager::CSceneManager(CInterfaceManager* interface_manager)
 //=============================================================================
 CSceneManager::~CSceneManager(void)
 {
+	
 }
 
 //=============================================================================
@@ -81,6 +91,8 @@ bool CSceneManager::Init(void)
 	// ロード中のシーンのデータをロード
 	load_->Load();
 
+	scene_data_->Init();
+
 	return true;
 }
 
@@ -89,6 +101,9 @@ bool CSceneManager::Init(void)
 //=============================================================================
 void CSceneManager::Update(void)
 {
+	//フェード更新
+	fade_2d_->Update();
+
 	// ロードしていないことを確認
 	if(!load_flag_)
 	{
@@ -102,6 +117,9 @@ void CSceneManager::Update(void)
 
 				// 描画モードをメインに切り換える
 				interface_manager_->graphic_manager()->device_holder()->SetDrawMode(CGraphicDevice::DEVICE_MODE_MAIN);
+
+				// フェードイン
+				fade_2d_->FadeIn();
 			}
 		}
 
@@ -113,12 +131,20 @@ void CSceneManager::Update(void)
 			// 次のシーンが存在しない時
 			if(next_scene_ == NULL)
 			{
+				// 次のシーンへ
 				next_scene_ = scene_->next_scene();
+
+				// 次のシーンが設定されたら
+				if(next_scene_ != NULL)
+				{
+					// フェードアウト
+					fade_2d_->FadeOut();
+				}
 			}
 		}
 
 		// 次のシーンが存在するとき
-		if(next_scene_ != NULL)
+		if((next_scene_ != NULL) && (fade_2d_->IsFadeOutEnd()))
 		{
 			// ロードフラグをオン
 			load_flag_ = true;
@@ -160,12 +186,22 @@ void CSceneManager::Draw(void)
 			// 描画処理
 			scene_->Draw();
 		}
+
+		interface_manager_->character_manager()->Draw();
+
+		//フェード描画
+		fade_2d_->Draw();
 	}
 	else
 	{
 		if(load_ != NULL)
 		{
 			load_->Draw();
+		}
+		else
+		{
+			//フェード描画
+			fade_2d_->Draw();
 		}
 	}
 }
@@ -186,6 +222,12 @@ void CSceneManager::Uninit(void)
 
 	// 次のシーンの破棄
 	SAFE_DELETE(next_scene_);
+
+	// フェードの破棄
+	SAFE_RELEASE(fade_2d_);
+
+	// シーンデータの破棄
+	SAFE_RELEASE(scene_data_);
 }
 
 //=============================================================================
@@ -202,6 +244,9 @@ void CSceneManager::Load(CSceneManager* scene_manager)
 			// シーンが同じとき
 			if(scene_manager->scene_->scene_type() == scene_manager->next_scene_->scene_type())
 			{
+				// シーンデータの設定
+				scene_manager->scene_->set_scene_data(scene_manager->scene_data_);
+
 				// 初期化
 				scene_manager->scene_->Init();
 
@@ -229,6 +274,9 @@ void CSceneManager::Load(CSceneManager* scene_manager)
 
 			// 読み込み処理
 			scene_manager->scene_->Load();
+
+			// シーンデータの設定
+			scene_manager->scene_->set_scene_data(scene_manager->scene_data_);
 
 			// 初期化処理
 			scene_manager->scene_->Init();

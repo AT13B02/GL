@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// オブジェクト2Dリストクラス [object_2d_list.h]
+// オブジェクト2Dリストクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/04/21(Mon)
-// Version		: 1.00
-// Update Date	: 2014/05/14(Wed)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -20,8 +17,15 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "math.h"
-#include "basic.h"
+// stl
+#include <map>
+
+// basic
+#include "basic/basic.h"
+
+// common
+#include "common/math/math.h"
+
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -59,23 +63,21 @@ public:
 	void Uninit(void);
 
 	// 追加
-	int Add(CObject2D* pObject2D);
+	u32 AddList(CObject2D* object_2d);
 
 	// オブジェクトの取得
-	CObject2D* GetObject2D(int nNumber);
+	CObject2D* GetListData(const u32& object_key);
+
 
 	// 開放
 	void Refresh(void);
 
 private:
-	// オブジェクト最大数
-	static const int OBJECT_MAX = (100);
+// オブジェクトリスト
+	std::map<u32,CObject2D*> object_2d_list_;
 
-	// オブジェクト
-	CObject2D* m_apObject[OBJECT_MAX];
-
-	// 配列の空きを検索
-	int SearchBlank(void);
+	// キーの発行
+	u32 CreateKey(void);
 };
 
 #endif	// _OBJECT_2D_LIST_H_

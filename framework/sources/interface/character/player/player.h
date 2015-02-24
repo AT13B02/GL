@@ -1,13 +1,12 @@
 //*****************************************************************************
 //
-// プレイヤークラス [player.h]
+// プレイヤークラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/09/25(Thu)
-// Version		: 1.00
-// Update Date	: 2014/09/25(Thu)
+// Author		: Chiharu Kamiyama
+//				: Kenji Kabutomori
 //
 //*****************************************************************************
+
 
 //*****************************************************************************
 // 多重定義防止
@@ -18,10 +17,20 @@
 #define _PLAYER_H_
 
 //*****************************************************************************
+// warning消し
+//*****************************************************************************
+
+//*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
-#include "vector3.h"
+// basic
+#include "basic/basic.h"
+#include "common/math/vector/vector3.h"
+
+//character
+#include "player_manager.h"
+#include "interface/character/character_interface.h"
+
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -30,49 +39,113 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
+static const int kDefaultDamage = 10;
 
 //*****************************************************************************
 // 構造体定義
 //*****************************************************************************
 
 //*****************************************************************************
+// プロトタイプ宣言
+//*****************************************************************************
+
+//*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-class CInterfaceManager;
-
+class CLife2D;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CPlayer : public CBasic
+class CPlayer : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CPlayer(CInterfaceManager* pInterfaceManager);
+	CPlayer(CInterfaceManager* interface_manager);
 
 	// デストラクタ
-	virtual ~CPlayer(void);
+	~CPlayer(void);
 
-	// 初期化
+	// 初期化処理
 	bool Init(void);
 
-	// 更新
+	// 更新処理
 	void Update(void);
 
-	// 描画
-	void Draw(void);
-
-	// 終了
+	// 終了処理
 	void Uninit(void);
 
+	// 描画処理
+	void Draw(void);
+
+	// ポジションの取得
+	const VECTOR3& position(void) const {return position_;}
+
+	// ポジションの設定
+	void set_position(const VECTOR3& position){position_ = position;}
+
+	// 角度の取得
+	const VECTOR3& rotation(void) const {return rotation_;}
+
+	// 角度の設定
+	void set_rotation(const VECTOR3& rotation){rotation_ = rotation;}
+
+	// idの取得
+	int player_id(void);
+	
+	// 死亡フラグアクセサ
+	bool death_flag(void){return death_flag_;};
+	void SetDeathFlag(bool flag);
+
+	// HPアクセサ
+	void set_hp(s16 hp){hp_ = hp;};
+	s16 hp(void){return hp_;};
+
+	// ダメージ関数
+	void Damage(int damage);
+	
+	// プレイヤー移動方向取得
+	const VECTOR3& get_move_vector();
+
+	// プレイヤー移動スピード取得
+	const f32 get_move_speed();
+
+	// ライフクラスアクセサ
+	CLife2D* get_life_2d( void ){ return life_2d_ ;}
+	void set_life_2d( CLife2D* life_2d ){ life_2d_ = life_2d ; }
+
 protected:
+	// インターフェースマネージャーのポインタ
+	CInterfaceManager* interface_manager_;
+
+	// オブジェクトキー
+	u32 object_key_;
+
+	// 各種値
+	VECTOR3 position_;
+	VECTOR3 rotation_;
+	VECTOR3 scale_;
+	VECTOR3 move_vector_;
+	s16		hp_;
+	CLife2D* life_2d_;
 
 private:
-	CInterfaceManager* m_pInterfaceManager;
-	VECTOR3 m_Pos;
-	VECTOR3 m_Rot;
-	int m_nNumber;
+	// スピード
+	static const f32 SPEED;
+	static const f32 SPEED_DEST;
+	static const f32 ROTATION_DEST;
+	static const f32 BULLET_LAUNCH_HEIGHT_OFFSET;
+	static const s16 MAX_HP;
+
+	//移動目標値変数
+	VECTOR3 rotation_dest_;
+	bool update_;
+	bool death_flag_;
+	//射撃中どうかのフラグ
+	bool is_fire;
+	//射撃間隔のカウント用
+	s16 cooldown_cnt;
 };
 
-#endif	// _PLAYER_H_
-
 //---------------------------------- EOF --------------------------------------
+
+#endif // _PLAYER_H_

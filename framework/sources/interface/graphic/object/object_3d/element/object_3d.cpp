@@ -19,6 +19,7 @@
 #include "interface/graphic/model/model.h"
 #include "interface/graphic/texture/texture.h"
 #include "interface/graphic/renderstate/state/renderstate.h"
+#include "interface/graphic/renderstate/renderstate_manager.h"
 
 // common
 #include "common/common.h"
@@ -55,7 +56,7 @@ CObject3D::~CObject3D(void)
 //=============================================================================
 // •`‰æˆ—
 //=============================================================================
-MATRIX4x4 CObject3D::GetWorldMatrix(CObject3DData* object_3d_data)
+MATRIX4x4 CObject3D::GetWorldMatrix(CObject3DData* object_3d_data) const
 {
 	VECTOR3 position = object_3d_data->position();
 	VECTOR3 rotation = object_3d_data->rotation();
@@ -87,11 +88,11 @@ MATRIX4x4 CObject3D::GetWorldMatrix(CObject3DData* object_3d_data)
 //=============================================================================
 // •`‰æˆ—
 //=============================================================================
-void CObject3D::Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* texture,CRenderstate* renderstate)
+void CObject3D::Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* texture,CRenderstateManager* renderstate_manager,std::list<u32> renderstate_list)
 {
-	if(renderstate != NULL)
+	for(auto it = renderstate_list.begin();it != renderstate_list.end();++it)
 	{
-		renderstate->Set();
+		renderstate_manager->renderstate((CRenderstateManager::TYPE)*it)->Set();
 	}
 
 	if(texture != NULL)
@@ -104,25 +105,25 @@ void CObject3D::Draw(const MATRIX4x4& matrix,CVertex3D* vertex_3d,CTexture* text
 		vertex_3d->Draw(matrix);
 	}
 
-	if(renderstate != NULL)
-	{
-		renderstate->Unset();
-	}
-
 	if(texture != NULL)
 	{
 		texture->Unset();
+	}
+
+	for(auto it = renderstate_list.begin();it != renderstate_list.end();++it)
+	{
+		renderstate_manager->renderstate((CRenderstateManager::TYPE)*it)->Unset();
 	}
 }
 
 //=============================================================================
 // •`‰æˆ—
 //=============================================================================
-void CObject3D::Draw(const MATRIX4x4& matrix,CModel* model,CRenderstate* renderstate)
+void CObject3D::Draw(const MATRIX4x4& matrix,CModel* model,CRenderstateManager* renderstate_manager,std::list<u32> renderstate_list)
 {
-	if(renderstate != NULL)
+	for(auto it = renderstate_list.begin();it != renderstate_list.end();++it)
 	{
-		renderstate->Set();
+		renderstate_manager->renderstate((CRenderstateManager::TYPE)*it)->Set();
 	}
 
 	if(model != NULL)
@@ -130,9 +131,9 @@ void CObject3D::Draw(const MATRIX4x4& matrix,CModel* model,CRenderstate* renders
 		model->Draw(matrix);
 	}
 
-	if(renderstate != NULL)
+	for(auto it = renderstate_list.begin();it != renderstate_list.end();++it)
 	{
-		renderstate->Unset();
+		renderstate_manager->renderstate((CRenderstateManager::TYPE)*it)->Unset();
 	}
 }
 

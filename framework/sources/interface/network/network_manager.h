@@ -3,9 +3,10 @@
 // ネットワークマネージャークラス [network_manager.h]
 //
 // Author		: KENJI KABUTOMORI
+//				  NAOKI NOJIRI
 // Date			: 2014/09/17(Wed)
-// Version		: 1.00
-// Update Date	: 2014/09/17(Wed)
+// Version		: 1.01
+// Update Date	: 2014/12/01(Mon)
 //
 //*****************************************************************************
 
@@ -20,7 +21,7 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
+#include "../../basic/basic.h"
 
 //*****************************************************************************
 // ライブラリのリンク
@@ -57,7 +58,11 @@ public:
 	// 終了処理
 	void Uninit(void);
 
+	// ネットワーククライアントゲット
 	CNetworkClient* GetNetworkClient(void){return m_pNetworkClient;}
+
+	// 準備完了通知
+	void SendReady(int my_id);
 protected:
 
 private:

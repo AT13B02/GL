@@ -17,11 +17,14 @@
 // graphic
 #include "interface/graphic/graphic_manager.h"
 
+// character
+#include "interface/character/character_manager.h"
+
 // sound
-//#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound_manager.h"
 
 // network
-//#include "interface/network/network_manager.h"
+#include "interface/network/network_manager.h"
 
 #include "common/common.h"
 
@@ -42,8 +45,9 @@ CInterfaceManager::CInterfaceManager(WINDOW_DATA* window_data)
 
 	input_manager_ = new CInputManager(window_data);
 	graphic_manager_ = new CGraphicManager(window_data);
-	sound_manager_ = NULL;//new CSoundManager();
-	network_manager_ = NULL;//new CNetworkManager();
+	sound_manager_ = new CSoundManager();
+	network_manager_ = new CNetworkManager();
+	character_manager_ = new CCharacterManager();
 }
 
 //=============================================================================
@@ -65,10 +69,13 @@ bool CInterfaceManager::Init(void)
 	INIT(graphic_manager_);
 
 	// サウンドマネージャーの初期化
-	//INIT(sound_manager_);
+	INIT(sound_manager_);
 
 	// ネットワークマネージャーの初期化
-	//INIT(network_manager_);
+	INIT(network_manager_);
+
+	//キャラクタマネージャーの初期化
+	INIT(character_manager_);
 
 	return true;
 }
@@ -80,6 +87,9 @@ void CInterfaceManager::Update(void)
 {
 	// インプットマネージャーの更新
 	input_manager_->Update();
+
+	// キャラクターマネージャーの更新
+	character_manager_->Update();
 }
 
 //=============================================================================
@@ -87,6 +97,9 @@ void CInterfaceManager::Update(void)
 //=============================================================================
 void CInterfaceManager::Draw(void)
 {
+	// キャラクターの描画
+	//character_manager_->Draw();
+
 	// グラフィックマネージャーの描画
 	graphic_manager_->Draw();
 }
@@ -96,6 +109,10 @@ void CInterfaceManager::Draw(void)
 //=============================================================================
 void CInterfaceManager::Uninit(void)
 {
+	
+	//キャラクタマネージャの解放
+	SAFE_RELEASE(character_manager_);
+
 	// インプットマネージャーの開放
 	SAFE_RELEASE(input_manager_);
 
@@ -103,10 +120,11 @@ void CInterfaceManager::Uninit(void)
 	SAFE_RELEASE(graphic_manager_);
 
 	// サウンドマネージャーの開放
-	//SAFE_RELEASE(sound_manager);
+	SAFE_RELEASE(sound_manager_);
 
 	// ネットワークマネージャーの開放
-	//SAFE_RELEASE(network_manager);
+	SAFE_RELEASE(network_manager_);
+
 }
 
 //=============================================================================

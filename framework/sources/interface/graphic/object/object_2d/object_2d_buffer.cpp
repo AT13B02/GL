@@ -1,11 +1,8 @@
 //*****************************************************************************
 //
-// オブジェクト2Dバッファクラス [object_2d_buffer.cpp]
+// オブジェクト2Dバッファクラス
 //
-// Author		: KENJI KABUTOMORI
-// Date			: 2014/04/21(Mon)
-// Version		: 1.00
-// Update Date	: 2014/05/14(Wed)
+// Author		: Kenji Kabutomori
 //
 //*****************************************************************************
 
@@ -14,9 +11,9 @@
 //*****************************************************************************
 #include "object_2d_buffer.h"
 #include "object_2d_data.h"
-#include "list.h"
 
-#include "common.h"
+// common
+#include "common/common.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -35,7 +32,6 @@
 //=============================================================================
 CObject2DBuffer::CObject2DBuffer(void)
 {
-	m_pList = new CList<CObject2DData*>();
 }
 
 //=============================================================================
@@ -56,27 +52,28 @@ bool CObject2DBuffer::Init(void)
 //=============================================================================
 // 描画
 //=============================================================================
-void CObject2DBuffer::Draw(void)
+void CObject2DBuffer::Draw(CCamera* camera,CTextureManager* texture_manager,CRenderstateManager* renderstate_manager)
 {
-	CObject2DData* pObject2DData = NULL;
+	// TODO zソート
 
 	// リストの開始
-	m_pList->Begin();
-
-	// バッファリスト分ループ
-	while(m_pList->Current() != NULL)
+	for(auto it = object_2d_data_list_.begin();it != object_2d_data_list_.end();++it)
 	{
-		// リストから取り出す
-		pObject2DData = m_pList->Pop();
+		// カメラのセット
+		(*it)->set_camera(camera);
+
+		// テクスチャマネージャの設定
+		(*it)->set_texture_manager(texture_manager);
+
+		// モデルマネージャの設定
+		//(*it)->set_model_manager(model_manager);
+
+		// レンダーステートマネージャの設定
+		(*it)->set_renderstate_manager(renderstate_manager);
 
 		// 描画
-		pObject2DData->Draw();
-
-		// 次のリストへ
-		m_pList->Next();
+		(*it)->Draw();
 	}
-
-	Refresh();
 }
 
 //=============================================================================
@@ -85,17 +82,15 @@ void CObject2DBuffer::Draw(void)
 void CObject2DBuffer::Uninit(void)
 {
 	Refresh();
-
-	SAFE_RELEASE(m_pList);
 }
 
 //=============================================================================
 // 追加
 //=============================================================================
-void CObject2DBuffer::Add(CObject2DData* pObject2DData)
+void CObject2DBuffer::AddList(CObject2DData* pObject2DData)
 {
 	// データの追加
-	m_pList->Push(pObject2DData);
+	object_2d_data_list_.push_back(pObject2DData);
 }
 
 //=============================================================================
@@ -103,26 +98,14 @@ void CObject2DBuffer::Add(CObject2DData* pObject2DData)
 //=============================================================================
 void CObject2DBuffer::Refresh(void)
 {
-	CObject2DData* pObject2DData = NULL;
-
-	// リストの開始
-	m_pList->Begin();
-
-	// バッファリスト分ループ
-	while(m_pList->Current() != NULL)
+	// 中身の破棄
+	for(auto it = object_2d_data_list_.begin();it != object_2d_data_list_.end();++it)
 	{
-		// リストから取り出す
-		pObject2DData = m_pList->Pop();
-
-		// データを破棄
-		SAFE_RELEASE(pObject2DData);
-
-		// 次のリストへ
-		m_pList->Next();
+		SAFE_RELEASE((*it));
 	}
 
-	// バッファリストのリフレッシュ
-	m_pList->Refresh();
+	// バッファリストのクリア
+	object_2d_data_list_.clear();
 }
 
 //---------------------------------- EOF --------------------------------------

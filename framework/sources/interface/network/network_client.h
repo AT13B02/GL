@@ -20,7 +20,7 @@
 //*****************************************************************************
 // インクルード
 //*****************************************************************************
-#include "basic.h"
+#include "../../basic/basic.h"
 #include <winsock.h>
 #include "network_data.h"
 
@@ -63,13 +63,30 @@ public:
 
 	// ネットワークデータバッファ
 	CNetworkDataBuffer* GetNetworkDataBuffer(void){return m_pNetworkDataBuffer;}
+
+	CWindowsSockets* GetWinSock(void){return m_pWinsock;};
+
+	// 全員準備完了してるかのフラグアクセサ
+	bool GetEndAllPlayerPrepareFlag(void){return m_bAllPlayerPrepare;};
+	void SetEndAllPlayerPrepareFlag(bool flag){m_bAllPlayerPrepare = flag;};
+
+	// ゲームスタートのフラグアクセサ
+	bool GetStartGameFlag(void){return m_bStartGame;};
+	void SetStartGameFlag(bool flag){m_bStartGame = flag;};
+
+	// idゲット
+	s8 GetMyID(void){return m_myID;};
+
 protected:
 
 private:
-	CThread* m_pThread;
-	bool volatile m_bLoopFlag;
-	CWindowsSockets* m_pWinsock;
+	CThread*			m_pThread;
+	bool volatile		m_bLoopFlag;
+	CWindowsSockets*	m_pWinsock;
 	CNetworkDataBuffer* m_pNetworkDataBuffer;
+	static s8			m_myID;
+	bool				m_bAllPlayerPrepare;
+	bool				m_bStartGame;
 
 	// 受信スレッド処理
 	static unsigned __stdcall ReceiveThread(CNetworkClient* pNetworkClient);
