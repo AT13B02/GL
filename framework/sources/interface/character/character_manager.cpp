@@ -15,13 +15,13 @@
 #include "player/player_manager.h"
 #include "camera/character_camera_manager.h"
 #include "bullet/bullet_manager.h"
-#include "explosion/explosion_manager.h"
 #include "field/field_manager.h"
 #include "collision/collision_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
 #include "interface/character/player/network_player.h"
 #include "interface/character/box/box_manager.h"
-
+#include "interface/character/player_status/life_2d/life_2d_manager.h"
+#include "interface/character/player_status/user_number_2d/icon_2d_manager.h"
 // common
 #include "common/common.h"
 
@@ -45,9 +45,6 @@ CCharacterManager::CCharacterManager(void)
 	// バレットマネージャーの生成
 	bullet_manager_ = new CBulletManager();
 
-	// 爆発マネージャーの生成
-	explosion_manager_ = new CExplosionManager();
-
 	// フィールドマネージャーの生成
 	field_manager_ = new CFieldManager();
 
@@ -59,6 +56,12 @@ CCharacterManager::CCharacterManager(void)
 
 	// ボックスマネージャの生成
 	box_manager_ = new CBoxManager();
+
+	//ライフマネージャーの生成
+	life_2d_manager_ = new CLife2DManager();
+
+	//アイコンマネージャーの生成
+	icon_2d_manager_ = new CIcon2DManager();
 }
 
 //=============================================================================
@@ -82,9 +85,6 @@ bool CCharacterManager::Init(void)
 	// バレットマネージャーの初期化
 	INIT(bullet_manager_);
 
-	// 爆発マネージャーの初期化
-	INIT(explosion_manager_);
-
 	// フィールドマネージャーの初期化
 	INIT(field_manager_);
 
@@ -97,6 +97,11 @@ bool CCharacterManager::Init(void)
 	// ボックスマネージャーの初期化
 	INIT(box_manager_);
 
+	// ライフマネージャーの初期化
+	INIT( life_2d_manager_ );
+
+	// アイコンマネージャーの初期化
+	INIT( icon_2d_manager_ );
 	return true;
 }
 
@@ -114,9 +119,6 @@ void CCharacterManager::Update(void)
 	// バレットマネージャーの更新
 	bullet_manager_->Update();
 
-	// 爆発マネージャーの更新
-	explosion_manager_->Update();
-
 	// フィールドマネージャーの更新
 	field_manager_->Update();
 
@@ -128,6 +130,12 @@ void CCharacterManager::Update(void)
 	
 	// ボックスマネージャーの更新
 	box_manager_->Update();
+
+	// ライフマネージャーの更新
+	life_2d_manager_->Update();
+
+	// アイコンマネージャーの更新
+	icon_2d_manager_->Update();
 }
 
 //=============================================================================
@@ -143,12 +151,15 @@ void CCharacterManager::Draw(void)
 
 	// バレットマネージャーの描画
 	bullet_manager_->Draw();
-
-	// 爆発マネージャーの更新
-	explosion_manager_->Draw();
 	
 	// ボックスマネージャーの描画
 	box_manager_->Draw();
+
+	// ライフマネージャーの描画
+	life_2d_manager_->Draw();
+
+	// アイコンマネージャーの描画
+	icon_2d_manager_->Draw();
 }
 
 //=============================================================================
@@ -165,9 +176,6 @@ void CCharacterManager::Clear(void)
 	// バレットマネージャーの開放
 	bullet_manager_->Uninit();
 
-	// 爆発マネージャーの更新
-	explosion_manager_->Uninit();
-
 	// フィールドマネージャーの開放
 	field_manager_->Uninit();
 
@@ -179,6 +187,12 @@ void CCharacterManager::Clear(void)
 
 	// ボックスマネージャーの開放
 	box_manager_->Uninit();
+
+	// ライフマネージャーの解放
+	life_2d_manager_->Uninit();
+
+	// アイコンマネージャーの解放
+	icon_2d_manager_->Uninit();
 }
 
 //=============================================================================
@@ -208,9 +222,6 @@ void CCharacterManager::Uninit(void)
 	// バレットマネージャーの開放
 	SAFE_RELEASE(bullet_manager_);
 
-	// 爆発マネージャーの更新
-	SAFE_RELEASE(explosion_manager_);
-
 	// フィールドマネージャーの開放
 	SAFE_RELEASE(field_manager_);
 
@@ -222,6 +233,12 @@ void CCharacterManager::Uninit(void)
 	
 	// ボックスマネージャーの開放
 	SAFE_RELEASE(box_manager_);
+
+	// ライフマネージャーの解放
+	SAFE_RELEASE( life_2d_manager_ );
+
+	// ライフマネージャーの解放
+	SAFE_RELEASE( icon_2d_manager_ );
 }
 
 //---------------------------------- EOF --------------------------------------
