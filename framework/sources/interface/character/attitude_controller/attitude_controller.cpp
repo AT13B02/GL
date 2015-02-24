@@ -22,6 +22,13 @@
 // common
 #include "common/common.h"
 
+
+//*****************************************************************************
+// マクロ定義
+//*****************************************************************************
+const f32 CAM_ROT_MAX=0.00625f;
+const f32 CAM_ROT_MIN=-0.62f;
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -67,26 +74,38 @@ void CAttitudeController::Update(void)
 {
 	CInputManager* input_manager = interface_manager_->input_manager();
 
-	if(input_manager->CheckPress(INPUT_EVENT_U))
+	//操作によりカメラを回転させる
+	if(input_manager->CheckPress(INPUT_EVENT_RIGHT))
 	{
 		rotation_._y += MTH_DEGREE * 1.0f;
 	}
 
-	if(input_manager->CheckPress(INPUT_EVENT_O))
+	if(input_manager->CheckPress(INPUT_EVENT_LEFT))
 	{
 		rotation_._y -= MTH_DEGREE * 1.0f;
 	}
 
-	if(input_manager->CheckPress(INPUT_EVENT_I))
+	if(input_manager->CheckPress(INPUT_EVENT_DOWN))
 	{
 		rotation_._x -= MTH_DEGREE * 1.0f;
 	}
 
-	if(input_manager->CheckPress(INPUT_EVENT_K))
+	if(input_manager->CheckPress(INPUT_EVENT_UP))
 	{
 		rotation_._x += MTH_DEGREE * 1.0f;
 	}
 
+
+	//カメラの動きに制限をかける
+	if(rotation_._x>=CAM_ROT_MAX)
+	{
+		rotation_._x=CAM_ROT_MAX;
+	}
+
+	if(rotation_._x<=CAM_ROT_MIN)
+	{
+		rotation_._x=CAM_ROT_MIN;
+	}
 	// 前方ベクトルを求める
 	front_vector_ = basic_vector_.RotationAxis(VECTOR3(1.0f,0.0f,0.0f),rotation_._x);
 	front_vector_.Normalize();
