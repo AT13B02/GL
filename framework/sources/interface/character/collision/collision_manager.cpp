@@ -84,26 +84,31 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 	std::list<CPlayer*> player_list = player_manager->character_list();
 	std::list<CBullet*> bullet_list = bullet_manager->character_list();
 	
-	// プレイヤーと弾の当たり判定
-	for(auto player_it = player_list.begin();player_it != player_list.end();++player_it)
+	auto player_it = player_list.begin();
+	if(player_it == player_list.end())
 	{
-		for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
+		return;
+	}
+
+	int pID = (*player_it)->player_id();
+
+	// プレイヤーと弾の当たり判定
+	for(auto bullet_it = bullet_list.begin();bullet_it != bullet_list.end();++bullet_it)
+	{
+		
+		int bID = (*bullet_it)->player_id();
+		if(pID == bID)
 		{
-			if((*player_it)->player_id() == (*bullet_it)->player_id())
-			{
-				continue;
-			}
+			continue;
+		}
 
-			// 当たり判定
-			if(JudgeSphereCross((*player_it)->position(),10,(*bullet_it)->position(),10))
-			{
-				// ダメージ
-				(*player_it)->Damage(kDefaultDamage);
-				// 弾消す
-				(*bullet_it)->Erase();
-
-
-			}
+		// 当たり判定
+		if(JudgeSphereCross((*player_it)->position(),10,(*bullet_it)->position(),10))
+		{
+			// ダメージ
+			(*player_it)->Damage(kDefaultDamage);
+			// 弾消す
+			(*bullet_it)->Erase();
 		}
 	}
 
@@ -116,8 +121,7 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 
 			if(networkplayers)
 			{
-
-				if(networkplayers->player_id() == (*bullet_it)->player_id())
+				if(networkplayers->GetCharID() == (*bullet_it)->player_id())
 				{
 					continue;
 				}
@@ -126,7 +130,6 @@ void CCollisionManager::JudgePlayerAndBullet(void)
 				{
 					// 弾消す
 					(*bullet_it)->Erase();
-
 				}
 			}
 		}

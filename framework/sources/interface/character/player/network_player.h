@@ -35,6 +35,8 @@ public:
 
 	// デストラクタ
 	virtual ~CNetWorkPlayer(void);
+	
+	//bool Init(void){return true;};
 
 	// 更新処理
 	virtual void Update(void);
@@ -44,9 +46,13 @@ public:
 
 	//描画
 	virtual void Draw(void);
+
+	int GetCharID(void);
+	void SetCharID(int id){char_id = id;};
 protected:
 
 private:
+	int char_id;
 };
 
 //---------------------------------- EOF --------------------------------------

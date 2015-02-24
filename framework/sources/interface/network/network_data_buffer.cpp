@@ -348,4 +348,9 @@ void CNetworkDataBuffer::InitFlag(void)
 		m_ReadyFlag[i] = false;
 	}
 }
+
+void CNetworkDataBuffer::SetBufPos(VECTOR3& pos, int id)
+{
+	m_CharcterInfoBuffer[id].position = pos;
+}
 //---------------------------------- EOF --------------------------------------

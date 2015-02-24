@@ -37,7 +37,7 @@
 // クラスの前方参照
 //*****************************************************************************
 class CInterfaceManager;
-
+class CNetWorkPlayer;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
@@ -68,6 +68,7 @@ public:
 protected:
 
 private:
+	void SetInitPosPlayer(CNetWorkPlayer* pPlayer, int id);
 	CInterfaceManager *interface_manager_;
 };
 

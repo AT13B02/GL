@@ -29,6 +29,9 @@
 #include "../../network/network_data_buffer.h"
 #include "../../network/windows_sockets.h"
 
+
+#include "../field/field.h"
+
 #include "common/common.h"
 
 //*****************************************************************************
@@ -65,6 +68,11 @@ CPlayer::~CPlayer(void)
 //=============================================================================
 bool CPlayer::Init(void)
 {
+	//std::list<CField*> field_list = interface_manager_->character_manager()->field_manager()->character_list();
+	//auto field_it = field_list.begin();
+
+	
+
 	//// オブジェクトモデルの生成
 	//CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
 	//
@@ -73,6 +81,10 @@ bool CPlayer::Init(void)
 
 	//値初期化
 	position_ = VECTOR3(0.0f,0.0f,0.0f);
+
+	
+
+
 	rotation_ = VECTOR3(0.0f,0.0f,0.0f);
 	scale_    = VECTOR3(1.0f,1.0f,1.0f);
 
@@ -90,6 +102,39 @@ bool CPlayer::Init(void)
 	hp_ = MAX_HP;
 	cooldown_cnt=0;
 	is_fire=false;
+
+	//if(field_it == field_list.end())
+	{
+		position_ = VECTOR3(0,0,0);
+		//return true;
+	}
+	switch(player_id())
+	{
+		case 0:
+			position_ = VECTOR3(-1200.f,0,-1200.f);
+		break;
+
+		case 1:
+			position_ = VECTOR3(-1200.f,0,1200.f);
+		
+		break;
+
+		case 2:
+			position_ = VECTOR3(1200.f,0,-1200.f);
+	
+		break;
+
+		case 3:
+			position_ = VECTOR3(1200.f,0,1200.f);
+	
+		break;
+
+		default:
+			position_ = VECTOR3(0,0,0);
+	
+			break;
+	}
+
 	return true;
 }
 

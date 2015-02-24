@@ -32,6 +32,8 @@ CNetWorkPlayer::CNetWorkPlayer(CInterfaceManager* interface_manager)
 
 	// オブジェクトリストに追加
 	object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
+
+	char_id = -1;
 }
 
 CNetWorkPlayer::~CNetWorkPlayer(void)
@@ -66,4 +68,9 @@ void CNetWorkPlayer::Draw(void)
 	//CPlayer::Draw();
 
 
+}
+
+int CNetWorkPlayer::GetCharID(void)
+{
+	return char_id;
 }

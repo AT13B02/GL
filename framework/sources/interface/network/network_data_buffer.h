@@ -127,6 +127,8 @@ public:
 	bool GetReadyFlag(int id){return m_ReadyFlag[id];};
 	void SetReadyFlag(int id, bool flag){m_ReadyFlag[id] = flag;};
 
+	void SetBufPos(VECTOR3& pos, int id);
+
 protected:
 	// キャラデータの追加
 	void PushCharcter(NETWORK_DATA* pData);

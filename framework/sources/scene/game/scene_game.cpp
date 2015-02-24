@@ -239,6 +239,7 @@ void CSceneGame::Load(void)
 	network_command_assistant_ = new CNetworkCommandAssistant( interface_manager_ );
 	network_command_assistant_ -> Init();
 
+	
 	// ƒvƒŒƒCƒ„[‚Ì¶¬
 	CPlayer* player = new CPlayer(interface_manager_);
 	player->Init();
@@ -286,7 +287,7 @@ void CSceneGame::Load(void)
 
 	for(f32 i =0;i<4;i++)
 	{
-		VECTOR3 boxPos2(25.f*(+1.f)*3.f, 0.0f, -25.f*(i+6.f)*5.f);
+		VECTOR3 boxPos2(25.f*(+1.f)*3.f, 0.0f, -25.f*(i+3.f)*5.f);
 		box = new CBox(interface_manager_);
 		box->Init();
 		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
@@ -295,7 +296,7 @@ void CSceneGame::Load(void)
 
 	for(f32 i =0;i<3;i++)
 	{
-		VECTOR3 boxPos2(-25.f*(i+3.f)*3.f, 0.0f, 0.0f);
+		VECTOR3 boxPos2(-25.f*(i+2.f)*3.f, 0.0f, 0.0f);
 		box = new CBox(interface_manager_);
 		box->Init();
 		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
@@ -304,7 +305,7 @@ void CSceneGame::Load(void)
 
 	for(f32 i =0;i<3;i++)
 	{
-		VECTOR3 boxPos2(-25.f*3.f*3.f, 0.0f, -25.f*(i+6.f)*5.f);
+		VECTOR3 boxPos2(-25.f*2.f*3.f, 0.0f, -25.f*(i+1.f)*5.f);
 		box = new CBox(interface_manager_);
 		box->Init();
 		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
@@ -313,13 +314,12 @@ void CSceneGame::Load(void)
 
 	for(f32 i =0;i<4;i++)
 	{
-		VECTOR3 boxPos2(-25.f*3.f*2.f, 0.0f, 25.f*(i+6.f)*5.f);
+		VECTOR3 boxPos2(-25.f*3.f*2.f, 0.0f, 25.f*(i+1.f)*5.f);
 		box = new CBox(interface_manager_);
 		box->Init();
 		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
 		box_manager->Push(box);
 	}
-
 
 
 }
