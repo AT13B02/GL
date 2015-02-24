@@ -54,8 +54,8 @@ bool CBox::Init(void)
 	scale_    = VECTOR3(1.0f,1.0f,1.0f);
 
 	// “–‚½‚è”»’è‰Šú‰»
-	collision_.add(-10.0f,  0.0f, -10.0f);
-	collision_.add( 10.0f, 20.0f,  10.0f);
+	collision_.add(-40.0f,  0.0f, -12.5f);
+	collision_.add( 40.0f, 80.0f,  12.5f);
 
 	return S_OK;
 }

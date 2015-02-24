@@ -198,19 +198,32 @@ void CSceneGame::Load(void)
 	// ゲームのモデルのロード
 	model_manager->Load("resources/model/game");
 
+	VECTOR3 lightVec( 0.0f , 0.0f , 0.0f );
+
 	// ライトの設定
 	CLight* light = CLight::Create(device_holder);
 	light->Init();
 	light->SetType(CLight::TYPE_DIRECTIONAL);
-	light->SetDirection(VECTOR3(1.0f,0.0f,0.0f).Normalize());
+	lightVec = VECTOR3( -1.0f , -1.0f , -1.0f ).Normalize();
+	light->SetDirection(lightVec);
 	light_manager->Add(light);
 
 	// ライトの設定
 	light = CLight::Create(device_holder);
 	light->Init();
 	light->SetType(CLight::TYPE_DIRECTIONAL);
-	light->SetDirection(VECTOR3(0.0f,-1.0f,0.0f).Normalize());
+	lightVec = VECTOR3( 1.0f , 0.0f , 1.0f ).Normalize();
+	light->SetDirection(lightVec);
 	light_manager->Add(light);
+
+	// ライトの設定
+	light = CLight::Create(device_holder);
+	light->Init();
+	light->SetType(CLight::TYPE_DIRECTIONAL);
+	lightVec = VECTOR3( 0.0f , 1.0f , -5.0f ).Normalize();
+	light->SetDirection(lightVec);
+	light_manager->Add(light);
+
 
 	//ネットワークコマンダーの作成
 	network_command_assistant_ = new CNetworkCommandAssistant( interface_manager_ );
@@ -248,10 +261,19 @@ void CSceneGame::Load(void)
 	// フィールドに障害物追加
 	CBox* box = new CBox(interface_manager_);
 	box->Init();
+
 	// TODO : フィールドから高さを取得する
 	VECTOR3 boxPos(100.0f, 0.0f, 100.0f);
 	box->position(boxPos._x, field->GetHeight(boxPos, nullptr), boxPos._z);
 	box_manager->Push(box);
+
+	CBox* box2 = new CBox(interface_manager_);
+	box2->Init();
+
+	VECTOR3 boxPos2(200.0f, 0.0f, 200.0f);
+	box2->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
+	box_manager->Push(box2);
+
 }
 
 //---------------------------------- EOF --------------------------------------
