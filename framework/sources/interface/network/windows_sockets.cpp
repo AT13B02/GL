@@ -224,6 +224,8 @@ void CWindowsSockets::SendDataBullet(VECTOR3* position, VECTOR3* front_vector, f
 		sendto(m_Socket,(char*)&Data, sizeof(Data), 0, (struct sockaddr*)&Send, sizeof(Send));
 	}
 }
+
+
 //=============================================================================
 // IDのリクエスト
 //=============================================================================

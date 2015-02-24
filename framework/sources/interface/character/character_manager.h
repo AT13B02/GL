@@ -48,6 +48,7 @@
 class CPlayerManager;
 class CCharacterCameraManager;
 class CBulletManager;
+class CExplosionManager;
 class CFieldManager;
 class CAttitudeControllerManager;
 class CCollisionManager;
@@ -90,6 +91,9 @@ public:
 	// バレットマネージャー取得
 	CBulletManager* bullet_manager(void){return bullet_manager_;}
 
+	// 爆発マネージャー取得
+	CExplosionManager* explosion_manager(void){return explosion_manager_;}
+
 	// フィールドマネージャーの取得
 	CFieldManager* field_manager(void){return field_manager_;}
 
@@ -114,6 +118,7 @@ private:
 	CCollisionManager* collision_manager_;
 	CNetWorkPlayer* network_player_[ kMaxPlayer ];
 	CBoxManager* box_manager_;
+	CExplosionManager *explosion_manager_;
 };
 
 #endif // _CHARACTER_MANAGER_H_

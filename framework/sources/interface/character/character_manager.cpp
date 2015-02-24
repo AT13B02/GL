@@ -15,6 +15,7 @@
 #include "player/player_manager.h"
 #include "camera/character_camera_manager.h"
 #include "bullet/bullet_manager.h"
+#include "explosion/explosion_manager.h"
 #include "field/field_manager.h"
 #include "collision/collision_manager.h"
 #include "attitude_controller/attitude_controller_manager.h"
@@ -43,6 +44,9 @@ CCharacterManager::CCharacterManager(void)
 
 	// バレットマネージャーの生成
 	bullet_manager_ = new CBulletManager();
+
+	// 爆発マネージャーの生成
+	explosion_manager_ = new CExplosionManager();
 
 	// フィールドマネージャーの生成
 	field_manager_ = new CFieldManager();
@@ -78,6 +82,9 @@ bool CCharacterManager::Init(void)
 	// バレットマネージャーの初期化
 	INIT(bullet_manager_);
 
+	// 爆発マネージャーの初期化
+	INIT(explosion_manager_);
+
 	// フィールドマネージャーの初期化
 	INIT(field_manager_);
 
@@ -107,6 +114,9 @@ void CCharacterManager::Update(void)
 	// バレットマネージャーの更新
 	bullet_manager_->Update();
 
+	// 爆発マネージャーの更新
+	explosion_manager_->Update();
+
 	// フィールドマネージャーの更新
 	field_manager_->Update();
 
@@ -133,6 +143,9 @@ void CCharacterManager::Draw(void)
 
 	// バレットマネージャーの描画
 	bullet_manager_->Draw();
+
+	// 爆発マネージャーの更新
+	explosion_manager_->Draw();
 	
 	// ボックスマネージャーの描画
 	box_manager_->Draw();
@@ -151,6 +164,9 @@ void CCharacterManager::Clear(void)
 
 	// バレットマネージャーの開放
 	bullet_manager_->Uninit();
+
+	// 爆発マネージャーの更新
+	explosion_manager_->Uninit();
 
 	// フィールドマネージャーの開放
 	field_manager_->Uninit();
@@ -191,6 +207,9 @@ void CCharacterManager::Uninit(void)
 
 	// バレットマネージャーの開放
 	SAFE_RELEASE(bullet_manager_);
+
+	// 爆発マネージャーの更新
+	SAFE_RELEASE(explosion_manager_);
 
 	// フィールドマネージャーの開放
 	SAFE_RELEASE(field_manager_);

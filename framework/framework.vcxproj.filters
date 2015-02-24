@@ -179,6 +179,9 @@
     <Filter Include="sources\general\aabb">
       <UniqueIdentifier>{ca993009-940d-4ab1-b65a-5a8c99062cb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\interface\character\explosion">
+      <UniqueIdentifier>{c88fb900-4b45-4d53-8ed4-ce1948916bdb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\main.h">
@@ -553,6 +556,12 @@
     <ClInclude Include="sources\general\aabb\axis_aligned_bounding_box.h">
       <Filter>sources\general\aabb</Filter>
     </ClInclude>
+    <ClInclude Include="sources\interface\character\explosion\explosion_manager.h">
+      <Filter>sources\interface\character\explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interface\character\explosion\explosion.h">
+      <Filter>sources\interface\character\explosion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -914,6 +923,12 @@
     </ClCompile>
     <ClCompile Include="sources\general\aabb\axis_aligned_bounding_box.cpp">
       <Filter>sources\general\aabb</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\explosion\explosion_manager.cpp">
+      <Filter>sources\interface\character\explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\interface\character\explosion\explosion.cpp">
+      <Filter>sources\interface\character\explosion</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
