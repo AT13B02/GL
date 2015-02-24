@@ -70,17 +70,9 @@ COpengl::COpengl(WINDOW_DATA* window_data) : CGraphicDevice(window_data)
 		gl_context_[i]._hglrc = wglCreateContext(gl_context_[i]._hdc);
 	}
 
-	// アルファテスト有効化
-	glEnable(GL_ALPHA_TEST);
-	GLboolean alphatest = glIsEnabled(GL_ALPHA_TEST);
-
 	// srcとdestのαブレンドの仕方の設定
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-	// discardするアルファの値を設定
-	glAlphaFunc(GL_GREATER, 0.0f);
-	float alphaRef;
-	glGetFloatv(GL_ALPHA_TEST_REF, &alphaRef);
 	draw_mode_ = DEVICE_MODE_LOAD;
 }
 
@@ -127,7 +119,7 @@ void COpengl::BeginDraw(void)
 	{
 		int a = 0;
 	}
-
+	
 	// バッファのクリアする色を設定
 	glClearColor(0.9f,1.0f,1.0f,0.8f);
 
@@ -187,6 +179,7 @@ void COpengl::SetDrawMode(const DEVICE_MODE& device_mode)
 	{
 		//MessageBox(NULL,"ロード失敗するかもに","エラー",MB_OK);
 	}
+
 }
 
 //=============================================================================

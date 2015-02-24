@@ -85,6 +85,11 @@ void CGLRenderstateAll::Set(void)
 
 	// 裏をカリング
 	glCullFace(GL_BACK);
+	
+	// アルファテスト有効化
+	glEnable(GL_ALPHA_TEST);
+	// discardするアルファの値を設定
+	glAlphaFunc(GL_GREATER, 0.0f);
 
 	//glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 }
