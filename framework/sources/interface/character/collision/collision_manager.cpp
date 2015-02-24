@@ -24,12 +24,9 @@
 #include "../field/field.h"
 #include "../field/field_manager.h"
 
-<<<<<<< HEAD
 #include "../box/box.h"
 #include "../box/box_manager.h"
-=======
 #include "../player/network_player.h"
->>>>>>> origin/dev/network10
 
 #include "common/common.h"
 
