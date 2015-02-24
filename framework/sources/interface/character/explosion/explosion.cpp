@@ -23,7 +23,7 @@
 //*****************************************************************************
 // 定数定義
 //*****************************************************************************
-const f32 CExplosion::DEFAULT_RADIUS = 5.0f;
+const f32 CExplosion::DEFAULT_RADIUS = 20.0f;
 
 //=============================================================================
 // コンストラクタ
@@ -58,7 +58,7 @@ bool CExplosion::Init(void)
 {
 	// オブジェクトビルボードの生成
 	billboard_ = new CBillboard(interface_manager_->graphic_manager()->device_holder());
-	billboard_->set_size(VECTOR2(10.0f,10.0f));
+	billboard_->set_size(VECTOR2(50.0f,50.0f));
 
 	//テクスチャ設定
 	left_   = 0.0f;
