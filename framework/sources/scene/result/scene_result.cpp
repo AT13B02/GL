@@ -70,7 +70,7 @@ const char* CSceneResult::p_texture_names[TEXTURE_TYPE_MAX] =
 {
 	"WinLogo02",	//Win
 	"LoseLogo2",	//Lose
-	"pleaseEnter2",	//PressEnter
+	"pleaseEnter",	//PressEnter
 };
 
 //=============================================================================
