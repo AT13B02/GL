@@ -38,7 +38,7 @@ const f32 CPlayer::SPEED = 1.0f;
 const f32 CPlayer::SPEED_DEST = 0.3f;
 const f32 CPlayer::ROTATION_DEST = 0.3f;
 const f32 CPlayer::BULLET_LAUNCH_HEIGHT_OFFSET = 20.0f;
-const f32 BULLET_MOVE_SPD=4.0f;
+const f32 BULLET_MOVE_SPD=6.f;
 const s16 COOLDOWN_TIME = 30;
 static const s16 MAX_HP = 100;
 
@@ -50,7 +50,6 @@ CPlayer::CPlayer(CInterfaceManager* interface_manager)
 	
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
-
 	death_flag_ = false;
 }
 
