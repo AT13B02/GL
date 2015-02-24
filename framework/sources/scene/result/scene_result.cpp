@@ -128,12 +128,12 @@ void CSceneResult::Draw(void)
 	if(m_bResult)
 	{
 		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_WIN]);
-		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_WIN]);
+		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_PRESSENTER]);
 	}
 	else
 	{	
 		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
-		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
+		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_PRESSENTER]);
 	}
 	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 	//object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
@@ -202,13 +202,13 @@ void CSceneResult::Load(void)
 	
 	//2d
 	CRectangle2D* p_rect2D = new CRectangle2D(device_holder);
-	p_rect2D->set_size(VECTOR2(200,200));
+	p_rect2D->set_size(VECTOR2(200,160));
 	p_rect2D->Set();
 	logo_key_ = object_2d_manager->AddList(p_rect2D);
 	
 	//‰æ–Ê‰º
 	p_rect2D = new CRectangle2D(device_holder);
-	p_rect2D->set_size(VECTOR2(400,200));
+	p_rect2D->set_size(VECTOR2(400,150));
 	p_rect2D->Set();
 	press_key_= object_2d_manager->AddList(p_rect2D);;
 	
