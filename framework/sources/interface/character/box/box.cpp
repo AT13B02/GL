@@ -51,7 +51,7 @@ bool CBox::Init(void)
 	//ílèâä˙âª
 	position_ = VECTOR3(0.0f,0.0f,0.0f);
 	rotation_ = VECTOR3(0.0f,0.0f,0.0f);
-	scale_    = VECTOR3(1.0f,1.0f,1.0f);
+	scale_    = VECTOR3(3.0f,3.0f,5.0f);
 
 	// ìñÇΩÇËîªíËèâä˙âª
 	/* 
@@ -61,8 +61,8 @@ bool CBox::Init(void)
 	*/
 
 	//è¨Ç≥Ç¢ï«
-	collision_.add(-12.5f,  0.0f, -10.0f);
-	collision_.add( 12.5f, 25.0f,  10.0f);
+	collision_.add(-12.5f*scale_._x,  0.0f*scale_._y, -10.0f*scale_._z);
+	collision_.add( 12.5f*scale_._x, 25.0f*scale_._y,  10.0f*scale_._z);
 	return S_OK;
 }
 

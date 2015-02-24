@@ -261,7 +261,7 @@ void CSceneGame::Load(void)
 	CMeshdome* pMeshdome = new CMeshdome(device_holder);
 	pMeshdome->Init();
 	pMeshdome->SetGridNumber(10, 10);
-	pMeshdome->set_radius(400);
+	pMeshdome->set_radius(1000);
 	pMeshdome->Set();
 	meshsky_key_ = object_3d_manager->AddList(pMeshdome);
 
@@ -270,21 +270,57 @@ void CSceneGame::Load(void)
 	field->Init();
 	field_manager->Push(field);
 
-	// フィールドに障害物追加
-	CBox* box = new CBox(interface_manager_);
-	box->Init();
-
 	// TODO : フィールドから高さを取得する
-	VECTOR3 boxPos(100.0f, 0.0f, 100.0f);
-	box->position(boxPos._x, field->GetHeight(boxPos, nullptr), boxPos._z);
-	box_manager->Push(box);
+	VECTOR3 boxPos(0.0f, 0.0f, 0.0f);
+	// フィールドに障害物追加
+	CBox* box;
 
-	CBox* box2 = new CBox(interface_manager_);
-	box2->Init();
+	for(f32 i =0;i<2;i++)
+	{
+		VECTOR3 boxPos2(25.f*(i+1.f)*3.f, 0.0f, 0.0f);
+		box = new CBox(interface_manager_);
+		box->Init();
+		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
+		box_manager->Push(box);
+	}
 
-	VECTOR3 boxPos2(200.0f, 0.0f, 200.0f);
-	box2->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
-	box_manager->Push(box2);
+	for(f32 i =0;i<4;i++)
+	{
+		VECTOR3 boxPos2(25.f*(+1.f)*3.f, 0.0f, -25.f*(i+6.f)*5.f);
+		box = new CBox(interface_manager_);
+		box->Init();
+		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
+		box_manager->Push(box);
+	}
+
+	for(f32 i =0;i<3;i++)
+	{
+		VECTOR3 boxPos2(-25.f*(i+3.f)*3.f, 0.0f, 0.0f);
+		box = new CBox(interface_manager_);
+		box->Init();
+		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
+		box_manager->Push(box);
+	}
+
+	for(f32 i =0;i<3;i++)
+	{
+		VECTOR3 boxPos2(-25.f*3.f*3.f, 0.0f, -25.f*(i+6.f)*5.f);
+		box = new CBox(interface_manager_);
+		box->Init();
+		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
+		box_manager->Push(box);
+	}
+
+	for(f32 i =0;i<4;i++)
+	{
+		VECTOR3 boxPos2(-25.f*3.f*2.f, 0.0f, 25.f*(i+6.f)*5.f);
+		box = new CBox(interface_manager_);
+		box->Init();
+		box->position(boxPos2._x, field->GetHeight(boxPos2, nullptr), boxPos2._z);
+		box_manager->Push(box);
+	}
+
+
 
 }
 
