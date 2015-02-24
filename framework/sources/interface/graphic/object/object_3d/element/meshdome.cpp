@@ -19,6 +19,8 @@
 #include "interface/graphic/texture/texture_manager.h"
 #include "interface/graphic/texture/texture.h"
 
+#include "interface/graphic/device/opengl/opengl.h"
+
 // common
 #include "common/common.h"
 
@@ -55,6 +57,7 @@ CMeshdome::CMeshdome(CDeviceHolder* device_holder) :
 //=============================================================================
 CMeshdome::~CMeshdome(void)
 {
+
 }
 
 //=============================================================================
@@ -75,8 +78,15 @@ void CMeshdome::Draw(CObject3DData* object_3d_data)
 	CTexture* texture = texture_manager->Get(object_3d_data->texture_name().c_str());
 
 	matrix = GetWorldMatrix(object_3d_data);
-
+	
+	//ライティングをOFFにする
+	glDisable(GL_LIGHTING);
+	
 	CObject3D::Draw(matrix,vertex_,texture,object_3d_data->renderstate_manager(),object_3d_data->renderstate_list());
+	
+	//ライティングを元に戻す
+	glEnable(GL_LIGHTING);
+
 }
 
 //=============================================================================
