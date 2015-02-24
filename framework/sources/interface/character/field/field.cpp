@@ -46,7 +46,7 @@ bool CField::Init(void)
 	// オブジェクトモデルの生成
 	meshfield_ = new CMeshfield(interface_manager_->graphic_manager()->device_holder());
 	meshfield_->Init();
-	meshfield_->set_length_grid(50.0f,50.0f);
+	meshfield_->set_length_grid(70.0f,70.0f);
 	meshfield_->set_number_grid(10,10);
 	meshfield_->set_height_seed(0);
 	meshfield_->Set();
