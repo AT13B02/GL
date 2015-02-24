@@ -51,15 +51,15 @@
 //*****************************************************************************
 // ÉOÉçÅ[ÉoÉãïœêî
 //*****************************************************************************
-const float CSceneMatch::PLAYER_DISP_OFFSET_X = 500.0f;
+const float CSceneMatch::PLAYER_DISP_OFFSET_X = 550.0f;
 const float CSceneMatch::PLAYER_DISP_OFFSET_Y = 70.0f;
-const float CSceneMatch::PLAYER_DISP_START_Y  = 180.0f;
-const float CSceneMatch::PLAYER_DISP_READY_OFFSET_X = 800.0f;
+const float CSceneMatch::PLAYER_DISP_START_Y  = 230.0f;
+const float CSceneMatch::PLAYER_DISP_READY_OFFSET_X = 870.0f;
 const float CSceneMatch::PLAYER_DISP_READY_OFFSET_Y = 70.0f;
-const float CSceneMatch::PLAYER_DISP_READY_START_Y  = 180.0f;
+const float CSceneMatch::PLAYER_DISP_READY_START_Y  = 230.0f;
 
 const VECTOR2 CSceneMatch::HOST_DECITION_DEFAULT_POS(600.0f,600.0f);
-const VECTOR2 CSceneMatch::LOGO_DEFAULT_POS(600.0f,60.0f);
+const VECTOR2 CSceneMatch::LOGO_DEFAULT_POS(650.0f,80.0f);
 const VECTOR2 CSceneMatch::BACKGROUND_POS(DEFAULT_SCREEN_WIDTH / 2,DEFAULT_SCREEN_HEIGHT / 2);
 
 const char* CSceneMatch::p_texture_names[TEXTURE_TYPE_MAX] = 
