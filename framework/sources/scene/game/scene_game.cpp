@@ -42,6 +42,7 @@
 #include "interface/graphic/light/light.h"
 #include "interface/graphic/renderstate/renderstate_manager.h"
 #include "interface/graphic/object/object_3d/element/meshfield.h"
+#include "interface/graphic/object/object_3d/element/meshdome.h"
 
 // character
 #include "interface/character/character_manager.h"
@@ -140,7 +141,15 @@ void CSceneGame::Update(void)
 void CSceneGame::Draw(void)
 {
 	network_command_assistant_ -> Draw();
+	
+	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CObjectManager* object_manager = graphic_manager->object_manager();
+	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 
+	object_3d_manager->Draw(
+		meshsky_key_,
+		VECTOR3(0,0,0), VECTOR3(0,0,0), VECTOR3(1,1,1),
+		MATRIX4x4(), "sky000");
 }
 
 //=============================================================================
@@ -252,6 +261,14 @@ void CSceneGame::Load(void)
 	attitude_controller->Push(player);
 	attitude_controller->Push(camera);
 	attitude_controller_manager->Push(attitude_controller);
+
+	// スカイドーム
+	CMeshdome* pMeshdome = new CMeshdome(device_holder);
+	pMeshdome->Init();
+	pMeshdome->SetGridNumber(10, 10);
+	pMeshdome->set_radius(1000);
+	pMeshdome->Set();
+	meshsky_key_ = object_3d_manager->AddList(pMeshdome);
 
 	// フィールドの生成
 	CField* field = new CField(interface_manager_);
