@@ -57,6 +57,12 @@
     <ClInclude Include="sources\interface\character\player\network_player.h" />
     <ClInclude Include="sources\interface\character\player\player.h" />
     <ClInclude Include="sources\interface\character\player\player_manager.h" />
+    <ClInclude Include="sources\interface\character\player_status\life_2d\life_2d.h" />
+    <ClInclude Include="sources\interface\character\player_status\life_2d\life_2d_manager.h" />
+    <ClInclude Include="sources\interface\character\player_status\user_number_2d\icon_2d.h" />
+    <ClInclude Include="sources\interface\character\player_status\user_number_2d\icon_2d_manager.h" />
+    <ClInclude Include="sources\interface\character\player_status\user_number_2d\user_number_2d.h" />
+    <ClInclude Include="sources\interface\character\player_status\user_number_2d\user_number_2d_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera.h" />
     <ClInclude Include="sources\interface\graphic\camera\camera_manager.h" />
     <ClInclude Include="sources\interface\graphic\camera\opengl\gl_camera.h" />
@@ -182,6 +188,12 @@
     <ClCompile Include="sources\interface\character\player\network_player.cpp" />
     <ClCompile Include="sources\interface\character\player\player.cpp" />
     <ClCompile Include="sources\interface\character\player\player_manager.cpp" />
+    <ClCompile Include="sources\interface\character\player_status\life_2d\life_2d.cpp" />
+    <ClCompile Include="sources\interface\character\player_status\life_2d\life_2d_manager.cpp" />
+    <ClCompile Include="sources\interface\character\player_status\user_number_2d\icon_2d.cpp" />
+    <ClCompile Include="sources\interface\character\player_status\user_number_2d\icon_2d_manager.cpp" />
+    <ClCompile Include="sources\interface\character\player_status\user_number_2d\user_number_2d.cpp" />
+    <ClCompile Include="sources\interface\character\player_status\user_number_2d\user_number_2d_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\camera_manager.cpp" />
     <ClCompile Include="sources\interface\graphic\camera\opengl\gl_camera.cpp" />

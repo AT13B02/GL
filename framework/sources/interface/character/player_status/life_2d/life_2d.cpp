@@ -76,7 +76,7 @@ void CLife2D::Update(void)
 	{
 		life_ = 0;
 	}
-	length_ = ( static_cast<f32>(life_) / max_life_ ) * max_length_;
+	length_ = static_cast<s32>(( static_cast<f32>(life_) / max_life_ ) * max_length_);
 	rectangle_2d_->set_size( VECTOR2((f32)length_ , 10.0f ));
 	rectangle_2d_->set_color( COLOR4F( 1.0f - (static_cast<f32>(life_) / max_life_) , (static_cast<f32>(life_) / max_life_) , 0.0f , 1.0f ) );
 	rectangle_2d_->Set();
