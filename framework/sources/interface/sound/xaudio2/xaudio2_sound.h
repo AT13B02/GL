@@ -71,7 +71,7 @@ protected:
 
 private:
 	// サウンドデバイス
-	CSoundDevice* sound_device_;
+	//CSoundDevice* sound_device_;
 
 	// プレイフラグ
 	bool is_play_;

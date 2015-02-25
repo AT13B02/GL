@@ -44,6 +44,10 @@
 #include "interface/graphic/object/object_3d/element/meshfield.h"
 #include "interface/graphic/object/object_3d/element/meshdome.h"
 
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
+
+
 
 // character
 #include "interface/character/character_manager.h"
@@ -102,6 +106,8 @@ CSceneGame::~CSceneGame(void)
 bool CSceneGame::Init(void)
 {
 	interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->InitFlag();
+
+
 	return true;
 }
 
@@ -188,6 +194,7 @@ void CSceneGame::Load(void)
 {
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
 	CDeviceHolder* device_holder = graphic_manager->device_holder();
+	CSoundManager* sound_manager = interface_manager_->sound_manager();
 	CTextureManager* texture_manager = graphic_manager->texture_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
@@ -204,6 +211,12 @@ void CSceneGame::Load(void)
 
 	// ゲームのテクスチャのロード
 	texture_manager->Load("resources/texture/game");
+
+	//サウンドのロード
+	sound_manager->Load("resources/sound/game");
+	interface_manager_->sound_manager()->Get("match_bgm" )->Stop( );
+	interface_manager_->sound_manager()->Get("bgm" )->Play( true );
+
 
 	// ゲームのモデルのロード
 	model_manager->Load("resources/model/game");
