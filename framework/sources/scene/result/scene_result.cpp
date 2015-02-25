@@ -54,7 +54,7 @@
 // common
 #include "common/common.h"
 
-const VECTOR2 CSceneResult::LOGO_DEFAULT_POS(600.0f,60.0f);
+const VECTOR2 CSceneResult::LOGO_DEFAULT_POS(600.0f,70.0f);
 const VECTOR2 CSceneResult::PRESSKEY_DEFAULT_POS(600.0f,600.0f);
 
 bool CSceneResult::m_bResult = true;
@@ -188,6 +188,7 @@ void CSceneResult::Uninit(void)
 	//character_manager->Uninit();
 	//CFieldManager* field_manager = character_manager->field_manager();
 	//SAFE_RELEASE(field_manager);
+
 }
 
 //=============================================================================
@@ -235,7 +236,7 @@ void CSceneResult::Load(void)
 	
 	//2d
 	CRectangle2D* p_rect2D = new CRectangle2D(device_holder);
-	p_rect2D->set_size(VECTOR2(200,160));
+	p_rect2D->set_size(VECTOR2(200,120));
 	p_rect2D->Set();
 	logo_key_ = object_2d_manager->AddList(p_rect2D);
 	
