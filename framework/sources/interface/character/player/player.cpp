@@ -22,6 +22,7 @@
 #include "../character_manager.h"
 #include "../bullet/bullet_manager.h"
 #include "../bullet/bullet.h"
+#include "../player_status/life_2d/life_2d.h"
 
 //network
 #include "../../network/network_manager.h"
@@ -40,7 +41,7 @@ const f32 CPlayer::ROTATION_DEST = 0.3f;
 const f32 CPlayer::BULLET_LAUNCH_HEIGHT_OFFSET = 20.0f;
 const f32 BULLET_MOVE_SPD=6.f;
 const s16 COOLDOWN_TIME = 30;
-static const s16 MAX_HP = 100;
+const s16 CPlayer::MAX_HP = 100;
 
 //=============================================================================
 // コンストラクタ
@@ -51,6 +52,7 @@ CPlayer::CPlayer(CInterfaceManager* interface_manager)
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
 	death_flag_ = false;
+	life_2d_ = NULL;
 }
 
 //=============================================================================
@@ -212,7 +214,10 @@ void CPlayer::Update(void)
 	{
 		cooldown_cnt++;
 	}
-
+	//if( life_2d_ != NULL )
+	//{
+	//	life_2d_->set_life( hp_ );
+	//}
 	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&position_,&rotation_,0,hp_);
 }
 

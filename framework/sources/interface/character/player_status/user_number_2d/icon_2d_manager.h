@@ -61,7 +61,7 @@ public:
 	// ‰Šú‰»ˆ—
 	bool Init(void);
 
-	static CIcon2D* Create( CInterfaceManager* interface_manager , VECTOR2 position , s32 player_id , f32 scale );
+	static CIcon2D* Create( CInterfaceManager* interface_manager , int player_id , f32 scale );
 
 private:
 };

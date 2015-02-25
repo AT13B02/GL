@@ -11,6 +11,7 @@
 // インクルード
 //*****************************************************************************
 #include "life_2d.h"
+#include "../user_number_2d/icon_2d.h"
 #include "interface/graphic/object/object_2d/element/rectangle_2d.h"
 #include "interface/interface_manager.h"
 #include "interface/graphic/graphic_manager.h"
@@ -25,13 +26,14 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CLife2D::CLife2D(CInterfaceManager* interface_manager , s32 max_life , s32 max_length )
+CLife2D::CLife2D(CInterfaceManager* interface_manager , s32 max_life , s32 max_length , int player_id )
 {
 	interface_manager_ = interface_manager;
 	max_life_ = max_life;
 	life_ = max_life;
 	max_length_ = max_length;
 	length_ = max_length;
+	player_id_ = player_id;
 }
 
 //=============================================================================
@@ -40,15 +42,6 @@ CLife2D::CLife2D(CInterfaceManager* interface_manager , s32 max_life , s32 max_l
 CLife2D::~CLife2D(void)
 {
 }
-
-//=============================================================================
-// 生成処理
-//=============================================================================
-void CLife2D::SetParameter(const VECTOR2& position )
-{
-	position_ = position;
-}
-
 //=============================================================================
 // 初期化処理
 //=============================================================================
@@ -93,7 +86,23 @@ void CLife2D::Draw(void)
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 
 	// 描画
-	object_2d_manager->Draw(object_key_,position_,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"snowball001");
+	switch( player_id_ )
+	{
+	case PLAYER_ID_1P:
+		position_ = VECTOR2( 100.0f , 550.0f );
+		break;
+	case PLAYER_ID_2P:
+		position_ = VECTOR2( 200.0f , 550.0f );
+		break;
+	case PLAYER_ID_3P:
+		position_ = VECTOR2( 300.0f , 550.0f );
+		break;
+	case PLAYER_ID_4P:
+		position_ = VECTOR2( 400.0f , 550.0f );
+		break;
+	}
+
+	object_2d_manager->Draw(object_key_,position_,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),"gage");
 }
 
 //=============================================================================

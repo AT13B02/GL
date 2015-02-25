@@ -61,7 +61,7 @@ public:
 	// ‰Šú‰»ˆ—
 	bool Init(void);
 
-	static CLife2D* Create( CInterfaceManager* interface_manager , VECTOR2 position , s32 max_life , s32 max_length );
+	static CLife2D* Create( CInterfaceManager* interface_manager , s32 max_life , s32 max_length , int player_id );
 
 private:
 };
