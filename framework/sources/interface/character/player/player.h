@@ -52,7 +52,7 @@ static const int kDefaultDamage = 10;
 //*****************************************************************************
 // クラスの前方参照
 //*****************************************************************************
-
+class CLife2D;
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
@@ -109,6 +109,10 @@ public:
 	// プレイヤー移動スピード取得
 	const f32 get_move_speed();
 
+	// ライフクラスアクセサ
+	CLife2D* get_life_2d( void ){ return life_2d_ ;}
+	void set_life_2d( CLife2D* life_2d ){ life_2d_ = life_2d ; }
+
 protected:
 	// インターフェースマネージャーのポインタ
 	CInterfaceManager* interface_manager_;
@@ -122,6 +126,7 @@ protected:
 	VECTOR3 scale_;
 	VECTOR3 move_vector_;
 	s16		hp_;
+	CLife2D* life_2d_;
 
 private:
 	// スピード
@@ -129,6 +134,8 @@ private:
 	static const f32 SPEED_DEST;
 	static const f32 ROTATION_DEST;
 	static const f32 BULLET_LAUNCH_HEIGHT_OFFSET;
+	static const s16 MAX_HP;
+
 	//移動目標値変数
 	VECTOR3 rotation_dest_;
 	bool update_;

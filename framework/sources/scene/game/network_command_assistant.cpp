@@ -53,6 +53,11 @@
 #include "interface/character/bullet/bullet_manager.h"
 #include "interface/character/player/network_player.h"
 
+#include "interface/character/player_status/life_2d/life_2d_manager.h"
+#include "interface/character/player_status/life_2d/life_2d.h"
+#include "interface/character/player_status/user_number_2d/icon_2d_manager.h"
+#include "interface/character/player_status/user_number_2d/icon_2d.h"
+
 //network
 #include "interface/network/network_manager.h"
 #include "interface/network/network_client.h"
@@ -124,6 +129,18 @@ void CNetworkCommandAssistant::Update(void)
 			
 				//ポインタ保存
 				character_manager->SetNetworkPlayer( player, net_chara_buf->player_id );
+
+				//UI設定
+				// icon
+				character_manager->icon_2d_manager()->Push( 
+					character_manager->icon_2d_manager()->Create( 
+					interface_manager_ , net_chara_buf->player_id , 5.0f ) );
+				// life
+				CLife2D* life = character_manager->life_2d_manager()->Create( 
+					interface_manager_ , 100 , 100 , net_chara_buf->player_id );
+				player->set_life_2d( life );
+				character_manager->life_2d_manager()->Push( player->get_life_2d() );
+
 			}
 
 			//更新
