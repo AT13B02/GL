@@ -120,6 +120,10 @@ private:
 	bool draw_flag_;
 	u32 flash_timer_;					 //点滅用タイマー
 	VECTOR3 player_Disp_2d_pos_;
+
+	bool flag[ PLAYER_MAX ];
+
+	bool changeFlag;
 };
 
 #endif	// _SCENE_TITLE_H_

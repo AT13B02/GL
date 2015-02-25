@@ -14,6 +14,8 @@
 #include "interface/graphic/model/model.h"
 #include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/interface_manager.h"
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
@@ -206,6 +208,8 @@ void CPlayer::Update(void)
 				->SendDataBullet(&crate_position
 								,&launch_vector
 								,BULLET_MOVE_SPD);
+
+
 		}
 	}
 	//カウントダウンを進める

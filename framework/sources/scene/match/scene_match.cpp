@@ -37,6 +37,11 @@
 #include "interface/network/network_data_buffer.h"
 #include "interface/network/windows_sockets.h"
 
+
+//sound
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -89,7 +94,10 @@ CSceneMatch::CSceneMatch(CInterfaceManager* interface_manager) : CScene(interfac
 	for(int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++)
 	{ 
 		player_Disp_2d_key_[nPlayer] = -1;
+		flag[ nPlayer ] = false;
 	}
+
+	changeFlag = false;
 }
 
 //=============================================================================
@@ -121,45 +129,56 @@ void CSceneMatch::Update(void)
 	int my_id = 99;
 	my_id = interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetID();
 	
-	// 全員準備完了してたら
-	if(interface_manager_->network_manager()->GetNetworkClient()->GetEndAllPlayerPrepareFlag())
+	if (changeFlag ==  false )
 	{
-		p_rect_all_ready_logo->set_texcoord(0.0f,1.0f,0.0f,0.5f);
-		p_rect_all_ready_logo->Set();
 
-		if(my_id == 0)	// IDNo0のみ可能な処理
+		// 全員準備完了してたら
+		if(interface_manager_->network_manager()->GetNetworkClient()->GetEndAllPlayerPrepareFlag())
 		{
-			if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+			p_rect_all_ready_logo->set_texcoord(0.0f,1.0f,0.0f,0.5f);
+			p_rect_all_ready_logo->Set();
+
+			if(my_id == 0)	// IDNo0のみ可能な処理
 			{
-				// ゲーム開始通知を送る
-				interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendGameStart();
+				if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+				{
+					// ゲーム開始通知を送る
+					interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendGameStart();
+				}
 			}
 		}
-	}
-	else
-	{
-		// 準備完了通知
-		if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+		else
 		{
+			// 準備完了通知
+			if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+			{
+				interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataPrepare(my_id);
+			}
+		}
+
+		//準備完了している人を見る
+		for( int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++ )
+		{
+			if( ( interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetReadyFlag( nPlayer ) ) && ( flag[nPlayer] == false ) )
+			{
+				interface_manager_->sound_manager()->Get("match_ready_ok" )->Play( false );
+				flag[ nPlayer ] = true;
+				p_rectRedy[nPlayer]->set_texcoord(0.5f,1.0f,0.0f,1.0f);
+				p_rectRedy[nPlayer]->Set();
+			}
+		}
+
+
+		// ゲーム開始なら
+		if(interface_manager_->network_manager()->GetNetworkClient()->GetStartGameFlag())
+		{
+			set_next_scene(new CGameFactory());
+			interface_manager_->sound_manager()->Get("match_ready_go" )->Play( false );
 			interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataPrepare(my_id);
+
+			changeFlag = true;
 		}
-	}
 
-	//準備完了している人を見る
-	for( int nPlayer = 0; nPlayer < PLAYER_MAX; nPlayer++ )
-	{
-		if( interface_manager_->network_manager()->GetNetworkClient()->GetNetworkDataBuffer()->GetReadyFlag( nPlayer ) )
-		{
-			p_rectRedy[nPlayer]->set_texcoord(0.5f,1.0f,0.0f,1.0f);
-			p_rectRedy[nPlayer]->Set();
-		}
-	}
-
-
-	// ゲーム開始なら
-	if(interface_manager_->network_manager()->GetNetworkClient()->GetStartGameFlag())
-	{
-		set_next_scene(new CGameFactory());
 	}
 	
 	//TODO
@@ -235,6 +254,7 @@ void CSceneMatch::Uninit(void)
 void CSceneMatch::Load(void)
 {
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CSoundManager* sound_manager = interface_manager_->sound_manager();
 	CDeviceHolder* device_holder = graphic_manager->device_holder();
 	CTextureManager* texture_manager = graphic_manager->texture_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
@@ -252,6 +272,11 @@ void CSceneMatch::Load(void)
 
 	// タイトルフォルダのロード
 	texture_manager->Load("resources/texture/title");
+
+	//サウンドのロード
+	sound_manager->Load("resources/sound/match");
+	sound_manager->Get("title_bgm")->Stop();
+	sound_manager->Get("match_bgm" )->Play( true );
 
 	// オブジェクトの生成
 	test_object_key_ = object_3d_manager->AddList(billboard);

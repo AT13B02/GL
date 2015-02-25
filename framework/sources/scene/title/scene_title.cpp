@@ -44,6 +44,10 @@
 // common
 #include "common/common.h"
 
+//sound
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -123,6 +127,7 @@ void CSceneTitle::Update(void)
 	//エンターキーが押されたらシーン切り替え
 	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
 	{
+		interface_manager_->sound_manager()->Get("title_button_se" )->Play( false );
 		set_next_scene(new CMatchFactory());
 	}
 
@@ -206,6 +211,7 @@ void CSceneTitle::Load(void)
 {
 	//マネージャーを取得
 	CGraphicManager* graphic_manager = interface_manager_->graphic_manager();
+	CSoundManager* sound_manager = interface_manager_->sound_manager();
 	CDeviceHolder* device_holder = graphic_manager->device_holder();
 	CTextureManager* texture_manager = graphic_manager->texture_manager();
 	CObjectManager* object_manager = graphic_manager->object_manager();
@@ -222,6 +228,10 @@ void CSceneTitle::Load(void)
 	texture_manager->Load("resources/texture/title");
 	// タイトルのモデルのロード
 	model_manager->Load("resources/model/title");
+
+	//サウンドのロード
+	sound_manager->Load("resources/sound/title");
+	interface_manager_->sound_manager()->Get("title_bgm" )->Play( true );
 
 	// ライトの設定
 	CLight* light = CLight::Create(device_holder);

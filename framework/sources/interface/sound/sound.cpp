@@ -80,7 +80,7 @@ CSound* CSound::Create(CSoundDevice* sound_device)
 	CSound* sound = NULL;
 
 #ifdef _USING_XAUDIO2_
-	//sound = new CXAudio2Sound(sound_device);
+	sound = new CXAudio2Sound(sound_device);
 #endif
 	return sound;
 }

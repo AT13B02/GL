@@ -48,6 +48,9 @@
 // interface
 #include "interface/interface_manager.h"
 
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
+
 // common
 #include "common/common.h"
 
@@ -80,6 +83,7 @@ CSceneResult::CSceneResult(CInterfaceManager* interface_manager) : CScene(interf
 {
 	test_object_key_ = -1;
 	model_key_ = -1;
+	changeFlag = false;
 }
 
 //=============================================================================
@@ -106,9 +110,13 @@ bool CSceneResult::Init(void)
 //=============================================================================
 void CSceneResult::Update(void)
 {
-	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+	if( changeFlag == false )
 	{
-		set_next_scene(new CMatchFactory());
+		if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+		{
+			set_next_scene(new CMatchFactory());
+			interface_manager_->sound_manager()->Get("title_button_se")->Play( false );	
+		}
 	}
 }
 
@@ -154,6 +162,17 @@ void CSceneResult::Uninit(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 	
+	CSoundManager* sound_manager = interface_manager_->sound_manager();
+		
+	if(m_bResult)
+	{
+		sound_manager->Get("win_bgm" )->Stop( );
+	}
+	else
+	{
+		sound_manager->Get("lose_bgm" )->Stop( );	
+	}
+
 	//CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 	//character_camera_manager->Uninit();
 
@@ -177,6 +196,7 @@ void CSceneResult::Uninit(void)
 void CSceneResult::Load(void)
 {
 	CGraphicManager* graphic_manager	= interface_manager_->graphic_manager();
+	CSoundManager* sound_manager	=	interface_manager_->sound_manager();
 	CDeviceHolder* device_holder		= graphic_manager->device_holder();
 	CTextureManager* texture_manager	= graphic_manager->texture_manager();
 	CObjectManager* object_manager		= graphic_manager->object_manager();
@@ -197,6 +217,19 @@ void CSceneResult::Load(void)
 	//texture_manager->Load("resources/texture/game");
 	texture_manager->Load("resources/texture/result");
 	
+	//サウンドのロード
+	sound_manager->Load("resources/sound/result");
+	sound_manager->Get("bgm")->Stop();
+	
+	if(m_bResult)
+	{
+		sound_manager->Get("win_bgm" )->Play( true );
+	}
+	else
+	{
+		sound_manager->Get("lose_bgm" )->Play( true );	
+	}
+
 	// オブジェクトの生成
 	test_object_key_ = object_3d_manager->AddList(billboard);
 	
