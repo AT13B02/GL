@@ -45,7 +45,7 @@ class CLife2D : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CLife2D(CInterfaceManager* interface_manager , s32 max_life , s32 max_length );
+	CLife2D(CInterfaceManager* interface_manager , s32 max_life , s32 max_length , int player_id );
 
 	// デストラクタ
 	~CLife2D(void);
@@ -61,9 +61,6 @@ public:
 
 	// 終了
 	void Uninit(void);
-
-	// パラメータの設定
-	void SetParameter(const VECTOR2& position );
 
 	//位置取得
 	VECTOR2 position( void ){ return position_; }
@@ -88,6 +85,7 @@ private:
 	s32 life_;
 	u32 max_length_;
 	s32 length_;
+	int player_id_;
 	CRectangle2D* rectangle_2d_;
 	CInterfaceManager* interface_manager_;
 };

@@ -34,7 +34,7 @@ bool CIcon2DManager::Init( void )
 //=============================================================================
 // ¶¬
 //=============================================================================
-CIcon2D* CIcon2DManager::Create( CInterfaceManager* interface_manager , VECTOR2 position , s32 player_id , f32 scale )
+CIcon2D* CIcon2DManager::Create( CInterfaceManager* interface_manager , int player_id , f32 scale )
 {
 	CIcon2D* p = new CIcon2D( interface_manager , player_id , scale );
 	p->Init();

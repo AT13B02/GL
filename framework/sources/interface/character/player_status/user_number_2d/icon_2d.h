@@ -51,7 +51,7 @@ class CIcon2D : public CCharacterInterface
 {
 public:
 	// コンストラクタ
-	CIcon2D(CInterfaceManager* interface_manager , s32 player_id , f32 scale );
+	CIcon2D(CInterfaceManager* interface_manager , int player_id , f32 scale );
 
 	// デストラクタ
 	~CIcon2D(void);
@@ -80,7 +80,7 @@ private:
 	static const f32 POLYGON_SIZE;
 	f32 scale_;
 	u32 object_key_;
-	s32 player_id_;
+	int player_id_;
 	VECTOR2 position_;
 	CRectangle2D* rectangle_2d_;
 	CInterfaceManager* interface_manager_;

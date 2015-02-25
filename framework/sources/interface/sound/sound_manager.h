@@ -64,7 +64,7 @@ private:
 	CSoundDevice* sound_device_;
 
 	// データの作成
-	CSound* Create(const s8* filename);
+	CSound* Create(std::string filename);
 
 	// データの開放
 	void ReleaseData(CSound* sound);

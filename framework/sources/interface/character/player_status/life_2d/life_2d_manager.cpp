@@ -34,10 +34,9 @@ bool CLife2DManager::Init( void )
 //=============================================================================
 // ¶¬
 //=============================================================================
-CLife2D* CLife2DManager::Create( CInterfaceManager* interface_manager , VECTOR2 position , s32 max_life , s32 max_length )
+CLife2D* CLife2DManager::Create( CInterfaceManager* interface_manager , s32 max_life , s32 max_length , int player_id )
 {
-	CLife2D* p = new CLife2D( interface_manager , max_life , max_length );
-	p->SetParameter( position );
+	CLife2D* p = new CLife2D( interface_manager , max_life , max_length , player_id );
 	p->Init();
 	return p;
 }

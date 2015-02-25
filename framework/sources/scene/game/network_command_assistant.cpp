@@ -58,6 +58,8 @@
 #include "interface/network/network_client.h"
 
 #include "../../interface/character/field/field.h"
+#include "../../interface/character/player_status/user_number_2d/icon_2d_manager.h"
+#include "../../interface/character/player_status/life_2d/life_2d_manager.h"
 
 // common
 #include "common/common.h"
@@ -128,6 +130,17 @@ void CNetworkCommandAssistant::Update(void)
 				character_manager->SetNetworkPlayer( player, net_chara_buf->player_id );
 				player->SetCharID(net_chara_buf->player_id);
 				SetInitPosPlayer(player, net_chara_buf->player_id);
+
+				//UIİ’è
+				// icon
+				character_manager->icon_2d_manager()->Push( 
+					character_manager->icon_2d_manager()->Create( 
+					interface_manager_ , net_chara_buf->player_id , 5.0f ) );
+				// life
+				CLife2D* life = character_manager->life_2d_manager()->Create( 
+					interface_manager_ , 100 , 100 , net_chara_buf->player_id );
+				player->set_life_2d( life );
+				character_manager->life_2d_manager()->Push( player->get_life_2d() );
 			}
 
 			else

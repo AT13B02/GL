@@ -35,8 +35,6 @@ public:
 
 	// デストラクタ
 	virtual ~CNetWorkPlayer(void);
-	
-	//bool Init(void){return true;};
 
 	// 更新処理
 	virtual void Update(void);

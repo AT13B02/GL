@@ -17,6 +17,8 @@
 #include "../../network/windows_sockets.h"
 
 #include "interface/character/character_manager.h"
+#include "../player_status/life_2d/life_2d.h"
+
 #include "interface/graphic/model/model.h"
 #include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/interface_manager.h"
@@ -44,6 +46,10 @@ CNetWorkPlayer::~CNetWorkPlayer(void)
 void CNetWorkPlayer::Update(void)
 {
 	int animationNo =0;
+	if( life_2d_ != NULL )
+	{
+		life_2d_->set_life( hp_ );
+	}
 
 //	CPlayer::Update();
 }

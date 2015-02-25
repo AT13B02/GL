@@ -20,6 +20,10 @@
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_data.h"
 
+//sound
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
+
 //*****************************************************************************
 // ’è”’è‹`
 //*****************************************************************************
@@ -31,6 +35,8 @@ const f32 CExplosion::DEFAULT_RADIUS = 20.0f;
 CExplosion::CExplosion(CInterfaceManager* interface_manager)
 {
 	interface_manager_ = interface_manager;
+
+	interface_manager_->sound_manager()->Get("explosion" )->Play( false );
 }
 
 //=============================================================================
@@ -49,6 +55,8 @@ void CExplosion::SetParameter(const VECTOR3& position, const s16 u_division_num,
 	u_division_num_ = u_division_num;
 	v_division_num_ = v_division_num;
 	animation_change_count_ = animation_change_count;
+
+
 }
 
 //=============================================================================

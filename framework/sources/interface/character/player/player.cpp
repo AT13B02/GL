@@ -14,6 +14,8 @@
 #include "interface/graphic/model/model.h"
 #include "interface/graphic/object/object_3d/element/object_model.h"
 #include "interface/interface_manager.h"
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
 #include "interface/graphic/graphic_manager.h"
 #include "interface/graphic/object/object_manager.h"
 #include "interface/graphic/object/object_3d/object_3d_manager.h"
@@ -22,15 +24,13 @@
 #include "../character_manager.h"
 #include "../bullet/bullet_manager.h"
 #include "../bullet/bullet.h"
+#include "../player_status/life_2d/life_2d.h"
 
 //network
 #include "../../network/network_manager.h"
 #include "../../network/network_client.h"
 #include "../../network/network_data_buffer.h"
 #include "../../network/windows_sockets.h"
-
-
-#include "../field/field.h"
 
 #include "common/common.h"
 
@@ -43,7 +43,7 @@ const f32 CPlayer::ROTATION_DEST = 0.3f;
 const f32 CPlayer::BULLET_LAUNCH_HEIGHT_OFFSET = 20.0f;
 const f32 BULLET_MOVE_SPD=6.f;
 const s16 COOLDOWN_TIME = 30;
-static const s16 MAX_HP = 100;
+const s16 CPlayer::MAX_HP = 100;
 
 //=============================================================================
 // コンストラクタ
@@ -54,6 +54,7 @@ CPlayer::CPlayer(CInterfaceManager* interface_manager)
 	//インターフェースマネージャーの保存
 	interface_manager_ = interface_manager;
 	death_flag_ = false;
+	life_2d_ = NULL;
 }
 
 //=============================================================================
@@ -68,46 +69,24 @@ CPlayer::~CPlayer(void)
 //=============================================================================
 bool CPlayer::Init(void)
 {
-	//std::list<CField*> field_list = interface_manager_->character_manager()->field_manager()->character_list();
-	//auto field_it = field_list.begin();
-
-	
-
-	//// オブジェクトモデルの生成
-	//CObjectModel* object_model = new CObjectModel( interface_manager_->graphic_manager()->device_holder(),"yukidaruma");
-	//
-	//// オブジェクトリストに追加
-	//object_key_ = interface_manager_->graphic_manager()->object_manager()->object_3d_manager()->AddList(object_model);
-
 	//値初期化
 	position_ = VECTOR3(0.0f,0.0f,0.0f);
-
-	
-
-
 	rotation_ = VECTOR3(0.0f,0.0f,0.0f);
 	scale_    = VECTOR3(1.0f,1.0f,1.0f);
-
 	
 	//移動目標値変数
 	VECTOR3 pos_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 	VECTOR3 rot_dest_ = VECTOR3(0.0f,0.0f,0.0f );
 
-//	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 	//更新しない
 	update_ = false;
-
-	//interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->RequestID();
 
 	hp_ = MAX_HP;
 	cooldown_cnt=0;
 	is_fire=false;
 
-	//if(field_it == field_list.end())
-	{
-		position_ = VECTOR3(0,0,0);
-		//return true;
-	}
+	position_ = VECTOR3(0,0,0);
+
 	switch(player_id())
 	{
 		case 0:
@@ -250,6 +229,8 @@ void CPlayer::Update(void)
 				->SendDataBullet(&crate_position
 								,&launch_vector
 								,BULLET_MOVE_SPD);
+
+
 		}
 	}
 	//カウントダウンを進める
@@ -257,7 +238,10 @@ void CPlayer::Update(void)
 	{
 		cooldown_cnt++;
 	}
-
+	//if( life_2d_ != NULL )
+	//{
+	//	life_2d_->set_life( hp_ );
+	//}
 	interface_manager_->network_manager()->GetNetworkClient()->GetWinSock()->SendDataCharcter(&position_,&rotation_,0,hp_);
 }
 

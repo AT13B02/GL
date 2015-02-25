@@ -24,6 +24,11 @@
 
 #include "interface/character/explosion/explosion.h"
 
+
+//sound
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
+
 //*****************************************************************************
 // ’è”’è‹`
 //*****************************************************************************
@@ -35,6 +40,7 @@ const f32 CBullet::DEFAULT_RADIUS = 5.0f;
 CBullet::CBullet(CInterfaceManager* interface_manager)
 {
 	interface_manager_ = interface_manager;
+	interface_manager_->sound_manager()->Get("shot")->Play(false);
 }
 
 //=============================================================================
@@ -109,8 +115,6 @@ void CBullet::Uninit( void )
 //=============================================================================
 void CBullet::Erase( void )
 {
-	is_death_ = true;
-
 	//”š”­ì¬
 	CExplosion* explosion = new CExplosion(interface_manager_);
 
@@ -119,5 +123,6 @@ void CBullet::Erase( void )
 
 	interface_manager_->character_manager()->explosion_manager()->Push(explosion);
 
+	is_death_ = true;
 }
 //---------------------------------- EOF --------------------------------------

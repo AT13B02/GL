@@ -48,10 +48,13 @@
 // interface
 #include "interface/interface_manager.h"
 
+#include "interface/sound/sound_manager.h"
+#include "interface/sound/sound.h"
+
 // common
 #include "common/common.h"
 
-const VECTOR2 CSceneResult::LOGO_DEFAULT_POS(600.0f,60.0f);
+const VECTOR2 CSceneResult::LOGO_DEFAULT_POS(600.0f,70.0f);
 const VECTOR2 CSceneResult::PRESSKEY_DEFAULT_POS(600.0f,600.0f);
 
 bool CSceneResult::m_bResult = true;
@@ -70,7 +73,7 @@ const char* CSceneResult::p_texture_names[TEXTURE_TYPE_MAX] =
 {
 	"WinLogo02",	//Win
 	"LoseLogo2",	//Lose
-	"pleaseEnter2",	//PressEnter
+	"pleaseEnter",	//PressEnter
 };
 
 //=============================================================================
@@ -80,6 +83,7 @@ CSceneResult::CSceneResult(CInterfaceManager* interface_manager) : CScene(interf
 {
 	test_object_key_ = -1;
 	model_key_ = -1;
+	changeFlag = false;
 }
 
 //=============================================================================
@@ -106,9 +110,13 @@ bool CSceneResult::Init(void)
 //=============================================================================
 void CSceneResult::Update(void)
 {
-	if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+	if( changeFlag == false )
 	{
-		set_next_scene(new CMatchFactory());
+		if(interface_manager_->input_manager()->CheckTrigger(INPUT_EVENT_RETURN))
+		{
+			set_next_scene(new CMatchFactory());
+			interface_manager_->sound_manager()->Get("title_button_se")->Play( false );	
+		}
 	}
 }
 
@@ -128,12 +136,12 @@ void CSceneResult::Draw(void)
 	if(m_bResult)
 	{
 		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_WIN]);
-		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_WIN]);
+		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_PRESSENTER]);
 	}
 	else
 	{	
 		object_2d_manager->Draw(logo_key_,LOGO_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
-		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOSE]);
+		object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_PRESSENTER]);
 	}
 	//object_3d_manager->Draw(test_object_key_,VECTOR3(),VECTOR3(),VECTOR3(1.0f,1.0f,1.0f),MATRIX4x4(),"");
 	//object_2d_manager->Draw(press_key_,PRESSKEY_DEFAULT_POS,0.0f,VECTOR2(1.0f,1.0f),MATRIX4x4(),p_texture_names[TEXTURE_TYPE_LOGO]);
@@ -154,6 +162,17 @@ void CSceneResult::Uninit(void)
 	CObject3DManager* object_3d_manager = object_manager->object_3d_manager();
 	CObject2DManager* object_2d_manager = object_manager->object_2d_manager();
 	
+	CSoundManager* sound_manager = interface_manager_->sound_manager();
+		
+	if(m_bResult)
+	{
+		sound_manager->Get("win_bgm" )->Stop( );
+	}
+	else
+	{
+		sound_manager->Get("lose_bgm" )->Stop( );	
+	}
+
 	//CCharacterCameraManager* character_camera_manager = character_manager->character_camera_manager();
 	//character_camera_manager->Uninit();
 
@@ -169,6 +188,7 @@ void CSceneResult::Uninit(void)
 	//character_manager->Uninit();
 	//CFieldManager* field_manager = character_manager->field_manager();
 	//SAFE_RELEASE(field_manager);
+
 }
 
 //=============================================================================
@@ -177,6 +197,7 @@ void CSceneResult::Uninit(void)
 void CSceneResult::Load(void)
 {
 	CGraphicManager* graphic_manager	= interface_manager_->graphic_manager();
+	CSoundManager* sound_manager	=	interface_manager_->sound_manager();
 	CDeviceHolder* device_holder		= graphic_manager->device_holder();
 	CTextureManager* texture_manager	= graphic_manager->texture_manager();
 	CObjectManager* object_manager		= graphic_manager->object_manager();
@@ -197,18 +218,31 @@ void CSceneResult::Load(void)
 	//texture_manager->Load("resources/texture/game");
 	texture_manager->Load("resources/texture/result");
 	
+	//サウンドのロード
+	sound_manager->Load("resources/sound/result");
+	sound_manager->Get("bgm")->Stop();
+	
+	if(m_bResult)
+	{
+		sound_manager->Get("win_bgm" )->Play( true );
+	}
+	else
+	{
+		sound_manager->Get("lose_bgm" )->Play( true );	
+	}
+
 	// オブジェクトの生成
 	test_object_key_ = object_3d_manager->AddList(billboard);
 	
 	//2d
 	CRectangle2D* p_rect2D = new CRectangle2D(device_holder);
-	p_rect2D->set_size(VECTOR2(200,200));
+	p_rect2D->set_size(VECTOR2(200,120));
 	p_rect2D->Set();
 	logo_key_ = object_2d_manager->AddList(p_rect2D);
 	
 	//画面下
 	p_rect2D = new CRectangle2D(device_holder);
-	p_rect2D->set_size(VECTOR2(400,200));
+	p_rect2D->set_size(VECTOR2(400,150));
 	p_rect2D->Set();
 	press_key_= object_2d_manager->AddList(p_rect2D);;
 	
