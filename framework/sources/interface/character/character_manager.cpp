@@ -180,6 +180,12 @@ void CCharacterManager::Draw(void)
 //=============================================================================
 void CCharacterManager::Clear(void)
 {
+	//ネットプレイヤー初期化
+	for( int i = 0; i < kMaxPlayer; i++ )
+	{
+		SAFE_RELEASE(network_player_[ i ]);
+	}
+
 	// プレイヤーマネージャーの開放
 	player_manager_->Uninit();
 
